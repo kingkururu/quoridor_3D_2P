@@ -151,7 +151,7 @@ ending_text:
 score_text:
   size: 40 # pixels 
   font_path: "test/test-assets/fonts/ttf/font1.ttf"
-  message: "Score: " # actual content in the text
+  message: "Time elapsed since start: " # actual content in the text
   position:
     x: 200.0 # pixels 
     y: 10.0 # pixels 
