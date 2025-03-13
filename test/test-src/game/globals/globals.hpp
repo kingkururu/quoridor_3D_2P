@@ -149,6 +149,10 @@ namespace Constants { // not actually "constants" in terms of being fixed, but s
     inline sf::Vector2f BACKGROUNDBIG_POSITION;
     inline sf::Vector2f BACKGROUNDBIG_SCALE;
     inline std::shared_ptr<sf::Texture> BACKGROUNDBIG_TEXTURE = std::make_shared<sf::Texture>();
+    inline std::filesystem::path BACKGROUNDBIGFINAL_PATH;
+    inline sf::Vector2f BACKGROUNDBIGFINAL_POSITION;
+    inline sf::Vector2f BACKGROUNDBIGFINAL_SCALE;
+    inline std::shared_ptr<sf::Texture> BACKGROUNDBIGFINAL_TEXTURE = std::make_shared<sf::Texture>();
 
     // Tile settings
     inline sf::Vector2f TILEMAP_POSITION; 

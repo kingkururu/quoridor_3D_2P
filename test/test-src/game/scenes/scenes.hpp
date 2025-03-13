@@ -117,6 +117,7 @@ class gamePlayScene : public virtual Scene{
   std::vector<std::unique_ptr<Bullet>> bullets; 
   std::unique_ptr<Sprite> frame; 
   std::unique_ptr<Sprite> backgroundBig; 
+  std::unique_ptr<Sprite> backgroundBigFinal; 
 
   std::unique_ptr<Obstacle> enemy;
   

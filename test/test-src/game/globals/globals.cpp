@@ -198,6 +198,12 @@ namespace Constants {
             BACKGROUNDBIG_SCALE = {config["sprites"]["background_big"]["scale"]["x"].as<float>(),
                                 config["sprites"]["background_big"]["scale"]["y"].as<float>()};
 
+            BACKGROUNDBIGFINAL_PATH = config["sprites"]["background_big_final"]["path"].as<std::string>();
+            BACKGROUNDBIGFINAL_POSITION = {config["sprites"]["background_big_final"]["position"]["x"].as<float>(),
+                                    config["sprites"]["background_big_final"]["position"]["y"].as<float>()};
+            BACKGROUNDBIGFINAL_SCALE = {config["sprites"]["background_big_final"]["scale"]["x"].as<float>(),
+                                config["sprites"]["background_big_final"]["scale"]["y"].as<float>()};
+
             // Load tile settings
             TILES_PATH = config["tiles"]["path"].as<std::string>();
             TILES_ROWS = config["tiles"]["rows"].as<unsigned short>();
@@ -278,7 +284,8 @@ namespace Constants {
         if (!FRAME_TEXTURE->loadFromFile(FRAME_PATH)) log_warning("Failed to load frame texture");   
         if (!ENEMY_TEXTURE->loadFromFile(ENEMY_PATH)) log_warning("Failed to load enemy texture");  
         if (!BACKGROUNDBIG_TEXTURE->loadFromFile(BACKGROUNDBIG_PATH)) log_warning("Failed to load background big texture");
-        
+        if (!BACKGROUNDBIGFINAL_TEXTURE->loadFromFile(BACKGROUNDBIGFINAL_PATH)) log_warning("Failed to load background big final texture");
+
         // music
         if (!BACKGROUNDMUSIC_MUSIC->openFromFile(BACKGROUNDMUSIC_PATH)) log_warning("Failed to load background music");
 

@@ -107,6 +107,14 @@ sprites:
     scale:
       x: 1.0
       y: 1.0
+  background_big_final:
+    path: "test/test-assets/sprites/png/background_big_final.png" 
+    position:
+      x: 0.0 # pixels 
+      y: 0.0 # pixels
+    scale:
+      x: 1.0
+      y: 1.0
 
 # Tile settings
 tiles:
