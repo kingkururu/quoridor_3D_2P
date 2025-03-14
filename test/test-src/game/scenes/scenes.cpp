@@ -312,9 +312,17 @@ void gamePlayScene::draw() {
 void gamePlayScene::drawInBigView(){
     window.setView(MetaComponents::bigView);
 
-    drawVisibleObject(backgroundBigStart);
-   // drawVisibleObject(backgroundBig);
-    //drawVisibleObject(backgroundBigFinal);
+    int tileX = static_cast<int>((player->getSpritePos().x - Constants::TILEMAP_POSITION.x) / Constants::TILE_WIDTH);
+    int tileY = static_cast<int>((player->getSpritePos().y - Constants::TILEMAP_POSITION.y) / Constants::TILE_HEIGHT);
+    int tileIndexInMap = tileY * Constants::TILEMAP_WIDTH + tileX;
+
+    if(tileIndexInMap == 20){ // start tile
+        drawVisibleObject(backgroundBigStart);
+    } else if (tileIndexInMap == 226){ // end tile
+        drawVisibleObject(backgroundBigFinal);
+    } else {
+        drawVisibleObject(backgroundBig);
+    }
 
     window.draw(wallLine);
 
