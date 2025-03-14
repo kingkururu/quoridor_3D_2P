@@ -242,7 +242,6 @@ void gamePlayScene::handleMovementKeys() {
 // Keeps sprites inside screen bounds, checks for collisions, update scores, and sets flagEvents.gameEnd to true in an event of collision 
 void gamePlayScene::handleGameEvents() { 
     // scoreText->getText().setPosition(MetaComponents::smallView.getCenter().x - 460, MetaComponents::smallView.getCenter().y - 270);
-    scoreText->getText().setString("Seconds elapsed: " + std::to_string(MetaComponents::globalTime));
 
     physics::calculateRayCast3d(player, tileMap1, rays, wallLine); // modifies the ray 
    // physics::calculateRayCast3d(player, enemy, &quadtree); 
@@ -251,7 +250,9 @@ void gamePlayScene::handleGameEvents() {
 } 
 
 void gamePlayScene::handleSceneFlags(){
-   
+   if(!FlagSystem::flagEvents.gameEnd){
+        scoreText->getText().setString("Seconds elapsed: " + std::to_string(MetaComponents::globalTime));
+   }
 }
 
 void gamePlayScene::update() {
@@ -319,6 +320,7 @@ void gamePlayScene::drawInBigView(){
     if(tileIndexInMap == 20){ // start tile
         drawVisibleObject(backgroundBigStart);
     } else if (tileIndexInMap == 226){ // end tile
+        FlagSystem::flagEvents.gameEnd = true;
         drawVisibleObject(backgroundBigFinal);
     } else {
         drawVisibleObject(backgroundBig);
