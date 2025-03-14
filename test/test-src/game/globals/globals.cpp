@@ -4,8 +4,7 @@
 //
 
 #include "globals.hpp"  
-    #include <random>
-    #include <stack>
+    
 namespace MetaComponents {
     sf::Clock clock;
     sf::View smallView; 
@@ -109,7 +108,7 @@ namespace Constants {
     }
 
     void initialize(){
-        std::srand(static_cast<unsigned int>(std::time(nullptr)));
+        std::srand(static_cast<unsigned int>(std::time(nullptr))); 
 
         readFromYaml(std::filesystem::path("test/test-src/game/globals/config.yaml"));
         writeRandomTileMap(std::filesystem::path("test/test-assets/tiles/tilemap.txt"));
@@ -207,6 +206,12 @@ namespace Constants {
             BACKGROUNDBIGFINAL_SCALE = {config["sprites"]["background_big_final"]["scale"]["x"].as<float>(),
                                 config["sprites"]["background_big_final"]["scale"]["y"].as<float>()};
 
+            BACKGROUNDBIGSTART_PATH = config["sprites"]["background_big_start"]["path"].as<std::string>();
+            BACKGROUNDBIGSTART_POSITION = {config["sprites"]["background_big_start"]["position"]["x"].as<float>(),
+                                    config["sprites"]["background_big_start"]["position"]["y"].as<float>()};
+            BACKGROUNDBIGSTART_SCALE = {config["sprites"]["background_big_start"]["scale"]["x"].as<float>(),
+                                config["sprites"]["background_big_start"]["scale"]["y"].as<float>()};
+
             // Load tile settings
             TILES_PATH = config["tiles"]["path"].as<std::string>();
             TILES_ROWS = config["tiles"]["rows"].as<unsigned short>();
@@ -288,6 +293,7 @@ namespace Constants {
         if (!ENEMY_TEXTURE->loadFromFile(ENEMY_PATH)) log_warning("Failed to load enemy texture");  
         if (!BACKGROUNDBIG_TEXTURE->loadFromFile(BACKGROUNDBIG_PATH)) log_warning("Failed to load background big texture");
         if (!BACKGROUNDBIGFINAL_TEXTURE->loadFromFile(BACKGROUNDBIGFINAL_PATH)) log_warning("Failed to load background big final texture");
+        if (!BACKGROUNDBIGSTART_TEXTURE->loadFromFile(BACKGROUNDBIGSTART_PATH)) log_warning("Failed to load background big start texture");
 
         // music
         if (!BACKGROUNDMUSIC_MUSIC->openFromFile(BACKGROUNDMUSIC_PATH)) log_warning("Failed to load background music");

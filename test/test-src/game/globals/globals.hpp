@@ -13,6 +13,8 @@
 #include <fstream> 
 #include <yaml-cpp/yaml.h>
 #include <filesystem>
+#include <random>
+#include <stack>
 
 #include "../test-logging/log.hpp"
 #include "../utils/utils.hpp"
@@ -90,16 +92,6 @@ namespace Constants { // not actually "constants" in terms of being fixed, but s
     inline unsigned short SPRITE_OUT_OF_BOUNDS_OFFSET;
     inline unsigned short SPRITE_OUT_OF_BOUNDS_ADJUSTMENT;
     inline unsigned short PLAYER_Y_POS_BOUNDS_RUN;
-
-    // // Background settings
-    // inline float BACKGROUND_SPEED;
-    // inline std::filesystem::path BACKGROUNDSPRITE_PATH;
-    // inline std::filesystem::path BACKGROUNDSPRITE_PATH2;
-    // inline sf::Vector2f BACKGROUND_POSITION;
-    // inline sf::Vector2f BACKGROUND_SCALE;
-    // inline SpriteComponents::Direction BACKGROUND_MOVING_DIRECTION;
-    // inline std::shared_ptr<sf::Texture> BACKGROUND_TEXTURE = std::make_shared<sf::Texture>();
-    // inline std::shared_ptr<sf::Texture> BACKGROUND_TEXTURE2 = std::make_shared<sf::Texture>();
   
     // player paths and settings
     inline short SPRITE1_INDEXMAX;
@@ -153,6 +145,10 @@ namespace Constants { // not actually "constants" in terms of being fixed, but s
     inline sf::Vector2f BACKGROUNDBIGFINAL_POSITION;
     inline sf::Vector2f BACKGROUNDBIGFINAL_SCALE;
     inline std::shared_ptr<sf::Texture> BACKGROUNDBIGFINAL_TEXTURE = std::make_shared<sf::Texture>();
+    inline std::filesystem::path BACKGROUNDBIGSTART_PATH;
+    inline sf::Vector2f BACKGROUNDBIGSTART_POSITION;
+    inline sf::Vector2f BACKGROUNDBIGSTART_SCALE;
+    inline std::shared_ptr<sf::Texture> BACKGROUNDBIGSTART_TEXTURE = std::make_shared<sf::Texture>();
 
     // Tile settings
     inline sf::Vector2f TILEMAP_POSITION; 

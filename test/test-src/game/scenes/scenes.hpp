@@ -118,7 +118,8 @@ class gamePlayScene : public virtual Scene{
   std::unique_ptr<Sprite> frame; 
   std::unique_ptr<Sprite> backgroundBig; 
   std::unique_ptr<Sprite> backgroundBigFinal; 
-
+  std::unique_ptr<Sprite> backgroundBigStart;
+  
   std::unique_ptr<Obstacle> enemy;
   
   std::array<std::shared_ptr<Tile>, Constants::TILES_NUMBER> tiles1;   

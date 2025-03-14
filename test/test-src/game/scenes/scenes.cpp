@@ -100,6 +100,7 @@ void gamePlayScene::createAssets() {
         // button1->setRects(0); 
         // button1->setVisibleState(false); 
         backgroundBigFinal = std::make_unique<Sprite>(Constants::BACKGROUNDBIGFINAL_POSITION, Constants::BACKGROUNDBIGFINAL_SCALE, Constants::BACKGROUNDBIGFINAL_TEXTURE); 
+        backgroundBigStart = std::make_unique<Sprite>(Constants::BACKGROUNDBIGSTART_POSITION, Constants::BACKGROUNDBIGSTART_SCALE, Constants::BACKGROUNDBIGSTART_TEXTURE);
 
         enemy = std::make_unique<Obstacle>(Constants::ENEMY_POSITION, Constants::ENEMY_SCALE, Constants::ENEMY_TEXTURE, Constants::ENEMY_SPEED, Constants::ENEMY_ACCELERATION, Constants::ENEMY_ANIMATIONRECTS, Constants::ENEMY_INDEXMAX, utils::convertToWeakPtrVector(Constants::ENEMY_BITMASK)); 
          
@@ -311,7 +312,8 @@ void gamePlayScene::draw() {
 void gamePlayScene::drawInBigView(){
     window.setView(MetaComponents::bigView);
 
-    drawVisibleObject(backgroundBig);
+    drawVisibleObject(backgroundBigStart);
+   // drawVisibleObject(backgroundBig);
     //drawVisibleObject(backgroundBigFinal);
 
     window.draw(wallLine);
