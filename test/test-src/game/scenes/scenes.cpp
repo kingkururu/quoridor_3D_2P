@@ -277,7 +277,7 @@ void gamePlayScene::updateEntityStates(){ // manually change the sprite's state
 }
 
 void gamePlayScene::changeAnimation(){ // change animation for sprites. change animation for texts if necessary     if (button1 && button1->getVisibleState()) button1->changeAnimation(); 
-   for (const auto& bullet : bullets) if (bullet) bullet->changeAnimation();
+   // for (const auto& bullet : bullets) if (bullet) bullet->changeAnimation();
    if (enemy) enemy->changeAnimation(); 
 }
 
@@ -326,7 +326,7 @@ void gamePlayScene::drawInBigView(){
 
     window.draw(wallLine);
 
-    drawVisibleObject(bullets[0]); 
+  //  drawVisibleObject(bullets[0]); 
     drawVisibleObject(frame); 
     drawVisibleObject(scoreText); 
     drawVisibleObject(introText);

@@ -1,30 +1,13 @@
-# # Game display settings
-# world:
-#   scale: 1.0
-#   width: 1216 # big view size
-#   height: 832 # big view size
-#   frame_limit: 60 # fps
-#   title: "raycast sfml game template tester"
-#   view:
-#     size_x: 608.0 # pixels. also the screen size 
-#     size_y: 416.0 # pixels. also the screen size  
-#     initial_center:
-#       x: 0.0 # pixels, absoloute from window
-#       y: 0.0 # pixels, absoloute from window
-#   FOV: 60 # degrees
-#   rays_num: 400 # number of rays
-#   ground_color: "CUSTOMCOLOR_BROWN"
-
 # Game display settings
 world:
   scale: 1.0
-  width: 1216 # big view size
-  height: 832 # big view size
+  width: 608 # big view size
+  height: 416 # big view size
   frame_limit: 60 # fps
   title: "raycast sfml game template tester"
   view:
-    size_x: 608.0 # pixels. also the screen size 
-    size_y: 416.0 # pixels. also the screen size  
+    size_x: 608.0 # pixels. also the small screen size 
+    size_y: 416.0 # pixels. also the small screen size  
     initial_center:
       x: 0.0 # pixels, absoloute from window
       y: 0.0 # pixels, absoloute from window
@@ -162,11 +145,10 @@ tilemap:
   height: 13 # number of grids in a column 
   boundary_offset: 0 
   filepath: "test/test-assets/tiles/tilemap.txt"
-  # walkable: [false, true, true, false, false, true] #add more inside. if not meeting full size, the rest gets set to false 
 
 # Text settings
 text:
-  size: 40 # pixels 
+  size: 20 # pixels 
   font_path: "test/test-assets/fonts/ttf/font1.ttf"
   message: "Press WASD to move" # actual content in the text
   position:
@@ -174,7 +156,7 @@ text:
     y: 200.0 # pixels 
   color: "YELLOW" # sf::Color 
 ending_text:
-  size: 40 # pixels 
+  size: 20 # pixels 
   font_path: "test/test-assets/fonts/ttf/font1.ttf"
   message: "Game Over" # actual content in the text
   position:
@@ -182,11 +164,11 @@ ending_text:
     y: 200.0 # pixels 
   color: "RED" # sf::Color
 score_text:
-  size: 40 # pixels 
+  size: 20 # pixels 
   font_path: "test/test-assets/fonts/ttf/font1.ttf"
   message: "Time elapsed since start: " # actual content in the text
   position:
-    x: 200.0 # pixels 
+    x: 100.0 # pixels 
     y: 10.0 # pixels 
   color: "WHITE" # sf::Color
 
