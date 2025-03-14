@@ -358,9 +358,15 @@ namespace Constants {
                 throw std::runtime_error("Unable to open file: " + filePath.string());
             }
 
+            // from the tilemap texture
+            unsigned short startingTileIndex = 4; 
+            unsigned short endingTileIndex = 3; 
+            unsigned short walkableTileIndex = 6; 
+            unsigned short wallTileIndex = 0; 
+
             // First row (border)
             for (int i = 0; i < TILEMAP_WIDTH; ++i) {
-                fileStream << 0 << " ";
+                fileStream << wallTileIndex << " ";
             }
             fileStream << std::endl;
 
@@ -368,15 +374,15 @@ namespace Constants {
             for (unsigned short y = 0; y < TILEMAP_HEIGHT - 2; ++y) {
                 for (unsigned short x = 0; x < TILEMAP_WIDTH; ++x) {
                     if (x == 1 && y == 0) {
-                        fileStream << 4;
+                        fileStream << startingTileIndex;
                     }
                     else if (x == TILEMAP_WIDTH - 2 && y == TILEMAP_HEIGHT - 3) {
-                        fileStream << 3;
+                        fileStream << endingTileIndex;
                     }
                     else if (x == 0 || x == TILEMAP_WIDTH - 1) {
-                        fileStream << 0;
+                        fileStream << wallTileIndex;
                     } else {
-                        unsigned int tileIndex = (std::rand() % 2) * 6;
+                        unsigned int tileIndex = (std::rand() % 2) * walkableTileIndex;
                         fileStream << tileIndex;
                     }
 
@@ -389,7 +395,7 @@ namespace Constants {
             }
 
             for (int i = 0; i < TILEMAP_WIDTH; ++i) {
-                fileStream << 0 << " ";
+                fileStream << wallTileIndex << " ";
             }
             fileStream << std::endl;
 
