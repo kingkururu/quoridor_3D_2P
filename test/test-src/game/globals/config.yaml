@@ -1,3 +1,20 @@
+# # Game display settings
+# world:
+#   scale: 1.0
+#   width: 1216 # big view size
+#   height: 832 # big view size
+#   frame_limit: 60 # fps
+#   title: "raycast sfml game template tester"
+#   view:
+#     size_x: 608.0 # pixels. also the screen size 
+#     size_y: 416.0 # pixels. also the screen size  
+#     initial_center:
+#       x: 0.0 # pixels, absoloute from window
+#       y: 0.0 # pixels, absoloute from window
+#   FOV: 60 # degrees
+#   rays_num: 400 # number of rays
+#   ground_color: "CUSTOMCOLOR_BROWN"
+
 # Game display settings
 world:
   scale: 1.0
@@ -15,6 +32,9 @@ world:
   rays_num: 400 # number of rays
   ground_color: "CUSTOMCOLOR_BROWN"
 
+
+
+  
 # Game score settings
 score:
   initial: 0
@@ -118,7 +138,7 @@ sprites:
 
 # Tile settings
 tiles:
-  path: "test/test-assets/tiles/png/tileset1.png"
+  path: "test/test-assets/tiles/png/tilemap3.png"
   rows: 6 # number of tiles in rows in tile map
   columns: 10 # number of tiles in columns in tile map
   number: 60 # total number of tiles 

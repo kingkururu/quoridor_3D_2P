@@ -111,6 +111,8 @@ namespace Constants {
         std::srand(static_cast<unsigned int>(std::time(nullptr)));
 
         readFromYaml(std::filesystem::path("test/test-src/game/globals/config.yaml"));
+        writeRandomTileMap(std::filesystem::path("test/test-assets/tiles/tilemap.txt"));
+        
         loadAssets();
         makeRectsAndBitmasks(); 
     }
@@ -214,10 +216,10 @@ namespace Constants {
             TILE_WIDTH = config["tiles"]["tile_width"].as<unsigned short>();
             TILE_HEIGHT = config["tiles"]["tile_height"].as<unsigned short>();
             for (unsigned short i = 0; i < TILES_NUM; ++i) {
-                if (i != 6){
-                    TILES_BOOLS[i] = false;
-                } else {
-                    TILES_BOOLS[i] = true; 
+                if (i == 6 || i == 4 || i == 3 ){ // index 6,4, and 3 are walkable
+                    TILES_BOOLS[i] = true;
+                } else { 
+                    TILES_BOOLS[i] = false; 
                 }
             }
             
@@ -356,18 +358,41 @@ namespace Constants {
                 throw std::runtime_error("Unable to open file: " + filePath.string());
             }
 
-            for (unsigned short y = 0; y < TILEMAP_HEIGHT; ++y) {
-                for (unsigned short x = 0; x < TILEMAP_WIDTH; ++x) {
-                    // Generate a random tile index using rand()
-                    unsigned int tileIndex = std::rand() % TILES_NUMBER;
-                    fileStream << tileIndex;
+            // First row (border)
+            for (int i = 0; i < TILEMAP_WIDTH; ++i) {
+                fileStream << 0 << " ";
+            }
+            fileStream << std::endl;
 
-                    if (x < TILEMAP_WIDTH - 1) { // Avoid adding extra space at the end of the line
+            // Middle section
+            for (unsigned short y = 0; y < TILEMAP_HEIGHT - 2; ++y) {
+                for (unsigned short x = 0; x < TILEMAP_WIDTH; ++x) {
+                    if (x == 1 && y == 0) {
+                        fileStream << 4;
+                    }
+                    else if (x == TILEMAP_WIDTH - 2 && y == TILEMAP_HEIGHT - 3) {
+                        fileStream << 3;
+                    }
+                    else if (x == 0 || x == TILEMAP_WIDTH - 1) {
+                        fileStream << 0;
+                    } else {
+                        unsigned int tileIndex = (std::rand() % 2) * 6;
+                        fileStream << tileIndex;
+                    }
+
+                    // Add space unless it's the last column
+                    if (x < TILEMAP_WIDTH - 1) {
                         fileStream << " ";
                     }
                 }
-                fileStream << std::endl; // New line after each row
+                fileStream << " " << std::endl;
             }
+
+            for (int i = 0; i < TILEMAP_WIDTH; ++i) {
+                fileStream << 0 << " ";
+            }
+            fileStream << std::endl;
+
             fileStream.close();
 
             log_info("successfuly made a random tile map"); 

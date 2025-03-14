@@ -311,8 +311,8 @@ void gamePlayScene::draw() {
 void gamePlayScene::drawInBigView(){
     window.setView(MetaComponents::bigView);
 
-   // drawVisibleObject(backgroundBig);
-    drawVisibleObject(backgroundBigFinal);
+    drawVisibleObject(backgroundBig);
+    //drawVisibleObject(backgroundBigFinal);
 
     window.draw(wallLine);
 
@@ -328,7 +328,7 @@ void gamePlayScene::drawInSmallView(){
 
     // temporary 
     sf::RectangleShape mainRect(sf::Vector2f(Constants::VIEW_SIZE_X, Constants::VIEW_SIZE_Y));
-    mainRect.setFillColor(sf::Color::Black); // background for small view
+    mainRect.setFillColor(sf::Color::Magenta); // background for small view
     mainRect.setPosition(0,0);
 
     window.draw(mainRect);
