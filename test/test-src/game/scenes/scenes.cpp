@@ -130,8 +130,7 @@ void gamePlayScene::createAssets() {
         // Text
         introText = std::make_unique<TextClass>(Constants::TEXT_POSITION, Constants::TEXT_SIZE, Constants::TEXT_COLOR, Constants::TEXT_FONT, Constants::TEXT_MESSAGE);
         scoreText = std::make_unique<TextClass>(Constants::SCORETEXT_POSITION, Constants::SCORETEXT_SIZE, Constants::SCORETEXT_COLOR, Constants::TEXT_FONT, Constants::SCORETEXT_MESSAGE);
-        // endingText = std::make_unique<TextClass>(Constants::ENDINGTEXmake T_POSITION, Constants::ENDINGTEXT_SIZE, Constants::ENDINGTEXT_COLOR, Constants::TEXT_FONT, Constants::ENDINGTEXT_MESSAGE);
-        // endingText->setVisibleState(false);
+        endingText = std::make_unique<TextClass>(Constants::ENDINGTEXT_POSITION, Constants::ENDINGTEXT_SIZE, Constants::ENDINGTEXT_COLOR, Constants::TEXT_FONT, Constants::ENDINGTEXT_MESSAGE);
 
         insertItemsInQuadtree(); 
         setInitialTimes();
@@ -244,9 +243,6 @@ void gamePlayScene::handleGameEvents() {
     // scoreText->getText().setPosition(MetaComponents::smallView.getCenter().x - 460, MetaComponents::smallView.getCenter().y - 270);
 
     physics::calculateRayCast3d(player, tileMap1, rays, wallLine); // modifies the ray 
-   // physics::calculateRayCast3d(player, enemy, &quadtree); 
-    // physics::calculateRayCast3d(player, enemy); 
-
 } 
 
 void gamePlayScene::handleSceneFlags(){
@@ -319,9 +315,11 @@ void gamePlayScene::drawInBigView(){
 
     if(tileIndexInMap == 20){ // start tile
         drawVisibleObject(backgroundBigStart);
+
     } else if (tileIndexInMap == 226){ // end tile
         FlagSystem::flagEvents.gameEnd = true;
         drawVisibleObject(backgroundBigFinal);
+        drawVisibleObject(endingText);
     } else {
         drawVisibleObject(backgroundBig);
     }
@@ -332,7 +330,7 @@ void gamePlayScene::drawInBigView(){
     drawVisibleObject(frame); 
     drawVisibleObject(scoreText); 
     drawVisibleObject(introText);
-
+    // drawVisibleObject(endingText);
 }
 
 void gamePlayScene::drawInSmallView(){

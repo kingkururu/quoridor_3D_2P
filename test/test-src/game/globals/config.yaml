@@ -158,10 +158,10 @@ text:
 ending_text:
   size: 20 # pixels 
   font_path: "test/test-assets/fonts/ttf/font1.ttf"
-  message: "Game Over" # actual content in the text
+  message: "You win!" # actual content in the text
   position:
-    x: 200.0 # pixels 
-    y: 200.0 # pixels 
+    x: 260.0 # pixels 
+    y: 50.0 # pixels 
   color: "RED" # sf::Color
 score_text:
   size: 20 # pixels 

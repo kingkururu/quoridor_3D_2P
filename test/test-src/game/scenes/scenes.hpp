@@ -138,7 +138,7 @@ class gamePlayScene : public virtual Scene{
 
   std::unique_ptr<TextClass> introText; 
   std::unique_ptr<TextClass> scoreText; 
-  // std::unique_ptr<TextClass> endingText; 
+  std::unique_ptr<TextClass> endingText; 
 
   size_t score {};
 };
