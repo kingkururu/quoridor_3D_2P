@@ -201,6 +201,66 @@ namespace physics {
         return originalPos;
     }
 
+    // void navigateMaze(std::unique_ptr<Player>& player, std::unique_ptr<TileMap>& tileMap, sf::Vector2f& playerPos, float& playerAngle, sf::VertexArray& lines, sf::VertexArray& wallLine) {
+    //     if(!player || !tileMap){
+    //         log_error("tile or player is not initialized");
+    //         return;
+    //     }
+
+    //     float startX = player->getSpritePos().x;
+    //     float startY = player->getSpritePos().y;
+    //     playerAngle = player->getHeadingAngle(); // Player's rotation angle
+
+       
+    // }
+    
+    // void navigateMaze(std::unique_ptr<Player>& player, std::unique_ptr<TileMap>& tileMap, sf::Vector2f& playerPos, float& playerAngle, sf::VertexArray& lines, sf::VertexArray& wallLine) {
+    //     if (!player || !tileMap) {
+    //         log_error("tile or player is not initialized");
+    //         return;
+    //     }
+    
+    //     sf::Vector2f start = player->getSpritePos();
+    //     sf::Vector2f goal = {tileMap->getTileMapWidth() * tileMap->getTileWidth() - tileMap->getTileWidth(), 
+    //                          tileMap->getTileMapHeight() * tileMap->getTileHeight() - tileMap->getTileHeight()};
+    
+    //     std::priority_queue<Node, std::vector<Node>, NodeComparator> openSet;
+    //     std::unordered_map<sf::Vector2f, sf::Vector2f, VectorHash> cameFrom;
+    //     std::unordered_map<sf::Vector2f, float, VectorHash> gScore;
+    //     std::unordered_map<sf::Vector2f, float, VectorHash> fScore;
+    
+    //     gScore[start] = 0;
+    //     fScore[start] = heuristic(start, goal);
+    //     openSet.push(Node{start, fScore[start]});
+    
+    //     while (!openSet.empty()) {
+    //         sf::Vector2f current = openSet.top().position;
+    //         openSet.pop();
+    
+    //         if (current == goal) {
+    //             break;
+    //         }
+    
+    //         for (const sf::Vector2f& direction : {sf::Vector2f{-1, 0}, sf::Vector2f{1, 0}, sf::Vector2f{0, -1}, sf::Vector2f{0, 1}}) {
+    //             sf::Vector2f neighbor = current + direction * tileMap->getTileWidth();
+    //             if (!isValidTile(neighbor, *tileMap)) continue;
+    
+    //             float tentative_gScore = gScore[current] + distance(current, neighbor);
+    //             if (gScore.find(neighbor) == gScore.end() || tentative_gScore < gScore[neighbor]) {
+    //                 cameFrom[neighbor] = current;
+    //                 gScore[neighbor] = tentative_gScore;
+    //                 fScore[neighbor] = gScore[neighbor] + heuristic(neighbor, goal);
+    //                 openSet.push(Node{neighbor, fScore[neighbor]});
+    //             }
+    //         }
+    //     }
+    
+    //     sf::Vector2f nextMove = reconstructPath(start, goal, cameFrom);
+    //     sf::Vector2f direction = normalize(nextMove - start);
+    //     player->changePosition(followDirVec(player->getSpeed(), start, player->getAcceleration(), direction));
+    //     player->updatePos();
+    // }
+    
     void calculateRayCast3d(std::unique_ptr<Player>& player, std::unique_ptr<TileMap>& tileMap, sf::VertexArray& lines, sf::VertexArray& wallLine) {
         if(!player || !tileMap){
             log_error("tile or player is not initialized");

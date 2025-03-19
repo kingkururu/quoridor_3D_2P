@@ -119,8 +119,8 @@ void gamePlayScene::createAssets() {
    
         // Music
         backgroundMusic = std::make_unique<MusicClass>(std::move(Constants::BACKGROUNDMUSIC_MUSIC), Constants::BACKGROUNDMUSIC_VOLUME);
-        // if(backgroundMusic) backgroundMusic->returnMusic().play(); 
-        // if(backgroundMusic) backgroundMusic->returnMusic().setLoop(Constants::BACKGROUNDMUSIC_LOOP);
+        if(backgroundMusic) backgroundMusic->returnMusic().play(); 
+        if(backgroundMusic) backgroundMusic->returnMusic().setLoop(Constants::BACKGROUNDMUSIC_LOOP);
 
         // // Sound
         // playerJumpSound = std::make_unique<SoundClass>(Constants::PLAYERJUMP_SOUNDBUFF, Constants::PLAYERJUMPSOUND_VOLUME); 
@@ -330,7 +330,6 @@ void gamePlayScene::drawInBigView(){
     drawVisibleObject(frame); 
     drawVisibleObject(scoreText); 
     drawVisibleObject(introText);
-    // drawVisibleObject(endingText);
 }
 
 void gamePlayScene::drawInSmallView(){
