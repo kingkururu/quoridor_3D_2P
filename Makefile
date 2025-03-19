@@ -7,6 +7,16 @@ CXXFLAGS := -std=c++17 -Wall \
             -I./assets/sprites -I./assets/fonts -I./assets/sound -I./assets/tiles \
             -I./libs/logging
 
+# Detect Homebrew installation and set path
+HOMEBREW_PREFIX ?= $(shell brew --prefix 2>/dev/null || echo "/opt/homebrew")
+
+# Check and install Homebrew if missing
+ifneq ($(shell which brew),)
+    BREW_CMD := brew
+else
+    BREW_CMD := /bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+endif
+
 # Homebrew paths, allow override via environment variables
 HOMEBREW_PREFIX ?= /opt/homebrew
 SPDLOG_INCLUDE ?= $(HOMEBREW_PREFIX)/opt/spdlog/include
