@@ -10,11 +10,13 @@ CXXFLAGS := -std=c++17 -Wall \
 # Detect Homebrew installation and set path
 HOMEBREW_PREFIX ?= $(shell brew --prefix 2>/dev/null || echo "/opt/homebrew")
 
-# Check and install Homebrew if missing
-ifneq ($(shell which brew),)
+# If Homebrew is not found, install it
+ifneq ($(shell which brew 2>/dev/null),)
     BREW_CMD := brew
 else
     BREW_CMD := /bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    $(info Homebrew not found. Installing Homebrew...)
+    $(shell $(BREW_CMD))
 endif
 
 # Homebrew paths, allow override via environment variables
@@ -91,7 +93,7 @@ all: $(TARGET)
 install_deps:
 	@brew list spdlog >/dev/null 2>&1 || (echo "Installing spdlog..."; brew install spdlog)
 	@brew list fmt >/dev/null 2>&1 || (echo "Installing fmt..."; brew install fmt)
-	@brew list sfml >/dev/null 2>&1 || (echo "Installing sfml..."; brew install sfml)
+	@brew list sfml@2 >/dev/null 2>&1 || (echo "Installing sfml..."; brew install sfml)
 	@brew list yaml-cpp >/dev/null 2>&1 || (echo "Installing yaml-cpp..."; brew install yaml-cpp) 
 	@brew list catch2 >/dev/null 2>&1 || (echo "Installing catch2..."; brew install catch2)
 
