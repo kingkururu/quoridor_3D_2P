@@ -111,7 +111,7 @@ namespace Constants {
         std::srand(static_cast<unsigned int>(std::time(nullptr))); 
 
         readFromYaml(std::filesystem::path("test/test-src/game/globals/config.yaml"));
-        writeRandomTileMap(std::filesystem::path("test/test-assets/tiles/tilemap.txt"), DFSmazeGenerator);
+        writeRandomTileMap(std::filesystem::path("test/test-assets/tiles/tilemap.txt"), PrimsMazeGenerator);
         
         loadAssets();
         makeRectsAndBitmasks(); 
@@ -428,9 +428,79 @@ namespace Constants {
         }
     
         file.close();
-        log_info("Successfully generated a random maze with a guaranteed path.");
+        log_info("Successfully generated a DFS random maze with a guaranteed path.");
     } 
 
+    void PrimsMazeGenerator(std::ofstream& file, const unsigned short startingTileIndex, const unsigned short endingTileIndex, const unsigned short walkableTileIndex, const unsigned short wallTileIndex) {
+        // Create a grid filled with walls
+        std::vector<std::vector<unsigned short>> tileMap(TILEMAP_HEIGHT, std::vector<unsigned short>(TILEMAP_WIDTH, wallTileIndex));
+    
+        // Priority queue to store frontier walls
+        std::vector<std::pair<int, int>> frontier;
+        std::random_device rd;
+        std::mt19937 rng(rd());
+    
+        // Start position (inside the maze, must be odd)
+        int startX = 1;
+        int startY = 1;
+        tileMap[startY][startX] = walkableTileIndex;
+        
+        // Lambda function to add frontier walls
+        auto addFrontier = [&](int x, int y) {
+            if (x > 0 && y > 0 && x < TILEMAP_WIDTH - 1 && y < TILEMAP_HEIGHT - 1 && tileMap[y][x] == wallTileIndex) {
+                tileMap[y][x] = 2; // Mark as frontier
+                frontier.emplace_back(x, y);
+            }
+        };
+        
+        // Add initial frontier walls
+        addFrontier(startX + 2, startY);
+        addFrontier(startX - 2, startY);
+        addFrontier(startX, startY + 2);
+        addFrontier(startX, startY - 2);
+    
+        while (!frontier.empty()) {
+            std::shuffle(frontier.begin(), frontier.end(), rng);
+            auto [x, y] = frontier.back();
+            frontier.pop_back();
+    
+            // Check neighbors (only odd-indexed tiles are valid paths)
+            std::vector<std::pair<int, int>> neighbors;
+            if (y >= 2 && tileMap[y - 2][x] == walkableTileIndex) neighbors.emplace_back(x, y - 2);
+            if (y < TILEMAP_HEIGHT - 2 && tileMap[y + 2][x] == walkableTileIndex) neighbors.emplace_back(x, y + 2);
+            if (x >= 2 && tileMap[y][x - 2] == walkableTileIndex) neighbors.emplace_back(x - 2, y);
+            if (x < TILEMAP_WIDTH - 2 && tileMap[y][x + 2] == walkableTileIndex) neighbors.emplace_back(x + 2, y);
+            
+            if (!neighbors.empty()) {
+                std::shuffle(neighbors.begin(), neighbors.end(), rng);
+                auto [nx, ny] = neighbors.front();
+                tileMap[y][x] = walkableTileIndex;
+                tileMap[(y + ny) / 2][(x + nx) / 2] = walkableTileIndex; // Remove wall
+                
+                // Add new frontier walls
+                addFrontier(x + 2, y);
+                addFrontier(x - 2, y);
+                addFrontier(x, y + 2);
+                addFrontier(x, y - 2);
+            }
+        }
+    
+        // Ensure a guaranteed path to the goal
+        tileMap[1][1] = startingTileIndex;
+        tileMap[TILEMAP_HEIGHT - 2][TILEMAP_WIDTH - 2] = endingTileIndex;
+    
+        // Write the map to file
+        for (int y = 0; y < TILEMAP_HEIGHT; ++y) {
+            for (int x = 0; x < TILEMAP_WIDTH; ++x) {
+                file << tileMap[y][x] << " ";
+            }
+            file << std::endl;
+        }
+        
+        file.close();
+        log_info("Successfully generated a Prim's Algorithm random maze with a guaranteed path.");
+    }
+    
     std::shared_ptr<sf::Uint8[]> createBitmask( const std::shared_ptr<sf::Texture>& texture, const sf::IntRect& rect, const float transparency) {
         if (!texture) {
             log_warning("\tfailed to create bitmask ( texture is empty )");
