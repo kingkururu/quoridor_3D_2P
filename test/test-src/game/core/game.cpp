@@ -79,6 +79,7 @@ void GameManager::handleEventInput() {
                 case sf::Keyboard::W: FlagSystem::flagEvents.wPressed = isPressed; break;
                 case sf::Keyboard::D: FlagSystem::flagEvents.dPressed = isPressed; break;
                 case sf::Keyboard::B: FlagSystem::flagEvents.bPressed = isPressed; break;
+                case sf::Keyboard::M: FlagSystem::flagEvents.mPressed = isPressed; break;
                 case sf::Keyboard::Space: FlagSystem::flagEvents.spacePressed = isPressed; break;
                 default: break;
             }

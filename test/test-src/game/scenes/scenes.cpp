@@ -323,13 +323,26 @@ void gamePlayScene::drawInBigView(){
     } else {
         drawVisibleObject(backgroundBig);
     }
-
     window.draw(wallLine);
 
   //  drawVisibleObject(bullets[0]); 
     drawVisibleObject(frame); 
     drawVisibleObject(scoreText); 
     drawVisibleObject(introText);
+
+    if(FlagSystem::flagEvents.mPressed){
+        sf::RectangleShape mainRect(sf::Vector2f(Constants::VIEW_SIZE_X, Constants::VIEW_SIZE_Y));
+        mainRect.setFillColor(sf::Color::Magenta); // background for small view
+        mainRect.setPosition(0,0);
+
+        window.draw(mainRect);
+
+        drawVisibleObject(tileMap1);
+        drawVisibleObject(player);
+
+        window.draw(rays); 
+    }
+
 }
 
 void gamePlayScene::drawInSmallView(){
