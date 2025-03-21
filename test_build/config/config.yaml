@@ -150,7 +150,7 @@ tilemap:
 text:
   size: 20 # pixels 
   font_path: "test/test-assets/fonts/ttf/font1.ttf"
-  message: "Press WASD to move" # actual content in the text
+  message: "Press WASD to move and M to see map bigger" # actual content in the text
   position:
     x: 100.0 # pixels 
     y: 200.0 # pixels 
