@@ -111,5 +111,6 @@ clean:
 	rm -rf $(TEST_BUILD_DIR) $(TEST_TARGET)
 
 # Run tests
-test: $(TEST_TARGET) COPY_CONFIG
+test: $(TEST_TARGET) 
+    $(MAKE) COPY_CONFIG
 	./$(TEST_TARGET)
