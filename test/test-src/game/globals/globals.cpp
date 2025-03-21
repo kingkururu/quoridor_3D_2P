@@ -66,7 +66,6 @@ namespace SpriteComponents {
     }
 }
 
-/* constant variables defined here */
 namespace Constants {
     // make random position from upper right corner
     sf::Vector2f makeRandomPosition(){
