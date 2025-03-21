@@ -56,7 +56,8 @@ namespace Constants { // not actually "constants" in terms of being fixed, but s
     extern sf::Vector2f makeRandomPositionCloud(); 
     extern sf::Vector2f makeRandomPositionCoin(); 
 
-    extern void writeRandomTileMap(const std::filesystem::path filePath); 
+    extern void writeRandomTileMap(const std::filesystem::path filePath, std::function<void(std::ofstream& file, const unsigned short startingTileIndex, const unsigned short endingTileIndex, const unsigned short walkableTileIndex, const unsigned short wallTileIndex)> DFSmazeGenerator); 
+    void DFSmazeGenerator(std::ofstream& file, const unsigned short startingTileIndex, const unsigned short endingTileIndex, const unsigned short walkableTileIndex, const unsigned short wallTileIndex);
 
     // load textures, fonts, music, and sound
     extern std::shared_ptr<sf::Uint8[]> createBitmask( const std::shared_ptr<sf::Texture>& texture, const sf::IntRect& rect, const float transparency = 0.0f);

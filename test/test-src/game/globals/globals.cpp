@@ -111,7 +111,7 @@ namespace Constants {
         std::srand(static_cast<unsigned int>(std::time(nullptr))); 
 
         readFromYaml(std::filesystem::path("test/test-src/game/globals/config.yaml"));
-        writeRandomTileMap(std::filesystem::path("test/test-assets/tiles/tilemap.txt"));
+        writeRandomTileMap(std::filesystem::path("test/test-assets/tiles/tilemap.txt"), DFSmazeGenerator);
         
         loadAssets();
         makeRectsAndBitmasks(); 
@@ -357,9 +357,10 @@ namespace Constants {
         log_info("\tConstants initialized ");
     }
 
-    void writeRandomTileMap(const std::filesystem::path filePath) {
+    void writeRandomTileMap(const std::filesystem::path filePath, std::function<void(std::ofstream& file, const unsigned short startingTileIndex, const unsigned short endingTileIndex, const unsigned short walkableTileIndex, const unsigned short wallTileIndex)> mazeGenerator) {
         try {
             std::ofstream fileStream(filePath);
+
             if (!fileStream.is_open()) {
                 throw std::runtime_error("Unable to open file: " + filePath.string());
             }
@@ -369,64 +370,67 @@ namespace Constants {
             const unsigned short endingTileIndex = 3; 
             const unsigned short walkableTileIndex = 6; 
             const unsigned short wallTileIndex = 0; 
-    
-            // Create a grid filled with walls
-            std::vector<std::vector<unsigned short>> tileMap(TILEMAP_HEIGHT, std::vector<unsigned short>(TILEMAP_WIDTH, wallTileIndex));
-    
-            // Maze generation setup
-            std::stack<std::pair<int, int>> cellStack;
-            std::vector<std::pair<int, int>> directions = {{0, -2}, {0, 2}, {-2, 0}, {2, 0}}; // Up, Down, Left, Right
-            std::random_device rd;
-            std::mt19937 rng(rd());
-            std::shuffle(directions.begin(), directions.end(), rng);
-    
-            // Start position (inside the maze, must be odd)
-            int startX = 1;
-            int startY = 1;
-            tileMap[startY][startX] = walkableTileIndex;
-            cellStack.push({startX, startY});
-    
-            // Maze generation using DFS
-            while (!cellStack.empty()) {
-                auto [x, y] = cellStack.top();
-                cellStack.pop();
-                std::shuffle(directions.begin(), directions.end(), rng); // Shuffle to randomize path
-    
-                for (auto [dx, dy] : directions) {
-                    int nx = x + dx;
-                    int ny = y + dy;
-                    int mx = x + dx / 2;
-                    int my = y + dy / 2;
-    
-                    // Check if within bounds and unvisited
-                    if (nx > 0 && ny > 0 && nx < TILEMAP_WIDTH - 1 && ny < TILEMAP_HEIGHT - 1 && tileMap[ny][nx] == wallTileIndex) {
-                        tileMap[my][mx] = walkableTileIndex; // Remove wall between
-                        tileMap[ny][nx] = walkableTileIndex; // Mark new cell as visited
-                        cellStack.push({nx, ny});
-                    }
-                }
-            }
-    
-            // Ensure there is a guaranteed path to goal
-            tileMap[1][1] = startingTileIndex;
-            tileMap[TILEMAP_HEIGHT - 2][TILEMAP_WIDTH - 2] = endingTileIndex;
-    
-            // Write the map to file
-            for (int y = 0; y < TILEMAP_HEIGHT; ++y) {
-                for (int x = 0; x < TILEMAP_WIDTH; ++x) {
-                    fileStream << tileMap[y][x] << " ";
-                }
-                fileStream << std::endl;
-            }
-    
-            fileStream.close();
-            log_info("Successfully generated a random maze with a guaranteed path.");
+
+            mazeGenerator(fileStream, startingTileIndex, endingTileIndex, walkableTileIndex, wallTileIndex);
         } 
         catch (const std::exception& e) {
             log_warning("Error in writing random maze: " + std::string(e.what()));
         }
     }
     
+    void DFSmazeGenerator(std::ofstream& file, const unsigned short startingTileIndex, const unsigned short endingTileIndex, const unsigned short walkableTileIndex, const unsigned short wallTileIndex) {
+        // Create a grid filled with walls
+        std::vector<std::vector<unsigned short>> tileMap(TILEMAP_HEIGHT, std::vector<unsigned short>(TILEMAP_WIDTH, wallTileIndex));
+    
+        // Maze generation setup
+        std::stack<std::pair<int, int>> cellStack;
+        std::vector<std::pair<int, int>> directions = {{0, -2}, {0, 2}, {-2, 0}, {2, 0}}; // Up, Down, Left, Right
+        std::random_device rd;
+        std::mt19937 rng(rd());
+        std::shuffle(directions.begin(), directions.end(), rng);
+    
+        // Start position (inside the maze, must be odd)
+        int startX = 1;
+        int startY = 1;
+        tileMap[startY][startX] = walkableTileIndex;
+        cellStack.push({startX, startY});
+    
+        while (!cellStack.empty()) {
+            auto [x, y] = cellStack.top();
+            cellStack.pop();
+            std::shuffle(directions.begin(), directions.end(), rng); // Shuffle to randomize path
+    
+            for (auto [dx, dy] : directions) {
+                int nx = x + dx;
+                int ny = y + dy;
+                int mx = x + dx / 2;
+                int my = y + dy / 2;
+    
+                // Check if within bounds and unvisited
+                if (nx > 0 && ny > 0 && nx < TILEMAP_WIDTH - 1 && ny < TILEMAP_HEIGHT - 1 && tileMap[ny][nx] == wallTileIndex) {
+                    tileMap[my][mx] = walkableTileIndex; // Remove wall between
+                    tileMap[ny][nx] = walkableTileIndex; // Mark new cell as visited
+                    cellStack.push({nx, ny});
+                }
+            }
+        }
+    
+        // Ensure there is a guaranteed path to goal
+        tileMap[1][1] = startingTileIndex;
+        tileMap[TILEMAP_HEIGHT - 2][TILEMAP_WIDTH - 2] = endingTileIndex;
+    
+        // Write the map to file
+        for (int y = 0; y < TILEMAP_HEIGHT; ++y) {
+            for (int x = 0; x < TILEMAP_WIDTH; ++x) {
+                file << tileMap[y][x] << " ";
+            }
+            file << std::endl;
+        }
+    
+        file.close();
+        log_info("Successfully generated a random maze with a guaranteed path.");
+    } 
+
     std::shared_ptr<sf::Uint8[]> createBitmask( const std::shared_ptr<sf::Texture>& texture, const sf::IntRect& rect, const float transparency) {
         if (!texture) {
             log_warning("\tfailed to create bitmask ( texture is empty )");
