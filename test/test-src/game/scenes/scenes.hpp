@@ -63,16 +63,6 @@ class Scene {
   physics::Quadtree quadtree; 
 };
 
-// not in use
-class introScene : public virtual Scene{
- public:
-   using Scene::Scene; 
-  ~introScene() override = default; 
-    
- private:
-
-};
-
 // in use (the main scene in test game)
 class gamePlayScene : public virtual Scene{
  public:
@@ -139,24 +129,4 @@ class gamePlayScene : public virtual Scene{
   std::unique_ptr<TextClass> introText; 
   std::unique_ptr<TextClass> scoreText; 
   std::unique_ptr<TextClass> endingText; 
-
-  size_t score {};
 };
-
-// not using right now in test game
-class gamePlayScene2 : public virtual Scene{
-public:
-  using Scene::Scene; 
-  ~gamePlayScene2() override = default; 
- 
-  void createAssets() override; 
-
- private:
-  void handleInput() override; 
-
-  void draw() override; 
-  void update() override; 
-
-  //std::unique_ptr<Background> background; 
-};
-

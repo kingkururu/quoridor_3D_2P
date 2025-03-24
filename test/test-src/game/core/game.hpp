@@ -31,9 +31,6 @@ private:
 
     GameWindow mainWindow;
 
-    std::unique_ptr<introScene> introScreenScene; 
     std::unique_ptr<gamePlayScene> gameScene;
-    std::unique_ptr<gamePlayScene2> gameSceneNext; 
-
 };
 

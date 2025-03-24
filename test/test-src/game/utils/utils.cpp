@@ -6,8 +6,6 @@
 #include "utils.hpp"
 
 namespace utils {
-    constexpr float PIE = 3.14159f;
-
     std::vector<std::weak_ptr<unsigned char[]>> convertToWeakPtrVector(const std::vector<std::shared_ptr<unsigned char[]>>& bitMask) {
         std::vector<std::weak_ptr<unsigned char[]>> result;
         result.reserve(bitMask.size());  // Reserve memory to avoid reallocations

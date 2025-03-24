@@ -4,9 +4,7 @@
 // GameManager constructor sets up the window, intitializes constant variables, calls the random function, and makes scenes 
 GameManager::GameManager()
     : mainWindow(Constants::WORLD_WIDTH, Constants::WORLD_HEIGHT, Constants::GAME_TITLE, Constants::FRAME_LIMIT) {
-    introScreenScene = std::make_unique<introScene>(mainWindow.getWindow());
     gameScene = std::make_unique<gamePlayScene>(mainWindow.getWindow());
-    gameSceneNext = std::make_unique<gamePlayScene2>(mainWindow.getWindow()); 
 
     log_info("\tGame initialized");
 }
@@ -32,16 +30,12 @@ void GameManager::runGame() {
 
 void GameManager::runScenesFlags(){
     if(!FlagSystem::flagEvents.gameEnd){
-        if(FlagSystem::gameScene1Flags.sceneStart && !FlagSystem::gameSceneNextFlags.sceneStart) gameScene->runScene();
-
-        if(FlagSystem::gameSceneNextFlags.sceneStart && !FlagSystem::gameSceneNextFlags.sceneEnd) gameSceneNext->runScene();
+        if(FlagSystem::gameScene1Flags.sceneStart && !FlagSystem::gameScene1Flags.sceneEnd) gameScene->runScene();
     }
 }
 
 void GameManager::loadScenes(){
-    introScreenScene->createAssets(); 
     gameScene->createAssets();
-    gameSceneNext->createAssets(); 
 }
 
 // countTime counts global time and delta time for scenes to later use in runScene 
