@@ -201,28 +201,18 @@ namespace physics {
         return originalPos;
     }
 
-    // void navigateMaze(std::unique_ptr<Player>& player, std::unique_ptr<TileMap>& tileMap, sf::Vector2f& playerPos, float& playerAngle, sf::VertexArray& lines, sf::VertexArray& wallLine) {
-    //     if(!player || !tileMap){
-    //         log_error("tile or player is not initialized");
-    //         return;
-    //     }
+    void navigateMaze(std::unique_ptr<Player>& player, std::unique_ptr<TileMap>& tileMap, sf::VertexArray& rays2D) {
+        if(!player || !tileMap){
+            log_error("tile or player is not initialized");
+            return;
+        }
 
-    //     float startX = player->getSpritePos().x;
-    //     float startY = player->getSpritePos().y;
-    //     playerAngle = player->getHeadingAngle(); // Player's rotation angle
+        sf::Vector2f start = player->getSpritePos();
+        sf::Vector2f goal = {tileMap->getTileMapWidth() * tileMap->getTileWidth() - tileMap->getTileWidth(), 
+                             tileMap->getTileMapHeight() * tileMap->getTileHeight() - tileMap->getTileHeight()};
+        float playerAngle = player->getHeadingAngle(); // Player's rotation angle in degrees
 
-       
-    // }
-    
-    // void navigateMaze(std::unique_ptr<Player>& player, std::unique_ptr<TileMap>& tileMap, sf::Vector2f& playerPos, float& playerAngle, sf::VertexArray& lines, sf::VertexArray& wallLine) {
-    //     if (!player || !tileMap) {
-    //         log_error("tile or player is not initialized");
-    //         return;
-    //     }
-    
-    //     sf::Vector2f start = player->getSpritePos();
-    //     sf::Vector2f goal = {tileMap->getTileMapWidth() * tileMap->getTileWidth() - tileMap->getTileWidth(), 
-    //                          tileMap->getTileMapHeight() * tileMap->getTileHeight() - tileMap->getTileHeight()};
+    }
     
     //     std::priority_queue<Node, std::vector<Node>, NodeComparator> openSet;
     //     std::unordered_map<sf::Vector2f, sf::Vector2f, VectorHash> cameFrom;

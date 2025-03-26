@@ -279,7 +279,9 @@ void gamePlayScene::changeAnimation(){ // change animation for sprites. change a
 }
 
 void gamePlayScene::updatePlayerAndView() {
-
+    if(player && player->getMoveState()){
+        physics::navigateMaze(player, tileMap1, rays);
+    }
 }
 
 void gamePlayScene::updateDrawablesVisibility(){

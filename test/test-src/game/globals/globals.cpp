@@ -110,7 +110,7 @@ namespace Constants {
         std::srand(static_cast<unsigned int>(std::time(nullptr))); 
 
         readFromYaml(std::filesystem::path("test/test-src/game/globals/config.yaml"));
-        writeRandomTileMap(std::filesystem::path("test/test-assets/tiles/tilemap.txt"), PrimsMazeGenerator);
+        writeRandomTileMap(std::filesystem::path("test/test-assets/tiles/tilemap.txt"), DFSmazeGenerator);
         
         loadAssets();
         makeRectsAndBitmasks(); 
