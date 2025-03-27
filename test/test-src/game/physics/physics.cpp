@@ -201,55 +201,99 @@ namespace physics {
         return originalPos;
     }
 
-    void navigateMaze(std::unique_ptr<Player>& player, std::unique_ptr<TileMap>& tileMap, sf::VertexArray& rays2D) {
-        if(!player || !tileMap){
-            log_error("tile or player is not initialized");
-            return;
-        }
-
-        sf::Vector2f start = player->getSpritePos();
-        sf::Vector2f goal = {tileMap->getTileMapWidth() * tileMap->getTileWidth() - tileMap->getTileWidth(), 
-                             tileMap->getTileMapHeight() * tileMap->getTileHeight() - tileMap->getTileHeight()};
-        float playerAngle = player->getHeadingAngle(); // Player's rotation angle in degrees
-
-    }
+    // void navigateMaze(std::unique_ptr<Player>& player, std::unique_ptr<TileMap>& tileMap, std::vector<size_t>& tileVisitCounts, sf::Vector2i& lastDirection) {
+    //     if (!player || !tileMap) {
+    //         log_error("Tile or player is not initialized");
+    //         return;
+    //     }
     
-    //     std::priority_queue<Node, std::vector<Node>, NodeComparator> openSet;
-    //     std::unordered_map<sf::Vector2f, sf::Vector2f, VectorHash> cameFrom;
-    //     std::unordered_map<sf::Vector2f, float, VectorHash> gScore;
-    //     std::unordered_map<sf::Vector2f, float, VectorHash> fScore;
+    //     // Get the player's current position
+    //     sf::Vector2f start = player->getSpritePos();
+    //     sf::Vector2f goal = {
+    //         tileMap->getTileMapWidth() * tileMap->getTileWidth() - tileMap->getTileWidth(),
+    //         tileMap->getTileMapHeight() * tileMap->getTileHeight() - tileMap->getTileHeight()
+    //     };
     
-    //     gScore[start] = 0;
-    //     fScore[start] = heuristic(start, goal);
-    //     openSet.push(Node{start, fScore[start]});
+    //     // Calculate the player's current tile position
+    //     int tileX = static_cast<int>((start.x - Constants::TILEMAP_POSITION.x) / Constants::TILE_WIDTH);
+    //     int tileY = static_cast<int>((start.y - Constants::TILEMAP_POSITION.y) / Constants::TILE_HEIGHT);
     
-    //     while (!openSet.empty()) {
-    //         sf::Vector2f current = openSet.top().position;
-    //         openSet.pop();
+    //     // Directions to try (right, left, down, up)
+    //     std::array<sf::Vector2i, 4> directions = {
+    //         sf::Vector2i{tileX + 1, tileY},  // Right
+    //         sf::Vector2i{tileX - 1, tileY},  // Left
+    //         sf::Vector2i{tileX, tileY + 1},  // Down
+    //         sf::Vector2i{tileX, tileY - 1}   // Up
+    //     };
     
-    //         if (current == goal) {
-    //             break;
+    //     // Variables to keep track of the best next tile
+    //     sf::Vector2i nextTile = {tileX, tileY}; // Initialize to current tile
+    //     int minSteps = std::numeric_limits<int>::max(); // Initialize to a large value
+    
+    //     // Loop through directions to find the least visited valid tile
+    //     for (auto& dir : directions) {
+    //         int newTileX = dir.x;
+    //         int newTileY = dir.y;
+    
+    //         // Check if the tile is out of bounds
+    //         if (newTileX < 0 || newTileY < 0 || 
+    //             newTileX >= tileMap->getTileMapWidth() || 
+    //             newTileY >= tileMap->getTileMapHeight()) {
+    //             continue; // Skip out-of-bounds tiles
     //         }
     
-    //         for (const sf::Vector2f& direction : {sf::Vector2f{-1, 0}, sf::Vector2f{1, 0}, sf::Vector2f{0, -1}, sf::Vector2f{0, 1}}) {
-    //             sf::Vector2f neighbor = current + direction * tileMap->getTileWidth();
-    //             if (!isValidTile(neighbor, *tileMap)) continue;
+    //         // Calculate index for visit count
+    //         int index = newTileY * tileMap->getTileMapWidth() + newTileX;
     
-    //             float tentative_gScore = gScore[current] + distance(current, neighbor);
-    //             if (gScore.find(neighbor) == gScore.end() || tentative_gScore < gScore[neighbor]) {
-    //                 cameFrom[neighbor] = current;
-    //                 gScore[neighbor] = tentative_gScore;
-    //                 fScore[neighbor] = gScore[neighbor] + heuristic(neighbor, goal);
-    //                 openSet.push(Node{neighbor, fScore[neighbor]});
+    //         if (tileMap->getTile(index)->getWalkable()) {
+    //             // Prevent backtracking: Skip if the direction is the reverse of the last direction
+    //             if (dir.x == tileX - lastDirection.x && dir.y == tileY - lastDirection.y) {
+    //                 continue;
+    //             }
+    
+    //             int steps = tileVisitCounts[index]; // Get visit count for this tile
+    //             if (steps < minSteps) {
+    //                 minSteps = steps;
+    //                 nextTile = {newTileX, newTileY}; // Update to the least visited tile
     //             }
     //         }
     //     }
     
-    //     sf::Vector2f nextMove = reconstructPath(start, goal, cameFrom);
-    //     sf::Vector2f direction = normalize(nextMove - start);
-    //     player->changePosition(followDirVec(player->getSpeed(), start, player->getAcceleration(), direction));
-    //     player->updatePos();
-    // }
+    //     // Determine the direction to move the player based on the next tile
+    //     float playerAngle = player->getHeadingAngle();
+    //     if (tileX < nextTile.x) {
+    //         playerAngle = 0.0f;   // Moving right
+    //         physics::spriteMover(player, physics::moveRight);
+    //     } else if (tileX > nextTile.x) {
+    //         playerAngle = 180.0f; // Moving left
+    //         physics::spriteMover(player, physics::moveLeft);
+    //     } else if (tileY < nextTile.y) {
+    //         playerAngle = 90.0f;  // Moving down
+    //         physics::spriteMover(player, physics::moveDown);
+    //     } else if (tileY > nextTile.y) {
+    //         playerAngle = 270.0f; // Moving up
+    //         physics::spriteMover(player, physics::moveUp);
+    //     }
+    
+    //     // Update the player's heading angle after moving
+    //     player->setHeadingAngle(playerAngle);
+    
+    //     // Update the visit count for the newly visited tile
+    //     int nextTileIndex = nextTile.y * tileMap->getTileMapWidth() + nextTile.x;
+    //     ++tileVisitCounts[nextTileIndex];
+    
+    //     std::cout << "Player moved to tile (" << nextTile.x << ", " << nextTile.y << ") at index" << nextTileIndex << std::endl;
+    //     std::cout << "Player's heading angle: " << playerAngle << std::endl;
+    //     std::cout << "tileVisitCounts[" << nextTileIndex << "]: " << tileVisitCounts[nextTileIndex] << std::endl;
+    
+    //     lastDirection = nextTile;
+
+    //     // Check if the player has reached the goal
+    //     start = player->getSpritePos();
+    //     if (std::hypot(start.x - goal.x, start.y - goal.y) < Constants::TILE_WIDTH) {
+    //         log_info("Player has reached the goal!");
+    //     }
+    // }     
     
     void calculateRayCast3d(std::unique_ptr<Player>& player, std::unique_ptr<TileMap>& tileMap, sf::VertexArray& lines, sf::VertexArray& wallLine) {
         if(!player || !tileMap){
@@ -259,7 +303,7 @@ namespace physics {
 
         float startX = player->getSpritePos().x;
         float startY = player->getSpritePos().y;
-        float playerAngle = player->getHeadingAngle(); // Player's rotation angle
+        float playerAngle = player->getHeadingAngle(); // Player's rotation angle in degrees
 
         size_t itCount = Constants::RAYS_NUM / 2;
         float screenWidth = static_cast<float>(MetaComponents::bigView.getSize().x);
