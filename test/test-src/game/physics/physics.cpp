@@ -294,7 +294,10 @@ namespace physics {
     //         log_info("Player has reached the goal!");
     //     }
     // }     
-    
+    void navigateMaze(std::unique_ptr<Player>& player, std::vector<size_t>& tilePathInstruction){
+        
+    }
+
     void calculateRayCast3d(std::unique_ptr<Player>& player, std::unique_ptr<TileMap>& tileMap, sf::VertexArray& lines, sf::VertexArray& wallLine) {
         if(!player || !tileMap){
             log_error("tile or player is not initialized");

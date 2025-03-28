@@ -59,6 +59,9 @@ namespace Constants { // not actually "constants" in terms of being fixed, but s
     extern void writeRandomTileMap(const std::filesystem::path filePath, std::function<void(std::ofstream& file, const unsigned short startingTileIndex, const unsigned short endingTileIndex, const unsigned short walkableTileIndex, const unsigned short wallTileIndex)> DFSmazeGenerator); 
     void DFSmazeGenerator(std::ofstream& file, const unsigned short startingTileIndex, const unsigned short endingTileIndex, const unsigned short walkableTileIndex, const unsigned short wallTileIndex);
     void PrimsMazeGenerator(std::ofstream& file, const unsigned short startingTileIndex, const unsigned short endingTileIndex, const unsigned short walkableTileIndex, const unsigned short wallTileIndex);
+    
+  //  void generateTilePathInstruction(const std::filesystem::path file, const unsigned short startingTileIndex, const unsigned short endingTileIndex, const unsigned short walkableTileIndex, const unsigned short wallTileIndex);
+    extern std::vector<size_t> tilePathInstruction;
 
     // load textures, fonts, music, and sound
     extern std::shared_ptr<sf::Uint8[]> createBitmask( const std::shared_ptr<sf::Texture>& texture, const sf::IntRect& rect, const float transparency = 0.0f);
@@ -167,12 +170,18 @@ namespace Constants { // not actually "constants" in terms of being fixed, but s
     inline std::shared_ptr<sf::Texture> TILES_TEXTURE = std::make_shared<sf::Texture>();
     inline std::vector<sf::IntRect> TILES_SINGLE_RECTS;
     inline std::vector<std::shared_ptr<sf::Uint8[]>> TILES_BITMASKS;
+    inline unsigned short TILE_STARTINGINDEX;
+    inline unsigned short TILE_ENDINGINDEX;
+    inline unsigned short TILE_WALKABLEINDEX;
+    inline unsigned short TILE_WALLINDEX;
 
     // Tilemap settings
     inline size_t TILEMAP_WIDTH;
     inline size_t TILEMAP_HEIGHT;
     inline float TILEMAP_BOUNDARYOFFSET; 
     inline std::filesystem::path TILEMAP_FILEPATH;
+    inline size_t TILEMAP_PLAYERSPAWNINDEX;
+    inline size_t TILEMAP_GOALINDEX;
 
     // Text settings
     inline unsigned short TEXT_SIZE;

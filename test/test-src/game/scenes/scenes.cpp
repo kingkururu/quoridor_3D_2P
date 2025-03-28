@@ -122,8 +122,8 @@ void gamePlayScene::createAssets() {
    
         // Music
         backgroundMusic = std::make_unique<MusicClass>(std::move(Constants::BACKGROUNDMUSIC_MUSIC), Constants::BACKGROUNDMUSIC_VOLUME);
-        if(backgroundMusic) backgroundMusic->returnMusic().play(); 
-        if(backgroundMusic) backgroundMusic->returnMusic().setLoop(Constants::BACKGROUNDMUSIC_LOOP);
+        // if(backgroundMusic) backgroundMusic->returnMusic().play(); 
+        // if(backgroundMusic) backgroundMusic->returnMusic().setLoop(Constants::BACKGROUNDMUSIC_LOOP);
 
         // // Sound
         // playerJumpSound = std::make_unique<SoundClass>(Constants::PLAYERJUMP_SOUNDBUFF, Constants::PLAYERJUMPSOUND_VOLUME); 
@@ -318,10 +318,10 @@ void gamePlayScene::drawInBigView(){
     int tileY = static_cast<int>((player->getSpritePos().y - Constants::TILEMAP_POSITION.y) / Constants::TILE_HEIGHT);
     int tileIndexInMap = tileY * Constants::TILEMAP_WIDTH + tileX;
 
-    if(tileIndexInMap == 20){ // start tile
+    if(tileIndexInMap == Constants::TILEMAP_PLAYERSPAWNINDEX){ 
         drawVisibleObject(backgroundBigStart);
 
-    } else if (tileIndexInMap == 226){ // end tile
+    } else if (tileIndexInMap == Constants::TILEMAP_GOALINDEX){ 
         FlagSystem::flagEvents.gameEnd = true;
         drawVisibleObject(backgroundBigFinal);
         drawVisibleObject(endingText);

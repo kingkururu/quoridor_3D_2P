@@ -111,7 +111,8 @@ namespace Constants {
 
         readFromYaml(std::filesystem::path("test/test-src/game/globals/config.yaml"));
         writeRandomTileMap(std::filesystem::path("test/test-assets/tiles/tilemap.txt"), DFSmazeGenerator);
-        
+      //  generateTilePathInstruction(std::filesystem::path("test/test-assets/tiles/tilepath.txt"), 20, 226, 0, 1);
+
         loadAssets();
         makeRectsAndBitmasks(); 
     }
@@ -227,6 +228,10 @@ namespace Constants {
                     TILES_BOOLS[i] = false; 
                 }
             }
+            TILE_STARTINGINDEX = config["tiles"]["starting_index"].as<unsigned short>();
+            TILE_ENDINGINDEX = config["tiles"]["ending_index"].as<unsigned short>();
+            TILE_WALKABLEINDEX = config["tiles"]["walkable_index"].as<unsigned short>();
+            TILE_WALLINDEX = config["tiles"]["wall_index"].as<unsigned short>();
             
             // Load tilemap settings
             TILEMAP_POSITION = {config["tilemap"]["position"]["x"].as<float>(),
@@ -235,6 +240,8 @@ namespace Constants {
             TILEMAP_HEIGHT = config["tilemap"]["height"].as<size_t>();
             TILEMAP_BOUNDARYOFFSET = config["tilemap"]["boundary_offset"].as<float>();
             TILEMAP_FILEPATH = config["tilemap"]["filepath"].as<std::string>();
+            TILEMAP_PLAYERSPAWNINDEX = config["tilemap"]["playerspawn_index"].as<size_t>();
+            TILEMAP_GOALINDEX = config["tilemap"]["goal_index"].as<size_t>();
 
             // Load text settings
             TEXT_SIZE = config["text"]["size"].as<unsigned short>();
@@ -364,13 +371,7 @@ namespace Constants {
                 throw std::runtime_error("Unable to open file: " + filePath.string());
             }
     
-            // Define tile indices
-            const unsigned short startingTileIndex = 4; 
-            const unsigned short endingTileIndex = 3; 
-            const unsigned short walkableTileIndex = 6; 
-            const unsigned short wallTileIndex = 0; 
-
-            mazeGenerator(fileStream, startingTileIndex, endingTileIndex, walkableTileIndex, wallTileIndex);
+            mazeGenerator(fileStream, TILE_STARTINGINDEX, TILE_ENDINGINDEX, TILE_WALKABLEINDEX, TILE_WALLINDEX);
         } 
         catch (const std::exception& e) {
             log_warning("Error in writing random maze: " + std::string(e.what()));
@@ -499,7 +500,19 @@ namespace Constants {
         file.close();
         log_info("Successfully generated a Prim's Algorithm random maze with a guaranteed path.");
     }
-    
+
+    // void generateTilePathInstruction(const std::filesystem::path file, const unsigned short startingTileIndex, const unsigned short endingTileIndex, const unsigned short walkableTileIndex, const unsigned short wallTileIndex){
+    //     std::ifstream tileMapFile(TILEMAP_FILEPATH);
+    //     if (!tileMapFile.is_open()) {
+    //         log_warning("Failed to open tilemap file for generating tile path instructions");
+    //         return;
+    //     }
+
+    //     tilePathInstruction.reserve(TILEMAP_HEIGHT * TILEMAP_WIDTH);
+
+    //     // calculate which tiles to move and store it into tilePathInstruction
+    // }
+
     std::shared_ptr<sf::Uint8[]> createBitmask( const std::shared_ptr<sf::Texture>& texture, const sf::IntRect& rect, const float transparency) {
         if (!texture) {
             log_warning("\tfailed to create bitmask ( texture is empty )");
