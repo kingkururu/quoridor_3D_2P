@@ -282,9 +282,9 @@ void gamePlayScene::changeAnimation(){ // change animation for sprites. change a
 }
 
 void gamePlayScene::updatePlayerAndView() {
-    // if(player && player->getMoveState()){
-    //     physics::navigateMaze(player, tileMap1, tileVisitCounts, lastDirection);
-    // }
+    if(player && player->getMoveState()){
+        physics::navigateMaze(player, Constants::TILEPATH_INSTRUCTION);
+    }
 }
 
 void gamePlayScene::updateDrawablesVisibility(){

@@ -82,7 +82,6 @@ namespace physics{
     sf::Vector2f jump(float& elapsedTime, float speed, sf::Vector2f originalPos, sf::Vector2f acceleration = {0.1f, 0.1f}); 
     sf::Vector2f jumpToSurface(float& elapsedTime, float speed, sf::Vector2f originalPos, sf::Vector2f acceleration = {0.1f, 0.1f}); 
 
-    void navigateMaze(std::unique_ptr<Player>& player, std::unique_ptr<TileMap>& tileMap, std::vector<size_t>& tileVisitCounts, sf::Vector2i& lastDirection);
     void navigateMaze(std::unique_ptr<Player>& player, std::vector<size_t>& tilePathInstruction);
 
     template<typename SpriteType, typename MoveFunc>

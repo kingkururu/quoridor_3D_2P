@@ -56,21 +56,21 @@ namespace Constants { // not actually "constants" in terms of being fixed, but s
     extern sf::Vector2f makeRandomPositionCloud(); 
     extern sf::Vector2f makeRandomPositionCoin(); 
 
-    extern void writeRandomTileMap(const std::filesystem::path filePath, std::function<void(std::ofstream& file, const unsigned short startingTileIndex, const unsigned short endingTileIndex, const unsigned short walkableTileIndex, const unsigned short wallTileIndex)> DFSmazeGenerator); 
+    void writeRandomTileMap(const std::filesystem::path filePath, std::function<void(std::ofstream& file, const unsigned short startingTileIndex, const unsigned short endingTileIndex, const unsigned short walkableTileIndex, const unsigned short wallTileIndex)> DFSmazeGenerator); 
     void DFSmazeGenerator(std::ofstream& file, const unsigned short startingTileIndex, const unsigned short endingTileIndex, const unsigned short walkableTileIndex, const unsigned short wallTileIndex);
     void PrimsMazeGenerator(std::ofstream& file, const unsigned short startingTileIndex, const unsigned short endingTileIndex, const unsigned short walkableTileIndex, const unsigned short wallTileIndex);
     
-  //  void generateTilePathInstruction(const std::filesystem::path file, const unsigned short startingTileIndex, const unsigned short endingTileIndex, const unsigned short walkableTileIndex, const unsigned short wallTileIndex);
-    extern std::vector<size_t> tilePathInstruction;
+    void generateTilePathInstruction(const std::filesystem::path filePath, std::function<void(std::ifstream& file, const unsigned short startingTileIndex, const unsigned short endingTileIndex, const unsigned short walkableTileIndex, const unsigned short wallTileIndex)> pathInstructionGenerator);
+    void greedyPathInstructionGenerator(std::ifstream& file, const unsigned short startingTileIndex, const unsigned short endingTileIndex, const unsigned short walkableTileIndex, const unsigned short wallTileIndex);
 
     // load textures, fonts, music, and sound
-    extern std::shared_ptr<sf::Uint8[]> createBitmask( const std::shared_ptr<sf::Texture>& texture, const sf::IntRect& rect, const float transparency = 0.0f);
-    extern std::shared_ptr<sf::Uint8[]> createBitmaskForBottom( const std::shared_ptr<sf::Texture>& texture, const sf::IntRect& rect, const float transparency = 0.0f, int rows = 1);
+    std::shared_ptr<sf::Uint8[]> createBitmask( const std::shared_ptr<sf::Texture>& texture, const sf::IntRect& rect, const float transparency = 0.0f);
+    std::shared_ptr<sf::Uint8[]> createBitmaskForBottom( const std::shared_ptr<sf::Texture>& texture, const sf::IntRect& rect, const float transparency = 0.0f, int rows = 1);
 
-    extern void printBitmaskDebug(const std::shared_ptr<sf::Uint8[]>& bitmask, unsigned int width, unsigned int height);
-    extern void loadAssets(); 
-    extern void readFromYaml(const std::filesystem::path configFile); 
-    extern void makeRectsAndBitmasks(); 
+    extern void printBitmaskDebug(const std::shared_ptr<sf::Uint8[]>& bitmask, unsigned int width, unsigned int height); // make visible globally for debugging purposes
+    void loadAssets(); 
+    void readFromYaml(const std::filesystem::path configFile); 
+    void makeRectsAndBitmasks(); 
 
     // Game display settings
     inline float WORLD_SCALE;
@@ -182,6 +182,7 @@ namespace Constants { // not actually "constants" in terms of being fixed, but s
     inline std::filesystem::path TILEMAP_FILEPATH;
     inline size_t TILEMAP_PLAYERSPAWNINDEX;
     inline size_t TILEMAP_GOALINDEX;
+    inline std::vector<size_t> TILEPATH_INSTRUCTION;
 
     // Text settings
     inline unsigned short TEXT_SIZE;

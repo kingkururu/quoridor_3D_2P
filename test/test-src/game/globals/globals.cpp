@@ -111,7 +111,7 @@ namespace Constants {
 
         readFromYaml(std::filesystem::path("test/test-src/game/globals/config.yaml"));
         writeRandomTileMap(std::filesystem::path("test/test-assets/tiles/tilemap.txt"), DFSmazeGenerator);
-      //  generateTilePathInstruction(std::filesystem::path("test/test-assets/tiles/tilepath.txt"), 20, 226, 0, 1);
+        generateTilePathInstruction(std::filesystem::path("test/test-assets/tiles/tilemap.txt"), greedyPathInstructionGenerator);
 
         loadAssets();
         makeRectsAndBitmasks(); 
@@ -221,17 +221,17 @@ namespace Constants {
                         config["tiles"]["scale"]["y"].as<float>()};
             TILE_WIDTH = config["tiles"]["tile_width"].as<unsigned short>();
             TILE_HEIGHT = config["tiles"]["tile_height"].as<unsigned short>();
+            TILE_STARTINGINDEX = config["tiles"]["starting_index"].as<unsigned short>();
+            TILE_ENDINGINDEX = config["tiles"]["ending_index"].as<unsigned short>();
+            TILE_WALKABLEINDEX = config["tiles"]["walkable_index"].as<unsigned short>();
+            TILE_WALLINDEX = config["tiles"]["wall_index"].as<unsigned short>();
             for (unsigned short i = 0; i < TILES_NUM; ++i) {
-                if (i == 6 || i == 4 || i == 3 ){ // index 6,4, and 3 are walkable
+                if (i == TILE_STARTINGINDEX || i == TILE_ENDINGINDEX || i == TILE_WALKABLEINDEX ){ 
                     TILES_BOOLS[i] = true;
                 } else { 
                     TILES_BOOLS[i] = false; 
                 }
             }
-            TILE_STARTINGINDEX = config["tiles"]["starting_index"].as<unsigned short>();
-            TILE_ENDINGINDEX = config["tiles"]["ending_index"].as<unsigned short>();
-            TILE_WALKABLEINDEX = config["tiles"]["walkable_index"].as<unsigned short>();
-            TILE_WALLINDEX = config["tiles"]["wall_index"].as<unsigned short>();
             
             // Load tilemap settings
             TILEMAP_POSITION = {config["tilemap"]["position"]["x"].as<float>(),
@@ -501,17 +501,30 @@ namespace Constants {
         log_info("Successfully generated a Prim's Algorithm random maze with a guaranteed path.");
     }
 
-    // void generateTilePathInstruction(const std::filesystem::path file, const unsigned short startingTileIndex, const unsigned short endingTileIndex, const unsigned short walkableTileIndex, const unsigned short wallTileIndex){
-    //     std::ifstream tileMapFile(TILEMAP_FILEPATH);
-    //     if (!tileMapFile.is_open()) {
-    //         log_warning("Failed to open tilemap file for generating tile path instructions");
-    //         return;
-    //     }
+    void generateTilePathInstruction(const std::filesystem::path filePath, std::function<void(std::ifstream& file, const unsigned short startingTileIndex, const unsigned short endingTileIndex, const unsigned short walkableTileIndex, const unsigned short wallTileIndex)> pathInstructionGenerator) {
+        try {
+            std::ifstream fileStream(filePath);
 
-    //     tilePathInstruction.reserve(TILEMAP_HEIGHT * TILEMAP_WIDTH);
+            if (!fileStream.is_open()) {
+                throw std::runtime_error("In generating tile path instruction, unable to open file: " + filePath.string());
+            }
 
-    //     // calculate which tiles to move and store it into tilePathInstruction
-    // }
+            pathInstructionGenerator(fileStream, TILE_STARTINGINDEX, TILE_ENDINGINDEX, TILE_WALKABLEINDEX, TILE_WALLINDEX);
+        } 
+        catch (const std::exception& e) {
+            log_warning("Error in generating tile path instructions: " + std::string(e.what()));
+        }
+    }
+
+    void greedyPathInstructionGenerator(std::ifstream& file, const unsigned short startingTileIndex, const unsigned short endingTileIndex, const unsigned short walkableTileIndex, const unsigned short wallTileIndex){
+        std::ifstream tileMapFile(TILEMAP_FILEPATH);
+        if (!tileMapFile.is_open()) {
+            log_warning("Failed to open tilemap file for generating tile path instructions");
+            return;
+        }
+
+        // calculate which tiles to move and store it into TILEPATH_INSTRUCTION
+    }
 
     std::shared_ptr<sf::Uint8[]> createBitmask( const std::shared_ptr<sf::Texture>& texture, const sf::IntRect& rect, const float transparency) {
         if (!texture) {
