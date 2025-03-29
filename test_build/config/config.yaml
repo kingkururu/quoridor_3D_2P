@@ -58,8 +58,8 @@ sprites:
     animation_rows: 2 # number of rows for animation 
     path: "test/test-assets/sprites/png/player.png"
     position:
-      x: 0.0 # pixels 
-      y: 0.0 # pixels 
+      x: 48.0 # pixels 
+      y: 48.0 # pixels 
     scale:
       x: 1.0
       y: 1.0

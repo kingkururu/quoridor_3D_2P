@@ -573,10 +573,9 @@ namespace Constants {
                     node = it->second;
                 }
                 path.push_back(static_cast<unsigned short>(startIndex));
-                std::reverse(path.begin(), path.end());
                 TILEPATH_INSTRUCTION = path;
                 log_info("Successfully generated tile path instructions.");
-                // for(auto i : TILEPATH_INSTRUCTION) std::cout << i << " "; // for debugging
+                //for(auto i : TILEPATH_INSTRUCTION) std::cout << i << " "; // for debugging
                 return;
             }
             

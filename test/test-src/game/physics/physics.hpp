@@ -199,8 +199,8 @@ namespace physics{
             auto& tileMap = getTileMap(obj2);
 
             if constexpr (std::is_same_v<std::decay_t<decltype(tileMap)>, TileMap>) { /////////////////need to fix. doesn't work properly
-                int tileX = static_cast<int>((data1.position.x - Constants::TILEMAP_POSITION.x) / Constants::TILE_WIDTH);
-                int tileY = static_cast<int>((data1.position.y - Constants::TILEMAP_POSITION.y) / Constants::TILE_HEIGHT);
+                int tileX = static_cast<int>((data1.position.x - tileMap->getTileMapPosition().x) / tileMap->getTileWidth());
+                int tileY = static_cast<int>((data1.position.y - tileMap->getTileMapPosition().y) / tileMap->getTileHeight());
 
                 std::unique_ptr<Tile>& tile = tileMap.getTile(tileY * tileMap.getTileMapWidth() + tileX);
                 auto bitmask2 = tile->getBitMask().lock();
@@ -210,8 +210,8 @@ namespace physics{
                     return false;
                 }
                 
-                sf::Vector2f position2 = tileMap.getTileMapPosition() + sf::Vector2f(tileX * Constants::TILE_WIDTH, tileY * Constants::TILE_HEIGHT);
-                sf::Vector2f size2 = sf::Vector2f{ static_cast<float>(Constants::TILE_WIDTH), static_cast<float>(Constants::TILE_HEIGHT) }; 
+                sf::Vector2f position2 = tileMap.getTileMapPosition() + sf::Vector2f(tileX * tileMap->getTileWidth(), tileY * tileMap->getTileHeight());
+                sf::Vector2f size2 = sf::Vector2f{ static_cast<float>(tileMap->getTileWidth()), static_cast<float>(tileMap->getTileHeight()) }; 
                 float tileAngle = 0.0f;
 
                 float spriteAngle = sprite1->getHeadingAngle();
