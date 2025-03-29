@@ -111,7 +111,7 @@ namespace Constants {
 
         readFromYaml(std::filesystem::path("test/test-src/game/globals/config.yaml"));
         writeRandomTileMap(std::filesystem::path("test/test-assets/tiles/tilemap.txt"), DFSmazeGenerator);
-        generateTilePathInstruction(std::filesystem::path("test/test-assets/tiles/tilemap.txt"), greedyPathInstructionGenerator);
+        generateTilePathInstruction(std::filesystem::path("test/test-assets/tiles/tilemap.txt"), AstarPathInstructionGenerator);
 
         loadAssets();
         makeRectsAndBitmasks(); 
@@ -501,29 +501,130 @@ namespace Constants {
         log_info("Successfully generated a Prim's Algorithm random maze with a guaranteed path.");
     }
 
-    void generateTilePathInstruction(const std::filesystem::path filePath, std::function<void(std::ifstream& file, const unsigned short startingTileIndex, const unsigned short endingTileIndex, const unsigned short walkableTileIndex, const unsigned short wallTileIndex)> pathInstructionGenerator) {
+    void generateTilePathInstruction(const std::filesystem::path filePath, std::function<void(std::ifstream& file, const unsigned short startingTileIndex, const unsigned short endingTileIndex, const unsigned short walkableTileIndex, const unsigned short wallTileIndex, const unsigned short tileMapWidth, const unsigned short tileMapHeight)> pathInstructionGenerator) {
         try {
             std::ifstream fileStream(filePath);
 
             if (!fileStream.is_open()) {
                 throw std::runtime_error("In generating tile path instruction, unable to open file: " + filePath.string());
             }
-
-            pathInstructionGenerator(fileStream, TILE_STARTINGINDEX, TILE_ENDINGINDEX, TILE_WALKABLEINDEX, TILE_WALLINDEX);
+            
+            TILEPATH_INSTRUCTION.reserve(TILEMAP_HEIGHT * TILEMAP_WIDTH);
+            pathInstructionGenerator(fileStream, TILE_STARTINGINDEX, TILE_ENDINGINDEX, TILE_WALKABLEINDEX, TILE_WALLINDEX, TILEMAP_WIDTH, TILEMAP_HEIGHT);
         } 
         catch (const std::exception& e) {
             log_warning("Error in generating tile path instructions: " + std::string(e.what()));
         }
     }
-
-    void greedyPathInstructionGenerator(std::ifstream& file, const unsigned short startingTileIndex, const unsigned short endingTileIndex, const unsigned short walkableTileIndex, const unsigned short wallTileIndex){
-        std::ifstream tileMapFile(TILEMAP_FILEPATH);
-        if (!tileMapFile.is_open()) {
-            log_warning("Failed to open tilemap file for generating tile path instructions");
+ 
+    void AstarPathInstructionGenerator(std::ifstream& file, const unsigned short startingTileIndex, const unsigned short endingTileIndex, const unsigned short walkableTileIndex, const unsigned short wallTileIndex,
+        const unsigned short tileMapWidth, const unsigned short tileMapHeight) {
+    
+        std::vector<unsigned short> tileMap(tileMapWidth * tileMapHeight);
+        
+        // Read the tilemap from file
+        for (size_t i = 0; i < tileMap.size(); ++i) {
+            file >> tileMap[i];
+        }
+        file.close();
+        
+        size_t startIndex = std::find(tileMap.begin(), tileMap.end(), startingTileIndex) - tileMap.begin();
+        size_t goalIndex = std::find(tileMap.begin(), tileMap.end(), endingTileIndex) - tileMap.begin();
+        
+        if (startIndex >= tileMap.size() || goalIndex >= tileMap.size()) {
+            log_warning("Player spawn or goal index not found.");
             return;
         }
+        
+        if (startIndex == goalIndex) {
+            TILEPATH_INSTRUCTION = { static_cast<unsigned short>(startIndex) };
+            log_info("Successfully generated tile path instructions.");
+            return;
+        }
+        
+        int goalX = goalIndex % tileMapWidth;
+        int goalY = goalIndex / tileMapWidth;
+        
+        auto heuristic = [goalX, goalY, tileMapWidth](size_t index) {
+            int x = index % tileMapWidth;
+            int y = index / tileMapWidth;
+            return std::abs(x - goalX) + std::abs(y - goalY);
+        };
+        
+        std::priority_queue<std::pair<int, size_t>, 
+                            std::vector<std::pair<int, size_t>>, 
+                            std::greater<std::pair<int, size_t>>> pq;
+        std::unordered_map<size_t, size_t> parent;
+        std::unordered_set<size_t> visited;
+        
+        pq.push({ heuristic(startIndex), startIndex });
+        parent[startIndex] = startIndex;
+        
+        while (!pq.empty()) {
+            auto current = pq.top();
+            pq.pop();
+            size_t currentIndex = current.second;
+            
+            if (currentIndex == goalIndex) {
+                std::vector<size_t> path;
+                size_t node = goalIndex;
+                while (node != startIndex) {
+                    path.push_back(static_cast<unsigned short>(node));
+                    auto it = parent.find(node);
+                    if (it == parent.end()) {
+                        log_warning("Path reconstruction failed.");
+                        return;
+                    }
+                    node = it->second;
+                }
+                path.push_back(static_cast<unsigned short>(startIndex));
+                std::reverse(path.begin(), path.end());
+                TILEPATH_INSTRUCTION = path;
+                log_info("Successfully generated tile path instructions.");
 
-        // calculate which tiles to move and store it into TILEPATH_INSTRUCTION
+                for(auto i : TILEPATH_INSTRUCTION){
+                    std::cout  << i << " ";
+                }
+                return;
+            }
+            
+            if (visited.count(currentIndex)) {
+                continue;
+            }
+            visited.insert(currentIndex);
+            
+            int x = currentIndex % tileMapWidth;
+            int y = currentIndex / tileMapWidth;
+            
+            std::vector<size_t> neighbors;
+            // Left
+            if (x > 0) {
+                neighbors.push_back(y * tileMapWidth + (x - 1));
+            }
+            // Right
+            if (x < tileMapWidth - 1) {
+                neighbors.push_back(y * tileMapWidth + (x + 1));
+            }
+            // Up
+            if (y > 0) {
+                neighbors.push_back((y - 1) * tileMapWidth + x);
+            }
+            // Down
+            if (y < tileMapHeight - 1) {
+                neighbors.push_back((y + 1) * tileMapWidth + x);
+            }
+            
+            for (size_t neighbor : neighbors) {
+                if (tileMap[neighbor] == walkableTileIndex || tileMap[neighbor] == endingTileIndex) {
+                    if (!visited.count(neighbor)) {
+                        parent[neighbor] = currentIndex;
+                        pq.push({ heuristic(neighbor), neighbor });
+                    }
+                }
+            }
+        }
+        
+        log_warning("No path found between start and goal.");
     }
 
     std::shared_ptr<sf::Uint8[]> createBitmask( const std::shared_ptr<sf::Texture>& texture, const sf::IntRect& rect, const float transparency) {

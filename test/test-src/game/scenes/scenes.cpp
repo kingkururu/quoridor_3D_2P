@@ -88,9 +88,6 @@ void gamePlayScene::createAssets() {
     try {
         globalTimer.Reset();  
         
-        tileVisitCounts = std::vector<size_t>(Constants::TILEMAP_HEIGHT * Constants::TILEMAP_WIDTH, 0); 
-        lastDirection = sf::Vector2i(0, 0); // player's starting tile
-
         // Animated sprites
         player = std::make_unique<Player>(Constants::SPRITE1_POSITION, Constants::SPRITE1_SCALE, Constants::SPRITE1_TEXTURE, Constants::SPRITE1_SPEED, Constants::SPRITE1_ACCELERATION, 
                                           Constants::SPRITE1_ANIMATIONRECTS, Constants::SPRITE1_INDEXMAX, utils::convertToWeakPtrVector(Constants::SPRITE1_BITMASK));
@@ -283,7 +280,7 @@ void gamePlayScene::changeAnimation(){ // change animation for sprites. change a
 
 void gamePlayScene::updatePlayerAndView() {
     if(player && player->getMoveState()){
-        physics::navigateMaze(player, Constants::TILEPATH_INSTRUCTION);
+        physics::navigateMaze(player, tileMap1, Constants::TILEPATH_INSTRUCTION);
     }
 }
 

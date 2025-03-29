@@ -118,8 +118,6 @@ class gamePlayScene : public virtual Scene{
   // for 3d walls
   sf::VertexArray rays;
   sf::VertexArray wallLine; 
-  std::vector<size_t> tileVisitCounts;
-  sf::Vector2i lastDirection; 
 
   std::unique_ptr<MusicClass> backgroundMusic;
 
