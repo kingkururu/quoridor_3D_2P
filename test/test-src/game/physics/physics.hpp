@@ -22,17 +22,14 @@ namespace physics{
     public:
         Quadtree(float x, float y, float width, float height, size_t level = 0, size_t maxObjects = 10, size_t maxLevels = 5);
         ~Quadtree(){ clear(); };
-
         void clear();
 
         template<typename SpriteType> void insert(std::unique_ptr<SpriteType>& obj) { 
             try {
-                // If no child nodes exist, add the object to this node
-                if (nodes.empty()) {
+                if (nodes.empty()) { // If no child nodes exist, add the object to this node
                     objects.push_back(obj.get());
                     log_info("Sprite inserted into quadtree node.");
-                } else {
-                    // Check which child node the object belongs to
+                } else { // Check which child node the object belongs to
                     for (auto& node : nodes) {
                         if (node->bounds.contains(obj->returnSpritesShape().getPosition())) {
                             node->insert(obj);
@@ -45,7 +42,6 @@ namespace physics{
                 log_error("Error during insert: " + std::string(e.what()));
             }
         }
-
         std::vector<Sprite*> query(const sf::FloatRect& area) const;
         void subdivide();
         bool contains(const sf::FloatRect& bounds) const;
@@ -56,77 +52,71 @@ namespace physics{
         size_t maxLevels;
         size_t level;
         sf::FloatRect bounds;
-
         std::vector<Sprite*> objects;
         std::vector<std::unique_ptr<Quadtree>> nodes;
     };
 
+    // moving object
+    constexpr float gravity = 9.8f;
+    sf::Vector2f freeFall(float speed, sf::Vector2f originalPo);
+    sf::Vector2f jump(float& elapsedTime, float speed, sf::Vector2f originalPos, sf::Vector2f acceleration = {0.1f, 0.1f}); 
+    sf::Vector2f jumpToSurface(float& elapsedTime, float speed, sf::Vector2f originalPos, sf::Vector2f acceleration = {0.1f, 0.1f}); 
+
+    sf::Vector2f moveLeft(float speed, sf::Vector2f originalPos, sf::Vector2f acceleration = {1.0f, 1.0f}); 
+    sf::Vector2f moveRight(float speed, sf::Vector2f originalPos, sf::Vector2f acceleration = {1.0f, 1.0f});
+    sf::Vector2f moveUp(float speed, sf::Vector2f originalPos, sf::Vector2f acceleration = {1.0f, 1.0f});
+    sf::Vector2f moveDown(float speed, sf::Vector2f originalPos, sf::Vector2f acceleration = {1.0f, 1.0f});
+
+    sf::Vector2f followDirVec(float speed, sf::Vector2f originalPos, sf::Vector2f acceleration, const sf::Vector2f& direction); 
+    sf::Vector2f followDirVecOpposite(float speed, sf::Vector2f originalPos, sf::Vector2f acceleration, const sf::Vector2f& direction); 
+
+    template<typename SpriteType, typename MoveFunc, typename... Args>
+    void spriteMover(std::unique_ptr<SpriteType>& sprite, const MoveFunc& moveFunc, Args&&... args) {
+        float speed = sprite->getSpeed();
+        sf::Vector2f originalPos = sprite->getSpritePos();
+
+        if constexpr (std::is_invocable_v<MoveFunc, float&, float, sf::Vector2f, sf::Vector2f>) {
+            // Handle time-based movement with acceleration
+            auto&& argsTuple = std::forward_as_tuple(std::forward<Args>(args)...);
+            float& elapsedTime = std::get<0>(argsTuple);
+            sf::Vector2f acceleration = std::get<1>(argsTuple);
+            sprite->changePosition(moveFunc(elapsedTime, speed, originalPos, acceleration));
+        } else {
+            // Handle standard movement
+            sf::Vector2f acceleration = sprite->getAcceleration();
+            sf::Vector2f direction = sprite->getDirectionVector();
+            
+            if constexpr (std::is_invocable_v<MoveFunc, float, sf::Vector2f, sf::Vector2f, sf::Vector2f&>) {
+                sprite->changePosition(moveFunc(speed, originalPos, acceleration, direction));
+            } else if constexpr (std::is_invocable_v<MoveFunc, float, sf::Vector2f, sf::Vector2f>) {
+                sprite->changePosition(moveFunc(speed, originalPos, acceleration));
+            } else if constexpr (std::is_invocable_v<MoveFunc, float, sf::Vector2f>) {
+                sprite->changePosition(moveFunc(speed, originalPos));
+            }
+        }
+        sprite->updatePos();
+    }
+
+    // for 3D calculations
+    void calculateRayCast3d(std::unique_ptr<Player>& player, std::unique_ptr<TileMap>& tileMap, sf::VertexArray& rays, sf::VertexArray& wallLine);
+    void navigateMaze(std::unique_ptr<Player>& player, std::unique_ptr<TileMap>& tileMap, std::vector<size_t>& tilePathInstruction);
+
+    // collision methods
+    bool circleCollision(const sf::Vector2f pos1, float radius1, const sf::Vector2f pos2, float radius2);
+    // raycast pre-collision in 2D space
     struct RaycastResult {
         std::vector<float> collisionTimes;
         int counter; 
     };    
     extern RaycastResult cachedRaycastResult; 
-
-    constexpr float gravity = 9.8f;
-
-    // falling objects
-    sf::Vector2f freeFall(float speed, sf::Vector2f originalPo);
-    sf::Vector2f followDirVec( float speed, sf::Vector2f originalPos, sf::Vector2f acceleration, const sf::Vector2f& direction); 
-    sf::Vector2f followDirVecOpposite( float speed, sf::Vector2f originalPos, sf::Vector2f acceleration, const sf::Vector2f& direction); 
-
-    // moving player
-    sf::Vector2f moveLeft( float speed, sf::Vector2f originalPos, sf::Vector2f acceleration = {1.0f, 1.0f}); 
-    sf::Vector2f moveRight( float speed, sf::Vector2f originalPos, sf::Vector2f acceleration = {1.0f, 1.0f});
-    sf::Vector2f moveUp( float speed, sf::Vector2f originalPos, sf::Vector2f acceleration = {1.0f, 1.0f});
-    sf::Vector2f moveDown( float speed, sf::Vector2f originalPos, sf::Vector2f acceleration = {1.0f, 1.0f});
-    sf::Vector2f jump(float& elapsedTime, float speed, sf::Vector2f originalPos, sf::Vector2f acceleration = {0.1f, 0.1f}); 
-    sf::Vector2f jumpToSurface(float& elapsedTime, float speed, sf::Vector2f originalPos, sf::Vector2f acceleration = {0.1f, 0.1f}); 
-
-    void navigateMaze(std::unique_ptr<Player>& player, std::unique_ptr<TileMap>& tileMap, std::vector<size_t>& tilePathInstruction);
-
-    template<typename SpriteType, typename MoveFunc>
-    void spriteMover(std::unique_ptr<SpriteType>& sprite, const MoveFunc& moveFunc) {
-        float speed = sprite->getSpeed(); 
-        sf::Vector2f originalPos = sprite->getSpritePos(); 
-        sf::Vector2f acceleration = sprite->getAcceleration(); 
-        sf::Vector2f direction = sprite->getDirectionVector(); 
-
-        // Handle different types of MoveFunc
-        if constexpr (std::is_invocable_v<MoveFunc, float, sf::Vector2f, sf::Vector2f, sf::Vector2f&>){
-            sprite->changePosition(moveFunc( speed, originalPos, acceleration, direction)); 
-        } else if constexpr (std::is_invocable_v<MoveFunc, float, sf::Vector2f, sf::Vector2f>){
-            sprite->changePosition(moveFunc( speed, originalPos, acceleration)); 
-        } else if constexpr (std::is_invocable_v<MoveFunc, float, sf::Vector2f>){
-            sprite->changePosition(moveFunc( speed, originalPos)); 
-        }
-        sprite->updatePos();  // Update sprite's position after applying the move function
-    }
-   
-    template<typename SpriteType, typename MoveFunc>
-    void spriteMover(std::unique_ptr<SpriteType>& sprite, const MoveFunc& moveFunc, float& elapsedTime, sf::Vector2f acceleration) {
-        float speed = sprite->getSpeed(); 
-        sf::Vector2f originalPos = sprite->getSpritePos(); 
-
-        // Handle different types of MoveFunc
-        if constexpr (std::is_invocable_v<MoveFunc, float&, float, sf::Vector2f, sf::Vector2f>){
-            sprite->changePosition(moveFunc(elapsedTime, speed, originalPos, acceleration)); 
-        }
-        sprite->updatePos();  // Update sprite's position after applying the move function
-    }
-
-    //circle-shaped sprite collision
-    bool circleCollision(const sf::Vector2f pos1, float radius1, const sf::Vector2f pos2, float radius2);
-    //raycast pre-collision
     bool raycastPreCollision(const sf::Vector2f obj1position, const sf::Vector2f obj1direction, float obj1Speed, const sf::FloatRect obj1Bounds, sf::Vector2f obj1Acceleration, 
-                            const sf::Vector2f obj2position, const sf::Vector2f obj2direction, float obj2Speed, const sf::FloatRect obj2Bounds, sf::Vector2f obj2Acceleration);
-    //axis aligned bounding box collision
+                             const sf::Vector2f obj2position, const sf::Vector2f obj2direction, float obj2Speed, const sf::FloatRect obj2Bounds, sf::Vector2f obj2Acceleration);
     bool boundingBoxCollision(const sf::Vector2f &position1, const sf::Vector2f& size1, const sf::Vector2f &position2, const sf::Vector2f& size2);
-    //pixel perfect collision
     bool pixelPerfectCollision( const std::shared_ptr<sf::Uint8[]> &bitmask1, const sf::Vector2f &position1, const sf::Vector2f &size1,
                                 const std::shared_ptr<sf::Uint8[]> &bitmask2, const sf::Vector2f &position2, const sf::Vector2f &size2);  
     bool pixelPerfectCollision(const std::shared_ptr<sf::Uint8[]>& bitmask1, const sf::Vector2f& position1, const sf::Vector2f& size1,
-        const std::shared_ptr<sf::Uint8[]>& bitmask2, const sf::Vector2f& position2, const sf::Vector2f& size2,
-        float angle1, float angle2);
+                               const std::shared_ptr<sf::Uint8[]>& bitmask2, const sf::Vector2f& position2, const sf::Vector2f& size2,
+                               float angle1, float angle2); // for rotated sprites
 
     struct CollisionData {
         sf::Vector2f position;
@@ -135,7 +125,7 @@ namespace physics{
         float speed;
         sf::Vector2f acceleration;
         sf::Vector2f size;
-        std::shared_ptr<sf::Uint8[]> bitmask; // for bitmask-based collision
+        std::shared_ptr<sf::Uint8[]> bitmask; 
         sf::FloatRect bounds;
     };
 
@@ -292,5 +282,4 @@ namespace physics{
         }
         return false; // default 
     }
-    void calculateRayCast3d(std::unique_ptr<Player>& player, std::unique_ptr<TileMap>& tileMap, sf::VertexArray& rays, sf::VertexArray& wallLine);
 }    

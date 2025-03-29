@@ -21,8 +21,8 @@
 class Sprite : public sf::Drawable {
 public:
     explicit Sprite(sf::Vector2f position, sf::Vector2f scale, std::weak_ptr<sf::Texture> texture);
-
     virtual ~Sprite() = default;
+
     sf::Vector2f getSpritePos() const { return position; };
     sf::Sprite& returnSpritesShape() const { return *spriteCreated; } 
     bool getVisibleState() const { return visibleState; }
@@ -62,7 +62,8 @@ class Animated : public virtual Sprite {
 public:
     explicit Animated( sf::Vector2f position, sf::Vector2f scale, std::weak_ptr<sf::Texture> texture, const std::vector<sf::IntRect> animationRects, unsigned const int indexMax,  const std::vector<std::weak_ptr<sf::Uint8[]>>& bitMask) 
         : Sprite(position, scale, texture), animationRects(animationRects), indexMax(indexMax), bitMask(bitMask) {}
-    std::vector<sf::IntRect> const getAnimationRects() const { return animationRects; } 
+    
+        std::vector<sf::IntRect> const getAnimationRects() const { return animationRects; } 
     void setAnimation(std::vector<sf::IntRect> AnimationRects) { animationRects = AnimationRects; } 
     
     void setAnimChangeState(bool newState) { animChangeState = newState; }
@@ -193,8 +194,8 @@ class Player : public NonStatic, public Animated {
         sf::Vector2f playerCenter = sf::Vector2f( getRects().width / 2, getRects().height / 2);
         spriteCreated->setOrigin(playerCenter);  // Adjust the origin for the player sprite
       }
-
     ~Player() override = default;
+    
     void updatePlayer(sf::Vector2f newPos); 
     void changeAnimation() override; 
     bool getJumpingState() const { return isJumping; }

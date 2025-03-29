@@ -517,9 +517,7 @@ namespace Constants {
         }
     }
  
-    void AstarPathInstructionGenerator(std::ifstream& file, const unsigned short startingTileIndex, const unsigned short endingTileIndex, const unsigned short walkableTileIndex, const unsigned short wallTileIndex,
-        const unsigned short tileMapWidth, const unsigned short tileMapHeight) {
-    
+    void AstarPathInstructionGenerator(std::ifstream& file, const unsigned short startingTileIndex, const unsigned short endingTileIndex, const unsigned short walkableTileIndex, const unsigned short wallTileIndex, const unsigned short tileMapWidth, const unsigned short tileMapHeight) {
         std::vector<unsigned short> tileMap(tileMapWidth * tileMapHeight);
         
         for (size_t i = 0; i < tileMap.size(); ++i) file >> tileMap[i];
@@ -606,7 +604,6 @@ namespace Constants {
                 }
             }
         }
-        
         log_warning("No path found between start and goal using A*.");
     }
 
