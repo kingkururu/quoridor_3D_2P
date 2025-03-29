@@ -136,7 +136,7 @@ namespace physics{
         if(!sprite->isCentered()) {
             data.position = sprite->getSpritePos();
         } else {
-            data.position = sf::Vector2f{ sprite->getSpritePos().x - data.bounds.width / 2, sprite->getSpritePos().y - data.bounds.height / 2};
+            data.position = sf::Vector2f{sprite->getSpritePos().x - data.bounds.width / 2, sprite->getSpritePos().y - data.bounds.height / 2};
         }
         data.radius = sprite->getRadius();
         data.direction = sprite->getDirectionVector();
@@ -165,8 +165,7 @@ namespace physics{
         auto& sprite1 = getSprite(std::forward<ObjType1>(obj1));
         CollisionData data1 = extractCollisionData(sprite1);
 
-        if constexpr (sizeof...(Args) == 0) {
-            // Handle sprite vs. non-sprite (mouse, view, tilemap)
+        if constexpr (sizeof...(Args) == 0) { // Handle sprite vs. non-sprite (mouse, view, tilemap)
             if constexpr (std::is_same_v<std::decay_t<ObjType2>, sf::Vector2f>) { // mouse
                 sf::Vector2f position2(static_cast<float>(obj2.x), static_cast<float>(obj2.y));
                 sf::Vector2f size2(1.0f, 1.0f);
@@ -179,25 +178,19 @@ namespace physics{
                 return boundingBoxCollision(data1.position, data1.size, position2, size2);
             } else { // tilemap
                 auto getTileMap = [](auto&& obj) -> auto& {
-                    if constexpr (std::is_pointer_v<std::decay_t<decltype(obj)>> || 
-                                std::is_same_v<std::decay_t<decltype(obj)>, std::unique_ptr<TileMap>>) {
-                        return *obj;
-                    } else {
-                        return obj;
-                    }
-                };
+                    if constexpr (std::is_pointer_v<std::decay_t<decltype(obj)>> || std::is_same_v<std::decay_t<decltype(obj)>, std::unique_ptr<TileMap>>) return *obj;
+                    else return obj; };
                 auto& tileMap = getTileMap(obj2);
 
-                if constexpr (std::is_same_v<std::decay_t<decltype(tileMap)>, TileMap>) { // only check entire tilemap
+                if constexpr (std::is_same_v<std::decay_t<decltype(tileMap)>, TileMap>) { // only checks entire tilemap block as a single object
                     sf::Vector2f position2 = tileMap.getTileMapPosition();
                     sf::Vector2f size2(tileMap.getTileWidth() * static_cast<float>(tileMap.getTileMapWidth()),
-                    tileMap.getTileHeight() * static_cast<float>(tileMap.getTileMapHeight()) );
+                                       tileMap.getTileHeight() * static_cast<float>(tileMap.getTileMapHeight()));
                     return boundingBoxCollision(data1.position, data1.size, position2, size2);
                 }
                 return false;
             }
-        } else {
-            // Handle sprite vs. sprite with collision function and optional parameters
+        } else { // Handle sprite vs. sprite with collision function and optional parameters
             if (!obj1) {
                 log_warning("First object is missing in collision detection");
                 return false;
@@ -235,7 +228,7 @@ namespace physics{
                 } else if constexpr (std::is_invocable_v<decltype(func), sf::Vector2f, sf::Vector2f, float, sf::FloatRect, sf::Vector2f>) {
                     if (!cachedRaycastResult.counter) {
                         return func(d1.position, d1.direction, d1.speed, d1.bounds, d1.acceleration,
-                                d2.position, d2.direction, d2.speed, d2.bounds, d2.acceleration);
+                                    d2.position, d2.direction, d2.speed, d2.bounds, d2.acceleration);
                     } else if (timeElapsed > cachedRaycastResult.collisionTimes[counterIndex]) {
                         cachedRaycastResult.counter = 0;
                         return true;
