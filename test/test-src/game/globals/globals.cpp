@@ -522,10 +522,7 @@ namespace Constants {
     
         std::vector<unsigned short> tileMap(tileMapWidth * tileMapHeight);
         
-        // Read the tilemap from file
-        for (size_t i = 0; i < tileMap.size(); ++i) {
-            file >> tileMap[i];
-        }
+        for (size_t i = 0; i < tileMap.size(); ++i) file >> tileMap[i];
         file.close();
         
         size_t startIndex = std::find(tileMap.begin(), tileMap.end(), startingTileIndex) - tileMap.begin();
@@ -551,9 +548,7 @@ namespace Constants {
             return std::abs(x - goalX) + std::abs(y - goalY);
         };
         
-        std::priority_queue<std::pair<int, size_t>, 
-                            std::vector<std::pair<int, size_t>>, 
-                            std::greater<std::pair<int, size_t>>> pq;
+        std::priority_queue<std::pair<int, size_t>, std::vector<std::pair<int, size_t>>, std::greater<std::pair<int, size_t>>> pq;
         std::unordered_map<size_t, size_t> parent;
         std::unordered_set<size_t> visited;
         
@@ -581,38 +576,23 @@ namespace Constants {
                 std::reverse(path.begin(), path.end());
                 TILEPATH_INSTRUCTION = path;
                 log_info("Successfully generated tile path instructions.");
-
-                for(auto i : TILEPATH_INSTRUCTION){
-                    std::cout  << i << " ";
-                }
+                // for(auto i : TILEPATH_INSTRUCTION) std::cout << i << " "; // for debugging
                 return;
             }
             
-            if (visited.count(currentIndex)) {
-                continue;
-            }
+            if (visited.count(currentIndex)) continue;
+
             visited.insert(currentIndex);
             
             int x = currentIndex % tileMapWidth;
             int y = currentIndex / tileMapWidth;
             
             std::vector<size_t> neighbors;
-            // Left
-            if (x > 0) {
-                neighbors.push_back(y * tileMapWidth + (x - 1));
-            }
-            // Right
-            if (x < tileMapWidth - 1) {
-                neighbors.push_back(y * tileMapWidth + (x + 1));
-            }
-            // Up
-            if (y > 0) {
-                neighbors.push_back((y - 1) * tileMapWidth + x);
-            }
-            // Down
-            if (y < tileMapHeight - 1) {
-                neighbors.push_back((y + 1) * tileMapWidth + x);
-            }
+
+            if (x > 0) neighbors.push_back(y * tileMapWidth + (x - 1)); // Left
+            if (x < tileMapWidth - 1) neighbors.push_back(y * tileMapWidth + (x + 1)); // Right
+            if (y > 0) neighbors.push_back((y - 1) * tileMapWidth + x); // Up
+            if (y < tileMapHeight - 1) neighbors.push_back((y + 1) * tileMapWidth + x); // Down
             
             for (size_t neighbor : neighbors) {
                 if (tileMap[neighbor] == walkableTileIndex || tileMap[neighbor] == endingTileIndex) {
@@ -624,7 +604,7 @@ namespace Constants {
             }
         }
         
-        log_warning("No path found between start and goal.");
+        log_warning("No path found between start and goal using A*.");
     }
 
     std::shared_ptr<sf::Uint8[]> createBitmask( const std::shared_ptr<sf::Texture>& texture, const sf::IntRect& rect, const float transparency) {
