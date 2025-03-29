@@ -155,131 +155,116 @@ namespace physics{
         return data;
     }
 
-    template<typename ObjType1, typename ObjType2>
-    bool collisionHelper(ObjType1&& obj1, ObjType2&& obj2) { // for sprive vs. non-sprite
-        auto getSprite = [](auto&& obj1) -> auto& {
-            if constexpr (std::is_pointer_v<std::decay_t<decltype(obj1)>>) return *obj1; // Dereference unique_ptr or raw pointer
-            else return obj1; // Direct reference if it's an object
-        };
-
-        // Retrieve references to obj1 and obj2
-        auto& sprite1 = getSprite(std::forward<ObjType1>(obj1));
-        CollisionData data1 = extractCollisionData(sprite1);
-
-        if constexpr (std::is_same_v<std::decay_t<ObjType2>, sf::Vector2f>) { // mouse 
-            sf::Vector2f position2(static_cast<float>(obj2.x), static_cast<float>(obj2.y));
-            sf::Vector2f size2(1.0f, 1.0f);
-            return boundingBoxCollision(data1.position, data1.size, position2, size2);
-        } 
-        else if constexpr (std::is_same_v<std::decay_t<ObjType2>, sf::View>) { // view
-            sf::Vector2f viewCenter = obj2.getCenter();
-            sf::Vector2f viewSize = obj2.getSize();
-            sf::Vector2f position2(viewCenter.x - viewSize.x / 2, viewCenter.y - viewSize.y / 2);
-            sf::Vector2f size2(viewSize.x, viewSize.y);
-            return boundingBoxCollision(data1.position, data1.size, position2, size2);
-        } 
-        else { // tilemap 
-            auto getTileMap = [](auto&& obj2) -> auto& {
-                if constexpr (std::is_pointer_v<std::decay_t<decltype(obj2)>> || std::is_same_v<std::decay_t<decltype(obj2)>, std::unique_ptr<TileMap>>) {
-                    return *obj2; 
-                } else {
-                    return obj2; 
-                }
-            };
-            auto& tileMap = getTileMap(obj2);
-
-            if constexpr (std::is_same_v<std::decay_t<decltype(tileMap)>, TileMap>) { /////////////////need to fix. doesn't work properly
-                int tileX = static_cast<int>((data1.position.x - tileMap->getTileMapPosition().x) / tileMap->getTileWidth());
-                int tileY = static_cast<int>((data1.position.y - tileMap->getTileMapPosition().y) / tileMap->getTileHeight());
-
-                std::unique_ptr<Tile>& tile = tileMap.getTile(tileY * tileMap.getTileMapWidth() + tileX);
-                auto bitmask2 = tile->getBitMask().lock();
-                if (!bitmask2) {
-                    // Handle the case where the bitmask is no longer available (locked from weak_ptr)
-                    std::cout << "Bitmask is no longer available!" << std::endl;
-                    return false;
-                }
-                
-                sf::Vector2f position2 = tileMap.getTileMapPosition() + sf::Vector2f(tileX * tileMap->getTileWidth(), tileY * tileMap->getTileHeight());
-                sf::Vector2f size2 = sf::Vector2f{ static_cast<float>(tileMap->getTileWidth()), static_cast<float>(tileMap->getTileHeight()) }; 
-                float tileAngle = 0.0f;
-
-                float spriteAngle = sprite1->getHeadingAngle();
-
-                if (!tile->getWalkable()) {
-                    // Debugging: print when skipping a tile
-                    std::cout << "Skipping non-walkable tile at (" << tileX << ", " << tileY << ")" << std::endl;
-                    return false; // Skip non-walkable tiles
-                }
-
-                // Perform bounding box collision check
-                if (pixelPerfectCollision(data1.bitmask, data1.position, data1.size, bitmask2, position2, size2, tileAngle, spriteAngle)) {
-                    std::cout << "Collision detected with tile at (" << tileX << ", " << tileY << ")" << std::endl;
-                    return true; // Collision detected
-                }
-            }
-        }
-        return false; // Default case
-    }
-
-    template<typename ObjType1, typename ObjType2, typename CollisionType> // for sprite vs. sprite
-    bool collisionHelper(ObjType1&& obj1, ObjType2&& obj2, const CollisionType& collisionFunc, Quadtree* quadtree = nullptr, float timeElapsed = 0.0f, size_t counterIndex = 0) { // for sprive vs. sprite
-        // Check if obj1 and obj2 are valid pointers
-        if (!obj1) {
-            log_warning("First object is missing in collision detection");
-            return false;
-        }
-        if (!obj2) {
-            log_warning("Second object is missing in collision detection");
-            return false;
-        }
-
-        // Helper function for handling unique_ptr<DerivedSprite> or Sprite directly
+    template<typename ObjType1, typename ObjType2, typename... Args>
+    bool collisionHelper(ObjType1&& obj1, ObjType2&& obj2, Args&&... args) {
         auto getSprite = [](auto&& obj) -> auto& {
-            if constexpr (std::is_pointer_v<std::decay_t<decltype(obj)>>) return *obj; // Dereference unique_ptr or raw pointer
-            else return obj; // Direct reference if it's an object
+            if constexpr (std::is_pointer_v<std::decay_t<decltype(obj)>>) return *obj;
+            else return obj;
         };
 
-        // Retrieve references to obj1 and obj2
         auto& sprite1 = getSprite(std::forward<ObjType1>(obj1));
-        auto& sprite2 = getSprite(std::forward<ObjType2>(obj2));
         CollisionData data1 = extractCollisionData(sprite1);
-        CollisionData data2 = extractCollisionData(sprite2);
 
-        auto collisionLambda = [&timeElapsed, counterIndex](const CollisionData& data1, const CollisionData& data2, CollisionType collisionFunc) {
-            if constexpr (std::is_invocable_v<CollisionType, sf::Vector2f, float, sf::Vector2f, float>) { // circle collision
-                return collisionFunc(data1.position, data1.radius, data2.position, data2.radius);
-            } else if constexpr (std::is_invocable_v<CollisionType, sf::Vector2f, sf::Vector2f, sf::Vector2f, sf::Vector2f>) { // bounding box collision
-                return collisionFunc(data1.position, data1.size, data2.position, data2.size);
-            } else if constexpr (std::is_invocable_v<CollisionType, sf::Vector2f, sf::Vector2f, float, sf::FloatRect, sf::Vector2f>) { // raycast pre-collision
-                if (!cachedRaycastResult.counter) {
-                    return collisionFunc(data1.position, data1.direction, data1.speed, data1.bounds, data1.acceleration, data2.position, data2.direction, data2.speed, data2.bounds, data2.acceleration);
-                } else if (timeElapsed > cachedRaycastResult.collisionTimes[counterIndex]) {
-                    cachedRaycastResult.counter = 0;
-                    return true;
+        if constexpr (sizeof...(Args) == 0) {
+            // Handle sprite vs. non-sprite (mouse, view, tilemap)
+            if constexpr (std::is_same_v<std::decay_t<ObjType2>, sf::Vector2f>) { // mouse
+                sf::Vector2f position2(static_cast<float>(obj2.x), static_cast<float>(obj2.y));
+                sf::Vector2f size2(1.0f, 1.0f);
+                return boundingBoxCollision(data1.position, data1.size, position2, size2);
+            } else if constexpr (std::is_same_v<std::decay_t<ObjType2>, sf::View>) { // view
+                sf::Vector2f viewCenter = obj2.getCenter();
+                sf::Vector2f viewSize = obj2.getSize();
+                sf::Vector2f position2(viewCenter.x - viewSize.x / 2, viewCenter.y - viewSize.y / 2);
+                sf::Vector2f size2(viewSize.x, viewSize.y);
+                return boundingBoxCollision(data1.position, data1.size, position2, size2);
+            } else { // tilemap
+                auto getTileMap = [](auto&& obj) -> auto& {
+                    if constexpr (std::is_pointer_v<std::decay_t<decltype(obj)>> || 
+                                std::is_same_v<std::decay_t<decltype(obj)>, std::unique_ptr<TileMap>>) {
+                        return *obj;
+                    } else {
+                        return obj;
+                    }
+                };
+                auto& tileMap = getTileMap(obj2);
+
+                if constexpr (std::is_same_v<std::decay_t<decltype(tileMap)>, TileMap>) { // only check entire tilemap
+                    sf::Vector2f position2 = tileMap.getTileMapPosition();
+                    sf::Vector2f size2(tileMap.getTileWidth() * static_cast<float>(tileMap.getTileMapWidth()),
+                    tileMap.getTileHeight() * static_cast<float>(tileMap.getTileMapHeight()) );
+                    return boundingBoxCollision(data1.position, data1.size, position2, size2);
                 }
-            } else if constexpr (std::is_invocable_v<CollisionType, std::shared_ptr<sf::Uint8[]>, sf::Vector2f, sf::Vector2f, std::shared_ptr<sf::Uint8[]>, sf::Vector2f, sf::Vector2f>) { // pixel perfect collision
-                return collisionFunc(data1.bitmask, data1.position, data1.size, data2.bitmask, data2.position, data2.size);
-            }
-            return false; // No collision detected
-        };
-
-        if(quadtree){
-            auto potentialColliders1 = quadtree->query(sprite1->returnSpritesShape().getGlobalBounds());
-            auto potentialColliders2 = quadtree->query(sprite2->returnSpritesShape().getGlobalBounds());
-
-            if (potentialColliders1.empty() || potentialColliders2.empty()) return false;
-
-            for (const auto& collider1 : potentialColliders1) {
-                for (const auto& collider2 : potentialColliders2) {
-                    if (collider1 == collider2) continue;  // Skip self-collision checks
-                    
-                    return collisionLambda(data1, data2, collisionFunc);
-                }
+                return false;
             }
         } else {
-            return collisionLambda(data1, data2, collisionFunc);
+            // Handle sprite vs. sprite with collision function and optional parameters
+            if (!obj1) {
+                log_warning("First object is missing in collision detection");
+                return false;
+            }
+            if (!obj2) {
+                log_warning("Second object is missing in collision detection");
+                return false;
+            }
+
+            auto& sprite2 = getSprite(std::forward<ObjType2>(obj2));
+            CollisionData data2 = extractCollisionData(sprite2);
+
+            auto&& collisionFunc = std::get<0>(std::forward_as_tuple(std::forward<Args>(args)...));
+
+            Quadtree* quadtree = nullptr;
+            if constexpr (sizeof...(Args) >= 2) {
+                quadtree = std::get<1>(std::forward_as_tuple(std::forward<Args>(args)...));
+            }
+
+            float timeElapsed = 0.0f;
+            if constexpr (sizeof...(Args) >= 3) {
+                timeElapsed = std::get<2>(std::forward_as_tuple(std::forward<Args>(args)...));
+            }
+
+            size_t counterIndex = 0;
+            if constexpr (sizeof...(Args) >= 4) {
+                counterIndex = std::get<3>(std::forward_as_tuple(std::forward<Args>(args)...));
+            }
+
+            auto collisionLambda = [&timeElapsed, counterIndex](const CollisionData& d1, const CollisionData& d2, auto&& func) {
+                if constexpr (std::is_invocable_v<decltype(func), sf::Vector2f, float, sf::Vector2f, float>) {
+                    return func(d1.position, d1.radius, d2.position, d2.radius);
+                } else if constexpr (std::is_invocable_v<decltype(func), sf::Vector2f, sf::Vector2f, sf::Vector2f, sf::Vector2f>) {
+                    return func(d1.position, d1.size, d2.position, d2.size);
+                } else if constexpr (std::is_invocable_v<decltype(func), sf::Vector2f, sf::Vector2f, float, sf::FloatRect, sf::Vector2f>) {
+                    if (!cachedRaycastResult.counter) {
+                        return func(d1.position, d1.direction, d1.speed, d1.bounds, d1.acceleration,
+                                d2.position, d2.direction, d2.speed, d2.bounds, d2.acceleration);
+                    } else if (timeElapsed > cachedRaycastResult.collisionTimes[counterIndex]) {
+                        cachedRaycastResult.counter = 0;
+                        return true;
+                    }
+                } else if constexpr (std::is_invocable_v<decltype(func), std::shared_ptr<sf::Uint8[]>, sf::Vector2f, sf::Vector2f,
+                                                                        std::shared_ptr<sf::Uint8[]>, sf::Vector2f, sf::Vector2f>) {
+                    return func(d1.bitmask, d1.position, d1.size, d2.bitmask, d2.position, d2.size);
+                }
+                return false;
+            };
+
+            if (quadtree) {
+                auto potentialColliders1 = quadtree->query(sprite1->returnSpritesShape().getGlobalBounds());
+                auto potentialColliders2 = quadtree->query(sprite2->returnSpritesShape().getGlobalBounds());
+
+                if (potentialColliders1.empty() || potentialColliders2.empty()) return false;
+
+                for (const auto& collider1 : potentialColliders1) {
+                    for (const auto& collider2 : potentialColliders2) {
+                        if (collider1 == collider2) continue;
+                        if (collisionLambda(data1, data2, collisionFunc)) {
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            } else {
+                return collisionLambda(data1, data2, collisionFunc);
+            }
         }
-        return false; // default 
     }
 }    
