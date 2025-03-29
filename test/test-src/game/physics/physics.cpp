@@ -201,45 +201,68 @@ namespace physics {
         return originalPos;
     }
 
-    void navigateMaze(std::unique_ptr<Player>& player, std::unique_ptr<TileMap>& tileMap, std::vector<size_t>& tilePathInstruction){
+    void navigateMaze(std::unique_ptr<Player>& player, std::unique_ptr<TileMap>& tileMap, std::vector<size_t>& tilePathInstruction) {
         if (!player || !tileMap) {
             log_error("Tile or player is not initialized");
             return;
         }
+        if (tilePathInstruction.empty()) {
+            log_warning("No path instructions available");
+            return;
+        }
         // Get the player's current position
         sf::Vector2f currentPos = player->getSpritePos();
-        // Calculate the player's current tile position
+        
+        // Calculate current tile position
         int tileX = static_cast<int>((currentPos.x - tileMap->getTileMapPosition().x) / tileMap->getTileWidth());
         int tileY = static_cast<int>((currentPos.y - tileMap->getTileMapPosition().y) / tileMap->getTileHeight());
         sf::Vector2i currentTile = {tileX, tileY};
-
-        // Determine the direction to move the player based on the next tile
+    
+        // Determine direction based on current angle
         float playerAngle = player->getHeadingAngle();
-        if(playerAngle == 0.0f) physics::spriteMover(player, physics::moveRight);
-        else if(playerAngle == 90.0f) physics::spriteMover(player, physics::moveDown);
-        else if(playerAngle == 180.0f) physics::spriteMover(player, physics::moveLeft);
-        else if(playerAngle == 270.0f) physics::spriteMover(player, physics::moveUp);
-
+        if (playerAngle == 0.0f) physics::spriteMover(player, physics::moveRight);
+        else if (playerAngle == 90.0f) physics::spriteMover(player, physics::moveDown);
+        else if (playerAngle == 180.0f) physics::spriteMover(player, physics::moveLeft);
+        else if (playerAngle == 270.0f) physics::spriteMover(player, physics::moveUp);
+    
+        // Calculate new position after movement
         currentPos = player->getSpritePos();
         tileX = static_cast<int>((currentPos.x - tileMap->getTileMapPosition().x) / tileMap->getTileWidth());
         tileY = static_cast<int>((currentPos.y - tileMap->getTileMapPosition().y) / tileMap->getTileHeight());
         sf::Vector2i nextTile = {tileX, tileY};
+    
+        if (currentTile != nextTile) {
+            // Snap player to the center of the new tile
+            float tileCenterX = tileMap->getTileMapPosition().x + (nextTile.x * tileMap->getTileWidth()) + tileMap->getTileWidth() / 2.0f;
+            float tileCenterY = tileMap->getTileMapPosition().y + (nextTile.y * tileMap->getTileHeight()) + tileMap->getTileHeight() / 2.0f;
+            player->changePosition(sf::Vector2f{tileCenterX, tileCenterY});
+            player->updatePos(); // Update the player's position after snapping
 
-        if(currentTile != nextTile){
-            size_t nextIndex = tilePathInstruction.back();
-            nextTile = {static_cast<int>(nextIndex % tileMap->getTileMapWidth()), static_cast<int>(nextIndex / tileMap->getTileMapWidth())};
-            tilePathInstruction.pop_back(); 
-
-            if(nextTile.x < currentTile.x) player->returnSpritesShape().setRotation(180.0f); // turn left
-            else if(nextTile.x > currentTile.x) player->returnSpritesShape().setRotation(0.0f); // turn right
-            else if(nextTile.y < currentTile.y) player->returnSpritesShape().setRotation(270.0f); // turn up
-            else if(nextTile.y > currentTile.y) player->returnSpritesShape().setRotation(90.0f); // turn down
-
-            float newAngle = player->returnSpritesShape().getRotation();
-            player->setHeadingAngle(newAngle);
+            if (!tilePathInstruction.empty()) {
+                // Get the next target tile from the path
+                size_t nextIndex = tilePathInstruction.back();
+                sf::Vector2i targetTile = {
+                    static_cast<int>(nextIndex % tileMap->getTileMapWidth()),
+                    static_cast<int>(nextIndex / tileMap->getTileMapWidth())
+                };
+                tilePathInstruction.pop_back();
+    
+                // Determine direction based on the new target tile
+                if (targetTile.x < nextTile.x) {
+                    player->returnSpritesShape().setRotation(180.0f); // Left
+                } else if (targetTile.x > nextTile.x) {
+                    player->returnSpritesShape().setRotation(0.0f); // Right
+                } else if (targetTile.y < nextTile.y) {
+                    player->returnSpritesShape().setRotation(270.0f); // Up
+                } else if (targetTile.y > nextTile.y) {
+                    player->returnSpritesShape().setRotation(90.0f); // Down
+                }
+    
+                // Update the player's heading angle
+                player->setHeadingAngle(player->returnSpritesShape().getRotation());
+            }
         }
     }
-
     void calculateRayCast3d(std::unique_ptr<Player>& player, std::unique_ptr<TileMap>& tileMap, sf::VertexArray& lines, sf::VertexArray& wallLine) {
         if(!player || !tileMap){
             log_error("tile or player is not initialized");

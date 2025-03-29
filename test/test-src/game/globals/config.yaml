@@ -3,7 +3,7 @@ world:
   scale: 1.0
   width: 608 # big view size
   height: 416 # big view size
-  frame_limit: 30 # fps
+  frame_limit: 60 # fps
   title: "raycast sfml game template tester"
   view:
     size_x: 608.0 # pixels. also the small screen size 
