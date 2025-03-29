@@ -1,8 +1,3 @@
-//
-//  scenes.hpp
-//
-//
-
 #pragma once
 
 #include <iostream>
@@ -26,7 +21,7 @@
 
 // Base scene class 
 class Scene {
- public:
+public:
   Scene( sf::RenderWindow& gameWindow );
   virtual ~Scene() = default; 
 
@@ -34,7 +29,7 @@ class Scene {
   void runScene();  
   virtual void createAssets(){}; 
 
- protected:
+protected:
   sf::RenderWindow& window; // from game.hpp
   FlagSystem::SceneEvents sceneEvents; // scene's own flag events
 
@@ -65,13 +60,13 @@ class Scene {
 
 // in use (the main scene in test game)
 class gamePlayScene : public virtual Scene{
- public:
+public:
   using Scene::Scene; 
   ~gamePlayScene() override = default; 
  
   void createAssets() override; 
 
- private:
+private:
   void setInitialTimes() override;
   void insertItemsInQuadtree() override; 
 
@@ -99,9 +94,7 @@ class gamePlayScene : public virtual Scene{
   void drawInSmallView();
 
   template<typename drawableType>
-  void drawVisibleObject(drawableType& drawable){
-    if (drawable && drawable->getVisibleState()) window.draw(*drawable);
-  }
+  void drawVisibleObject(drawableType& drawable){ if (drawable && drawable->getVisibleState()) window.draw(*drawable); }
 
   std::unique_ptr<Player> player; 
   std::vector<std::unique_ptr<Bullet>> bullets; 

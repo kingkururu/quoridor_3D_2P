@@ -1,27 +1,269 @@
-[2025-03-29 22:35:40.075] [info_logger] [info] Succesfuly read yaml file
-[2025-03-29 22:35:40.075] [info_logger] [info] Successfully generated a DFS random maze with a guaranteed path.
-[2025-03-29 22:35:40.075] [info_logger] [info] Successfully generated tile path instructions.
-[2025-03-29 22:35:40.119] [info_logger] [info] 	Constants initialized 
-[2025-03-29 22:35:40.156] [info_logger] [info] scene made
-[2025-03-29 22:35:40.156] [info_logger] [info] 	Game initialized
-[2025-03-29 22:35:40.156] [info_logger] [info] Sprite initialized successfully
-[2025-03-29 22:35:40.156] [info_logger] [info] Sprite initialized successfully
-[2025-03-29 22:35:40.157] [info_logger] [info] Sprite initialized successfully
-[2025-03-29 22:35:40.157] [info_logger] [info] Sprite initialized successfully
-[2025-03-29 22:35:40.157] [info_logger] [info] Sprite initialized successfully
-[2025-03-29 22:35:40.157] [info_logger] [info] Sprite initialized successfully
-[2025-03-29 22:35:40.157] [info_logger] [info] Sprite initialized successfully
-[2025-03-29 22:35:40.157] [info_logger] [info] Tile map initialized successfully
-[2025-03-29 22:35:40.157] [info_logger] [info] Music initialized successfully, volume is 80.000000
-[2025-03-29 22:35:40.157] [info_logger] [info] text initialized successully
-[2025-03-29 22:35:40.157] [info_logger] [info] text initialized successully
-[2025-03-29 22:35:40.157] [info_logger] [info] text initialized successully
-[2025-03-29 22:35:40.157] [info_logger] [info] Sprite inserted into quadtree node.
-[2025-03-29 22:35:40.157] [info_logger] [info] Sprite inserted into quadtree node.
-[2025-03-29 22:35:40.157] [info_logger] [info] Sprite inserted into quadtree node.
-[2025-03-29 22:35:40.157] [info_logger] [info] initializing assets in scene 1: 0.197000ms
-[2025-03-29 22:35:47.861] [info_logger] [info] Window close event detected.
-[2025-03-29 22:35:47.906] [info_logger] [info] 	Game Ended
+[2025-03-30 08:22:14.652] [info_logger] [info] Succesfuly read yaml file
+[2025-03-30 08:22:14.653] [info_logger] [info] Successfully generated a DFS random maze with a guaranteed path.
+[2025-03-30 08:22:14.653] [info_logger] [info] Successfully generated tile path instructions.
+[2025-03-30 08:22:14.700] [info_logger] [info] 	Constants initialized 
+[2025-03-30 08:22:14.771] [info_logger] [info] scene made
+[2025-03-30 08:22:14.771] [info_logger] [info] 	Game initialized
+[2025-03-30 08:22:14.771] [info_logger] [info] Sprite initialized successfully
+[2025-03-30 08:22:14.771] [info_logger] [info] Sprite initialized successfully
+[2025-03-30 08:22:14.771] [info_logger] [info] Sprite initialized successfully
+[2025-03-30 08:22:14.771] [info_logger] [info] Sprite initialized successfully
+[2025-03-30 08:22:14.771] [info_logger] [info] Sprite initialized successfully
+[2025-03-30 08:22:14.771] [info_logger] [info] Sprite initialized successfully
+[2025-03-30 08:22:14.771] [info_logger] [info] Sprite initialized successfully
+[2025-03-30 08:22:14.771] [info_logger] [info] Tile map initialized successfully
+[2025-03-30 08:22:14.771] [info_logger] [info] Music initialized successfully, volume is 80.000000
+[2025-03-30 08:22:14.771] [info_logger] [info] text initialized successully
+[2025-03-30 08:22:14.771] [info_logger] [info] text initialized successully
+[2025-03-30 08:22:14.771] [info_logger] [info] text initialized successully
+[2025-03-30 08:22:14.771] [info_logger] [info] Sprite inserted into quadtree node.
+[2025-03-30 08:22:14.771] [info_logger] [info] Sprite inserted into quadtree node.
+[2025-03-30 08:22:14.771] [info_logger] [info] Sprite inserted into quadtree node.
+[2025-03-30 08:22:14.771] [info_logger] [info] initializing assets in scene 1: 0.185000ms
+[2025-03-30 08:22:58.008] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:58.026] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:58.043] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:58.061] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:58.079] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:58.097] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:58.114] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:58.131] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:58.149] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:58.167] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:58.184] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:58.202] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:58.220] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:58.237] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:58.255] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:58.272] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:58.290] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:58.308] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:58.325] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:58.343] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:58.361] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:58.378] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:58.396] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:58.414] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:58.432] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:58.448] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:58.466] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:58.484] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:58.501] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:58.519] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:58.540] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:58.555] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:58.572] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:58.590] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:58.607] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:58.625] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:58.642] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:58.660] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:58.677] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:58.695] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:58.713] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:58.730] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:58.748] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:58.766] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:58.783] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:58.801] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:58.818] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:58.835] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:58.853] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:58.871] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:58.889] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:58.906] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:58.924] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:58.942] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:58.959] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:58.977] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:58.994] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:59.012] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:59.029] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:59.046] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:59.064] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:59.082] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:59.099] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:59.117] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:59.135] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:59.153] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:59.170] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:59.188] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:59.205] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:59.223] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:59.241] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:59.259] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:59.276] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:59.294] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:59.312] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:59.330] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:59.348] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:59.365] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:59.383] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:59.401] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:59.418] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:59.435] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:59.453] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:59.471] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:59.489] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:59.506] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:59.524] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:59.542] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:59.560] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:59.577] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:59.595] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:59.612] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:59.630] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:59.648] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:59.665] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:59.683] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:59.701] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:59.718] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:59.736] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:59.754] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:59.771] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:59.789] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:59.807] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:59.824] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:59.842] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:59.860] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:59.878] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:59.895] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:59.913] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:59.931] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:59.949] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:59.966] [info_logger] [warning] No path instructions available
+[2025-03-30 08:22:59.984] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:00.010] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:00.018] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:00.036] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:00.054] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:00.072] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:00.090] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:00.108] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:00.125] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:00.143] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:00.160] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:00.177] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:00.195] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:00.213] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:00.230] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:00.249] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:00.266] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:00.284] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:00.302] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:00.319] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:00.337] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:00.355] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:00.372] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:00.390] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:00.407] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:00.425] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:00.442] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:00.460] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:00.478] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:00.495] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:00.513] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:00.531] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:00.549] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:00.566] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:00.584] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:00.602] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:00.619] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:00.637] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:00.655] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:00.672] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:00.690] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:00.708] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:00.726] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:00.744] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:00.762] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:00.779] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:00.797] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:00.815] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:00.832] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:00.850] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:00.867] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:00.885] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:00.903] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:00.920] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:00.938] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:00.956] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:00.974] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:00.991] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:01.008] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:01.026] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:01.043] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:01.062] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:01.079] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:01.097] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:01.115] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:01.132] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:01.149] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:01.167] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:01.184] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:01.204] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:01.221] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:01.238] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:01.255] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:01.273] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:01.290] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:01.308] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:01.326] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:01.344] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:01.361] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:01.379] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:01.397] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:01.414] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:01.432] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:01.450] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:01.469] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:01.489] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:01.503] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:01.521] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:01.538] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:01.555] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:01.573] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:01.591] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:01.608] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:01.625] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:01.643] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:01.661] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:01.678] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:01.696] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:01.714] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:01.731] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:01.749] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:01.767] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:01.784] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:01.802] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:01.820] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:01.837] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:01.855] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:01.873] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:01.890] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:01.908] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:01.925] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:01.942] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:01.961] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:01.979] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:01.996] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:02.016] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:02.030] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:02.048] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:02.065] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:02.083] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:02.101] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:02.118] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:02.136] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:02.153] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:02.171] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:02.189] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:02.207] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:02.224] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:02.242] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:02.260] [info_logger] [warning] No path instructions available
+[2025-03-30 08:23:02.286] [info_logger] [info] Window close event detected.
+[2025-03-30 08:23:02.298] [info_logger] [info] 	Game Ended
 
-[2025-03-29 22:35:47.906] [info_logger] [info] objects cleared.
-[2025-03-29 22:35:47.906] [info_logger] [info] Quadtree cleared.
+[2025-03-30 08:23:02.298] [info_logger] [info] objects cleared.
+[2025-03-30 08:23:02.298] [info_logger] [info] Quadtree cleared.

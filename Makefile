@@ -1,111 +1,111 @@
-# Compiler and linker settings
-CXX := clang++
-
-# Compiler flags
-CXXFLAGS := -std=c++17 -Wall \
-            -I./src -I./src/game -I./src/game/globals -I./src/game/core -I./src/game/physics -I./src/game/camera -I./src/game/utils -I./src/game/scenes \
-            -I./assets/sprites -I./assets/fonts -I./assets/sound -I./assets/tiles \
-            -I./libs/logging
-
-# Detect Homebrew installation and set path
-HOMEBREW_PREFIX ?= $(shell brew --prefix 2>/dev/null || echo "/opt/homebrew")
-
-# If Homebrew is not found, install it
-ifeq (, $(shell which brew))
-$(error "Homebrew not found! Please install Homebrew manually: https://brew.sh/")
-endif
-
-# Homebrew paths, allow override via environment variables
-SPDLOG_INCLUDE ?= $(HOMEBREW_PREFIX)/opt/spdlog/include
-FMT_INCLUDE ?= $(HOMEBREW_PREFIX)/opt/fmt/include
-SFML_INCLUDE ?= $(HOMEBREW_PREFIX)/opt/sfml/include
-CATCH2_INCLUDE ?= $(HOMEBREW_PREFIX)/opt/catch2/include
-SPDLOG_LIB ?= $(HOMEBREW_PREFIX)/opt/spdlog/lib
-FMT_LIB ?= $(HOMEBREW_PREFIX)/opt/fmt/lib
-SFML_LIB ?= $(HOMEBREW_PREFIX)/opt/sfml/lib
-YAML_INCLUDE ?= $(HOMEBREW_PREFIX)/opt/yaml-cpp/include
-
-export DYLD_FALLBACK_LIBRARY_PATH=$(SFML_LIB)
-
-# Include paths for Homebrew libraries
-BREW_INCLUDE_FLAGS := -I$(SPDLOG_INCLUDE) -I$(FMT_INCLUDE) -I$(SFML_INCLUDE) -I$(CATCH2_INCLUDE) -I$(YAML_INCLUDE)
-CXXFLAGS += $(BREW_INCLUDE_FLAGS)
-
-TEST_CXXFLAGS := -std=c++17 -Wall \
-                 -I./test/test-src \
-                 -I./test/test-src/game/core -I./test/test-src/game/camera \
-                 -I./test/test-src/game/globals -I./test/test-src/game/physics \
-                 -I./test/test-src/game/scenes -I./test/test-src/game/utils \
-                 -I./test/test-assets -I./test/test-assets/fonts \
-                 -I./test/test-assets/sound -I./test/test-assets/tiles \
-                 -I./test/test-assets/sprites \
-                 -I./test/test-logging \
-                 -I./test/test-testing \
-                 -I$(SPDLOG_INCLUDE) -I$(FMT_INCLUDE) -I$(SFML_INCLUDE) -I$(CATCH2_INCLUDE) -I$(YAML_INCLUDE) \
-                 -DTESTING
-
-# Library paths and linking
-LDFLAGS = -L$(SPDLOG_LIB) -L$(FMT_LIB) -L$(SFML_LIB) -L$(HOMEBREW_PREFIX)/lib -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -lspdlog -lfmt -lyaml-cpp -lCatch2
-LDFLAGS += -L$(SFML_LIB)
+# Toolchain configuration
+CXX      := clang++
+CXXFLAGS := -std=c++17 -Wall -Wextra -Wpedantic
+LDFLAGS  := 
 
 # Build directories
-BUILD_DIR := build
 TEST_BUILD_DIR := test_build
+TEST_TARGET    := sfml_game_test
+CONFIG_DIR     := config
 
-OBJ := $(SRC:%.cpp=$(BUILD_DIR)/%.o)
+# Homebrew configuration
+HOMEBREW_PREFIX := $(shell brew --prefix 2>/dev/null || echo "/opt/homebrew")
+BREW_LIBS       := spdlog fmt sfml@2 yaml-cpp  
 
-# Test source and object files
-TEST_SRC := test/test-src/testMain.cpp \
-            test/test-src/game/globals/globals.cpp \
-            test/test-src/game/core/game.cpp \
-            test/test-src/game/physics/physics.cpp \
-            test/test-src/game/camera/window.cpp \
-            test/test-src/game/utils/utils.cpp \
-            test/test-src/game/scenes/scenes.cpp \
-            test/test-assets/sprites/sprites.cpp \
-            test/test-assets/fonts/fonts.cpp \
-            test/test-assets/sound/sound.cpp \
-            test/test-assets/tiles/tiles.cpp \
-            test/test-logging/log.cpp \
-            test/test-testing/testing.cpp
+# Dependency paths (updated with yaml-cpp paths)
+SPDLOG_INCLUDE  := $(HOMEBREW_PREFIX)/opt/spdlog/include
+FMT_INCLUDE     := $(HOMEBREW_PREFIX)/opt/fmt/include
+SFML_INCLUDE    := $(HOMEBREW_PREFIX)/opt/sfml/include
+CATCH2_INCLUDE  := $(HOMEBREW_PREFIX)/opt/catch2/include
+YAML_INCLUDE    := $(HOMEBREW_PREFIX)/opt/yaml-cpp/include
 
-TEST_OBJ := $(TEST_SRC:%.cpp=$(TEST_BUILD_DIR)/%.o)
+SPDLOG_LIB      := $(HOMEBREW_PREFIX)/opt/spdlog/lib
+FMT_LIB         := $(HOMEBREW_PREFIX)/opt/fmt/lib
+SFML_LIB        := $(HOMEBREW_PREFIX)/opt/sfml/lib
+YAML_LIB        := $(HOMEBREW_PREFIX)/opt/yaml-cpp/lib
 
-# New target to copy YAML config file
-COPY_CONFIG:
-	@mkdir -p $(TEST_BUILD_DIR)/config
-	@test -f test/test-src/game/globals/config.yaml && cp test/test-src/game/globals/config.yaml $(TEST_BUILD_DIR)/config/ || echo "Warning: config.yaml not found."
+# Include paths (fixed directory structure)
+TEST_INCLUDES   := -Isrc \
+                   -Iassets \
+                   -Ilibs \
+                   -Itest/test-src \
+                   -Itest/test-src/game \
+                   -Itest/test-src/game/globals \
+                   -Itest/test-assets \
+                   -Itest/test-logging \
+                   -Itest/test-testing \
+                   -I$(SPDLOG_INCLUDE) \
+                   -I$(FMT_INCLUDE) \
+                   -I$(SFML_INCLUDE) \
+                   -I$(YAML_INCLUDE) \
+                   -I$(HOMEBREW_PREFIX)/include/catch2 \
+                   -DTESTING
 
-# Target executables
-TARGET := sfml_game
-TEST_TARGET := sfml_game_test
+# File collections
+TEST_SRC  := $(shell find test -name '*.cpp')
+TEST_OBJ  := $(TEST_SRC:test/%.cpp=$(TEST_BUILD_DIR)/%.o)
 
-.PHONY: all install_deps build clean test run
+# Compiler flags
+CXXFLAGS += $(TEST_INCLUDES)
 
-# Default target (build the main application)
-all: $(TARGET)
+# Linker configuration (updated with yaml-cpp paths)
+LIB_DIRS  := -L$(SFML_LIB) -L$(SPDLOG_LIB) -L$(FMT_LIB) -L$(YAML_LIB)
+TEST_LIBS := -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio \
+             -lspdlog -lfmt -lyaml-cpp
 
-# Check and install required dependencies via Homebrew
-install_deps:
-	@brew list spdlog >/dev/null 2>&1 || (echo "Installing spdlog..."; brew install spdlog)
-	@brew list fmt >/dev/null 2>&1 || (echo "Installing fmt..."; brew install fmt)
-	@brew list sfml@2 >/dev/null 2>&1 || brew install sfml@2 || echo "Make sure SFML 2 is installed."
-	@brew list yaml-cpp >/dev/null 2>&1 || (echo "Installing yaml-cpp..."; brew install yaml-cpp) 
-	@brew list catch2 >/dev/null 2>&1 || (echo "Installing catch2..."; brew install catch2)
+# Environment setup
+export DYLD_FALLBACK_LIBRARY_PATH := $(SFML_LIB)
 
-# Test build target
+.PHONY: all clean install_deps test help
+
+# Default target
+all: test
+
+# Build and run tests
+test: $(TEST_TARGET) copy_test_config
+	@./$(TEST_TARGET)
+
+# Link test executable
 $(TEST_TARGET): $(TEST_OBJ)
-	$(CXX) $(TEST_CXXFLAGS) -o $@ $(TEST_OBJ) $(LDFLAGS)
+	@echo "Linking test executable..."
+	@$(CXX) $(CXXFLAGS) $^ -o $@ $(LIB_DIRS) $(TEST_LIBS)
 
-# Rule to build test object files
-$(TEST_BUILD_DIR)/%.o: %.cpp
-	@mkdir -p $(dir $@)
-	$(CXX) $(TEST_CXXFLAGS) -c $< -o $@
+# Build test objects
+$(TEST_BUILD_DIR)/%.o: test/%.cpp
+	@mkdir -p $(@D)
+	@$(CXX) $(CXXFLAGS) -c $< -o $@
 
-# Clean up all build artifacts
+# Copy test configuration
+copy_test_config:
+	@mkdir -p $(TEST_BUILD_DIR)/$(CONFIG_DIR)
+	@if [ -f test/test-src/$(CONFIG_DIR)/config.yaml ]; then \
+		cp test/test-src/$(CONFIG_DIR)/config.yaml $(TEST_BUILD_DIR)/$(CONFIG_DIR)/; \
+	fi
+
+# Dependency management
+install_deps:
+	@for lib in $(BREW_LIBS); do \
+		if ! brew list $$lib &>/dev/null; then \
+			echo "Installing $$lib..."; \
+			brew install $$lib; \
+		fi; \
+	done
+	@# Verify yaml-cpp symlinks
+	@if [ ! -L $(HOMEBREW_PREFIX)/opt/yaml-cpp/lib/libyaml-cpp.dylib ]; then \
+		echo "Creating missing yaml-cpp symlink..."; \
+		ln -s $(HOMEBREW_PREFIX)/Cellar/yaml-cpp/0.8.0/lib/libyaml-cpp.0.8.0.dylib $(HOMEBREW_PREFIX)/opt/yaml-cpp/lib/libyaml-cpp.dylib; \
+	fi
+
+# Clean build artifacts
 clean:
-	rm -rf $(BUILD_DIR) $(TEST_BUILD_DIR) $(TARGET) $(TEST_TARGET)
+	@rm -rf $(TEST_BUILD_DIR) $(TEST_TARGET)
 
-test: $(TEST_TARGET) COPY_CONFIG
-	./$(TEST_TARGET) 
-
+# Help message
+help:
+	@echo "Test-focused Makefile"
+	@echo "Available targets:"
+	@echo "  all         Build and run tests (default)"
+	@echo "  test        Build and run tests"
+	@echo "  clean       Remove test build artifacts"
+	@echo "  install_deps Install required dependencies (including symlink fixes)"
+	@echo "  help        Show this help message"
