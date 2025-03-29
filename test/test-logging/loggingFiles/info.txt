@@ -1,27 +1,27 @@
-[2025-03-29 21:20:36.304] [info_logger] [info] Succesfuly read yaml file
-[2025-03-29 21:20:36.304] [info_logger] [info] Successfully generated a DFS random maze with a guaranteed path.
-[2025-03-29 21:20:36.305] [info_logger] [info] Successfully generated tile path instructions.
-[2025-03-29 21:20:36.349] [info_logger] [info] 	Constants initialized 
-[2025-03-29 21:20:36.388] [info_logger] [info] scene made
-[2025-03-29 21:20:36.388] [info_logger] [info] 	Game initialized
-[2025-03-29 21:20:36.388] [info_logger] [info] Sprite initialized successfully
-[2025-03-29 21:20:36.388] [info_logger] [info] Sprite initialized successfully
-[2025-03-29 21:20:36.388] [info_logger] [info] Sprite initialized successfully
-[2025-03-29 21:20:36.388] [info_logger] [info] Sprite initialized successfully
-[2025-03-29 21:20:36.388] [info_logger] [info] Sprite initialized successfully
-[2025-03-29 21:20:36.388] [info_logger] [info] Sprite initialized successfully
-[2025-03-29 21:20:36.388] [info_logger] [info] Sprite initialized successfully
-[2025-03-29 21:20:36.388] [info_logger] [info] Tile map initialized successfully
-[2025-03-29 21:20:36.388] [info_logger] [info] Music initialized successfully, volume is 80.000000
-[2025-03-29 21:20:36.388] [info_logger] [info] text initialized successully
-[2025-03-29 21:20:36.388] [info_logger] [info] text initialized successully
-[2025-03-29 21:20:36.388] [info_logger] [info] text initialized successully
-[2025-03-29 21:20:36.388] [info_logger] [info] Sprite inserted into quadtree node.
-[2025-03-29 21:20:36.388] [info_logger] [info] Sprite inserted into quadtree node.
-[2025-03-29 21:20:36.388] [info_logger] [info] Sprite inserted into quadtree node.
-[2025-03-29 21:20:36.388] [info_logger] [info] initializing assets in scene 1: 0.174000ms
-[2025-03-29 21:21:54.283] [info_logger] [info] Window close event detected.
-[2025-03-29 21:21:54.342] [info_logger] [info] 	Game Ended
+[2025-03-29 21:31:21.401] [info_logger] [info] Succesfuly read yaml file
+[2025-03-29 21:31:21.401] [info_logger] [info] Successfully generated a DFS random maze with a guaranteed path.
+[2025-03-29 21:31:21.401] [info_logger] [info] Successfully generated tile path instructions.
+[2025-03-29 21:31:21.474] [info_logger] [info] 	Constants initialized 
+[2025-03-29 21:31:21.519] [info_logger] [info] scene made
+[2025-03-29 21:31:21.519] [info_logger] [info] 	Game initialized
+[2025-03-29 21:31:21.519] [info_logger] [info] Sprite initialized successfully
+[2025-03-29 21:31:21.519] [info_logger] [info] Sprite initialized successfully
+[2025-03-29 21:31:21.519] [info_logger] [info] Sprite initialized successfully
+[2025-03-29 21:31:21.519] [info_logger] [info] Sprite initialized successfully
+[2025-03-29 21:31:21.520] [info_logger] [info] Sprite initialized successfully
+[2025-03-29 21:31:21.520] [info_logger] [info] Sprite initialized successfully
+[2025-03-29 21:31:21.520] [info_logger] [info] Sprite initialized successfully
+[2025-03-29 21:31:21.520] [info_logger] [info] Tile map initialized successfully
+[2025-03-29 21:31:21.520] [info_logger] [info] Music initialized successfully, volume is 80.000000
+[2025-03-29 21:31:21.520] [info_logger] [info] text initialized successully
+[2025-03-29 21:31:21.520] [info_logger] [info] text initialized successully
+[2025-03-29 21:31:21.520] [info_logger] [info] text initialized successully
+[2025-03-29 21:31:21.520] [info_logger] [info] Sprite inserted into quadtree node.
+[2025-03-29 21:31:21.520] [info_logger] [info] Sprite inserted into quadtree node.
+[2025-03-29 21:31:21.520] [info_logger] [info] Sprite inserted into quadtree node.
+[2025-03-29 21:31:21.520] [info_logger] [info] initializing assets in scene 1: 0.259000ms
+[2025-03-29 21:31:23.496] [info_logger] [info] Window close event detected.
+[2025-03-29 21:31:23.534] [info_logger] [info] 	Game Ended
 
-[2025-03-29 21:21:54.343] [info_logger] [info] objects cleared.
-[2025-03-29 21:21:54.343] [info_logger] [info] Quadtree cleared.
+[2025-03-29 21:31:23.534] [info_logger] [info] objects cleared.
+[2025-03-29 21:31:23.534] [info_logger] [info] Quadtree cleared.

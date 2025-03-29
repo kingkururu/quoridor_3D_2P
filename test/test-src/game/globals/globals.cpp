@@ -551,7 +551,9 @@ namespace Constants {
         std::priority_queue<std::pair<int, size_t>, std::vector<std::pair<int, size_t>>, std::greater<std::pair<int, size_t>>> pq;
         std::unordered_map<size_t, size_t> parent;
         std::unordered_set<size_t> visited;
-        
+        std::unordered_map<size_t, int> gCost; 
+        gCost[startIndex] = 0; // Initialize cost for start node
+
         pq.push({ heuristic(startIndex), startIndex });
         parent[startIndex] = startIndex;
         
@@ -595,9 +597,11 @@ namespace Constants {
             
             for (size_t neighbor : neighbors) {
                 if (tileMap[neighbor] == walkableTileIndex || tileMap[neighbor] == endingTileIndex) {
-                    if (!visited.count(neighbor)) {
+                    int newCost = gCost[currentIndex] + 1; // Uniform cost
+                    if (!gCost.count(neighbor) || newCost < gCost[neighbor]) {
+                        gCost[neighbor] = newCost;
+                        pq.push({ newCost + heuristic(neighbor), neighbor });
                         parent[neighbor] = currentIndex;
-                        pq.push({ heuristic(neighbor), neighbor });
                     }
                 }
             }

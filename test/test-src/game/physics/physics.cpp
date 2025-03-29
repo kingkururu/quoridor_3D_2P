@@ -196,7 +196,6 @@ namespace physics {
             elapsedTime = 0.0f;
             originalPos.y = startPos.y; // Reset to the initial position
             // log_info("Jump done, "+ std::to_string(originalPos.x) + ", " + std::to_string(originalPos.y));
-
         }
         return originalPos;
     }
@@ -210,10 +209,9 @@ namespace physics {
             log_warning("No path instructions available");
             return;
         }
+
         // Get the player's current position
         sf::Vector2f currentPos = player->getSpritePos();
-        
-        // Calculate current tile position
         int tileX = static_cast<int>((currentPos.x - tileMap->getTileMapPosition().x) / tileMap->getTileWidth());
         int tileY = static_cast<int>((currentPos.y - tileMap->getTileMapPosition().y) / tileMap->getTileHeight());
         sf::Vector2i currentTile = {tileX, tileY};
@@ -241,28 +239,21 @@ namespace physics {
             if (!tilePathInstruction.empty()) {
                 // Get the next target tile from the path
                 size_t nextIndex = tilePathInstruction.back();
-                sf::Vector2i targetTile = {
-                    static_cast<int>(nextIndex % tileMap->getTileMapWidth()),
-                    static_cast<int>(nextIndex / tileMap->getTileMapWidth())
-                };
+                sf::Vector2i targetTile = { static_cast<int>(nextIndex % tileMap->getTileMapWidth()), static_cast<int>(nextIndex / tileMap->getTileMapWidth()) };
                 tilePathInstruction.pop_back();
     
                 // Determine direction based on the new target tile
-                if (targetTile.x < nextTile.x) {
-                    player->returnSpritesShape().setRotation(180.0f); // Left
-                } else if (targetTile.x > nextTile.x) {
-                    player->returnSpritesShape().setRotation(0.0f); // Right
-                } else if (targetTile.y < nextTile.y) {
-                    player->returnSpritesShape().setRotation(270.0f); // Up
-                } else if (targetTile.y > nextTile.y) {
-                    player->returnSpritesShape().setRotation(90.0f); // Down
-                }
+                if (targetTile.x < nextTile.x) player->returnSpritesShape().setRotation(180.0f); // Left
+                else if (targetTile.x > nextTile.x) player->returnSpritesShape().setRotation(0.0f); // Right
+                else if (targetTile.y < nextTile.y) player->returnSpritesShape().setRotation(270.0f); // Up
+                else if (targetTile.y > nextTile.y) player->returnSpritesShape().setRotation(90.0f); // Down
     
                 // Update the player's heading angle
                 player->setHeadingAngle(player->returnSpritesShape().getRotation());
             }
         }
     }
+
     void calculateRayCast3d(std::unique_ptr<Player>& player, std::unique_ptr<TileMap>& tileMap, sf::VertexArray& lines, sf::VertexArray& wallLine) {
         if(!player || !tileMap){
             log_error("tile or player is not initialized");
@@ -344,10 +335,10 @@ namespace physics {
                 sf::Color wallColor(color, color, color);
 
                 // Define quad vertices for the wall slice
-                wallLine.append(sf::Vertex(sf::Vector2f(screenX, wallTopY), wallColor));     // Top Left
-                wallLine.append(sf::Vertex(sf::Vector2f(screenX + sliceWidth, wallTopY), wallColor));   // Top Right
+                wallLine.append(sf::Vertex(sf::Vector2f(screenX, wallTopY), wallColor)); // Top Left
+                wallLine.append(sf::Vertex(sf::Vector2f(screenX + sliceWidth, wallTopY), wallColor)); // Top Right
                 wallLine.append(sf::Vertex(sf::Vector2f(screenX + sliceWidth, wallBottomY), wallColor)); // Bottom Right
-                wallLine.append(sf::Vertex(sf::Vector2f(screenX, wallBottomY), wallColor));  // Bottom Left
+                wallLine.append(sf::Vertex(sf::Vector2f(screenX, wallBottomY), wallColor)); // Bottom Left
                 }
             }
         }
@@ -496,6 +487,7 @@ namespace physics {
         //std::cout << "Pixel perfect collision passed." << std::endl;
         return false; 
     }
+
     bool pixelPerfectCollision(const std::shared_ptr<sf::Uint8[]>& bitmask1, const sf::Vector2f& position1, const sf::Vector2f& size1,
         const std::shared_ptr<sf::Uint8[]>& bitmask2, const sf::Vector2f& position2, const sf::Vector2f& size2,
         float angle1, float angle2) {
@@ -546,8 +538,7 @@ namespace physics {
                 }
             }
         }
-
         return false;
-        }
+    }
 
 }
