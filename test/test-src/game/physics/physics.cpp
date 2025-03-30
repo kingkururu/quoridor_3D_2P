@@ -204,10 +204,6 @@ namespace physics {
             log_error("Tile or player is not initialized");
             return;
         }
-        if (tilePathInstruction.empty()) {
-            log_warning("No path instructions available");
-            return;
-        }
 
         // Get the player's current position
         sf::Vector2f currentPos = player->getSpritePos();
@@ -221,7 +217,9 @@ namespace physics {
         else if (playerAngle == 90.0f) physics::spriteMover(player, physics::moveDown);
         else if (playerAngle == 180.0f) physics::spriteMover(player, physics::moveLeft);
         else if (playerAngle == 270.0f) physics::spriteMover(player, physics::moveUp);
-    
+        
+        if (tilePathInstruction.empty()) return; // last tile reached
+
         // Calculate new position after movement
         currentPos = player->getSpritePos();
         tileX = static_cast<int>((currentPos.x - tileMap->getTileMapPosition().x) / tileMap->getTileWidth());
