@@ -1,118 +1,27 @@
-[2025-03-30 11:42:19.879] [info_logger] [info] Succesfuly read yaml file
-[2025-03-30 11:42:19.880] [info_logger] [info] Successfully generated a DFS random maze with a guaranteed path.
-[2025-03-30 11:42:19.880] [info_logger] [info] Successfully generated tile path instructions.
-[2025-03-30 11:42:19.920] [info_logger] [info] 	Constants initialized 
-[2025-03-30 11:42:19.963] [info_logger] [info] scene made
-[2025-03-30 11:42:19.963] [info_logger] [info] 	Game initialized
-[2025-03-30 11:42:19.963] [info_logger] [info] Sprite initialized successfully
-[2025-03-30 11:42:19.963] [info_logger] [info] Sprite initialized successfully
-[2025-03-30 11:42:19.963] [info_logger] [info] Sprite initialized successfully
-[2025-03-30 11:42:19.963] [info_logger] [info] Sprite initialized successfully
-[2025-03-30 11:42:19.963] [info_logger] [info] Sprite initialized successfully
-[2025-03-30 11:42:19.963] [info_logger] [info] Sprite initialized successfully
-[2025-03-30 11:42:19.963] [info_logger] [info] Sprite initialized successfully
-[2025-03-30 11:42:19.963] [info_logger] [info] Tile map initialized successfully
-[2025-03-30 11:42:19.963] [info_logger] [info] Music initialized successfully, volume is 80.000000
-[2025-03-30 11:42:19.963] [info_logger] [info] text initialized successully
-[2025-03-30 11:42:19.963] [info_logger] [info] text initialized successully
-[2025-03-30 11:42:19.963] [info_logger] [info] text initialized successully
-[2025-03-30 11:42:19.963] [info_logger] [info] Sprite inserted into quadtree node.
-[2025-03-30 11:42:19.963] [info_logger] [info] Sprite inserted into quadtree node.
-[2025-03-30 11:42:19.963] [info_logger] [info] Sprite inserted into quadtree node.
-[2025-03-30 11:42:19.963] [info_logger] [info] initializing assets in scene 1: 0.197000ms
-[2025-03-30 11:43:35.320] [info_logger] [info] reached goal
-[2025-03-30 11:43:35.337] [info_logger] [info] reached goal
-[2025-03-30 11:43:35.356] [info_logger] [info] reached goal
-[2025-03-30 11:43:35.373] [info_logger] [info] reached goal
-[2025-03-30 11:43:35.391] [info_logger] [info] reached goal
-[2025-03-30 11:43:35.407] [info_logger] [info] reached goal
-[2025-03-30 11:43:35.426] [info_logger] [info] reached goal
-[2025-03-30 11:43:35.443] [info_logger] [info] reached goal
-[2025-03-30 11:43:35.461] [info_logger] [info] reached goal
-[2025-03-30 11:43:35.478] [info_logger] [info] reached goal
-[2025-03-30 11:43:35.496] [info_logger] [info] reached goal
-[2025-03-30 11:43:35.513] [info_logger] [info] reached goal
-[2025-03-30 11:43:35.531] [info_logger] [info] reached goal
-[2025-03-30 11:43:35.548] [info_logger] [info] reached goal
-[2025-03-30 11:43:35.567] [info_logger] [info] reached goal
-[2025-03-30 11:43:35.584] [info_logger] [info] reached goal
-[2025-03-30 11:43:35.602] [info_logger] [info] reached goal
-[2025-03-30 11:43:35.620] [info_logger] [info] reached goal
-[2025-03-30 11:43:35.637] [info_logger] [info] reached goal
-[2025-03-30 11:43:35.655] [info_logger] [info] reached goal
-[2025-03-30 11:43:35.672] [info_logger] [info] reached goal
-[2025-03-30 11:43:35.690] [info_logger] [info] reached goal
-[2025-03-30 11:43:35.708] [info_logger] [info] reached goal
-[2025-03-30 11:43:35.726] [info_logger] [info] reached goal
-[2025-03-30 11:43:35.743] [info_logger] [info] reached goal
-[2025-03-30 11:43:35.761] [info_logger] [info] reached goal
-[2025-03-30 11:43:35.779] [info_logger] [info] reached goal
-[2025-03-30 11:43:35.796] [info_logger] [info] reached goal
-[2025-03-30 11:43:35.813] [info_logger] [info] reached goal
-[2025-03-30 11:43:35.831] [info_logger] [info] reached goal
-[2025-03-30 11:43:35.849] [info_logger] [info] reached goal
-[2025-03-30 11:43:35.866] [info_logger] [info] reached goal
-[2025-03-30 11:43:35.884] [info_logger] [info] reached goal
-[2025-03-30 11:43:35.902] [info_logger] [info] reached goal
-[2025-03-30 11:43:35.919] [info_logger] [info] reached goal
-[2025-03-30 11:43:35.937] [info_logger] [info] reached goal
-[2025-03-30 11:43:35.954] [info_logger] [info] reached goal
-[2025-03-30 11:43:35.972] [info_logger] [info] reached goal
-[2025-03-30 11:43:35.990] [info_logger] [info] reached goal
-[2025-03-30 11:43:36.008] [info_logger] [info] reached goal
-[2025-03-30 11:43:36.025] [info_logger] [info] reached goal
-[2025-03-30 11:43:36.041] [info_logger] [info] reached goal
-[2025-03-30 11:43:36.060] [info_logger] [info] reached goal
-[2025-03-30 11:43:36.077] [info_logger] [info] reached goal
-[2025-03-30 11:43:36.094] [info_logger] [info] reached goal
-[2025-03-30 11:43:36.112] [info_logger] [info] reached goal
-[2025-03-30 11:43:36.130] [info_logger] [info] reached goal
-[2025-03-30 11:43:36.147] [info_logger] [info] reached goal
-[2025-03-30 11:43:36.165] [info_logger] [info] reached goal
-[2025-03-30 11:43:36.183] [info_logger] [info] reached goal
-[2025-03-30 11:43:36.201] [info_logger] [info] reached goal
-[2025-03-30 11:43:36.218] [info_logger] [info] reached goal
-[2025-03-30 11:43:36.236] [info_logger] [info] reached goal
-[2025-03-30 11:43:36.254] [info_logger] [info] reached goal
-[2025-03-30 11:43:36.271] [info_logger] [info] reached goal
-[2025-03-30 11:43:36.289] [info_logger] [info] reached goal
-[2025-03-30 11:43:36.307] [info_logger] [info] reached goal
-[2025-03-30 11:43:36.324] [info_logger] [info] reached goal
-[2025-03-30 11:43:36.342] [info_logger] [info] reached goal
-[2025-03-30 11:43:36.359] [info_logger] [info] reached goal
-[2025-03-30 11:43:36.377] [info_logger] [info] reached goal
-[2025-03-30 11:43:36.394] [info_logger] [info] reached goal
-[2025-03-30 11:43:36.412] [info_logger] [info] reached goal
-[2025-03-30 11:43:36.430] [info_logger] [info] reached goal
-[2025-03-30 11:43:36.448] [info_logger] [info] reached goal
-[2025-03-30 11:43:36.466] [info_logger] [info] reached goal
-[2025-03-30 11:43:36.483] [info_logger] [info] reached goal
-[2025-03-30 11:43:36.501] [info_logger] [info] reached goal
-[2025-03-30 11:43:36.519] [info_logger] [info] reached goal
-[2025-03-30 11:43:36.537] [info_logger] [info] reached goal
-[2025-03-30 11:43:36.554] [info_logger] [info] reached goal
-[2025-03-30 11:43:36.575] [info_logger] [info] reached goal
-[2025-03-30 11:43:36.591] [info_logger] [info] reached goal
-[2025-03-30 11:43:36.608] [info_logger] [info] reached goal
-[2025-03-30 11:43:36.625] [info_logger] [info] reached goal
-[2025-03-30 11:43:36.642] [info_logger] [info] reached goal
-[2025-03-30 11:43:36.660] [info_logger] [info] reached goal
-[2025-03-30 11:43:36.677] [info_logger] [info] reached goal
-[2025-03-30 11:43:36.695] [info_logger] [info] reached goal
-[2025-03-30 11:43:36.713] [info_logger] [info] reached goal
-[2025-03-30 11:43:36.731] [info_logger] [info] reached goal
-[2025-03-30 11:43:36.749] [info_logger] [info] reached goal
-[2025-03-30 11:43:36.766] [info_logger] [info] reached goal
-[2025-03-30 11:43:36.783] [info_logger] [info] reached goal
-[2025-03-30 11:43:36.801] [info_logger] [info] reached goal
-[2025-03-30 11:43:36.818] [info_logger] [info] reached goal
-[2025-03-30 11:43:36.835] [info_logger] [info] reached goal
-[2025-03-30 11:43:36.853] [info_logger] [info] reached goal
-[2025-03-30 11:43:36.872] [info_logger] [info] reached goal
-[2025-03-30 11:43:36.888] [info_logger] [info] reached goal
-[2025-03-30 11:43:36.908] [info_logger] [info] reached goal
-[2025-03-30 11:43:38.584] [info_logger] [info] Window close event detected.
-[2025-03-30 11:43:38.626] [info_logger] [info] 	Game Ended
+[2025-03-30 12:13:26.667] [info_logger] [info] Succesfuly read yaml file
+[2025-03-30 12:13:26.668] [info_logger] [info] Successfully generated a DFS random maze with a guaranteed path.
+[2025-03-30 12:13:26.668] [info_logger] [info] Successfully generated tile path instructions.
+[2025-03-30 12:13:26.709] [info_logger] [info] 	Constants initialized 
+[2025-03-30 12:13:26.773] [info_logger] [info] scene made
+[2025-03-30 12:13:26.773] [info_logger] [info] 	Game initialized
+[2025-03-30 12:13:26.773] [info_logger] [info] Sprite initialized successfully
+[2025-03-30 12:13:26.773] [info_logger] [info] Sprite initialized successfully
+[2025-03-30 12:13:26.773] [info_logger] [info] Sprite initialized successfully
+[2025-03-30 12:13:26.773] [info_logger] [info] Sprite initialized successfully
+[2025-03-30 12:13:26.773] [info_logger] [info] Sprite initialized successfully
+[2025-03-30 12:13:26.773] [info_logger] [info] Sprite initialized successfully
+[2025-03-30 12:13:26.773] [info_logger] [info] Sprite initialized successfully
+[2025-03-30 12:13:26.773] [info_logger] [info] Tile map initialized successfully
+[2025-03-30 12:13:26.773] [info_logger] [info] Music initialized successfully, volume is 80.000000
+[2025-03-30 12:13:26.773] [info_logger] [info] text initialized successully
+[2025-03-30 12:13:26.773] [info_logger] [info] text initialized successully
+[2025-03-30 12:13:26.773] [info_logger] [info] text initialized successully
+[2025-03-30 12:13:26.773] [info_logger] [info] Sprite inserted into quadtree node.
+[2025-03-30 12:13:26.773] [info_logger] [info] Sprite inserted into quadtree node.
+[2025-03-30 12:13:26.773] [info_logger] [info] Sprite inserted into quadtree node.
+[2025-03-30 12:13:26.773] [info_logger] [info] initializing assets in scene 1: 0.172000ms
+[2025-03-30 12:14:26.028] [info_logger] [info] Window close event detected.
+[2025-03-30 12:14:26.070] [info_logger] [info] 	Game Ended
 
-[2025-03-30 11:43:38.626] [info_logger] [info] objects cleared.
-[2025-03-30 11:43:38.626] [info_logger] [info] Quadtree cleared.
+[2025-03-30 12:14:26.070] [info_logger] [info] objects cleared.
+[2025-03-30 12:14:26.070] [info_logger] [info] Quadtree cleared.
