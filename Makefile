@@ -19,11 +19,11 @@ endif
 # Homebrew paths, allow override via environment variables
 SPDLOG_INCLUDE ?= $(HOMEBREW_PREFIX)/opt/spdlog/include
 FMT_INCLUDE ?= $(HOMEBREW_PREFIX)/opt/fmt/include
-SFML_INCLUDE ?= $(HOMEBREW_PREFIX)/opt/sfml/include
+SFML_INCLUDE ?= $(HOMEBREW_PREFIX)/opt/sfml@2/include
 CATCH2_INCLUDE ?= $(HOMEBREW_PREFIX)/opt/catch2/include
 SPDLOG_LIB ?= $(HOMEBREW_PREFIX)/opt/spdlog/lib
 FMT_LIB ?= $(HOMEBREW_PREFIX)/opt/fmt/lib
-SFML_LIB ?= $(HOMEBREW_PREFIX)/opt/sfml/lib
+SFML_LIB ?= $(HOMEBREW_PREFIX)/opt/sfml@2/lib
 YAML_INCLUDE ?= $(HOMEBREW_PREFIX)/opt/yaml-cpp/include
 
 export DYLD_FALLBACK_LIBRARY_PATH=$(SFML_LIB)
