@@ -163,16 +163,13 @@ namespace Constants {
                             config["sprites"]["sprite1"]["scale"]["y"].as<float>()};
 
             // Load enemy paths and settings
-            ENEMY_PATH = config["sprites"]["enemy"]["path"].as<std::string>();
-            ENEMY_SPEED = config["sprites"]["enemy"]["speed"].as<float>();
-            ENEMY_ACCELERATION = {config["sprites"]["enemy"]["acceleration"]["x"].as<float>(),
-                                config["sprites"]["enemy"]["acceleration"]["y"].as<float>()};         
-            ENEMY_INDEXMAX = config["sprites"]["enemy"]["index_max"].as<short>();
-            ENEMY_ANIMATIONROWS = config["sprites"]["enemy"]["animation_rows"].as<short>();
-            ENEMY_POSITION = {config["sprites"]["enemy"]["position"]["x"].as<float>(),
-                                config["sprites"]["enemy"]["position"]["y"].as<float>()};
-            ENEMY_SCALE = {config["sprites"]["enemy"]["scale"]["x"].as<float>(),
-                            config["sprites"]["enemy"]["scale"]["y"].as<float>()};                
+            BUTTON1_PATH = config["sprites"]["button1"]["path"].as<std::string>();
+            BUTTON1_INDEXMAX = config["sprites"]["button1"]["index_max"].as<short>();
+            BUTTON1_ANIMATIONROWS = config["sprites"]["button1"]["animation_rows"].as<short>();
+            BUTTON1_POSITION = {config["sprites"]["button1"]["position"]["x"].as<float>(),
+                                config["sprites"]["button1"]["position"]["y"].as<float>()};
+            BUTTON1_SCALE = {config["sprites"]["button1"]["scale"]["x"].as<float>(),
+                            config["sprites"]["button1"]["scale"]["y"].as<float>()};                
             
             // Load bullet paths and settings
             BULLET_PATH = config["sprites"]["bullet"]["path"].as<std::string>();
@@ -296,7 +293,7 @@ namespace Constants {
         if (!TILES_TEXTURE->loadFromFile(TILES_PATH)) log_warning("Failed to load tiles texture");
         if (!BULLET_TEXTURE->loadFromFile(BULLET_PATH)) log_warning("Failed to load bullet texture");
         if (!FRAME_TEXTURE->loadFromFile(FRAME_PATH)) log_warning("Failed to load frame texture");   
-        if (!ENEMY_TEXTURE->loadFromFile(ENEMY_PATH)) log_warning("Failed to load enemy texture");  
+        if (!BUTTON1_TEXTURE->loadFromFile(BUTTON1_PATH)) log_warning("Failed to load enemy texture");  
         if (!BACKGROUNDBIG_TEXTURE->loadFromFile(BACKGROUNDBIG_PATH)) log_warning("Failed to load background big texture");
         if (!BACKGROUNDBIGFINAL_TEXTURE->loadFromFile(BACKGROUNDBIGFINAL_PATH)) log_warning("Failed to load background big final texture");
         if (!BACKGROUNDBIGSTART_TEXTURE->loadFromFile(BACKGROUNDBIGSTART_PATH)) log_warning("Failed to load background big start texture");
@@ -327,16 +324,16 @@ namespace Constants {
             SPRITE1_BITMASK.emplace_back(createBitmaskForBottom(SPRITE1_TEXTURE, rect, 0, 3));
         }
 
-        ENEMY_ANIMATIONRECTS.reserve(ENEMY_INDEXMAX);
-        for (int row = 0; row < ENEMY_ANIMATIONROWS; ++row) {
-            for (int col = 0; col < ENEMY_INDEXMAX / ENEMY_ANIMATIONROWS; ++col) {
-                ENEMY_ANIMATIONRECTS.emplace_back(sf::IntRect{col * 32, row * 32, 32, 32});
+        BUTTON1_ANIMATIONRECTS.reserve(BUTTON1_INDEXMAX);
+        for (int row = 0; row < BUTTON1_ANIMATIONROWS; ++row) {
+            for (int col = 0; col < BUTTON1_INDEXMAX / BUTTON1_ANIMATIONROWS; ++col) {
+                BUTTON1_ANIMATIONRECTS.emplace_back(sf::IntRect{col * 96, row * 38, 96, 38});
             }
         }
-        ENEMY_BITMASK.reserve(ENEMY_INDEXMAX); 
+        BUTTON1_BITMASK.reserve(BUTTON1_INDEXMAX); 
         // make bitmasks for tiles 
-        for (const auto& rect : ENEMY_ANIMATIONRECTS ) {
-            ENEMY_BITMASK.emplace_back(createBitmask(ENEMY_TEXTURE, rect));
+        for (const auto& rect : BUTTON1_ANIMATIONRECTS ) {
+            BUTTON1_BITMASK.emplace_back(createBitmask(BUTTON1_TEXTURE, rect));
         }
 
         BULLET_ANIMATIONRECTS.reserve(BULLET_INDEXMAX); 

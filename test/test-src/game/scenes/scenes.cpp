@@ -95,15 +95,13 @@ void gamePlayScene::createAssets() {
         
         frame = std::make_unique<Sprite>(Constants::FRAME_POSITION, Constants::FRAME_SCALE, Constants::FRAME_TEXTURE); 
         backgroundBig = std::make_unique<Sprite>(Constants::BACKGROUNDBIG_POSITION, Constants::BACKGROUNDBIG_SCALE, Constants::BACKGROUNDBIG_TEXTURE); 
-        // button1 = std::make_unique<Button>(Constants::BUTTON1_POSITION, Constants::BUTTON1_SCALE, Constants::BUTTON1_TEXTURE, 
-        //                            Constants::BUTTON1_ANIMATIONRECTS, Constants::BUTTON1_INDEXMAX, utils::convertToWeakPtrVector(Constants::BUTTON1_BITMASK));
-        // button1->setRects(0); 
-        // button1->setVisibleState(false); 
+
         backgroundBigFinal = std::make_unique<Sprite>(Constants::BACKGROUNDBIGFINAL_POSITION, Constants::BACKGROUNDBIGFINAL_SCALE, Constants::BACKGROUNDBIGFINAL_TEXTURE); 
         backgroundBigStart = std::make_unique<Sprite>(Constants::BACKGROUNDBIGSTART_POSITION, Constants::BACKGROUNDBIGSTART_SCALE, Constants::BACKGROUNDBIGSTART_TEXTURE);
 
-        enemy = std::make_unique<Obstacle>(Constants::ENEMY_POSITION, Constants::ENEMY_SCALE, Constants::ENEMY_TEXTURE, Constants::ENEMY_SPEED, Constants::ENEMY_ACCELERATION, Constants::ENEMY_ANIMATIONRECTS, Constants::ENEMY_INDEXMAX, utils::convertToWeakPtrVector(Constants::ENEMY_BITMASK)); 
-         
+        button1 = std::make_unique<Button>(Constants::BUTTON1_POSITION, Constants::BUTTON1_SCALE, Constants::BUTTON1_TEXTURE, Constants::BUTTON1_ANIMATIONRECTS, Constants::BUTTON1_INDEXMAX, utils::convertToWeakPtrVector(Constants::BUTTON1_BITMASK)); 
+        button1->setRects(0); 
+
         bullets.push_back(std::make_unique<Bullet>(Constants::BULLET_STARTINGPOS, Constants::BULLET_STARTINGSCALE, Constants::BULLET_TEXTURE, Constants::BULLET_INITIALSPEED, Constants::BULLET_ACCELERATION, 
                                                    Constants::BULLET_ANIMATIONRECTS, Constants::BULLET_INDEXMAX,  utils::convertToWeakPtrVector(Constants::BULLET_BITMASK)));
         bullets[0]->setRects(0);
@@ -149,7 +147,6 @@ void gamePlayScene::setInitialTimes(){
 void gamePlayScene::insertItemsInQuadtree(){
     quadtree.insert(player);  
     quadtree.insert(bullets[bullets.size() - 1]); 
-    quadtree.insert(enemy); 
 }
 
 void gamePlayScene::respawnAssets(){
@@ -275,7 +272,7 @@ void gamePlayScene::updateEntityStates(){ // manually change the sprite's state
 
 void gamePlayScene::changeAnimation(){ // change animation for sprites. change animation for texts if necessary     if (button1 && button1->getVisibleState()) button1->changeAnimation(); 
    // for (const auto& bullet : bullets) if (bullet) bullet->changeAnimation();
-   if (enemy) enemy->changeAnimation(); 
+   if (button1) button1->changeAnimation(); 
 }
 
 void gamePlayScene::updatePlayerAndView() {
@@ -345,6 +342,8 @@ void gamePlayScene::drawInBigView(){
 
         window.draw(rays); 
     }
+
+    drawVisibleObject(button1);
 
 }
 

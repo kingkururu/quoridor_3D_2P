@@ -103,7 +103,7 @@ private:
   std::unique_ptr<Sprite> backgroundBigFinal; 
   std::unique_ptr<Sprite> backgroundBigStart;
   
-  std::unique_ptr<Obstacle> enemy;
+  std::unique_ptr<Button>button1;
   
   std::array<std::shared_ptr<Tile>, Constants::TILES_NUMBER> tiles1;   
   std::unique_ptr<TileMap> tileMap1; 

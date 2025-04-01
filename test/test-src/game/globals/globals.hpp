@@ -113,16 +113,14 @@ namespace Constants { // not actually "constants" in terms of being fixed, but s
     inline std::vector<std::shared_ptr<sf::Uint8[]>> SPRITE1_BITMASK;
 
     // enemy paths and settings
-    inline short ENEMY_INDEXMAX;
-    inline short ENEMY_ANIMATIONROWS;  
-    inline std::filesystem::path ENEMY_PATH;
-    inline sf::Vector2f ENEMY_POSITION;
-    inline sf::Vector2f ENEMY_SCALE;
-    inline float ENEMY_SPEED;
-    inline sf::Vector2f ENEMY_ACCELERATION;
-    inline std::shared_ptr<sf::Texture> ENEMY_TEXTURE = std::make_shared<sf::Texture>();
-    inline std::vector<sf::IntRect> ENEMY_ANIMATIONRECTS;
-    inline std::vector<std::shared_ptr<sf::Uint8[]>> ENEMY_BITMASK;
+    inline short BUTTON1_INDEXMAX;
+    inline short BUTTON1_ANIMATIONROWS;  
+    inline std::filesystem::path BUTTON1_PATH;
+    inline sf::Vector2f BUTTON1_POSITION;
+    inline sf::Vector2f BUTTON1_SCALE;
+    inline std::shared_ptr<sf::Texture> BUTTON1_TEXTURE = std::make_shared<sf::Texture>();
+    inline std::vector<sf::IntRect> BUTTON1_ANIMATIONRECTS;
+    inline std::vector<std::shared_ptr<sf::Uint8[]>> BUTTON1_BITMASK;
  
     // Bullet paths and settings
     inline short BULLET_INDEXMAX;

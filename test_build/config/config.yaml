@@ -47,7 +47,7 @@ background:
 # Sprite paths
 sprites:
   sprite1:
-    speed: 10.0
+    speed: 40.0
     acceleration:
       x: 1.0 # for 2d space
       y: 1.0 # for 2d space
@@ -63,20 +63,16 @@ sprites:
     scale:
       x: 1.0
       y: 1.0
-  enemy:
-    speed: 30.0
-    acceleration:
-      x: 1.0 # for 2d space
-      y: 1.0 # for 2d space
-    index_max: 6 # number of total images for animation 
+  button1:
+    index_max: 3 # number of total images for animation 
     animation_rows: 1 # number of rows for animation 
-    path: "test/test-assets/sprites/png/monster.png"
+    path: "test/test-assets/sprites/png/button1.png"
     position:
       x: 0.0 # pixels 
       y: 0.0 # pixels 
     scale:
-      x: 3.0
-      y: 3.0
+      x: 1.0
+      y: 1.0
   bullet: 
     speed: 30.0
     acceleration:

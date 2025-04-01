@@ -1,27 +1,26 @@
-[2025-03-31 09:30:49.794] [info_logger] [info] Succesfuly read yaml file
-[2025-03-31 09:30:49.794] [info_logger] [info] Successfully generated a DFS random maze with a guaranteed path.
-[2025-03-31 09:30:49.794] [info_logger] [info] Successfully generated tile path instructions.
-[2025-03-31 09:30:49.839] [info_logger] [info] 	Constants initialized 
-[2025-03-31 09:30:49.928] [info_logger] [info] scene made
-[2025-03-31 09:30:49.928] [info_logger] [info] 	Game initialized
-[2025-03-31 09:30:49.928] [info_logger] [info] Sprite initialized successfully
-[2025-03-31 09:30:49.928] [info_logger] [info] Sprite initialized successfully
-[2025-03-31 09:30:49.928] [info_logger] [info] Sprite initialized successfully
-[2025-03-31 09:30:49.928] [info_logger] [info] Sprite initialized successfully
-[2025-03-31 09:30:49.928] [info_logger] [info] Sprite initialized successfully
-[2025-03-31 09:30:49.928] [info_logger] [info] Sprite initialized successfully
-[2025-03-31 09:30:49.928] [info_logger] [info] Sprite initialized successfully
-[2025-03-31 09:30:49.928] [info_logger] [info] Tile map initialized successfully
-[2025-03-31 09:30:49.928] [info_logger] [info] Music initialized successfully, volume is 80.000000
-[2025-03-31 09:30:49.928] [info_logger] [info] text initialized successully
-[2025-03-31 09:30:49.928] [info_logger] [info] text initialized successully
-[2025-03-31 09:30:49.928] [info_logger] [info] text initialized successully
-[2025-03-31 09:30:49.928] [info_logger] [info] Sprite inserted into quadtree node.
-[2025-03-31 09:30:49.928] [info_logger] [info] Sprite inserted into quadtree node.
-[2025-03-31 09:30:49.928] [info_logger] [info] Sprite inserted into quadtree node.
-[2025-03-31 09:30:49.928] [info_logger] [info] initializing assets in scene 1: 0.197000ms
-[2025-03-31 09:30:55.798] [info_logger] [info] Window close event detected.
-[2025-03-31 09:30:55.843] [info_logger] [info] 	Game Ended
+[2025-04-01 09:34:30.037] [info_logger] [info] Succesfuly read yaml file
+[2025-04-01 09:34:30.037] [info_logger] [info] Successfully generated a DFS random maze with a guaranteed path.
+[2025-04-01 09:34:30.037] [info_logger] [info] Successfully generated tile path instructions.
+[2025-04-01 09:34:30.078] [info_logger] [info] 	Constants initialized 
+[2025-04-01 09:34:30.112] [info_logger] [info] scene made
+[2025-04-01 09:34:30.112] [info_logger] [info] 	Game initialized
+[2025-04-01 09:34:30.112] [info_logger] [info] Sprite initialized successfully
+[2025-04-01 09:34:30.112] [info_logger] [info] Sprite initialized successfully
+[2025-04-01 09:34:30.112] [info_logger] [info] Sprite initialized successfully
+[2025-04-01 09:34:30.112] [info_logger] [info] Sprite initialized successfully
+[2025-04-01 09:34:30.112] [info_logger] [info] Sprite initialized successfully
+[2025-04-01 09:34:30.112] [info_logger] [info] Sprite initialized successfully
+[2025-04-01 09:34:30.112] [info_logger] [info] Sprite initialized successfully
+[2025-04-01 09:34:30.112] [info_logger] [info] Tile map initialized successfully
+[2025-04-01 09:34:30.112] [info_logger] [info] Music initialized successfully, volume is 80.000000
+[2025-04-01 09:34:30.112] [info_logger] [info] text initialized successully
+[2025-04-01 09:34:30.112] [info_logger] [info] text initialized successully
+[2025-04-01 09:34:30.112] [info_logger] [info] text initialized successully
+[2025-04-01 09:34:30.112] [info_logger] [info] Sprite inserted into quadtree node.
+[2025-04-01 09:34:30.112] [info_logger] [info] Sprite inserted into quadtree node.
+[2025-04-01 09:34:30.112] [info_logger] [info] initializing assets in scene 1: 0.191000ms
+[2025-04-01 09:34:50.932] [info_logger] [info] Window close event detected.
+[2025-04-01 09:34:50.973] [info_logger] [info] 	Game Ended
 
-[2025-03-31 09:30:55.843] [info_logger] [info] objects cleared.
-[2025-03-31 09:30:55.843] [info_logger] [info] Quadtree cleared.
+[2025-04-01 09:34:50.973] [info_logger] [info] objects cleared.
+[2025-04-01 09:34:50.973] [info_logger] [info] Quadtree cleared.
