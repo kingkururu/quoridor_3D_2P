@@ -175,7 +175,10 @@ void gamePlayScene::handleInput() {
 
 void gamePlayScene::handleMouseClick() {    
     if (FlagSystem::flagEvents.mouseClicked) {
-       
+        if(physics::collisionHelper(button1, MetaComponents::bigViewmouseClickedPosition_f)){
+            button1->setVisibleState(false); 
+            button1->setClickedBool(true);
+        }
     }
 }
 
@@ -238,7 +241,9 @@ void gamePlayScene::handleMovementKeys() {
 // Keeps sprites inside screen bounds, checks for collisions, update scores, and sets flagEvents.gameEnd to true in an event of collision 
 void gamePlayScene::handleGameEvents() { 
     // scoreText->getText().setPosition(MetaComponents::smallView.getCenter().x - 460, MetaComponents::smallView.getCenter().y - 270);
-
+    if(button1->getClickedBool() && player && player->getMoveState()){
+        physics::navigateMaze(player, tileMap1, Constants::TILEPATH_INSTRUCTION);
+    }
     physics::calculateRayCast3d(player, tileMap1, rays, wallLine); // modifies the ray 
 } 
 
@@ -276,9 +281,7 @@ void gamePlayScene::changeAnimation(){ // change animation for sprites. change a
 }
 
 void gamePlayScene::updatePlayerAndView() {
-    if(player && player->getMoveState()){
-       physics::navigateMaze(player, tileMap1, Constants::TILEPATH_INSTRUCTION);
-    }
+    
 }
 
 void gamePlayScene::updateDrawablesVisibility(){
