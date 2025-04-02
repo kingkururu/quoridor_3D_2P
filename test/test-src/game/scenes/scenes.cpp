@@ -158,10 +158,10 @@ void gamePlayScene::handleInvisibleSprites() {
 }
 
 void gamePlayScene::setTime(){
-    if (FlagSystem::gameScene1Flags.begin){
+    if(FlagSystem::gameScene1Flags.begin){
         beginTime += MetaComponents::deltaTime;
     }
-    if (FlagSystem::flagEvents.spacePressed || MetaComponents::spacePressedElapsedTime) {
+    if(FlagSystem::flagEvents.spacePressed || MetaComponents::spacePressedElapsedTime) {
         MetaComponents::spacePressedElapsedTime += MetaComponents::deltaTime; 
     } else {
         MetaComponents::spacePressedElapsedTime = 0.0f; 
@@ -176,7 +176,7 @@ void gamePlayScene::handleInput() {
 }
 
 void gamePlayScene::handleMouseClick() {    
-    if (FlagSystem::flagEvents.mouseClicked) {
+    if(FlagSystem::flagEvents.mouseClicked) {
         if(physics::collisionHelper(button1, MetaComponents::bigViewmouseClickedPosition_f)){
             button1->setVisibleState(false); 
             button1->setClickedBool(true);
@@ -186,13 +186,13 @@ void gamePlayScene::handleMouseClick() {
 }
 
 void gamePlayScene::handleSpaceKey() {
-    if (MetaComponents::spacePressedElapsedTime) {
+    if(MetaComponents::spacePressedElapsedTime) {
        
     }
 }
 
 void gamePlayScene::handleMovementKeys() {
-    if (!player->getMoveState()) return;
+    if(!player->getMoveState()) return;
 
     int tileX = static_cast<int>((player->getSpritePos().x - Constants::TILEMAP_POSITION.x) / Constants::TILE_WIDTH);
     int tileY = static_cast<int>((player->getSpritePos().y - Constants::TILEMAP_POSITION.y) / Constants::TILE_HEIGHT);
@@ -204,26 +204,26 @@ void gamePlayScene::handleMovementKeys() {
 
     // std::cout << "Tile X: " << tileX << ", Tile Y: " << tileY << ", inex: " << tileIndexInMap << "can walk: "<< canWalkOnTile<< std::endl;
     
-    if (FlagSystem::flagEvents.aPressed){ // turn left
+    if(FlagSystem::flagEvents.aPressed){ // turn left
         player->returnSpritesShape().rotate(-1.0f); // degrees
         float newAngle = player->returnSpritesShape().getRotation();
         player->setHeadingAngle(newAngle);
         FlagSystem::gameScene1Flags.begin = true;
        // player->setAutoNavigate(false); // stop auto navigation
     }
-    if (FlagSystem::flagEvents.dPressed){ // turn right 
+    if(FlagSystem::flagEvents.dPressed){ // turn right 
         player->returnSpritesShape().rotate(1.0f); // degrees
         float newAngle = player->returnSpritesShape().getRotation();
         player->setHeadingAngle(newAngle);
         FlagSystem::gameScene1Flags.begin = true;
        // player->setAutoNavigate(false); // stop auto navigation
     }
-    if (FlagSystem::flagEvents.wPressed && canWalkOnTile){ // front 
+    if(FlagSystem::flagEvents.wPressed && canWalkOnTile){ // front 
         physics::spriteMover(player, physics::followDirVec); 
         FlagSystem::gameScene1Flags.begin = true;
        // player->setAutoNavigate(false); // stop auto navigation
     }
-    if (FlagSystem::flagEvents.sPressed && canWalkOnTile){ // back
+    if(FlagSystem::flagEvents.sPressed && canWalkOnTile){ // back
         physics::spriteMover(player, physics::followDirVecOpposite); 
         FlagSystem::gameScene1Flags.begin = true;
        // player->setAutoNavigate(true); // stop auto navigation
@@ -299,6 +299,7 @@ void gamePlayScene::updatePlayerAndView() {
 void gamePlayScene::updateDrawablesVisibility(){
     try{
         if(MetaComponents::globalTime > 3.0) introText->setVisibleState(false);
+        button1->setVisibleState(!FlagSystem::flagEvents.mPressed);
     }
     catch(const std::exception & e){
         log_error("Exception in updateDrawablesVisibility: " + std::string(e.what()));
@@ -329,7 +330,6 @@ void gamePlayScene::drawInBigView(){
 
     if(tileIndexInMap == Constants::TILEMAP_PLAYERSPAWNINDEX){ 
         drawVisibleObject(backgroundBigStart);
-
     } else if (tileIndexInMap == Constants::TILEMAP_GOALINDEX){ 
         FlagSystem::flagEvents.gameEnd = true;
         std::cout << "game end" << std::endl;
@@ -359,7 +359,6 @@ void gamePlayScene::drawInBigView(){
     }
 
     drawVisibleObject(button1);
-
 }
 
 void gamePlayScene::drawInSmallView(){

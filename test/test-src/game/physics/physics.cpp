@@ -211,7 +211,6 @@ namespace physics {
         int tileY = static_cast<int>((currentPos.y - tileMap->getTileMapPosition().y) / tileMap->getTileHeight());
         sf::Vector2i currentTile = {tileX, tileY};
 
-        // Check if the player is on a tile
         // Determine direction based on current angle
         float playerAngle = player->getHeadingAngle();
         if (playerAngle == 0.0f) physics::spriteMover(player, physics::moveRight);
@@ -219,7 +218,7 @@ namespace physics {
         else if (playerAngle == 180.0f) physics::spriteMover(player, physics::moveLeft);
         else if (playerAngle == 270.0f) physics::spriteMover(player, physics::moveUp);
         
-        if (tilePathInstruction.empty()) return; // last tile reached
+        if (tilePathInstruction.empty()) return; // goal tile reached
 
         // Calculate new position after movement
         currentPos = player->getSpritePos();
@@ -228,14 +227,17 @@ namespace physics {
         sf::Vector2i nextTile = {tileX, tileY};
         
         bool autoNaviStart = false;
-        // Check if current tile is part of the path and adjust if necessary
-        if((int)player->getHeadingAngle() % 90 != 0) {// if player is off auto path  
+        if((int)player->getHeadingAngle() % 90 != 0) { // if player is off auto path  
+            // acount when the player is on index not included in tile path instruction
+            // find closest block on tile path 
+
+            // when the player is on index included in the tile path
             auto it = std::find(tilePathInstruction.begin(), tilePathInstruction.end(), currentTile.y * tileMap->getTileMapWidth() + currentTile.x);
             if (it != tilePathInstruction.end()) {
                 tilePathInstruction.erase(it + 1, tilePathInstruction.end());
             }            
             tilePathInstruction.pop_back(); 
-            player->returnSpritesShape().setRotation(0.0f);
+            player->returnSpritesShape().setRotation(0.0f); 
             player->setHeadingAngle(player->returnSpritesShape().getRotation());
 
             autoNaviStart = true;
@@ -265,7 +267,6 @@ namespace physics {
             }
         }
     }
-
     
     void calculateRayCast3d(std::unique_ptr<Player>& player, std::unique_ptr<TileMap>& tileMap, sf::VertexArray& lines, sf::VertexArray& wallLine) {
         if(!player || !tileMap){
