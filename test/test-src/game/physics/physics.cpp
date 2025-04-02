@@ -227,7 +227,7 @@ namespace physics {
         tileY = static_cast<int>((currentPos.y - tileMap->getTileMapPosition().y) / tileMap->getTileHeight());
         sf::Vector2i nextTile = {tileX, tileY};
         
-        bool autoNaviOn = false;
+        bool autoNaviStart = false;
         // Check if current tile is part of the path and adjust if necessary
         if((int)player->getHeadingAngle() % 90 != 0) {// if player is off auto path  
             auto it = std::find(tilePathInstruction.begin(), tilePathInstruction.end(), currentTile.y * tileMap->getTileMapWidth() + currentTile.x);
@@ -238,10 +238,10 @@ namespace physics {
             player->returnSpritesShape().setRotation(0.0f);
             player->setHeadingAngle(player->returnSpritesShape().getRotation());
 
-            autoNaviOn = true;
+            autoNaviStart = true;
         } 
 
-        if ((currentTile != nextTile) || autoNaviOn) {
+        if ((currentTile != nextTile) || autoNaviStart) {
             // Snap player to the center of the new tile
             float tileCenterX = tileMap->getTileMapPosition().x + (nextTile.x * tileMap->getTileWidth()) + tileMap->getTileWidth() / 2.0f;
             float tileCenterY = tileMap->getTileMapPosition().y + (nextTile.y * tileMap->getTileHeight()) + tileMap->getTileHeight() / 2.0f;

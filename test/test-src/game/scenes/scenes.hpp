@@ -122,4 +122,6 @@ private:
   std::unique_ptr<TextClass> introText; 
   std::unique_ptr<TextClass> scoreText; 
   std::unique_ptr<TextClass> endingText; 
+
+  float beginTime{};
 };

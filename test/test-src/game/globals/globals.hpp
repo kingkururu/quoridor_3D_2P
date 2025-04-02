@@ -278,9 +278,8 @@ namespace FlagSystem {
         bool sceneEnd;
         bool sceneStart; 
 
-        bool playerJumping;
-        bool playerFalling; 
-        GameSceneEvents1() : sceneEnd(false), sceneStart(true), playerJumping(false), playerFalling(false) {} 
+        bool begin; 
+        GameSceneEvents1() : sceneEnd(false), sceneStart(true), begin(false) {} 
 
         void resetFlags() {
             log_error("failed resetting scene Flags");
@@ -288,7 +287,5 @@ namespace FlagSystem {
             log_info("Reset GameSceneEvents1 flags");
         }
     };
-
     inline GameSceneEvents1 gameScene1Flags; // accesible from everywhere 
-    inline SceneEvents gameSceneNextFlags; // accecible from everywhere 
 }

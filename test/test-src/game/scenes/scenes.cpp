@@ -158,7 +158,9 @@ void gamePlayScene::handleInvisibleSprites() {
 }
 
 void gamePlayScene::setTime(){
-    // count respawn time here 
+    if (FlagSystem::gameScene1Flags.begin){
+        beginTime += MetaComponents::deltaTime;
+    }
     if (FlagSystem::flagEvents.spacePressed || MetaComponents::spacePressedElapsedTime) {
         MetaComponents::spacePressedElapsedTime += MetaComponents::deltaTime; 
     } else {
@@ -178,6 +180,7 @@ void gamePlayScene::handleMouseClick() {
         if(physics::collisionHelper(button1, MetaComponents::bigViewmouseClickedPosition_f)){
             button1->setVisibleState(false); 
             button1->setClickedBool(true);
+            FlagSystem::gameScene1Flags.begin = true;
         }
     }
 }
@@ -205,20 +208,24 @@ void gamePlayScene::handleMovementKeys() {
         player->returnSpritesShape().rotate(-1.0f); // degrees
         float newAngle = player->returnSpritesShape().getRotation();
         player->setHeadingAngle(newAngle);
+        FlagSystem::gameScene1Flags.begin = true;
        // player->setAutoNavigate(false); // stop auto navigation
     }
     if (FlagSystem::flagEvents.dPressed){ // turn right 
         player->returnSpritesShape().rotate(1.0f); // degrees
         float newAngle = player->returnSpritesShape().getRotation();
         player->setHeadingAngle(newAngle);
+        FlagSystem::gameScene1Flags.begin = true;
        // player->setAutoNavigate(false); // stop auto navigation
     }
     if (FlagSystem::flagEvents.wPressed && canWalkOnTile){ // front 
         physics::spriteMover(player, physics::followDirVec); 
+        FlagSystem::gameScene1Flags.begin = true;
        // player->setAutoNavigate(false); // stop auto navigation
     }
     if (FlagSystem::flagEvents.sPressed && canWalkOnTile){ // back
         physics::spriteMover(player, physics::followDirVecOpposite); 
+        FlagSystem::gameScene1Flags.begin = true;
        // player->setAutoNavigate(true); // stop auto navigation
     }   
 
@@ -253,9 +260,9 @@ void gamePlayScene::handleGameEvents() {
 } 
 
 void gamePlayScene::handleSceneFlags(){
-   if(!FlagSystem::flagEvents.gameEnd){
-        scoreText->getText().setString("Seconds elapsed: " + std::to_string(MetaComponents::globalTime));
-   }
+    if(!FlagSystem::flagEvents.gameEnd && FlagSystem::gameScene1Flags.begin){
+        scoreText->getText().setString("Seconds elapsed: " + std::to_string(beginTime));
+    }
 }
 
 void gamePlayScene::update() {
