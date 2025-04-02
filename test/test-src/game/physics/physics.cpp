@@ -211,6 +211,7 @@ namespace physics {
         int tileY = static_cast<int>((currentPos.y - tileMap->getTileMapPosition().y) / tileMap->getTileHeight());
         sf::Vector2i currentTile = {tileX, tileY};
 
+        // Check if the player is on a tile
         // Determine direction based on current angle
         float playerAngle = player->getHeadingAngle();
         if (playerAngle == 0.0f) physics::spriteMover(player, physics::moveRight);
@@ -225,24 +226,22 @@ namespace physics {
         tileX = static_cast<int>((currentPos.x - tileMap->getTileMapPosition().x) / tileMap->getTileWidth());
         tileY = static_cast<int>((currentPos.y - tileMap->getTileMapPosition().y) / tileMap->getTileHeight());
         sf::Vector2i nextTile = {tileX, tileY};
-    
+        
+        bool autoNaviOn = false;
         // Check if current tile is part of the path and adjust if necessary
         if((int)player->getHeadingAngle() % 90 != 0) {// if player is off auto path  
-            // std::cout << "Player is off auto path, adjusting..." << std::endl;
-            // auto it = std::find(tilePathInstruction.begin(), tilePathInstruction.end(), currentTile.y * tileMap->getTileMapWidth() + currentTile.x);
-            // if (it != tilePathInstruction.end()) {
-            //     // Remove all elements after the current position to prevent backtracking
-            //     tilePathInstruction.erase(tilePathInstruction.begin(), it);
-            // }
-            // size_t nextTileIndex = tilePathInstruction[tilePathInstruction.size() - 2];
-            // nextTile = {
-            //     static_cast<int>(nextTileIndex % tileMap->getTileMapWidth()),
-            //     static_cast<int>(nextTileIndex / tileMap->getTileMapWidth())
-            // };
-            // tilePathInstruction.pop_back(); // Remove the last tile from the path
+            auto it = std::find(tilePathInstruction.begin(), tilePathInstruction.end(), currentTile.y * tileMap->getTileMapWidth() + currentTile.x);
+            if (it != tilePathInstruction.end()) {
+                tilePathInstruction.erase(it + 1, tilePathInstruction.end());
+            }            
+            tilePathInstruction.pop_back(); 
+            player->returnSpritesShape().setRotation(0.0f);
+            player->setHeadingAngle(player->returnSpritesShape().getRotation());
+
+            autoNaviOn = true;
         } 
 
-        if (currentTile != nextTile) {
+        if ((currentTile != nextTile) || autoNaviOn) {
             // Snap player to the center of the new tile
             float tileCenterX = tileMap->getTileMapPosition().x + (nextTile.x * tileMap->getTileWidth()) + tileMap->getTileWidth() / 2.0f;
             float tileCenterY = tileMap->getTileMapPosition().y + (nextTile.y * tileMap->getTileHeight()) + tileMap->getTileHeight() / 2.0f;
@@ -254,7 +253,7 @@ namespace physics {
                 size_t nextIndex = tilePathInstruction.back();
                 sf::Vector2i targetTile = { static_cast<int>(nextIndex % tileMap->getTileMapWidth()), static_cast<int>(nextIndex / tileMap->getTileMapWidth()) };
                 tilePathInstruction.pop_back();
-    
+
                 // Determine direction based on the new target tile
                 if (targetTile.x < nextTile.x) player->returnSpritesShape().setRotation(180.0f); // Left
                 else if (targetTile.x > nextTile.x) player->returnSpritesShape().setRotation(0.0f); // Right
