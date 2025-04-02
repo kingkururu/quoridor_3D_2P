@@ -210,7 +210,7 @@ namespace physics {
         int tileX = static_cast<int>((currentPos.x - tileMap->getTileMapPosition().x) / tileMap->getTileWidth());
         int tileY = static_cast<int>((currentPos.y - tileMap->getTileMapPosition().y) / tileMap->getTileHeight());
         sf::Vector2i currentTile = {tileX, tileY};
-    
+
         // Determine direction based on current angle
         float playerAngle = player->getHeadingAngle();
         if (playerAngle == 0.0f) physics::spriteMover(player, physics::moveRight);
@@ -226,6 +226,22 @@ namespace physics {
         tileY = static_cast<int>((currentPos.y - tileMap->getTileMapPosition().y) / tileMap->getTileHeight());
         sf::Vector2i nextTile = {tileX, tileY};
     
+        // Check if current tile is part of the path and adjust if necessary
+        if((int)player->getHeadingAngle() % 90 != 0) {// if player is off auto path  
+            // std::cout << "Player is off auto path, adjusting..." << std::endl;
+            // auto it = std::find(tilePathInstruction.begin(), tilePathInstruction.end(), currentTile.y * tileMap->getTileMapWidth() + currentTile.x);
+            // if (it != tilePathInstruction.end()) {
+            //     // Remove all elements after the current position to prevent backtracking
+            //     tilePathInstruction.erase(tilePathInstruction.begin(), it);
+            // }
+            // size_t nextTileIndex = tilePathInstruction[tilePathInstruction.size() - 2];
+            // nextTile = {
+            //     static_cast<int>(nextTileIndex % tileMap->getTileMapWidth()),
+            //     static_cast<int>(nextTileIndex / tileMap->getTileMapWidth())
+            // };
+            // tilePathInstruction.pop_back(); // Remove the last tile from the path
+        } 
+
         if (currentTile != nextTile) {
             // Snap player to the center of the new tile
             float tileCenterX = tileMap->getTileMapPosition().x + (nextTile.x * tileMap->getTileWidth()) + tileMap->getTileWidth() / 2.0f;
@@ -251,6 +267,7 @@ namespace physics {
         }
     }
 
+    
     void calculateRayCast3d(std::unique_ptr<Player>& player, std::unique_ptr<TileMap>& tileMap, sf::VertexArray& lines, sf::VertexArray& wallLine) {
         if(!player || !tileMap){
             log_error("tile or player is not initialized");
@@ -537,5 +554,5 @@ namespace physics {
         }
         return false;
     }
-
+    
 }

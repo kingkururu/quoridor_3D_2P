@@ -205,13 +205,16 @@ class Player : public NonStatic, public Animated {
     void setHeadingAngle(float headingAngle);
     float getHeadingAngle() const { return headingAngle; }
     bool isCentered() const { return true; }
- 
+    bool getAutoNavigate() const { return autoNavigate; }
+    void setAutoNavigate(bool autoNavigate) { this->autoNavigate = autoNavigate; }
+
  private:
     bool firstTurnInstance = true; 
     bool prevTurnBool{}; 
     bool isJumping = false;  
     bool isFalling = false; 
     float headingAngle{}; 
+    bool autoNavigate = false;
 };
 
 // obstacle class deriving from NonStatic; refers to movable obstacles 

@@ -170,7 +170,7 @@ void gamePlayScene::setTime(){
 void gamePlayScene::handleInput() {
     handleMouseClick();
     handleSpaceKey(); 
-    handleMovementKeys();
+    if(!player->getAutoNavigate()) handleMovementKeys();
 }
 
 void gamePlayScene::handleMouseClick() {    
@@ -205,17 +205,21 @@ void gamePlayScene::handleMovementKeys() {
         player->returnSpritesShape().rotate(-1.0f); // degrees
         float newAngle = player->returnSpritesShape().getRotation();
         player->setHeadingAngle(newAngle);
+       // player->setAutoNavigate(false); // stop auto navigation
     }
     if (FlagSystem::flagEvents.dPressed){ // turn right 
         player->returnSpritesShape().rotate(1.0f); // degrees
         float newAngle = player->returnSpritesShape().getRotation();
         player->setHeadingAngle(newAngle);
+       // player->setAutoNavigate(false); // stop auto navigation
     }
     if (FlagSystem::flagEvents.wPressed && canWalkOnTile){ // front 
         physics::spriteMover(player, physics::followDirVec); 
+       // player->setAutoNavigate(false); // stop auto navigation
     }
     if (FlagSystem::flagEvents.sPressed && canWalkOnTile){ // back
         physics::spriteMover(player, physics::followDirVecOpposite); 
+       // player->setAutoNavigate(true); // stop auto navigation
     }   
 
     int newTileX = static_cast<int>((player->getSpritePos().x - Constants::TILEMAP_POSITION.x) / Constants::TILE_WIDTH);
@@ -243,6 +247,7 @@ void gamePlayScene::handleGameEvents() {
     // scoreText->getText().setPosition(MetaComponents::smallView.getCenter().x - 460, MetaComponents::smallView.getCenter().y - 270);
     if(button1->getClickedBool() && player && player->getMoveState()){
         physics::navigateMaze(player, tileMap1, Constants::TILEPATH_INSTRUCTION);
+        player->setAutoNavigate(true); 
     }
     physics::calculateRayCast3d(player, tileMap1, rays, wallLine); // modifies the ray 
 } 
