@@ -299,7 +299,7 @@ void gamePlayScene::updatePlayerAndView() {
 void gamePlayScene::updateDrawablesVisibility(){
     try{
         if(MetaComponents::globalTime > 3.0) introText->setVisibleState(false);
-        button1->setVisibleState(!FlagSystem::flagEvents.mPressed);
+        button1->setVisibleState(!FlagSystem::flagEvents.mPressed && !player->getAutoNavigate());
     }
     catch(const std::exception & e){
         log_error("Exception in updateDrawablesVisibility: " + std::string(e.what()));

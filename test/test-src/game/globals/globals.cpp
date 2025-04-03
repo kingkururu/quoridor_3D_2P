@@ -356,7 +356,7 @@ namespace Constants {
         for (const auto& rect : TILES_SINGLE_RECTS ) {
             TILES_BITMASKS.emplace_back(createBitmask(TILES_TEXTURE, rect));
         }
-        
+
         log_info("\tConstants initialized ");
     }
 
@@ -423,7 +423,6 @@ namespace Constants {
             }
             file << std::endl;
         }
-    
         file.close();
         log_info("Successfully generated a DFS random maze with a guaranteed path.");
     } 
@@ -644,7 +643,6 @@ namespace Constants {
                 }
             }
         }
-
         return bitmask;
     }
 
@@ -691,25 +689,24 @@ namespace Constants {
         return bitmask;
     }
     void printBitmaskDebug(const std::shared_ptr<sf::Uint8[]>& bitmask, unsigned int width, unsigned int height) {
-    std::stringstream bitmaskStream;
+        std::stringstream bitmaskStream;
 
-    for (unsigned int y = 0; y < height; ++y) {
-        for (unsigned int x = 0; x < width; ++x) {
-            unsigned int bitIndex = y * width + x;
-            unsigned int byteIndex = bitIndex / 8;
-            int bitPosition = 7 - (bitIndex % 8); // High bit to low bit order
+        for (unsigned int y = 0; y < height; ++y) {
+            for (unsigned int x = 0; x < width; ++x) {
+                unsigned int bitIndex = y * width + x;
+                unsigned int byteIndex = bitIndex / 8;
+                int bitPosition = 7 - (bitIndex % 8); // High bit to low bit order
 
-            if (bitmask[byteIndex] & (1 << bitPosition)) {
-                bitmaskStream << '1';
-            } else {
-                bitmaskStream << '0';
+                if (bitmask[byteIndex] & (1 << bitPosition)) {
+                    bitmaskStream << '1';
+                } else {
+                    bitmaskStream << '0';
+                }
             }
+            bitmaskStream << std::endl; // Move to the next row
         }
-        bitmaskStream << std::endl; // Move to the next row
+        log_info(bitmaskStream.str());
     }
-
-    log_info(bitmaskStream.str());
-}
 
 }
 
