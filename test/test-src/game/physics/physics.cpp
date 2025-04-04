@@ -204,9 +204,9 @@ namespace physics {
             log_error("Tile or player is not initialized");
             return;
         }
-                                                                std::cout << "tilepath instruction before: ";
-                                                                for (auto i : tilePathInstruction) std::cout << i << " "; // for debugging
-                                                                std::cout << "\n";
+                                                                // std::cout << "tilepath instruction before: ";
+                                                                // for (auto i : tilePathInstruction) std::cout << i << " "; // for debugging
+                                                                // std::cout << "\n";
 
         // Get the player's current position
         sf::Vector2f currentPos = player->getSpritePos();
@@ -215,7 +215,7 @@ namespace physics {
         sf::Vector2i currentTile = {tileX, tileY};
         size_t currentTileIndex = tileY * tileMap->getTileMapWidth() + tileX;
 
-                                                                   std::cout << "Current index in map: " << currentTileIndex << "\n";
+                                                               //    std::cout << "Current index in map: " << currentTileIndex << "\n";
 
         // Determine direction based on current angle
         float playerAngle = player->getHeadingAngle();
@@ -226,7 +226,7 @@ namespace physics {
         else if (playerAngle == 270.0f) physics::spriteMover(player, physics::moveUp);
         
         if (tilePathInstruction.empty()) {
-            std::cout << "Tile path instruction is empty. Goal tile reached.\n";
+                                                    // std::cout << "Tile path instruction is empty. Goal tile reached.\n";
             return; 
         }
 
@@ -240,7 +240,7 @@ namespace physics {
         bool autoNaviStart = false;
 
         if ((int)player->getHeadingAngle() % 90 != 0) {  // Check if player is off auto-path  
-                                                                  std::cout << "Player is off auto path. Searching for closest valid tile...\n";
+                                                                //  std::cout << "Player is off auto path. Searching for closest valid tile...\n";
 
             // Check if current tile is part of the path
             auto it = std::find(tilePathInstruction.begin(), tilePathInstruction.end(), currentTileIndex);
@@ -263,9 +263,9 @@ namespace physics {
                 tilePathInstruction.erase(std::next(it), tilePathInstruction.end());
             }
             
-                                                                            std::cout << "tilepath instruction after: ";
-                                                                            for (auto i : tilePathInstruction) std::cout << i << " "; // for debugging
-                                                                            std::cout << "\n";
+                                                                            // std::cout << "tilepath instruction after: ";
+                                                                            // for (auto i : tilePathInstruction) std::cout << i << " "; // for debugging
+                                                                            // std::cout << "\n";
 
             player->returnSpritesShape().setRotation(0.0f); 
             player->setHeadingAngle(player->returnSpritesShape().getRotation());
@@ -295,7 +295,7 @@ namespace physics {
 
                 // Update the player's heading angle
                 player->setHeadingAngle(player->returnSpritesShape().getRotation());
-                std::cout << "next index" << nextIndex << "\n";
+                                                                                //  std::cout << "next index" << nextIndex << "\n";
             }
         }
 
