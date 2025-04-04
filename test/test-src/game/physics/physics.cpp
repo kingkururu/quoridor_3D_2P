@@ -204,44 +204,74 @@ namespace physics {
             log_error("Tile or player is not initialized");
             return;
         }
+                                                                std::cout << "tilepath instruction before: ";
+                                                                for (auto i : tilePathInstruction) std::cout << i << " "; // for debugging
+                                                                std::cout << "\n";
 
         // Get the player's current position
         sf::Vector2f currentPos = player->getSpritePos();
         int tileX = static_cast<int>((currentPos.x - tileMap->getTileMapPosition().x) / tileMap->getTileWidth());
         int tileY = static_cast<int>((currentPos.y - tileMap->getTileMapPosition().y) / tileMap->getTileHeight());
         sf::Vector2i currentTile = {tileX, tileY};
+        size_t currentTileIndex = tileY * tileMap->getTileMapWidth() + tileX;
+
+                                                                   std::cout << "Current index in map: " << currentTileIndex << "\n";
 
         // Determine direction based on current angle
         float playerAngle = player->getHeadingAngle();
+
         if (playerAngle == 0.0f) physics::spriteMover(player, physics::moveRight);
         else if (playerAngle == 90.0f) physics::spriteMover(player, physics::moveDown);
         else if (playerAngle == 180.0f) physics::spriteMover(player, physics::moveLeft);
         else if (playerAngle == 270.0f) physics::spriteMover(player, physics::moveUp);
         
-        if (tilePathInstruction.empty()) return; // goal tile reached
+        if (tilePathInstruction.empty()) {
+            std::cout << "Tile path instruction is empty. Goal tile reached.\n";
+            return; 
+        }
 
-        // Calculate new position after movement
+        // Recalculate player position after movement
         currentPos = player->getSpritePos();
         tileX = static_cast<int>((currentPos.x - tileMap->getTileMapPosition().x) / tileMap->getTileWidth());
         tileY = static_cast<int>((currentPos.y - tileMap->getTileMapPosition().y) / tileMap->getTileHeight());
         sf::Vector2i nextTile = {tileX, tileY};
-        
-        bool autoNaviStart = false;
-        if((int)player->getHeadingAngle() % 90 != 0) { // if player is off auto path  
-            // acount when the player is on index not included in tile path instruction
-            // find closest block on tile path 
+        size_t nextTileIndex = tileY * tileMap->getTileMapWidth() + tileX;
 
-            // when the player is on index included in the tile path
-            auto it = std::find(tilePathInstruction.begin(), tilePathInstruction.end(), currentTile.y * tileMap->getTileMapWidth() + currentTile.x);
-            if (it != tilePathInstruction.end()) {
-                tilePathInstruction.erase(it + 1, tilePathInstruction.end());
-            }            
-            tilePathInstruction.pop_back(); 
+        bool autoNaviStart = false;
+
+        if ((int)player->getHeadingAngle() % 90 != 0) {  // Check if player is off auto-path  
+                                                                  std::cout << "Player is off auto path. Searching for closest valid tile...\n";
+
+            // Check if current tile is part of the path
+            auto it = std::find(tilePathInstruction.begin(), tilePathInstruction.end(), currentTileIndex);
+
+            if (it == tilePathInstruction.end()) {
+                // Find the closest index in tilePathInstruction
+                auto closestIt = std::min_element(tilePathInstruction.begin(), tilePathInstruction.end(),
+                    [currentTileIndex](size_t a, size_t b) {
+                        return std::abs(static_cast<int>(a) - static_cast<int>(currentTileIndex)) <
+                            std::abs(static_cast<int>(b) - static_cast<int>(currentTileIndex));
+                    });
+
+                it = closestIt; // Use closestIt directly, no need to find it again
+                nextTileIndex = *closestIt; // Update nextTileIndex to the closest tile index
+                nextTile.x = static_cast<int>(nextTileIndex % tileMap->getTileMapWidth());
+                nextTile.y = static_cast<int>(nextTileIndex / tileMap->getTileMapWidth());
+            }
+
+            if (it != tilePathInstruction.end() && std::next(it) != tilePathInstruction.end()) {
+                tilePathInstruction.erase(std::next(it), tilePathInstruction.end());
+            }
+            
+                                                                            std::cout << "tilepath instruction after: ";
+                                                                            for (auto i : tilePathInstruction) std::cout << i << " "; // for debugging
+                                                                            std::cout << "\n";
+
             player->returnSpritesShape().setRotation(0.0f); 
             player->setHeadingAngle(player->returnSpritesShape().getRotation());
 
             autoNaviStart = true;
-        } 
+        }
 
         if ((currentTile != nextTile) || autoNaviStart) {
             // Snap player to the center of the new tile
@@ -254,19 +284,25 @@ namespace physics {
                 // Get the next target tile from the path
                 size_t nextIndex = tilePathInstruction.back();
                 sf::Vector2i targetTile = { static_cast<int>(nextIndex % tileMap->getTileMapWidth()), static_cast<int>(nextIndex / tileMap->getTileMapWidth()) };
-                tilePathInstruction.pop_back();
+                
+                if(!autoNaviStart) tilePathInstruction.pop_back();
 
                 // Determine direction based on the new target tile
                 if (targetTile.x < nextTile.x) player->returnSpritesShape().setRotation(180.0f); // Left
                 else if (targetTile.x > nextTile.x) player->returnSpritesShape().setRotation(0.0f); // Right
                 else if (targetTile.y < nextTile.y) player->returnSpritesShape().setRotation(270.0f); // Up
                 else if (targetTile.y > nextTile.y) player->returnSpritesShape().setRotation(90.0f); // Down
-    
+
                 // Update the player's heading angle
                 player->setHeadingAngle(player->returnSpritesShape().getRotation());
+                std::cout << "next index" << nextIndex << "\n";
             }
         }
-    }
+
+                                                                                // std::cout << "tilepath instruction after: ";
+                                                                                // for (auto i : tilePathInstruction) std::cout << i << " "; // for debugging
+                                                                                // std::cout << "\n";
+        }
     
     void calculateRayCast3d(std::unique_ptr<Player>& player, std::unique_ptr<TileMap>& tileMap, sf::VertexArray& lines, sf::VertexArray& wallLine) {
         if(!player || !tileMap){
