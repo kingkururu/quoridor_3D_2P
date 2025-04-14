@@ -123,7 +123,7 @@ void gamePlayScene::createAssets() {
         // // Sound
         // playerJumpSound = std::make_unique<SoundClass>(Constants::PLAYERJUMP_SOUNDBUFF, Constants::PLAYERJUMPSOUND_VOLUME); 
         // coinHitSound = std::make_unique<SoundClass>(Constants::COINHIT_SOUNDBUFF, Constants::COINHITSOUND_VOLUME); 
-        // buttonClickSound = std::make_unique<SoundClass>(Constants::BUTTONCLICK_SOUNDBUFF, Constants::BUTTONCLICKSOUND_VOLUME);
+        buttonClickSound = std::make_unique<SoundClass>(Constants::BUTTONCLICK_SOUNDBUFF, Constants::BUTTONCLICKSOUND_VOLUME);
 
         // Text
         introText = std::make_unique<TextClass>(Constants::TEXT_POSITION, Constants::TEXT_SIZE, Constants::TEXT_COLOR, Constants::TEXT_FONT, Constants::TEXT_MESSAGE);
@@ -181,6 +181,7 @@ void gamePlayScene::handleMouseClick() {
             button1->setVisibleState(false); 
             button1->setClickedBool(true);
             FlagSystem::gameScene1Flags.begin = true;
+            buttonClickSound->returnSound().play();
         }
     }
 }

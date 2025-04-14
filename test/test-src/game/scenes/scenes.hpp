@@ -117,7 +117,7 @@ private:
   // std::unique_ptr<SoundClass> playerJumpSound; 
   // std::unique_ptr<SoundClass> coinHitSound; 
   // std::unique_ptr<SoundClass> playerDeadSound;
-  // std::unique_ptr<SoundClass> buttonClickSound; 
+  std::unique_ptr<SoundClass> buttonClickSound; 
 
   std::unique_ptr<TextClass> introText; 
   std::unique_ptr<TextClass> scoreText; 

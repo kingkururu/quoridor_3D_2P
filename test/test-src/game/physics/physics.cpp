@@ -215,7 +215,7 @@ namespace physics {
         sf::Vector2i currentTile = {tileX, tileY};
         size_t currentTileIndex = tileY * tileMap->getTileMapWidth() + tileX;
 
-                                                               //    std::cout << "Current index in map: " << currentTileIndex << "\n";
+                                                            //    std::cout << "Current index in map: " << currentTileIndex << "\n";
 
         // Determine direction based on current angle
         float playerAngle = player->getHeadingAngle();
