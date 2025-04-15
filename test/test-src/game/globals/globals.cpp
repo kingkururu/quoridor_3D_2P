@@ -267,12 +267,6 @@ namespace Constants {
             BACKGROUNDMUSIC_ENDINGVOLUME = config["music"]["background_music"]["ending_volume"].as<float>();
             
             // Load sound settings
-            PLAYERJUMPSOUND_PATH = config["sound"]["player_jump"]["path"].as<std::string>();
-            PLAYERJUMPSOUND_VOLUME = config["sound"]["player_jump"]["volume"].as<float>();
-
-            COINHITSOUND_PATH = config["sound"]["coin_hit"]["path"].as<std::string>();
-            COINHITSOUND_VOLUME = config["sound"]["coin_hit"]["volume"].as<float>();
-
             BUTTONCLICKSOUND_PATH = config["sound"]["button_click"]["path"].as<std::string>();
             BUTTONCLICKSOUND_VOLUME = config["sound"]["button_click"]["volume"].as<float>();
             
@@ -302,8 +296,6 @@ namespace Constants {
         if (!BACKGROUNDMUSIC_MUSIC->openFromFile(BACKGROUNDMUSIC_PATH)) log_warning("Failed to load background music");
 
         // sounds
-        if (!PLAYERJUMP_SOUNDBUFF->loadFromFile(PLAYERJUMPSOUND_PATH)) log_warning("Failed to load player jump sound");
-        if (!COINHIT_SOUNDBUFF->loadFromFile(COINHITSOUND_PATH)) log_warning("Failed to load coin hit sound");
         if (!BUTTONCLICK_SOUNDBUFF->loadFromFile(BUTTONCLICKSOUND_PATH)) log_warning("Failed to load button click sound");
         
         // font
