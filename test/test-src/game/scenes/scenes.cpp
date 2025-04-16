@@ -330,7 +330,6 @@ void gamePlayScene::drawInBigView(){
         drawVisibleObject(backgroundBigStart);
     } else if (tileIndexInMap == Constants::TILEMAP_GOALINDEX){ 
         FlagSystem::flagEvents.gameEnd = true;
-        std::cout << "game end" << std::endl;
         drawVisibleObject(backgroundBigFinal);
         drawVisibleObject(endingText);
     } else {

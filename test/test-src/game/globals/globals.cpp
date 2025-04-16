@@ -500,9 +500,9 @@ namespace Constants {
             TILEPATH_INSTRUCTION.reserve(TILEMAP_HEIGHT * TILEMAP_WIDTH);
             pathInstructionGenerator(fileStream, TILE_STARTINGINDEX, TILE_ENDINGINDEX, TILE_WALKABLEINDEX, TILE_WALLINDEX, TILEMAP_WIDTH, TILEMAP_HEIGHT);
 
-            for (const auto& i : TILEPATH_INSTRUCTION) {
-               std::cout << i << " "; // for debugging
-            }
+            // for (const auto& i : TILEPATH_INSTRUCTION) {
+            //    std::cout << i << " "; // for debugging
+            // }
         } 
         catch (const std::exception& e) {
             log_warning("Error in generating tile path instructions: " + std::string(e.what()));
