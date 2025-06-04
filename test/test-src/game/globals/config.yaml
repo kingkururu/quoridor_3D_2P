@@ -127,6 +127,14 @@ sprites:
     scale:
       x: 1.0
       y: 1.0
+  stick:
+    path: "test/test-assets/sprites/png/stick.png"
+    position:
+      x: 0.0 # pixels
+      y: 0.0 # pixels
+    scale:
+      x: 1.0
+      y: 1.0
   
 # Tile settings
 tiles:

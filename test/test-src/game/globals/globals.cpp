@@ -204,6 +204,13 @@ namespace Constants {
             PAWN2_SCALE = {config["sprites"]["pawn2"]["scale"]["x"].as<float>(),
                             config["sprites"]["pawn2"]["scale"]["y"].as<float>()};
   
+            // Load stick paths and settings
+            STICK_PATH = config["sprites"]["stick"]["path"].as<std::string>();
+            STICK_POSITION = {config["sprites"]["stick"]["position"]["x"].as<float>(),
+                                config["sprites"]["stick"]["position"]["y"].as<float>()};
+            STICK_SCALE = {config["sprites"]["stick"]["scale"]["x"].as<float>(),
+                            config["sprites"]["stick"]["scale"]["y"].as<float>()};
+
             // Load background (in the big screen) settings
             BACKGROUNDBIG_PATH = config["sprites"]["background_big"]["path"].as<std::string>();
             BACKGROUNDBIG_POSITION = {config["sprites"]["background_big"]["position"]["x"].as<float>(),
@@ -300,7 +307,8 @@ namespace Constants {
         if (!BACKGROUNDBIGFINAL_TEXTURE->loadFromFile(BACKGROUNDBIGFINAL_PATH)) log_warning("Failed to load background big final texture");
         if (!PAWN1_TEXTURE->loadFromFile(PAWN1_PATH)) log_warning("Failed to load pawn1 texture");
         if (!PAWN2_TEXTURE->loadFromFile(PAWN2_PATH)) log_warning("Failed to load pawn2 texture");
-
+        if (!STICK_TEXTURE->loadFromFile(STICK_PATH)) log_warning("Failed to load stick texture");
+        
         // music
         if (!BACKGROUNDMUSIC_MUSIC->openFromFile(BACKGROUNDMUSIC_PATH)) log_warning("Failed to load background music");
 
