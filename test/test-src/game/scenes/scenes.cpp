@@ -359,10 +359,12 @@ void gamePlayScene::drawInmiddleView(){
 
     drawVisibleObject(player);
     drawVisibleObject(board);
+
+    for(const auto& stick : sticks) drawVisibleObject(stick);
+
     drawVisibleObject(pawn1);
     drawVisibleObject(pawn2);
 
-    for(const auto& stick : sticks) drawVisibleObject(stick);
 }
 
 void gamePlayScene::drawInRightView(){

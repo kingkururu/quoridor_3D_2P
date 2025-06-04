@@ -206,11 +206,20 @@ namespace Constants {
   
             // Load stick paths and settings
             STICK_PATH = config["sprites"]["stick"]["path"].as<std::string>();
+            STICK_SPACING = config["sprites"]["stick"]["spacing"].as<float>();
+            RIGHTSTICK_OFFSET_X = config["sprites"]["stick"]["right_offset_x"].as<float>();
+            RIGHTSTICK_OFFSET_Y = config["sprites"]["stick"]["right_offset_y"].as<float>();
             STICK_SCALE = {config["sprites"]["stick"]["scale"]["x"].as<float>(),
                             config["sprites"]["stick"]["scale"]["y"].as<float>()};
             for(unsigned short i = 0; i < STICKS_NUMBER; ++i) {
-                STICK_POSITIONS[i] = {config["sprites"]["stick"]["positions"]["x"].as<float>(),
-                                    config["sprites"]["stick"]["positions"]["y"].as<float>() * i * 50};
+                if(i % 2) { // sticks at odd index are for player 1 and even is for player 2
+                    STICK_POSITIONS[i] = {config["sprites"]["stick"]["positions"]["x"].as<float>(),
+                                        config["sprites"]["stick"]["positions"]["y"].as<float>() + i * STICK_SPACING}; // left sticks
+                } else {
+                    STICK_POSITIONS[i] = { VIEW_SIZE_X - config["sprites"]["stick"]["positions"]["x"].as<float>() - RIGHTSTICK_OFFSET_X,
+                                    config["sprites"]["stick"]["positions"]["y"].as<float>() + i * STICK_SPACING + RIGHTSTICK_OFFSET_Y}; // right sticks 
+                }
+                std::cout << "Stick position " << i << ": " << STICK_POSITIONS[i].x << ", " << STICK_POSITIONS[i].y << std::endl;
             }
 
             // Load background (in the big screen) settings

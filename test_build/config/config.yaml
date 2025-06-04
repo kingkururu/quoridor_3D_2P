@@ -114,28 +114,31 @@ sprites:
   pawn1:
     path: "test/test-assets/sprites/png/1.png"
     position:
-      x: 30.0 # pixels 
-      y: 30.0 # pixels
+      x: 13.0 # pixels 
+      y: 210.0 # pixels
     scale:
       x: 1.0
       y: 1.0
   pawn2:
     path: "test/test-assets/sprites/png/2.png"
     position:
-      x: 60.0 # pixels 
-      y: 60.0 # pixels
+      x: 406.0 # pixels 
+      y: 210.0 # pixels
     scale:
       x: 1.0
       y: 1.0
   stick:
     path: "test/test-assets/sprites/png/stick.png"
+    spacing: 19 # pixels, spacing between sticks
+    right_offset_x: 70 # pixels, offset for right stick
+    right_offset_y: 20 # pixels, offset for right stick
     positions:
-      x: 0.0 # pixels
-      y: 0.0 # pixels
+      x: -20.0 # pixels
+      y: 31 # starting position pixels
     scale:
       x: 1.0
       y: 1.0
-  
+   
 # Tile settings
 tiles:
   path: "test/test-assets/tiles/png/tilemap3.png"
