@@ -184,12 +184,12 @@ namespace Constants {
             BULLET_STARTINGSCALE = {config["sprites"]["bullet"]["scale"]["x"].as<float>(),
                             config["sprites"]["bullet"]["scale"]["y"].as<float>()};
 
-            // Load frame paths and settings
-            FRAME_PATH = config["sprites"]["frame"]["path"].as<std::string>();
-            FRAME_POSITION = {config["sprites"]["frame"]["position"]["x"].as<float>(),
-                                config["sprites"]["frame"]["position"]["y"].as<float>()};
-            FRAME_SCALE = {config["sprites"]["frame"]["scale"]["x"].as<float>(),
-                            config["sprites"]["frame"]["scale"]["y"].as<float>()};
+            // Load board paths and settings
+            BOARD_PATH = config["sprites"]["board"]["path"].as<std::string>();
+            BOARD_POSITION = {config["sprites"]["board"]["position"]["x"].as<float>(),
+                                config["sprites"]["board"]["position"]["y"].as<float>()};
+            BOARD_SCALE = {config["sprites"]["board"]["scale"]["x"].as<float>(),
+                            config["sprites"]["board"]["scale"]["y"].as<float>()};
 
             // Load background (in the big screen) settings
             BACKGROUNDBIG_PATH = config["sprites"]["background_big"]["path"].as<std::string>();
@@ -203,12 +203,6 @@ namespace Constants {
                                     config["sprites"]["background_big_final"]["position"]["y"].as<float>()};
             BACKGROUNDBIGFINAL_SCALE = {config["sprites"]["background_big_final"]["scale"]["x"].as<float>(),
                                 config["sprites"]["background_big_final"]["scale"]["y"].as<float>()};
-
-            BACKGROUNDBIGSTART_PATH = config["sprites"]["background_big_start"]["path"].as<std::string>();
-            BACKGROUNDBIGSTART_POSITION = {config["sprites"]["background_big_start"]["position"]["x"].as<float>(),
-                                    config["sprites"]["background_big_start"]["position"]["y"].as<float>()};
-            BACKGROUNDBIGSTART_SCALE = {config["sprites"]["background_big_start"]["scale"]["x"].as<float>(),
-                                config["sprites"]["background_big_start"]["scale"]["y"].as<float>()};
 
             // Load tile settings
             TILES_PATH = config["tiles"]["path"].as<std::string>();
@@ -287,11 +281,10 @@ namespace Constants {
         if (!SPRITE1_TEXTURE->loadFromFile(SPRITE1_PATH)) log_warning("Failed to load sprite1 texture");
         if (!TILES_TEXTURE->loadFromFile(TILES_PATH)) log_warning("Failed to load tiles texture");
         if (!BULLET_TEXTURE->loadFromFile(BULLET_PATH)) log_warning("Failed to load bullet texture");
-        if (!FRAME_TEXTURE->loadFromFile(FRAME_PATH)) log_warning("Failed to load frame texture");   
+        if (!BOARD_TEXTURE->loadFromFile(BOARD_PATH)) log_warning("Failed to load board texture");   
         if (!BUTTON1_TEXTURE->loadFromFile(BUTTON1_PATH)) log_warning("Failed to load enemy texture");  
         if (!BACKGROUNDBIG_TEXTURE->loadFromFile(BACKGROUNDBIG_PATH)) log_warning("Failed to load background big texture");
         if (!BACKGROUNDBIGFINAL_TEXTURE->loadFromFile(BACKGROUNDBIGFINAL_PATH)) log_warning("Failed to load background big final texture");
-        if (!BACKGROUNDBIGSTART_TEXTURE->loadFromFile(BACKGROUNDBIGSTART_PATH)) log_warning("Failed to load background big start texture");
 
         // music
         if (!BACKGROUNDMUSIC_MUSIC->openFromFile(BACKGROUNDMUSIC_PATH)) log_warning("Failed to load background music");

@@ -135,11 +135,11 @@ namespace Constants { // not actually "constants" in terms of being fixed, but s
     inline std::vector<sf::IntRect> BULLET_ANIMATIONRECTS;
     inline std::vector<std::shared_ptr<sf::Uint8[]>> BULLET_BITMASK;
 
-    // Frame paths and settings
-    inline std::filesystem::path FRAME_PATH;
-    inline sf::Vector2f FRAME_POSITION;
-    inline sf::Vector2f FRAME_SCALE;
-    inline std::shared_ptr<sf::Texture> FRAME_TEXTURE = std::make_shared<sf::Texture>();
+    // board paths and settings
+    inline std::filesystem::path BOARD_PATH;
+    inline sf::Vector2f BOARD_POSITION;
+    inline sf::Vector2f BOARD_SCALE;
+    inline std::shared_ptr<sf::Texture> BOARD_TEXTURE = std::make_shared<sf::Texture>();
 
     // Background (in the big view) paths and settings
     inline std::filesystem::path BACKGROUNDBIG_PATH;
@@ -150,11 +150,7 @@ namespace Constants { // not actually "constants" in terms of being fixed, but s
     inline sf::Vector2f BACKGROUNDBIGFINAL_POSITION;
     inline sf::Vector2f BACKGROUNDBIGFINAL_SCALE;
     inline std::shared_ptr<sf::Texture> BACKGROUNDBIGFINAL_TEXTURE = std::make_shared<sf::Texture>();
-    inline std::filesystem::path BACKGROUNDBIGSTART_PATH;
-    inline sf::Vector2f BACKGROUNDBIGSTART_POSITION;
-    inline sf::Vector2f BACKGROUNDBIGSTART_SCALE;
-    inline std::shared_ptr<sf::Texture> BACKGROUNDBIGSTART_TEXTURE = std::make_shared<sf::Texture>();
-
+    
     // Tile settings
     inline sf::Vector2f TILEMAP_POSITION; 
     inline std::filesystem::path TILES_PATH;

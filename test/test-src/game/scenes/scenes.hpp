@@ -99,11 +99,10 @@ private:
 
   std::unique_ptr<Player> player; 
   std::vector<std::unique_ptr<Bullet>> bullets; 
-  std::unique_ptr<Sprite> frame; 
+  std::unique_ptr<Sprite> board; 
   std::unique_ptr<Sprite> backgroundBig; 
   std::unique_ptr<Sprite> backgroundBigFinal; 
-  std::unique_ptr<Sprite> backgroundBigStart;
-  
+
   std::unique_ptr<Button>button1;
   
   std::array<std::shared_ptr<Tile>, Constants::TILES_NUMBER> tiles1;   

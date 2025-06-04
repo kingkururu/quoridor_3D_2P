@@ -99,12 +99,11 @@ void gamePlayScene::createAssets() {
                                           Constants::SPRITE1_ANIMATIONRECTS, Constants::SPRITE1_INDEXMAX, utils::convertToWeakPtrVector(Constants::SPRITE1_BITMASK));
         player->setRects(0); 
         
-        frame = std::make_unique<Sprite>(Constants::FRAME_POSITION, Constants::FRAME_SCALE, Constants::FRAME_TEXTURE); 
+        board = std::make_unique<Sprite>(Constants::BOARD_POSITION, Constants::BOARD_SCALE, Constants::BOARD_TEXTURE); 
         backgroundBig = std::make_unique<Sprite>(Constants::BACKGROUNDBIG_POSITION, Constants::BACKGROUNDBIG_SCALE, Constants::BACKGROUNDBIG_TEXTURE); 
 
         backgroundBigFinal = std::make_unique<Sprite>(Constants::BACKGROUNDBIGFINAL_POSITION, Constants::BACKGROUNDBIGFINAL_SCALE, Constants::BACKGROUNDBIGFINAL_TEXTURE); 
-        backgroundBigStart = std::make_unique<Sprite>(Constants::BACKGROUNDBIGSTART_POSITION, Constants::BACKGROUNDBIGSTART_SCALE, Constants::BACKGROUNDBIGSTART_TEXTURE);
-
+        
         button1 = std::make_unique<Button>(Constants::BUTTON1_POSITION, Constants::BUTTON1_SCALE, Constants::BUTTON1_TEXTURE, Constants::BUTTON1_ANIMATIONRECTS, Constants::BUTTON1_INDEXMAX, utils::convertToWeakPtrVector(Constants::BUTTON1_BITMASK)); 
         button1->setRects(0); 
 
@@ -333,9 +332,7 @@ void gamePlayScene::drawInleftView(){
     int tileY = static_cast<int>((player->getSpritePos().y - Constants::TILEMAP_POSITION.y) / Constants::TILE_HEIGHT);
     int tileIndexInMap = tileY * Constants::TILEMAP_WIDTH + tileX;
 
-    if(tileIndexInMap == Constants::TILEMAP_PLAYERSPAWNINDEX){ 
-        drawVisibleObject(backgroundBigStart);
-    } else if (tileIndexInMap == Constants::TILEMAP_GOALINDEX){ 
+    if(tileIndexInMap == Constants::TILEMAP_GOALINDEX){ 
         FlagSystem::flagEvents.gameEnd = true;
         drawVisibleObject(backgroundBigFinal);
         drawVisibleObject(endingText);
@@ -345,53 +342,37 @@ void gamePlayScene::drawInleftView(){
     window.draw(wallLine);
 
   //  drawVisibleObject(bullets[0]); 
-    drawVisibleObject(frame); 
     drawVisibleObject(scoreText); 
     drawVisibleObject(introText);
-
-    if(FlagSystem::flagEvents.mPressed){
-        sf::RectangleShape mainRect(sf::Vector2f(Constants::VIEW_SIZE_X, Constants::VIEW_SIZE_Y));
-        mainRect.setFillColor(sf::Color::Magenta); // background for small view
-        mainRect.setPosition(0,0);
-
-        window.draw(mainRect);
-
-        drawVisibleObject(tileMap1);
-        drawVisibleObject(player);
-
-        window.draw(rays); 
-    }
-
     drawVisibleObject(button1);
 }
 
 void gamePlayScene::drawInmiddleView(){
-    if(!FlagSystem::flagEvents.mPressed){
-        window.setView(MetaComponents::middleView);
+    window.setView(MetaComponents::middleView);
 
-        // temporary 
-        sf::RectangleShape mainRect(sf::Vector2f(Constants::VIEW_SIZE_X, Constants::VIEW_SIZE_Y));
-        mainRect.setFillColor(sf::Color::Magenta); // background for small view
-        mainRect.setPosition(0,0);
-
-        window.draw(mainRect);
-
-        drawVisibleObject(tileMap1);
-        drawVisibleObject(player);
-
-        window.draw(rays); 
-    }
+    drawVisibleObject(player);
+    drawVisibleObject(board);
 }
 
 void gamePlayScene::drawInRightView(){
     window.setView(MetaComponents::rightView);
-//MetaComponents::rightView.setCenter(225.0f, 225.0f); // Center of 450x450 view
     
-    sf::RectangleShape mainRect(sf::Vector2f(Constants::VIEW_SIZE_X, Constants::VIEW_SIZE_Y));
+    int tileX = static_cast<int>((player->getSpritePos().x - Constants::TILEMAP_POSITION.x) / Constants::TILE_WIDTH);
+    int tileY = static_cast<int>((player->getSpritePos().y - Constants::TILEMAP_POSITION.y) / Constants::TILE_HEIGHT);
+    int tileIndexInMap = tileY * Constants::TILEMAP_WIDTH + tileX;
 
-    mainRect.setFillColor(sf::Color::Yellow); // background for small view
+    if(tileIndexInMap == Constants::TILEMAP_GOALINDEX){ 
+        FlagSystem::flagEvents.gameEnd = true;
+        drawVisibleObject(backgroundBigFinal);
+        drawVisibleObject(endingText);
+    } else {
+        drawVisibleObject(backgroundBig);
+    }
+    window.draw(wallLine);
 
-    window.draw(mainRect);
+  //  drawVisibleObject(bullets[0]); 
+    drawVisibleObject(scoreText); 
+    drawVisibleObject(introText);
 
-    drawVisibleObject(player);
+    drawVisibleObject(button1);
 }
