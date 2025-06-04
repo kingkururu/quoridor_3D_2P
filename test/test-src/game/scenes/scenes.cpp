@@ -101,7 +101,10 @@ void gamePlayScene::createAssets() {
         
         pawn1 = std::make_unique<Sprite>(Constants::PAWN1_POSITION, Constants::PAWN1_SCALE, Constants::PAWN1_TEXTURE);
         pawn2 = std::make_unique<Sprite>(Constants::PAWN2_POSITION, Constants::PAWN2_SCALE, Constants::PAWN2_TEXTURE);
-        stick = std::make_unique<Sprite>(Constants::STICK_POSITION, Constants::STICK_SCALE, Constants::STICK_TEXTURE);
+        
+        for(int i = 0; i < Constants::STICKS_NUMBER; ++i) {
+            sticks[i] = std::make_unique<Sprite>(Constants::STICK_POSITIONS[i], Constants::STICK_SCALE, Constants::STICK_TEXTURE);
+        }
 
         board = std::make_unique<Sprite>(Constants::BOARD_POSITION, Constants::BOARD_SCALE, Constants::BOARD_TEXTURE); 
         backgroundBig = std::make_unique<Sprite>(Constants::BACKGROUNDBIG_POSITION, Constants::BACKGROUNDBIG_SCALE, Constants::BACKGROUNDBIG_TEXTURE); 
@@ -358,7 +361,8 @@ void gamePlayScene::drawInmiddleView(){
     drawVisibleObject(board);
     drawVisibleObject(pawn1);
     drawVisibleObject(pawn2);
-    drawVisibleObject(stick);
+
+    for(const auto& stick : sticks) drawVisibleObject(stick);
 }
 
 void gamePlayScene::drawInRightView(){

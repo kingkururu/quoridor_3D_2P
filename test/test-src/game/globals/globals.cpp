@@ -59,7 +59,7 @@ namespace SpriteComponents {
             {"BLACK", sf::Color::Black},
             {"TRANSPARENT", sf::Color::Transparent},
             {"CUSTOMCOLOR_LIGHTCORAL", sf::Color(240, 128, 128)}, // add colors like this 
-            {"CUSTOMCOLOR_BROWN", sf::Color(75, 20, 9)}
+            {"CUSTOMCOLOR_BROWN", sf::Color(225, 190, 153)}
         };
 
         auto it = colorMap.find(color);
@@ -135,7 +135,7 @@ namespace Constants {
             VIEW_RECT = { 0.0f, 0.0f, VIEW_SIZE_X, VIEW_SIZE_Y };
             FOV = config["world"]["FOV"].as<unsigned short>(); 
             RAYS_NUM = config["world"]["rays_num"].as<size_t>(); 
-            GROUND_COLOR = SpriteComponents::toSfColor(config["world"]["ground_color"].as<std::string>());
+            WALL_COLOR = SpriteComponents::toSfColor(config["world"]["wall_color"].as<std::string>());
 
             // Load score settings
             INITIAL_SCORE = config["score"]["initial"].as<unsigned short>(); 
@@ -206,10 +206,12 @@ namespace Constants {
   
             // Load stick paths and settings
             STICK_PATH = config["sprites"]["stick"]["path"].as<std::string>();
-            STICK_POSITION = {config["sprites"]["stick"]["position"]["x"].as<float>(),
-                                config["sprites"]["stick"]["position"]["y"].as<float>()};
             STICK_SCALE = {config["sprites"]["stick"]["scale"]["x"].as<float>(),
                             config["sprites"]["stick"]["scale"]["y"].as<float>()};
+            for(unsigned short i = 0; i < STICKS_NUMBER; ++i) {
+                STICK_POSITIONS[i] = {config["sprites"]["stick"]["positions"]["x"].as<float>(),
+                                    config["sprites"]["stick"]["positions"]["y"].as<float>() * i * 50};
+            }
 
             // Load background (in the big screen) settings
             BACKGROUNDBIG_PATH = config["sprites"]["background_big"]["path"].as<std::string>();
@@ -308,7 +310,7 @@ namespace Constants {
         if (!PAWN1_TEXTURE->loadFromFile(PAWN1_PATH)) log_warning("Failed to load pawn1 texture");
         if (!PAWN2_TEXTURE->loadFromFile(PAWN2_PATH)) log_warning("Failed to load pawn2 texture");
         if (!STICK_TEXTURE->loadFromFile(STICK_PATH)) log_warning("Failed to load stick texture");
-        
+
         // music
         if (!BACKGROUNDMUSIC_MUSIC->openFromFile(BACKGROUNDMUSIC_PATH)) log_warning("Failed to load background music");
 
