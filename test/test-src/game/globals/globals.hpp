@@ -28,25 +28,26 @@ namespace SpriteComponents {
 }
 
 namespace MetaComponents{
-    inline sf::Vector2i bigViewmouseClickedPosition_i {}; 
-    inline sf::Vector2f bigViewmouseClickedPosition_f {}; 
+    inline sf::Vector2i leftViewmouseClickedPosition_i {}; 
+    inline sf::Vector2f leftViewmouseClickedPosition_f {}; 
 
-    inline sf::Vector2i smallViewmouseClickedPosition_i {}; 
-    inline sf::Vector2f smallViewmouseClickedPosition_f {}; 
+    inline sf::Vector2i middleViewmouseClickedPosition_i {}; 
+    inline sf::Vector2f middleViewmouseClickedPosition_f {}; 
 
     inline float globalTime {};
     inline float deltaTime {}; 
     inline float spacePressedElapsedTime{};
 
     extern sf::Clock clock;
-    extern sf::View smallView;
-    extern sf::View bigView;
+    extern sf::View middleView;
+    extern sf::View leftView;
+    extern sf::View rightView;
 
-    extern sf::FloatRect getSmallViewBounds();
-    extern float getSmallViewMinX();
-    extern float getSmallViewMaxX();
-    extern float getSmallViewMinY();
-    extern float getSmallViewMaxY();
+    extern sf::FloatRect getmiddleViewBounds();
+    extern float getmiddleViewMinX();
+    extern float getmiddleViewMaxX();
+    extern float getmiddleViewMinY();
+    extern float getmiddleViewMaxY();
 }
 
 namespace Constants { // not actually "constants" in terms of being fixed, but should never be altered after being read from the config.yaml file

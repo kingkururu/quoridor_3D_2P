@@ -315,8 +315,8 @@ namespace physics {
         float playerAngle = player->getHeadingAngle(); // Player's rotation angle in degrees
 
         size_t itCount = Constants::RAYS_NUM / 2;
-        float screenWidth = static_cast<float>(MetaComponents::bigView.getSize().x);
-        float screenHeight = static_cast<float>(MetaComponents::bigView.getSize().y);
+        float screenWidth = static_cast<float>(MetaComponents::leftView.getSize().x);
+        float screenHeight = static_cast<float>(MetaComponents::leftView.getSize().y);
         float centerY = screenHeight / 2.0f;
 
         const float wallHeightScale = 2500.0f;  // Scale factor for wall height

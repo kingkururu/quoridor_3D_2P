@@ -8,11 +8,17 @@
 
 // Scene constructure sets up window and sprite respawn times 
 Scene::Scene( sf::RenderWindow& gameWindow ) : window(gameWindow), quadtree(0.0f, 0.0f, Constants::WORLD_WIDTH, Constants::WORLD_HEIGHT){ 
-    MetaComponents::smallView = sf::View(Constants::VIEW_RECT); 
-    MetaComponents::smallView.setViewport(sf::FloatRect(0.75f, 0.f, 0.25f, 0.25f));
+    MetaComponents::leftView.setSize(Constants::VIEW_SIZE_X, Constants::VIEW_SIZE_Y);
+    MetaComponents::leftView.setCenter(Constants::VIEW_SIZE_X / 2, Constants::VIEW_SIZE_Y / 2);
+    MetaComponents::leftView.setViewport(sf::FloatRect(0.0f, 0.0f, 0.333f, 1.0f));
 
-    MetaComponents::bigView = sf::View(sf::FloatRect(0, 0, Constants::WORLD_WIDTH, Constants::WORLD_HEIGHT)); 
-    MetaComponents::bigView.setViewport(sf::FloatRect(0.0f, 0.f, 1.0f, 1.0f)); 
+    MetaComponents::middleView.setSize(Constants::VIEW_SIZE_X, Constants::VIEW_SIZE_Y);
+    MetaComponents::middleView.setCenter(Constants::VIEW_SIZE_X / 2, Constants::VIEW_SIZE_Y / 2);
+    MetaComponents::middleView.setViewport(sf::FloatRect(0.333f, 0.0f, 0.333f, 1.0f));
+
+    MetaComponents::rightView.setSize(Constants::VIEW_SIZE_X, Constants::VIEW_SIZE_Y);
+    MetaComponents::rightView.setCenter(Constants::VIEW_SIZE_X / 2, Constants::VIEW_SIZE_Y / 2);
+    MetaComponents::rightView.setViewport(sf::FloatRect(0.667f, 0.0f, 0.333f, 1.0f));
 
     log_info("scene made"); 
 }
@@ -42,16 +48,16 @@ void Scene::draw(){
 void Scene::moveViewPortWASD(){
     // move view port 
     if(FlagSystem::flagEvents.aPressed){
-        MetaComponents::smallView.move(sf::Vector2f(-10, 0)); 
+        MetaComponents::middleView.move(sf::Vector2f(-10, 0)); 
     }
     if(FlagSystem::flagEvents.dPressed){
-        MetaComponents::smallView.move(sf::Vector2f(10, 0)); 
+        MetaComponents::middleView.move(sf::Vector2f(10, 0)); 
     }
     if(FlagSystem::flagEvents.sPressed){
-        MetaComponents::smallView.move(sf::Vector2f(0, 10)); 
+        MetaComponents::middleView.move(sf::Vector2f(0, 10)); 
     }
     if(FlagSystem::flagEvents.wPressed){
-        MetaComponents::smallView.move(sf::Vector2f(0, -10)); 
+        MetaComponents::middleView.move(sf::Vector2f(0, -10)); 
     }
 }
 
@@ -174,7 +180,7 @@ void gamePlayScene::handleInput() {
 
 void gamePlayScene::handleMouseClick() {    
     if(FlagSystem::flagEvents.mouseClicked) {
-        if(physics::collisionHelper(button1, MetaComponents::bigViewmouseClickedPosition_f)){
+        if(physics::collisionHelper(button1, MetaComponents::leftViewmouseClickedPosition_f)){
             button1->setVisibleState(false); 
             button1->setClickedBool(true);
             FlagSystem::gameScene1Flags.begin = true;
@@ -249,7 +255,7 @@ void gamePlayScene::handleMovementKeys() {
 
 // Keeps sprites inside screen bounds, checks for collisions, update scores, and sets flagEvents.gameEnd to true in an event of collision 
 void gamePlayScene::handleGameEvents() { 
-    // scoreText->getText().setPosition(MetaComponents::smallView.getCenter().x - 460, MetaComponents::smallView.getCenter().y - 270);
+    // scoreText->getText().setPosition(MetaComponents::middleView.getCenter().x - 460, MetaComponents::middleView.getCenter().y - 270);
     if(button1->getClickedBool() && player && player->getMoveState()){
         physics::navigateMaze(player, tileMap1, Constants::TILEPATH_INSTRUCTION);
         player->setAutoNavigate(true); 
@@ -274,7 +280,7 @@ void gamePlayScene::update() {
         quadtree.update(); 
 
         // Set the view for the window
-        window.setView(MetaComponents::smallView);
+        window.setView(MetaComponents::middleView);
         
     } catch (const std::exception& e) {
         log_error("Exception in updateSprites: " + std::string(e.what()));
@@ -309,8 +315,9 @@ void gamePlayScene::draw() {
     try {
         window.clear(sf::Color::Black); // set the base baskground color black
 
-        drawInBigView();
-        drawInSmallView();
+        drawInleftView();
+        drawInmiddleView();
+        drawInRightView();
 
         window.display(); 
     } 
@@ -319,8 +326,8 @@ void gamePlayScene::draw() {
     }
 }
 
-void gamePlayScene::drawInBigView(){
-    window.setView(MetaComponents::bigView);
+void gamePlayScene::drawInleftView(){
+    window.setView(MetaComponents::leftView);
 
     int tileX = static_cast<int>((player->getSpritePos().x - Constants::TILEMAP_POSITION.x) / Constants::TILE_WIDTH);
     int tileY = static_cast<int>((player->getSpritePos().y - Constants::TILEMAP_POSITION.y) / Constants::TILE_HEIGHT);
@@ -358,9 +365,9 @@ void gamePlayScene::drawInBigView(){
     drawVisibleObject(button1);
 }
 
-void gamePlayScene::drawInSmallView(){
+void gamePlayScene::drawInmiddleView(){
     if(!FlagSystem::flagEvents.mPressed){
-        window.setView(MetaComponents::smallView);
+        window.setView(MetaComponents::middleView);
 
         // temporary 
         sf::RectangleShape mainRect(sf::Vector2f(Constants::VIEW_SIZE_X, Constants::VIEW_SIZE_Y));
@@ -374,4 +381,17 @@ void gamePlayScene::drawInSmallView(){
 
         window.draw(rays); 
     }
+}
+
+void gamePlayScene::drawInRightView(){
+    window.setView(MetaComponents::rightView);
+//MetaComponents::rightView.setCenter(225.0f, 225.0f); // Center of 450x450 view
+    
+    sf::RectangleShape mainRect(sf::Vector2f(Constants::VIEW_SIZE_X, Constants::VIEW_SIZE_Y));
+
+    mainRect.setFillColor(sf::Color::Yellow); // background for small view
+
+    window.draw(mainRect);
+
+    drawVisibleObject(player);
 }

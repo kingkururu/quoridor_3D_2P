@@ -7,29 +7,30 @@
     
 namespace MetaComponents {
     sf::Clock clock;
-    sf::View smallView; 
-    sf::View bigView; 
+    sf::View middleView; 
+    sf::View leftView; 
+    sf::View rightView;
 
-    sf::FloatRect getSmallViewBounds(){
+    sf::FloatRect getmiddleViewBounds(){
         return {
-            smallView.getCenter().x - smallView.getSize().x / 2,
-            smallView.getCenter().y - smallView.getSize().y / 2,
-            smallView.getSize().x,
-            smallView.getSize().y
+            middleView.getCenter().x - middleView.getSize().x / 2,
+            middleView.getCenter().y - middleView.getSize().y / 2,
+            middleView.getSize().x,
+            middleView.getSize().y
         };
     }
 
-    float getSmallViewMinX(){
-        return smallView.getCenter().x - smallView.getSize().x / 2;
+    float getmiddleViewMinX(){
+        return middleView.getCenter().x - middleView.getSize().x / 2;
     }
-    float getSmallViewMaxX(){
-        return smallView.getCenter().x + smallView.getSize().x / 2;
+    float getmiddleViewMaxX(){
+        return middleView.getCenter().x + middleView.getSize().x / 2;
     }
-    float getSmallViewMinY(){
-        return smallView.getCenter().y - smallView.getSize().y / 2;
+    float getmiddleViewMinY(){
+        return middleView.getCenter().y - middleView.getSize().y / 2;
     }
-    float getSmallViewMaxY(){
-        return smallView.getCenter().y + smallView.getSize().y / 2;       
+    float getmiddleViewMaxY(){
+        return middleView.getCenter().y + middleView.getSize().y / 2;       
     }
 }   
 
@@ -77,8 +78,8 @@ namespace Constants {
     // make randome position from right side of the screen
     sf::Vector2f makeRandomPositionCloud() {
         // Get the bounds of the current view
-        float viewMaxX = MetaComponents::getSmallViewMinX() + MetaComponents::getSmallViewBounds().width;
-        float viewHeight = MetaComponents::getSmallViewBounds().height;
+        float viewMaxX = MetaComponents::getmiddleViewMinX() + MetaComponents::getmiddleViewBounds().width;
+        float viewHeight = MetaComponents::getmiddleViewBounds().height;
 
         // Generate a random x-position to the right of the current view,
         // ensuring the cloud is fully off-screen initially
@@ -93,8 +94,8 @@ namespace Constants {
     // make randome position from right side of the screen
     sf::Vector2f makeRandomPositionCoin() {
         // Get the bounds of the current view
-        float viewMaxX = MetaComponents::getSmallViewMinX() + MetaComponents::getSmallViewBounds().width;
-        float viewHeight = MetaComponents::getSmallViewBounds().height;
+        float viewMaxX = MetaComponents::getmiddleViewMinX() + MetaComponents::getmiddleViewBounds().width;
+        float viewHeight = MetaComponents::getmiddleViewBounds().height;
 
         // Generate a random x-position to the right of the current view,
         // ensuring the cloud is fully off-screen initially

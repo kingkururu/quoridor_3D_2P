@@ -1,13 +1,13 @@
 # Game display settings
 world:
   scale: 1.0
-  width: 608 # big view size
-  height: 416 # big view size
+  width: 1350 # entire window size
+  height: 450 # entire viwindowew size
   frame_limit: 60 # fps
-  title: "raycast sfml game template tester"
+  title: "3D Quoridor 2P"
   view:
-    size_x: 608.0 # pixels. also the small screen size 
-    size_y: 416.0 # pixels. also the small screen size  
+    size_x: 450.0 # pixels. also the each of the screen size 
+    size_y: 450.0 # pixels. also the each of the screen size  
     initial_center:
       x: 0.0 # pixels, absoloute from window
       y: 0.0 # pixels, absoloute from window

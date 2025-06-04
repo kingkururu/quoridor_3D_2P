@@ -90,8 +90,9 @@ private:
   void changeAnimation();
 
   void draw() override; 
-  void drawInBigView();
-  void drawInSmallView();
+  void drawInleftView();
+  void drawInmiddleView();
+  void drawInRightView();
 
   template<typename drawableType>
   void drawVisibleObject(drawableType& drawable){ if (drawable && drawable->getVisibleState()) window.draw(*drawable); }

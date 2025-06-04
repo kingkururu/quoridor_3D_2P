@@ -82,10 +82,10 @@ Background::Background(sf::Vector2f position, sf::Vector2f scale, std::weak_ptr<
 void Background::updateBackground(float speed, SpriteComponents::Direction primaryDirection, SpriteComponents::Direction secondaryDirection) {
     // Get the global bounds of the view
     sf::FloatRect viewBounds(
-        MetaComponents::smallView.getCenter().x - MetaComponents::smallView.getSize().x / 2,
-        MetaComponents::smallView.getCenter().y - MetaComponents::smallView.getSize().y / 2,
-        MetaComponents::smallView.getSize().x,
-        MetaComponents::smallView.getSize().y
+        MetaComponents::middleView.getCenter().x - MetaComponents::middleView.getSize().x / 2,
+        MetaComponents::middleView.getCenter().y - MetaComponents::middleView.getSize().y / 2,
+        MetaComponents::middleView.getSize().x,
+        MetaComponents::middleView.getSize().y
     );
         // Calculate the current movement offset based on speed, deltaTime
     float offsetX = 0; // horizontal offset

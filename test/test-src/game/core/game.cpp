@@ -72,15 +72,15 @@ void GameManager::handleEventInput() {
         }
         if (event.type == sf::Event::MouseButtonPressed) {
             FlagSystem::flagEvents.mouseClicked = true;
-            sf::Vector2f worldPos = mainWindow.getWindow().mapPixelToCoords(sf::Mouse::getPosition(mainWindow.getWindow()), MetaComponents::bigView);
-            MetaComponents::bigViewmouseClickedPosition_i = static_cast<sf::Vector2i>(worldPos);
-            MetaComponents::bigViewmouseClickedPosition_f = worldPos; 
-            //std::cout << "mouse clicked in big view x: " <<  MetaComponents::bigViewmouseClickedPosition_i.x << " and big view y: " <<  MetaComponents::bigViewmouseClickedPosition_i.y <<std::endl;
+            sf::Vector2f worldPos = mainWindow.getWindow().mapPixelToCoords(sf::Mouse::getPosition(mainWindow.getWindow()), MetaComponents::leftView);
+            MetaComponents::leftViewmouseClickedPosition_i = static_cast<sf::Vector2i>(worldPos);
+            MetaComponents::leftViewmouseClickedPosition_f = worldPos; 
+            //std::cout << "mouse clicked in big view x: " <<  MetaComponents::leftViewmouseClickedPosition_i.x << " and big view y: " <<  MetaComponents::leftViewmouseClickedPosition_i.y <<std::endl;
 
-            worldPos = mainWindow.getWindow().mapPixelToCoords(sf::Mouse::getPosition(mainWindow.getWindow()), MetaComponents::smallView);
-            MetaComponents::smallViewmouseClickedPosition_i = static_cast<sf::Vector2i>(worldPos);
-            MetaComponents::smallViewmouseClickedPosition_f = worldPos; 
-            //std::cout << "mouse clicked in small view x: " <<  MetaComponents::smallViewmouseClickedPosition_i.x << " and small view y: " <<  MetaComponents::smallViewmouseClickedPosition_i.y <<std::endl;
+            worldPos = mainWindow.getWindow().mapPixelToCoords(sf::Mouse::getPosition(mainWindow.getWindow()), MetaComponents::middleView);
+            MetaComponents::middleViewmouseClickedPosition_i = static_cast<sf::Vector2i>(worldPos);
+            MetaComponents::middleViewmouseClickedPosition_f = worldPos; 
+            //std::cout << "mouse clicked in small view x: " <<  MetaComponents::middleViewmouseClickedPosition_i.x << " and small view y: " <<  MetaComponents::middleViewmouseClickedPosition_i.y <<std::endl;
         }
     }
 }

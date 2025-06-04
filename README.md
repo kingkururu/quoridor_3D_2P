@@ -1,7 +1,5 @@
 
-## Raycast test application
-
-This test game is made using my game template with SFML and C++. The makefile is set to download all the necessary stuff like homebrew, spdlog, and sfml. 
+## 2Player 3D Quoridor Simulation
 
 To compile and run, download the zip file from release.
 locate program through terminal via
@@ -26,9 +24,3 @@ export PATH="/opt/homebrew/opt/yaml-cpp/bin:$PATH"
 Ctrl O, Ctrl X
 source ~/.zshrc (for zshrc)
 source ~/. bash_profile (for bash)
-
-## Game Play Screenshots: 
-
-<img width="641" alt="Image" src="https://github.com/user-attachments/assets/681bd3e9-5e92-47ae-bc73-865dbb595454" />
-<img width="884" alt="Image" src="https://github.com/user-attachments/assets/4856a85c-618c-4cc3-9e42-bb8f56957bd5" />
-<img width="950" alt="Image" src="https://github.com/user-attachments/assets/ae51ba5a-fd90-45b8-8330-e17a46d82088" />
