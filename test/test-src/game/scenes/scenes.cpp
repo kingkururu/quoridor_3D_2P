@@ -99,6 +99,9 @@ void gamePlayScene::createAssets() {
                                           Constants::SPRITE1_ANIMATIONRECTS, Constants::SPRITE1_INDEXMAX, utils::convertToWeakPtrVector(Constants::SPRITE1_BITMASK));
         player->setRects(0); 
         
+        pawn1 = std::make_unique<Sprite>(Constants::PAWN1_POSITION, Constants::PAWN1_SCALE, Constants::PAWN1_TEXTURE);
+        pawn2 = std::make_unique<Sprite>(Constants::PAWN2_POSITION, Constants::PAWN2_SCALE, Constants::PAWN2_TEXTURE);
+        
         board = std::make_unique<Sprite>(Constants::BOARD_POSITION, Constants::BOARD_SCALE, Constants::BOARD_TEXTURE); 
         backgroundBig = std::make_unique<Sprite>(Constants::BACKGROUNDBIG_POSITION, Constants::BACKGROUNDBIG_SCALE, Constants::BACKGROUNDBIG_TEXTURE); 
 
@@ -352,6 +355,8 @@ void gamePlayScene::drawInmiddleView(){
 
     drawVisibleObject(player);
     drawVisibleObject(board);
+    drawVisibleObject(pawn1);
+    drawVisibleObject(pawn2);
 }
 
 void gamePlayScene::drawInRightView(){

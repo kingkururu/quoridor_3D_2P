@@ -141,6 +141,17 @@ namespace Constants { // not actually "constants" in terms of being fixed, but s
     inline sf::Vector2f BOARD_SCALE;
     inline std::shared_ptr<sf::Texture> BOARD_TEXTURE = std::make_shared<sf::Texture>();
 
+    // pawn paths and settings
+    inline std::filesystem::path PAWN1_PATH;
+    inline sf::Vector2f PAWN1_POSITION;     
+    inline sf::Vector2f PAWN1_SCALE;
+    inline std::shared_ptr<sf::Texture> PAWN1_TEXTURE = std::make_shared<sf::Texture>();
+
+    inline std::filesystem::path PAWN2_PATH;
+    inline sf::Vector2f PAWN2_POSITION;
+    inline sf::Vector2f PAWN2_SCALE;
+    inline std::shared_ptr<sf::Texture> PAWN2_TEXTURE = std::make_shared<sf::Texture>();
+  
     // Background (in the big view) paths and settings
     inline std::filesystem::path BACKGROUNDBIG_PATH;
     inline sf::Vector2f BACKGROUNDBIG_POSITION;

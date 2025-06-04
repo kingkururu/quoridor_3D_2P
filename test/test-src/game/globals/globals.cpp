@@ -191,6 +191,19 @@ namespace Constants {
             BOARD_SCALE = {config["sprites"]["board"]["scale"]["x"].as<float>(),
                             config["sprites"]["board"]["scale"]["y"].as<float>()};
 
+            // Load pawn paths and settings
+            PAWN1_PATH = config["sprites"]["pawn1"]["path"].as<std::string>();
+            PAWN1_POSITION = {config["sprites"]["pawn1"]["position"]["x"].as<float>(),
+                                config["sprites"]["pawn1"]["position"]["y"].as<float>()};
+            PAWN1_SCALE = {config["sprites"]["pawn1"]["scale"]["x"].as<float>(),
+                            config["sprites"]["pawn1"]["scale"]["y"].as<float>()};
+
+            PAWN2_PATH = config["sprites"]["pawn2"]["path"].as<std::string>();
+            PAWN2_POSITION = {config["sprites"]["pawn2"]["position"]["x"].as<float>(),
+                                config["sprites"]["pawn2"]["position"]["y"].as<float>()};
+            PAWN2_SCALE = {config["sprites"]["pawn2"]["scale"]["x"].as<float>(),
+                            config["sprites"]["pawn2"]["scale"]["y"].as<float>()};
+  
             // Load background (in the big screen) settings
             BACKGROUNDBIG_PATH = config["sprites"]["background_big"]["path"].as<std::string>();
             BACKGROUNDBIG_POSITION = {config["sprites"]["background_big"]["position"]["x"].as<float>(),
@@ -285,6 +298,8 @@ namespace Constants {
         if (!BUTTON1_TEXTURE->loadFromFile(BUTTON1_PATH)) log_warning("Failed to load enemy texture");  
         if (!BACKGROUNDBIG_TEXTURE->loadFromFile(BACKGROUNDBIG_PATH)) log_warning("Failed to load background big texture");
         if (!BACKGROUNDBIGFINAL_TEXTURE->loadFromFile(BACKGROUNDBIGFINAL_PATH)) log_warning("Failed to load background big final texture");
+        if (!PAWN1_TEXTURE->loadFromFile(PAWN1_PATH)) log_warning("Failed to load pawn1 texture");
+        if (!PAWN2_TEXTURE->loadFromFile(PAWN2_PATH)) log_warning("Failed to load pawn2 texture");
 
         // music
         if (!BACKGROUNDMUSIC_MUSIC->openFromFile(BACKGROUNDMUSIC_PATH)) log_warning("Failed to load background music");

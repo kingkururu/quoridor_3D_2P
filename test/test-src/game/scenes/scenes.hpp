@@ -103,6 +103,9 @@ private:
   std::unique_ptr<Sprite> backgroundBig; 
   std::unique_ptr<Sprite> backgroundBigFinal; 
 
+  std::unique_ptr<Sprite> pawn1; 
+  std::unique_ptr<Sprite> pawn2;
+
   std::unique_ptr<Button>button1;
   
   std::array<std::shared_ptr<Tile>, Constants::TILES_NUMBER> tiles1;   
