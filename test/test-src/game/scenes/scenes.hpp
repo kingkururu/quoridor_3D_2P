@@ -74,6 +74,7 @@ private:
   void handleMouseClick(); 
   void handleSpaceKey();
   void handleMovementKeys(); 
+  void handleEachPlayer(std::unique_ptr<Player>& playerNum);
 
   void respawnAssets() override; 
   void handleInvisibleSprites() override;
@@ -113,8 +114,10 @@ private:
   std::unique_ptr<TileMap> tileMap1; 
 
   // for 3d walls
-  sf::VertexArray rays;
-  sf::VertexArray wallLine; 
+  sf::VertexArray rays; // player 1
+  sf::VertexArray wallLine; // player 2
+  sf::VertexArray rays2; // player 2
+  sf::VertexArray wallLine2; // player 2
 
   std::unique_ptr<MusicClass> backgroundMusic;
   std::unique_ptr<SoundClass> buttonClickSound; 

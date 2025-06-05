@@ -122,9 +122,9 @@ void gamePlayScene::createAssets() {
         }
        
         tileMap1 = std::make_unique<TileMap>(tiles1.data(), Constants::TILES_NUMBER, Constants::TILEMAP_WIDTH, Constants::TILEMAP_HEIGHT, Constants::TILE_WIDTH, Constants::TILE_HEIGHT, Constants::TILEMAP_FILEPATH, Constants::TILEMAP_POSITION); 
-        rays = sf::VertexArray(sf::Lines, Constants::RAYS_NUM);
         rays = sf::VertexArray(sf::Quads, Constants::RAYS_NUM);
-   
+        rays2 = sf::VertexArray(sf::Quads, Constants::RAYS_NUM);
+
         // Music
         backgroundMusic = std::make_unique<MusicClass>(std::move(Constants::BACKGROUNDMUSIC_MUSIC), Constants::BACKGROUNDMUSIC_VOLUME);
         // if(backgroundMusic) backgroundMusic->returnMusic().play(); 
@@ -200,61 +200,60 @@ void gamePlayScene::handleSpaceKey() {
 }
 
 void gamePlayScene::handleMovementKeys() {
-    if(!player->getMoveState()) return;
+    handleEachPlayer(player);
+    handleEachPlayer(player2);
+}
 
-    int tileX = static_cast<int>((player->getSpritePos().x - Constants::TILEMAP_POSITION.x) / Constants::TILE_WIDTH);
-    int tileY = static_cast<int>((player->getSpritePos().y - Constants::TILEMAP_POSITION.y) / Constants::TILE_HEIGHT);
+void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum) {
+    if(!playerNum || !playerNum->getMoveState()) return;
+
+    int tileX = static_cast<int>((playerNum->getSpritePos().x - Constants::TILEMAP_POSITION.x) / Constants::TILE_WIDTH);
+    int tileY = static_cast<int>((playerNum->getSpritePos().y - Constants::TILEMAP_POSITION.y) / Constants::TILE_HEIGHT);
     int tileIndexInMap = tileY * Constants::TILEMAP_WIDTH + tileX;
     bool canWalkOnTile = tileMap1->getTile(tileIndexInMap)->getWalkable(); 
 
-    sf::FloatRect playerBounds = player->returnSpritesShape().getGlobalBounds();
-    sf::Vector2f originalPlayerPos = player->getSpritePos();
-
-    // std::cout << "Tile X: " << tileX << ", Tile Y: " << tileY << ", inex: " << tileIndexInMap << "can walk: "<< canWalkOnTile<< std::endl;
+    sf::FloatRect playerBounds = playerNum->returnSpritesShape().getGlobalBounds();
+    sf::Vector2f originalPlayerPos = playerNum->getSpritePos();
     
     if(FlagSystem::flagEvents.aPressed){ // turn left
-        player->returnSpritesShape().rotate(-1.0f); // degrees
-        float newAngle = player->returnSpritesShape().getRotation();
-        player->setHeadingAngle(newAngle);
+        playerNum->returnSpritesShape().rotate(-1.0f); // degrees
+        float newAngle = playerNum->returnSpritesShape().getRotation();
+        playerNum->setHeadingAngle(newAngle);
         FlagSystem::gameScene1Flags.begin = true;
-       // player->setAutoNavigate(false); // stop auto navigation
     }
     if(FlagSystem::flagEvents.dPressed){ // turn right 
-        player->returnSpritesShape().rotate(1.0f); // degrees
-        float newAngle = player->returnSpritesShape().getRotation();
-        player->setHeadingAngle(newAngle);
+        playerNum->returnSpritesShape().rotate(1.0f); // degrees
+        float newAngle = playerNum->returnSpritesShape().getRotation();
+        playerNum->setHeadingAngle(newAngle);
         FlagSystem::gameScene1Flags.begin = true;
-       // player->setAutoNavigate(false); // stop auto navigation
     }
     if(FlagSystem::flagEvents.wPressed && canWalkOnTile){ // front 
-        physics::spriteMover(player, physics::followDirVec); 
+        physics::spriteMover(playerNum, physics::followDirVec); 
         FlagSystem::gameScene1Flags.begin = true;
-       // player->setAutoNavigate(false); // stop auto navigation
     }
     if(FlagSystem::flagEvents.sPressed && canWalkOnTile){ // back
-        physics::spriteMover(player, physics::followDirVecOpposite); 
+        physics::spriteMover(playerNum, physics::followDirVecOpposite); 
         FlagSystem::gameScene1Flags.begin = true;
-       // player->setAutoNavigate(true); // stop auto navigation
     }   
 
-    int newTileX = static_cast<int>((player->getSpritePos().x - Constants::TILEMAP_POSITION.x) / Constants::TILE_WIDTH);
-    int newTileY = static_cast<int>((player->getSpritePos().y - Constants::TILEMAP_POSITION.y) / Constants::TILE_HEIGHT);
+    int newTileX = static_cast<int>((playerNum->getSpritePos().x - Constants::TILEMAP_POSITION.x) / Constants::TILE_WIDTH);
+    int newTileY = static_cast<int>((playerNum->getSpritePos().y - Constants::TILEMAP_POSITION.y) / Constants::TILE_HEIGHT);
     int newTileIndexInMap = newTileY * Constants::TILEMAP_WIDTH + newTileX;
     bool canWalkOnTileAgain = tileMap1->getTile(newTileIndexInMap)->getWalkable(); 
 
     if(!canWalkOnTileAgain){
-        player->changePosition(originalPlayerPos);
-        player->updatePos(); 
+        playerNum->changePosition(originalPlayerPos);
+        playerNum->updatePos(); 
     }
-    sf::Vector2f playerPos = player->getSpritePos();
+    sf::Vector2f playerPos = playerNum->getSpritePos();
     float spriteWidth = playerBounds.width;
     float spriteHeight = playerBounds.height;
 
     float newX = std::clamp(playerPos.x, spriteWidth, Constants::VIEW_SIZE_X - spriteWidth);
     float newY = std::clamp(playerPos.y, spriteHeight, Constants::VIEW_SIZE_Y - spriteHeight);
 
-    player->changePosition(sf::Vector2f{newX, newY});
-    player->updatePos(); 
+    playerNum->changePosition(sf::Vector2f{newX, newY});
+    playerNum->updatePos(); 
 }
 
 // Keeps sprites inside screen bounds, checks for collisions, update scores, and sets flagEvents.gameEnd to true in an event of collision 
@@ -265,6 +264,7 @@ void gamePlayScene::handleGameEvents() {
         player->setAutoNavigate(true); 
     }
     physics::calculateRayCast3d(player, tileMap1, rays, wallLine); // modifies the ray 
+    physics::calculateRayCast3d(player2, tileMap1, rays2, wallLine2); // modifies the rays2 
 } 
 
 void gamePlayScene::handleSceneFlags(){
@@ -377,7 +377,7 @@ void gamePlayScene::drawInRightView(){
     } else {
         drawVisibleObject(backgroundBig);
     }
-    window.draw(wallLine);
+    window.draw(wallLine2);
 
   //  drawVisibleObject(bullets[0]); 
     drawVisibleObject(scoreText); 

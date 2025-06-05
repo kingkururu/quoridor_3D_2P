@@ -246,14 +246,24 @@ namespace FlagSystem {
         bool dPressed;
         bool bPressed;
         bool mPressed;
+
+        bool leftPressed;
+        bool rightPressed;
+        bool downPressed;
+        bool upPressed;
+
         bool spacePressed; 
         bool mouseClicked;
 
-        FlagEvents() : wPressed(false), aPressed(false), sPressed(false), dPressed(false), bPressed(false), mPressed(false), spacePressed(false), mouseClicked(false) {}
+        FlagEvents() : wPressed(false), aPressed(false), sPressed(false), dPressed(false), bPressed(false), mPressed(false), 
+                       leftPressed(false), rightPressed(false), downPressed(false), upPressed(false),  
+                       spacePressed(false), mouseClicked(false) {}
 
         // resets every flag
         void resetFlags() {
-            gameEnd = wPressed = aPressed = sPressed = dPressed = bPressed = mPressed = spacePressed = mouseClicked = false;
+            gameEnd = wPressed = aPressed = sPressed = dPressed = bPressed = mPressed = 
+                      leftPressed = rightPressed = downPressed = upPressed = 
+                      spacePressed = mouseClicked = false;
             log_info("General game flags reset complete");
         }
 
@@ -265,6 +275,10 @@ namespace FlagSystem {
             dPressed = false;
             bPressed = false;
             mPressed = false;
+            leftPressed = false;
+            rightPressed = false;
+            downPressed = false;
+            upPressed = false;
             spacePressed = false;
         }
     };
