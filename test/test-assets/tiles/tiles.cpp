@@ -101,17 +101,17 @@ BoardTileMap::BoardTileMap(std::array<std::shared_ptr<Tile>, 4> tileTypesArr) {
     pathTileSize = sf::Vector2i{tileTypesArr[1]->getTileSprite().getTextureRect().width, tileTypesArr[1]->getTileSprite().getTextureRect().height};
     goalTileSize = sf::Vector2i{tileTypesArr[2]->getTileSprite().getTextureRect().width, tileTypesArr[2]->getTileSprite().getTextureRect().height}; // should be the same for tile at index3, for player 2
     
-    for(int i = 0; i < 21; ++i) tiles[i] = tileTypesArr[0]; // Initialize first row to nullptr
-    for(int i = 378; i < 399; ++i) tiles[i] = tileTypesArr[0]; // Initialize bottom row to nullptr
+    for(int i = 0; i < 21; ++i) tiles[i] = tileTypesArr[0]; // Initialize first row to wall tiles
+    for(int i = 378; i < 399; ++i) tiles[i] = tileTypesArr[0]; // Initialize bottom row to wall tiles
 
     for(int i = 21; i < 378; i += 21) {
-        tiles[i] = tileTypesArr[2]; // Initialize left column to nullptr / starting index for p1
-        tiles[i + 20] = tileTypesArr[3]; // Initialize right column to nullptr / starting index for p2
+        tiles[i] = tileTypesArr[2]; // Initialize left column / starting index for p1
+        tiles[i + 20] = tileTypesArr[3]; // Initialize right column / starting index for p2
     }
 
     for(int i = 21; i < 278; ++i) {
         if(tiles[i] == nullptr) {
-            tiles[i] = tileTypesArr[1]; // Initialize inner tiles to nullptr
+            tiles[i] = tileTypesArr[1]; // Initialize inner tiles to path tiles
         }
     }
 
