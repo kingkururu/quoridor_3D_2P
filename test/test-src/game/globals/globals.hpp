@@ -113,6 +113,18 @@ namespace Constants { // not actually "constants" in terms of being fixed, but s
     inline std::vector<sf::IntRect> SPRITE1_ANIMATIONRECTS;
     inline std::vector<std::shared_ptr<sf::Uint8[]>> SPRITE1_BITMASK;
 
+    inline short SPRITE2_INDEXMAX;
+    inline short SPRITE2_ANIMATIONROWS;  
+    inline std::filesystem::path SPRITE2_PATH;
+    inline sf::Vector2f SPRITE2_POSITION;
+    inline sf::Vector2f SPRITE2_SCALE;
+    inline sf::Vector2f SPRITE2_JUMP_ACCELERATION;
+    inline float SPRITE2_SPEED;
+    inline sf::Vector2f SPRITE2_ACCELERATION;
+    inline std::shared_ptr<sf::Texture> SPRITE2_TEXTURE = std::make_shared<sf::Texture>();
+    inline std::vector<sf::IntRect> SPRITE2_ANIMATIONRECTS;
+    inline std::vector<std::shared_ptr<sf::Uint8[]>> SPRITE2_BITMASK;
+
     // enemy paths and settings
     inline short BUTTON1_INDEXMAX;
     inline short BUTTON1_ANIMATIONROWS;  
@@ -141,17 +153,6 @@ namespace Constants { // not actually "constants" in terms of being fixed, but s
     inline sf::Vector2f BOARD_SCALE;
     inline std::shared_ptr<sf::Texture> BOARD_TEXTURE = std::make_shared<sf::Texture>();
 
-    // pawn paths and settings
-    inline std::filesystem::path PAWN1_PATH;
-    inline sf::Vector2f PAWN1_POSITION;     
-    inline sf::Vector2f PAWN1_SCALE;
-    inline std::shared_ptr<sf::Texture> PAWN1_TEXTURE = std::make_shared<sf::Texture>();
-
-    inline std::filesystem::path PAWN2_PATH;
-    inline sf::Vector2f PAWN2_POSITION;
-    inline sf::Vector2f PAWN2_SCALE;
-    inline std::shared_ptr<sf::Texture> PAWN2_TEXTURE = std::make_shared<sf::Texture>();
-  
     inline unsigned short const STICKS_NUMBER = 20; // always 20 sticks in the game
     inline std::filesystem::path STICK_PATH;
     inline float STICK_SPACING;

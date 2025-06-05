@@ -30,23 +30,9 @@ sprite:
   out_of_bounds_adjustment: 30 # pixels 
   player_y_pos_bounds_run: 440  # SCREEN_HEIGHT - SPRITE_OUT_OF_BOUNDS_ADJUSTMENT
 
-# Background settings
-background:
-  speed: 35.0 
-  textures:
-    day_path: "test/test-assets/sprites/png/background_night.png"
-    night_path: "test/test-assets/sprites/png/background_day.png"
-  position:
-    x: -200.0 # pixels 
-    y: 0.0 # pixels 
-  scale:
-    x: 1.0
-    y: 1.0
-  moving_direction: "RIGHT"
-
 # Sprite paths
 sprites:
-  sprite1:
+  sprite1: # player 1
     speed: 40.0
     acceleration:
       x: 1.0 # for 2d space
@@ -54,12 +40,29 @@ sprites:
     jump_acceleration: 
       x: 1.0 # for 2d space
       y: 0.2 # for 2d space 
-    index_max: 12 # number of total images for animation 
-    animation_rows: 2 # number of rows for animation 
-    path: "test/test-assets/sprites/png/player.png"
+    index_max: 1 # number of total images for animation 
+    animation_rows: 1 # number of rows for animation 
+    path: "test/test-assets/sprites/png/1.png"
     position:
-      x: 48.0 # pixels 
-      y: 48.0 # pixels 
+      x: 13.0 # pixels 
+      y: 210.0 # pixels 
+    scale:
+      x: 1.0
+      y: 1.0
+  sprite2: # player 2
+    speed: 40.0
+    acceleration:
+      x: 1.0 # for 2d space
+      y: 1.0 # for 2d space
+    jump_acceleration: 
+      x: 1.0 # for 2d space
+      y: 0.2 # for 2d space 
+    index_max: 1 # number of total images for animation 
+    animation_rows: 1 # number of rows for animation 
+    path: "test/test-assets/sprites/png/2.png"
+    position:
+      x: 406.0 # pixels 
+      y: 210.0 # pixels 
     scale:
       x: 1.0
       y: 1.0
@@ -108,22 +111,6 @@ sprites:
     position:
       x: 0.0 # pixels 
       y: 0.0 # pixels
-    scale:
-      x: 1.0
-      y: 1.0
-  pawn1:
-    path: "test/test-assets/sprites/png/1.png"
-    position:
-      x: 13.0 # pixels 
-      y: 210.0 # pixels
-    scale:
-      x: 1.0
-      y: 1.0
-  pawn2:
-    path: "test/test-assets/sprites/png/2.png"
-    position:
-      x: 406.0 # pixels 
-      y: 210.0 # pixels
     scale:
       x: 1.0
       y: 1.0

@@ -98,13 +98,13 @@ private:
   void drawVisibleObject(drawableType& drawable){ if (drawable && drawable->getVisibleState()) window.draw(*drawable); }
 
   std::unique_ptr<Player> player; 
+  std::unique_ptr<Player> player2; 
+
   std::vector<std::unique_ptr<Bullet>> bullets; 
   std::unique_ptr<Sprite> board; 
   std::unique_ptr<Sprite> backgroundBig; 
   std::unique_ptr<Sprite> backgroundBigFinal; 
 
-  std::unique_ptr<Sprite> pawn1; 
-  std::unique_ptr<Sprite> pawn2;
   std::array<std::unique_ptr<Sprite>, Constants::STICKS_NUMBER> sticks;
 
   std::unique_ptr<Button>button1;

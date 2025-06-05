@@ -97,11 +97,9 @@ void gamePlayScene::createAssets() {
         // Animated sprites
         player = std::make_unique<Player>(Constants::SPRITE1_POSITION, Constants::SPRITE1_SCALE, Constants::SPRITE1_TEXTURE, Constants::SPRITE1_SPEED, Constants::SPRITE1_ACCELERATION, 
                                           Constants::SPRITE1_ANIMATIONRECTS, Constants::SPRITE1_INDEXMAX, utils::convertToWeakPtrVector(Constants::SPRITE1_BITMASK));
-        player->setRects(0); 
-        
-        pawn1 = std::make_unique<Sprite>(Constants::PAWN1_POSITION, Constants::PAWN1_SCALE, Constants::PAWN1_TEXTURE);
-        pawn2 = std::make_unique<Sprite>(Constants::PAWN2_POSITION, Constants::PAWN2_SCALE, Constants::PAWN2_TEXTURE);
-        
+        player2 = std::make_unique<Player>(Constants::SPRITE2_POSITION, Constants::SPRITE2_SCALE, Constants::SPRITE2_TEXTURE, Constants::SPRITE2_SPEED, Constants::SPRITE2_ACCELERATION, 
+                                          Constants::SPRITE2_ANIMATIONRECTS, Constants::SPRITE2_INDEXMAX, utils::convertToWeakPtrVector(Constants::SPRITE2_BITMASK));
+
         for(int i = 0; i < Constants::STICKS_NUMBER; ++i) {
             sticks[i] = std::make_unique<Sprite>(Constants::STICK_POSITIONS[i], Constants::STICK_SCALE, Constants::STICK_TEXTURE);
         }
@@ -357,14 +355,12 @@ void gamePlayScene::drawInleftView(){
 void gamePlayScene::drawInmiddleView(){
     window.setView(MetaComponents::middleView);
 
-    drawVisibleObject(player);
     drawVisibleObject(board);
 
     for(const auto& stick : sticks) drawVisibleObject(stick);
 
-    drawVisibleObject(pawn1);
-    drawVisibleObject(pawn2);
-
+    drawVisibleObject(player);
+    drawVisibleObject(player2);
 }
 
 void gamePlayScene::drawInRightView(){
