@@ -362,6 +362,7 @@ void gamePlayScene::drawInmiddleView(){
     for(const auto& stick : sticks) drawVisibleObject(stick);
 
     drawVisibleObject(player);
+    window.draw(rays); // direct sf object
     drawVisibleObject(player2);
 }
 
