@@ -200,8 +200,9 @@ void gamePlayScene::handleSpaceKey() {
 }
 
 void gamePlayScene::handleMovementKeys() {
+    FlagSystem::gameScene1Flags.player2turn = true; 
     if(FlagSystem::gameScene1Flags.player1turn) handleEachPlayer(player);
-    else if(FlagSystem::gameScene1Flags.player2turn) handleEachPlayer(player2);
+    if(FlagSystem::gameScene1Flags.player2turn) handleEachPlayer(player2);
 }
 
 void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum) {
@@ -348,10 +349,8 @@ void gamePlayScene::drawInleftView(){
     }
     window.draw(wallLine);
 
-  //  drawVisibleObject(bullets[0]); 
     drawVisibleObject(scoreText); 
     drawVisibleObject(introText);
-    drawVisibleObject(button1);
 }
 
 void gamePlayScene::drawInmiddleView(){
@@ -364,27 +363,23 @@ void gamePlayScene::drawInmiddleView(){
     drawVisibleObject(player);
     window.draw(rays); // direct sf object
     drawVisibleObject(player2);
+    window.draw(rays2); 
 }
 
 void gamePlayScene::drawInRightView(){
     window.setView(MetaComponents::rightView);
     
-    int tileX = static_cast<int>((player->getSpritePos().x - Constants::TILEMAP_POSITION.x) / Constants::TILE_WIDTH);
-    int tileY = static_cast<int>((player->getSpritePos().y - Constants::TILEMAP_POSITION.y) / Constants::TILE_HEIGHT);
+    int tileX = static_cast<int>((player2->getSpritePos().x - Constants::TILEMAP_POSITION.x) / Constants::TILE_WIDTH);
+    int tileY = static_cast<int>((player2->getSpritePos().y - Constants::TILEMAP_POSITION.y) / Constants::TILE_HEIGHT);
     int tileIndexInMap = tileY * Constants::TILEMAP_WIDTH + tileX;
 
     if(tileIndexInMap == Constants::TILEMAP_GOALINDEX){ 
         FlagSystem::flagEvents.gameEnd = true;
         drawVisibleObject(backgroundBigFinal);
-        drawVisibleObject(endingText);
     } else {
         drawVisibleObject(backgroundBig);
     }
     window.draw(wallLine2);
 
   //  drawVisibleObject(bullets[0]); 
-    drawVisibleObject(scoreText); 
-    drawVisibleObject(introText);
-
-    drawVisibleObject(button1);
 }
