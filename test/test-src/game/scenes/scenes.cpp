@@ -200,8 +200,8 @@ void gamePlayScene::handleSpaceKey() {
 }
 
 void gamePlayScene::handleMovementKeys() {
-    handleEachPlayer(player);
-    handleEachPlayer(player2);
+    if(FlagSystem::gameScene1Flags.player1turn) handleEachPlayer(player);
+    else if(FlagSystem::gameScene1Flags.player2turn) handleEachPlayer(player2);
 }
 
 void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum) {
@@ -271,6 +271,8 @@ void gamePlayScene::handleSceneFlags(){
     if(!FlagSystem::flagEvents.gameEnd && FlagSystem::gameScene1Flags.begin){
         scoreText->getText().setString("Seconds elapsed: " + std::to_string(beginTime));
     }
+
+    
 }
 
 void gamePlayScene::update() {
