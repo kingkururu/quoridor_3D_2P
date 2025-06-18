@@ -74,6 +74,7 @@ private:
   void handleMouseClick(); 
   void handleSpaceKey();
   void handleMovementKeys(); 
+  void handleEachPlayer(std::unique_ptr<Player>& playerNum);
 
   void respawnAssets() override; 
   void handleInvisibleSprites() override;
@@ -98,20 +99,25 @@ private:
   void drawVisibleObject(drawableType& drawable){ if (drawable && drawable->getVisibleState()) window.draw(*drawable); }
 
   std::unique_ptr<Player> player; 
+  std::unique_ptr<Player> player2; 
+
   std::vector<std::unique_ptr<Bullet>> bullets; 
-  std::unique_ptr<Sprite> frame; 
+  std::unique_ptr<Sprite> board; 
   std::unique_ptr<Sprite> backgroundBig; 
   std::unique_ptr<Sprite> backgroundBigFinal; 
-  std::unique_ptr<Sprite> backgroundBigStart;
-  
+
+  std::array<std::unique_ptr<Sprite>, Constants::STICKS_NUMBER> sticks;
+
   std::unique_ptr<Button>button1;
   
   std::array<std::shared_ptr<Tile>, Constants::TILES_NUMBER> tiles1;   
   std::unique_ptr<TileMap> tileMap1; 
 
   // for 3d walls
-  sf::VertexArray rays;
-  sf::VertexArray wallLine; 
+  sf::VertexArray rays; // player 1
+  sf::VertexArray wallLine; // player 2
+  sf::VertexArray rays2; // player 2
+  sf::VertexArray wallLine2; // player 2
 
   std::unique_ptr<MusicClass> backgroundMusic;
   std::unique_ptr<SoundClass> buttonClickSound; 

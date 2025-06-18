@@ -86,7 +86,7 @@ namespace Constants { // not actually "constants" in terms of being fixed, but s
     inline sf::FloatRect VIEW_RECT;
     inline unsigned short FOV;
     inline size_t RAYS_NUM;
-    inline sf::Color GROUND_COLOR;
+    inline sf::Color WALL_COLOR;
 
     // Score settings
     inline unsigned short INITIAL_SCORE;
@@ -113,6 +113,18 @@ namespace Constants { // not actually "constants" in terms of being fixed, but s
     inline std::vector<sf::IntRect> SPRITE1_ANIMATIONRECTS;
     inline std::vector<std::shared_ptr<sf::Uint8[]>> SPRITE1_BITMASK;
 
+    inline short SPRITE2_INDEXMAX;
+    inline short SPRITE2_ANIMATIONROWS;  
+    inline std::filesystem::path SPRITE2_PATH;
+    inline sf::Vector2f SPRITE2_POSITION;
+    inline sf::Vector2f SPRITE2_SCALE;
+    inline sf::Vector2f SPRITE2_JUMP_ACCELERATION;
+    inline float SPRITE2_SPEED;
+    inline sf::Vector2f SPRITE2_ACCELERATION;
+    inline std::shared_ptr<sf::Texture> SPRITE2_TEXTURE = std::make_shared<sf::Texture>();
+    inline std::vector<sf::IntRect> SPRITE2_ANIMATIONRECTS;
+    inline std::vector<std::shared_ptr<sf::Uint8[]>> SPRITE2_BITMASK;
+
     // enemy paths and settings
     inline short BUTTON1_INDEXMAX;
     inline short BUTTON1_ANIMATIONROWS;  
@@ -135,11 +147,20 @@ namespace Constants { // not actually "constants" in terms of being fixed, but s
     inline std::vector<sf::IntRect> BULLET_ANIMATIONRECTS;
     inline std::vector<std::shared_ptr<sf::Uint8[]>> BULLET_BITMASK;
 
-    // Frame paths and settings
-    inline std::filesystem::path FRAME_PATH;
-    inline sf::Vector2f FRAME_POSITION;
-    inline sf::Vector2f FRAME_SCALE;
-    inline std::shared_ptr<sf::Texture> FRAME_TEXTURE = std::make_shared<sf::Texture>();
+    // board paths and settings
+    inline std::filesystem::path BOARD_PATH;
+    inline sf::Vector2f BOARD_POSITION;
+    inline sf::Vector2f BOARD_SCALE;
+    inline std::shared_ptr<sf::Texture> BOARD_TEXTURE = std::make_shared<sf::Texture>();
+
+    inline unsigned short const STICKS_NUMBER = 20; // always 20 sticks in the game
+    inline std::filesystem::path STICK_PATH;
+    inline float STICK_SPACING;
+    inline float RIGHTSTICK_OFFSET_X;
+    inline float RIGHTSTICK_OFFSET_Y;
+    inline std::array<sf::Vector2f, STICKS_NUMBER> STICK_POSITIONS; 
+    inline sf::Vector2f STICK_SCALE;
+    inline std::shared_ptr<sf::Texture> STICK_TEXTURE = std::make_shared<sf::Texture>();
 
     // Background (in the big view) paths and settings
     inline std::filesystem::path BACKGROUNDBIG_PATH;
@@ -150,11 +171,7 @@ namespace Constants { // not actually "constants" in terms of being fixed, but s
     inline sf::Vector2f BACKGROUNDBIGFINAL_POSITION;
     inline sf::Vector2f BACKGROUNDBIGFINAL_SCALE;
     inline std::shared_ptr<sf::Texture> BACKGROUNDBIGFINAL_TEXTURE = std::make_shared<sf::Texture>();
-    inline std::filesystem::path BACKGROUNDBIGSTART_PATH;
-    inline sf::Vector2f BACKGROUNDBIGSTART_POSITION;
-    inline sf::Vector2f BACKGROUNDBIGSTART_SCALE;
-    inline std::shared_ptr<sf::Texture> BACKGROUNDBIGSTART_TEXTURE = std::make_shared<sf::Texture>();
-
+    
     // Tile settings
     inline sf::Vector2f TILEMAP_POSITION; 
     inline std::filesystem::path TILES_PATH;
@@ -229,14 +246,24 @@ namespace FlagSystem {
         bool dPressed;
         bool bPressed;
         bool mPressed;
+
+        bool leftPressed;
+        bool rightPressed;
+        bool downPressed;
+        bool upPressed;
+
         bool spacePressed; 
         bool mouseClicked;
 
-        FlagEvents() : wPressed(false), aPressed(false), sPressed(false), dPressed(false), bPressed(false), mPressed(false), spacePressed(false), mouseClicked(false) {}
+        FlagEvents() : wPressed(false), aPressed(false), sPressed(false), dPressed(false), bPressed(false), mPressed(false), 
+                       leftPressed(false), rightPressed(false), downPressed(false), upPressed(false),  
+                       spacePressed(false), mouseClicked(false) {}
 
         // resets every flag
         void resetFlags() {
-            gameEnd = wPressed = aPressed = sPressed = dPressed = bPressed = mPressed = spacePressed = mouseClicked = false;
+            gameEnd = wPressed = aPressed = sPressed = dPressed = bPressed = mPressed = 
+                      leftPressed = rightPressed = downPressed = upPressed = 
+                      spacePressed = mouseClicked = false;
             log_info("General game flags reset complete");
         }
 
@@ -248,6 +275,10 @@ namespace FlagSystem {
             dPressed = false;
             bPressed = false;
             mPressed = false;
+            leftPressed = false;
+            rightPressed = false;
+            downPressed = false;
+            upPressed = false;
             spacePressed = false;
         }
     };
@@ -272,7 +303,11 @@ namespace FlagSystem {
         bool sceneStart; 
 
         bool begin; 
-        GameSceneEvents1() : sceneEnd(false), sceneStart(true), begin(false) {} 
+
+        bool player1turn;
+        bool player2turn;
+
+        GameSceneEvents1() : sceneEnd(false), sceneStart(true), begin(false), player1turn(true), player2turn(false) {}
 
         void resetFlags() {
             log_error("failed resetting scene Flags");

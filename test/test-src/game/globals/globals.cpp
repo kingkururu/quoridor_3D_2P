@@ -59,7 +59,7 @@ namespace SpriteComponents {
             {"BLACK", sf::Color::Black},
             {"TRANSPARENT", sf::Color::Transparent},
             {"CUSTOMCOLOR_LIGHTCORAL", sf::Color(240, 128, 128)}, // add colors like this 
-            {"CUSTOMCOLOR_BROWN", sf::Color(75, 20, 9)}
+            {"CUSTOMCOLOR_BROWN", sf::Color(225, 190, 153)}
         };
 
         auto it = colorMap.find(color);
@@ -111,7 +111,6 @@ namespace Constants {
         std::srand(static_cast<unsigned int>(std::time(nullptr))); 
 
         readFromYaml(std::filesystem::path("test/test-src/game/globals/config.yaml"));
-        writeRandomTileMap(std::filesystem::path("test/test-assets/tiles/tilemap.txt"), DFSmazeGenerator);
         generateTilePathInstruction(std::filesystem::path("test/test-assets/tiles/tilemap.txt"), AstarPathInstructionGenerator);
 
         loadAssets();
@@ -135,7 +134,7 @@ namespace Constants {
             VIEW_RECT = { 0.0f, 0.0f, VIEW_SIZE_X, VIEW_SIZE_Y };
             FOV = config["world"]["FOV"].as<unsigned short>(); 
             RAYS_NUM = config["world"]["rays_num"].as<size_t>(); 
-            GROUND_COLOR = SpriteComponents::toSfColor(config["world"]["ground_color"].as<std::string>());
+            WALL_COLOR = SpriteComponents::toSfColor(config["world"]["wall_color"].as<std::string>());
 
             // Load score settings
             INITIAL_SCORE = config["score"]["initial"].as<unsigned short>(); 
@@ -163,6 +162,20 @@ namespace Constants {
             SPRITE1_SCALE = {config["sprites"]["sprite1"]["scale"]["x"].as<float>(),
                             config["sprites"]["sprite1"]["scale"]["y"].as<float>()};
 
+            // Load second player paths and settings
+            SPRITE2_PATH = config["sprites"]["sprite2"]["path"].as<std::string>();
+            SPRITE2_SPEED = config["sprites"]["sprite2"]["speed"].as<float>();
+            SPRITE2_ACCELERATION = {config["sprites"]["sprite2"]["acceleration"]["x"].as<float>(),
+                                config["sprites"]["sprite2"]["acceleration"]["y"].as<float>()};
+            SPRITE2_JUMP_ACCELERATION = {config["sprites"]["sprite2"]["jump_acceleration"]["x"].as<float>(),
+                                config["sprites"]["sprite2"]["jump_acceleration"]["y"].as<float>()};            
+            SPRITE2_INDEXMAX = config["sprites"]["sprite2"]["index_max"].as<short>();
+            SPRITE2_ANIMATIONROWS = config["sprites"]["sprite2"]["animation_rows"].as<short>();
+            SPRITE2_POSITION = {config["sprites"]["sprite2"]["position"]["x"].as<float>(),
+                                config["sprites"]["sprite2"]["position"]["y"].as<float>()};
+            SPRITE2_SCALE = {config["sprites"]["sprite2"]["scale"]["x"].as<float>(),
+                            config["sprites"]["sprite2"]["scale"]["y"].as<float>()};
+
             // Load enemy paths and settings
             BUTTON1_PATH = config["sprites"]["button1"]["path"].as<std::string>();
             BUTTON1_INDEXMAX = config["sprites"]["button1"]["index_max"].as<short>();
@@ -184,12 +197,30 @@ namespace Constants {
             BULLET_STARTINGSCALE = {config["sprites"]["bullet"]["scale"]["x"].as<float>(),
                             config["sprites"]["bullet"]["scale"]["y"].as<float>()};
 
-            // Load frame paths and settings
-            FRAME_PATH = config["sprites"]["frame"]["path"].as<std::string>();
-            FRAME_POSITION = {config["sprites"]["frame"]["position"]["x"].as<float>(),
-                                config["sprites"]["frame"]["position"]["y"].as<float>()};
-            FRAME_SCALE = {config["sprites"]["frame"]["scale"]["x"].as<float>(),
-                            config["sprites"]["frame"]["scale"]["y"].as<float>()};
+            // Load board paths and settings
+            BOARD_PATH = config["sprites"]["board"]["path"].as<std::string>();
+            BOARD_POSITION = {config["sprites"]["board"]["position"]["x"].as<float>(),
+                                config["sprites"]["board"]["position"]["y"].as<float>()};
+            BOARD_SCALE = {config["sprites"]["board"]["scale"]["x"].as<float>(),
+                            config["sprites"]["board"]["scale"]["y"].as<float>()};
+  
+            // Load stick paths and settings
+            STICK_PATH = config["sprites"]["stick"]["path"].as<std::string>();
+            STICK_SPACING = config["sprites"]["stick"]["spacing"].as<float>();
+            RIGHTSTICK_OFFSET_X = config["sprites"]["stick"]["right_offset_x"].as<float>();
+            RIGHTSTICK_OFFSET_Y = config["sprites"]["stick"]["right_offset_y"].as<float>();
+            STICK_SCALE = {config["sprites"]["stick"]["scale"]["x"].as<float>(),
+                            config["sprites"]["stick"]["scale"]["y"].as<float>()};
+            for(unsigned short i = 0; i < STICKS_NUMBER; ++i) {
+                if(i % 2) { // sticks at odd index are for player 1 and even is for player 2
+                    STICK_POSITIONS[i] = {config["sprites"]["stick"]["positions"]["x"].as<float>(),
+                                        config["sprites"]["stick"]["positions"]["y"].as<float>() + i * STICK_SPACING}; // left sticks
+                } else {
+                    STICK_POSITIONS[i] = { VIEW_SIZE_X - config["sprites"]["stick"]["positions"]["x"].as<float>() - RIGHTSTICK_OFFSET_X,
+                                    config["sprites"]["stick"]["positions"]["y"].as<float>() + i * STICK_SPACING + RIGHTSTICK_OFFSET_Y}; // right sticks 
+                }
+                std::cout << "Stick position " << i << ": " << STICK_POSITIONS[i].x << ", " << STICK_POSITIONS[i].y << std::endl;
+            }
 
             // Load background (in the big screen) settings
             BACKGROUNDBIG_PATH = config["sprites"]["background_big"]["path"].as<std::string>();
@@ -203,12 +234,6 @@ namespace Constants {
                                     config["sprites"]["background_big_final"]["position"]["y"].as<float>()};
             BACKGROUNDBIGFINAL_SCALE = {config["sprites"]["background_big_final"]["scale"]["x"].as<float>(),
                                 config["sprites"]["background_big_final"]["scale"]["y"].as<float>()};
-
-            BACKGROUNDBIGSTART_PATH = config["sprites"]["background_big_start"]["path"].as<std::string>();
-            BACKGROUNDBIGSTART_POSITION = {config["sprites"]["background_big_start"]["position"]["x"].as<float>(),
-                                    config["sprites"]["background_big_start"]["position"]["y"].as<float>()};
-            BACKGROUNDBIGSTART_SCALE = {config["sprites"]["background_big_start"]["scale"]["x"].as<float>(),
-                                config["sprites"]["background_big_start"]["scale"]["y"].as<float>()};
 
             // Load tile settings
             TILES_PATH = config["tiles"]["path"].as<std::string>();
@@ -286,12 +311,13 @@ namespace Constants {
         // sprites
         if (!SPRITE1_TEXTURE->loadFromFile(SPRITE1_PATH)) log_warning("Failed to load sprite1 texture");
         if (!TILES_TEXTURE->loadFromFile(TILES_PATH)) log_warning("Failed to load tiles texture");
+        if (!SPRITE2_TEXTURE->loadFromFile(SPRITE2_PATH)) log_warning("Failed to load sprite2 texture");
         if (!BULLET_TEXTURE->loadFromFile(BULLET_PATH)) log_warning("Failed to load bullet texture");
-        if (!FRAME_TEXTURE->loadFromFile(FRAME_PATH)) log_warning("Failed to load frame texture");   
+        if (!BOARD_TEXTURE->loadFromFile(BOARD_PATH)) log_warning("Failed to load board texture");   
         if (!BUTTON1_TEXTURE->loadFromFile(BUTTON1_PATH)) log_warning("Failed to load enemy texture");  
         if (!BACKGROUNDBIG_TEXTURE->loadFromFile(BACKGROUNDBIG_PATH)) log_warning("Failed to load background big texture");
         if (!BACKGROUNDBIGFINAL_TEXTURE->loadFromFile(BACKGROUNDBIGFINAL_PATH)) log_warning("Failed to load background big final texture");
-        if (!BACKGROUNDBIGSTART_TEXTURE->loadFromFile(BACKGROUNDBIGSTART_PATH)) log_warning("Failed to load background big start texture");
+        if (!STICK_TEXTURE->loadFromFile(STICK_PATH)) log_warning("Failed to load stick texture");
 
         // music
         if (!BACKGROUNDMUSIC_MUSIC->openFromFile(BACKGROUNDMUSIC_PATH)) log_warning("Failed to load background music");
@@ -305,16 +331,18 @@ namespace Constants {
 
     void makeRectsAndBitmasks(){
         SPRITE1_ANIMATIONRECTS.reserve(SPRITE1_INDEXMAX); 
-        for (int row = 0; row < SPRITE1_ANIMATIONROWS; ++row) {
-            for (int col = 0; col < SPRITE1_INDEXMAX / SPRITE1_ANIMATIONROWS; ++col) {
-                // Create the IntRect for the current sprite
-                SPRITE1_ANIMATIONRECTS.emplace_back(sf::IntRect{col * 32, row * 32, 32, 32});
-            }
-        }
+        SPRITE1_ANIMATIONRECTS.emplace_back(sf::IntRect{0, 0, 31, 31});
         SPRITE1_BITMASK.reserve(SPRITE1_INDEXMAX); 
         // make bitmasks for tiles 
         for (const auto& rect : SPRITE1_ANIMATIONRECTS ) {
-            SPRITE1_BITMASK.emplace_back(createBitmaskForBottom(SPRITE1_TEXTURE, rect, 0, 3));
+            SPRITE1_BITMASK.emplace_back(createBitmask(SPRITE1_TEXTURE, rect, 0));
+        }
+        SPRITE2_ANIMATIONRECTS.reserve(SPRITE2_INDEXMAX); 
+        SPRITE2_ANIMATIONRECTS.emplace_back(sf::IntRect{0, 0, 31, 31});
+        SPRITE2_BITMASK.reserve(SPRITE2_INDEXMAX); 
+        // make bitmasks for tiles 
+        for (const auto& rect : SPRITE2_ANIMATIONRECTS ) {
+            SPRITE2_BITMASK.emplace_back(createBitmask(SPRITE2_TEXTURE, rect, 0));
         }
 
         BUTTON1_ANIMATIONRECTS.reserve(BUTTON1_INDEXMAX);

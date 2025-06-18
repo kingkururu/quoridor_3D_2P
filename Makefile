@@ -20,7 +20,6 @@ endif
 SPDLOG_INCLUDE ?= $(HOMEBREW_PREFIX)/opt/spdlog/include
 FMT_INCLUDE ?= $(HOMEBREW_PREFIX)/opt/fmt/include
 SFML_INCLUDE ?= $(HOMEBREW_PREFIX)/opt/sfml@2/include
-CATCH2_INCLUDE ?= $(HOMEBREW_PREFIX)/opt/catch2/include
 SPDLOG_LIB ?= $(HOMEBREW_PREFIX)/opt/spdlog/lib
 FMT_LIB ?= $(HOMEBREW_PREFIX)/opt/fmt/lib
 SFML_LIB ?= $(HOMEBREW_PREFIX)/opt/sfml@2/lib
@@ -29,7 +28,7 @@ YAML_INCLUDE ?= $(HOMEBREW_PREFIX)/opt/yaml-cpp/include
 export DYLD_FALLBACK_LIBRARY_PATH=$(SFML_LIB)
 
 # Include paths for Homebrew libraries
-BREW_INCLUDE_FLAGS := -I$(SPDLOG_INCLUDE) -I$(FMT_INCLUDE) -I$(SFML_INCLUDE) -I$(CATCH2_INCLUDE) -I$(YAML_INCLUDE)
+BREW_INCLUDE_FLAGS := -I$(SPDLOG_INCLUDE) -I$(FMT_INCLUDE) -I$(SFML_INCLUDE) -I$(YAML_INCLUDE)
 CXXFLAGS += $(BREW_INCLUDE_FLAGS)
 
 TEST_CXXFLAGS := -std=c++17 -Wall \
@@ -41,12 +40,12 @@ TEST_CXXFLAGS := -std=c++17 -Wall \
                  -I./test/test-assets/sound -I./test/test-assets/tiles \
                  -I./test/test-assets/sprites \
                  -I./test/test-logging \
-                 -I./test/test-testing \
-                 -I$(SPDLOG_INCLUDE) -I$(FMT_INCLUDE) -I$(SFML_INCLUDE) -I$(CATCH2_INCLUDE) -I$(YAML_INCLUDE) \
+                 -I./test/test-network \
+                 -I$(SPDLOG_INCLUDE) -I$(FMT_INCLUDE) -I$(SFML_INCLUDE) -I$(YAML_INCLUDE) \
                  -DTESTING
 
 # Library paths and linking
-LDFLAGS = -L$(SPDLOG_LIB) -L$(FMT_LIB) -L$(SFML_LIB) -L$(HOMEBREW_PREFIX)/lib -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -lspdlog -lfmt -lyaml-cpp -lCatch2
+LDFLAGS = -L$(SPDLOG_LIB) -L$(FMT_LIB) -L$(SFML_LIB) -L$(HOMEBREW_PREFIX)/lib -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -lspdlog -lfmt -lyaml-cpp
 LDFLAGS += -L$(SFML_LIB)
 
 # Build directories
@@ -68,7 +67,7 @@ TEST_SRC := test/test-src/testMain.cpp \
             test/test-assets/sound/sound.cpp \
             test/test-assets/tiles/tiles.cpp \
             test/test-logging/log.cpp \
-            test/test-testing/testing.cpp
+            test/test-network/network.cpp
 
 TEST_OBJ := $(TEST_SRC:%.cpp=$(TEST_BUILD_DIR)/%.o)
 
@@ -92,7 +91,6 @@ install_deps:
 	@brew list fmt >/dev/null 2>&1 || (echo "Installing fmt..."; brew install fmt)
 	@brew list sfml@2 >/dev/null 2>&1 || brew install sfml@2 || echo "Make sure SFML 2 is installed."
 	@brew list yaml-cpp >/dev/null 2>&1 || (echo "Installing yaml-cpp..."; brew install yaml-cpp) 
-	@brew list catch2 >/dev/null 2>&1 || (echo "Installing catch2..."; brew install catch2)
 
 # Test build target
 $(TEST_TARGET): $(TEST_OBJ)

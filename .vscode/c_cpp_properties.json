@@ -10,7 +10,7 @@
                 "/opt/homebrew/opt/sfml/include"
             ],
             "defines": [],
-            "macFrameworkPath": [],
+            "macboardworkPath": [],
             "compilerPath": "/usr/bin/clang++",
             "cStandard": "c11",
             "cppStandard": "c++17",

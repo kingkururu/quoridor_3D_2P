@@ -19,7 +19,6 @@ class Tile {
 public:
     // Constructor with position, scale, texture, and a texture rect (to support tilesets)
     explicit Tile(sf::Vector2f scale, std::weak_ptr<sf::Texture> texture, sf::IntRect textureRect, std::weak_ptr<sf::Uint8[]> bitmask, bool walkable = true); 
-    
     sf::Sprite& getTileSprite() const { return *tileSprite; } 
 
     sf::IntRect const getTextureRect() const { return textureRect; }
@@ -49,6 +48,7 @@ class TileMap : public sf::Drawable {
 public:
     // Constructor now accepts a shared_ptr to a default tile, and initializes the map with it
     explicit TileMap(std::shared_ptr<Tile>* tileTypesArray, unsigned int tileTypesNumber, size_t tileMapWidth, size_t tileMapHeight, float tileWidth, float tileHeight, std::filesystem::path filePath, sf::Vector2f tileMapPosition);
+
     ~TileMap() = default;
     
     // Add a tile to the map at the specified grid position (x, y)
@@ -77,4 +77,16 @@ private:
 
     // Override the draw function of sf::Drawable to draw all tiles
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+};
+
+class BoardTileMap : public sf::Drawable {
+public:
+    explicit BoardTileMap(std::array<std::shared_ptr<Tile>, 4> tileTypesArr); // need wall tile index, path tile index, p1 start tile index, p2 start tile index
+
+private:
+    std::array<std::shared_ptr<Tile>, 399> tiles; // board with 21 x 19 tiles including walls
+    std::array<std::shared_ptr<Tile>, 4> tileTypesArr; // wall, path, goal, additional tile type
+    sf::Vector2i wallTileSize; // size of wall tile
+    sf::Vector2i pathTileSize; // size of path tile
+    sf::Vector2i goalTileSize; // size of goal tile for p1 and p2
 };

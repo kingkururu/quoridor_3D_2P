@@ -306,7 +306,7 @@ void Player::changeAnimation() {
                     currentIndex = (currentIndex + 1) % 6; // Range 0 to 5
                 }
 
-                // Apply new animation frame
+                // Apply new animation board
                 setRects(currentIndex);
 
                 // Reset elapsed time after animation change

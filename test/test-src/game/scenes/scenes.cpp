@@ -97,14 +97,18 @@ void gamePlayScene::createAssets() {
         // Animated sprites
         player = std::make_unique<Player>(Constants::SPRITE1_POSITION, Constants::SPRITE1_SCALE, Constants::SPRITE1_TEXTURE, Constants::SPRITE1_SPEED, Constants::SPRITE1_ACCELERATION, 
                                           Constants::SPRITE1_ANIMATIONRECTS, Constants::SPRITE1_INDEXMAX, utils::convertToWeakPtrVector(Constants::SPRITE1_BITMASK));
-        player->setRects(0); 
-        
-        frame = std::make_unique<Sprite>(Constants::FRAME_POSITION, Constants::FRAME_SCALE, Constants::FRAME_TEXTURE); 
+        player2 = std::make_unique<Player>(Constants::SPRITE2_POSITION, Constants::SPRITE2_SCALE, Constants::SPRITE2_TEXTURE, Constants::SPRITE2_SPEED, Constants::SPRITE2_ACCELERATION, 
+                                          Constants::SPRITE2_ANIMATIONRECTS, Constants::SPRITE2_INDEXMAX, utils::convertToWeakPtrVector(Constants::SPRITE2_BITMASK));
+
+        for(int i = 0; i < Constants::STICKS_NUMBER; ++i) {
+            sticks[i] = std::make_unique<Sprite>(Constants::STICK_POSITIONS[i], Constants::STICK_SCALE, Constants::STICK_TEXTURE);
+        }
+
+        board = std::make_unique<Sprite>(Constants::BOARD_POSITION, Constants::BOARD_SCALE, Constants::BOARD_TEXTURE); 
         backgroundBig = std::make_unique<Sprite>(Constants::BACKGROUNDBIG_POSITION, Constants::BACKGROUNDBIG_SCALE, Constants::BACKGROUNDBIG_TEXTURE); 
 
         backgroundBigFinal = std::make_unique<Sprite>(Constants::BACKGROUNDBIGFINAL_POSITION, Constants::BACKGROUNDBIGFINAL_SCALE, Constants::BACKGROUNDBIGFINAL_TEXTURE); 
-        backgroundBigStart = std::make_unique<Sprite>(Constants::BACKGROUNDBIGSTART_POSITION, Constants::BACKGROUNDBIGSTART_SCALE, Constants::BACKGROUNDBIGSTART_TEXTURE);
-
+        
         button1 = std::make_unique<Button>(Constants::BUTTON1_POSITION, Constants::BUTTON1_SCALE, Constants::BUTTON1_TEXTURE, Constants::BUTTON1_ANIMATIONRECTS, Constants::BUTTON1_INDEXMAX, utils::convertToWeakPtrVector(Constants::BUTTON1_BITMASK)); 
         button1->setRects(0); 
 
@@ -118,9 +122,9 @@ void gamePlayScene::createAssets() {
         }
        
         tileMap1 = std::make_unique<TileMap>(tiles1.data(), Constants::TILES_NUMBER, Constants::TILEMAP_WIDTH, Constants::TILEMAP_HEIGHT, Constants::TILE_WIDTH, Constants::TILE_HEIGHT, Constants::TILEMAP_FILEPATH, Constants::TILEMAP_POSITION); 
-        rays = sf::VertexArray(sf::Lines, Constants::RAYS_NUM);
         rays = sf::VertexArray(sf::Quads, Constants::RAYS_NUM);
-   
+        rays2 = sf::VertexArray(sf::Quads, Constants::RAYS_NUM);
+
         // Music
         backgroundMusic = std::make_unique<MusicClass>(std::move(Constants::BACKGROUNDMUSIC_MUSIC), Constants::BACKGROUNDMUSIC_VOLUME);
         // if(backgroundMusic) backgroundMusic->returnMusic().play(); 
@@ -196,61 +200,61 @@ void gamePlayScene::handleSpaceKey() {
 }
 
 void gamePlayScene::handleMovementKeys() {
-    if(!player->getMoveState()) return;
+    FlagSystem::gameScene1Flags.player2turn = true; 
+    if(FlagSystem::gameScene1Flags.player1turn) handleEachPlayer(player);
+    if(FlagSystem::gameScene1Flags.player2turn) handleEachPlayer(player2);
+}
 
-    int tileX = static_cast<int>((player->getSpritePos().x - Constants::TILEMAP_POSITION.x) / Constants::TILE_WIDTH);
-    int tileY = static_cast<int>((player->getSpritePos().y - Constants::TILEMAP_POSITION.y) / Constants::TILE_HEIGHT);
+void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum) {
+    if(!playerNum || !playerNum->getMoveState()) return;
+
+    int tileX = static_cast<int>((playerNum->getSpritePos().x - Constants::TILEMAP_POSITION.x) / Constants::TILE_WIDTH);
+    int tileY = static_cast<int>((playerNum->getSpritePos().y - Constants::TILEMAP_POSITION.y) / Constants::TILE_HEIGHT);
     int tileIndexInMap = tileY * Constants::TILEMAP_WIDTH + tileX;
     bool canWalkOnTile = tileMap1->getTile(tileIndexInMap)->getWalkable(); 
 
-    sf::FloatRect playerBounds = player->returnSpritesShape().getGlobalBounds();
-    sf::Vector2f originalPlayerPos = player->getSpritePos();
-
-    // std::cout << "Tile X: " << tileX << ", Tile Y: " << tileY << ", inex: " << tileIndexInMap << "can walk: "<< canWalkOnTile<< std::endl;
+    sf::FloatRect playerBounds = playerNum->returnSpritesShape().getGlobalBounds();
+    sf::Vector2f originalPlayerPos = playerNum->getSpritePos();
     
     if(FlagSystem::flagEvents.aPressed){ // turn left
-        player->returnSpritesShape().rotate(-1.0f); // degrees
-        float newAngle = player->returnSpritesShape().getRotation();
-        player->setHeadingAngle(newAngle);
+        playerNum->returnSpritesShape().rotate(-1.0f); // degrees
+        float newAngle = playerNum->returnSpritesShape().getRotation();
+        playerNum->setHeadingAngle(newAngle);
         FlagSystem::gameScene1Flags.begin = true;
-       // player->setAutoNavigate(false); // stop auto navigation
     }
     if(FlagSystem::flagEvents.dPressed){ // turn right 
-        player->returnSpritesShape().rotate(1.0f); // degrees
-        float newAngle = player->returnSpritesShape().getRotation();
-        player->setHeadingAngle(newAngle);
+        playerNum->returnSpritesShape().rotate(1.0f); // degrees
+        float newAngle = playerNum->returnSpritesShape().getRotation();
+        playerNum->setHeadingAngle(newAngle);
         FlagSystem::gameScene1Flags.begin = true;
-       // player->setAutoNavigate(false); // stop auto navigation
     }
     if(FlagSystem::flagEvents.wPressed && canWalkOnTile){ // front 
-        physics::spriteMover(player, physics::followDirVec); 
+        physics::spriteMover(playerNum, physics::followDirVec); 
         FlagSystem::gameScene1Flags.begin = true;
-       // player->setAutoNavigate(false); // stop auto navigation
     }
     if(FlagSystem::flagEvents.sPressed && canWalkOnTile){ // back
-        physics::spriteMover(player, physics::followDirVecOpposite); 
+        physics::spriteMover(playerNum, physics::followDirVecOpposite); 
         FlagSystem::gameScene1Flags.begin = true;
-       // player->setAutoNavigate(true); // stop auto navigation
     }   
 
-    int newTileX = static_cast<int>((player->getSpritePos().x - Constants::TILEMAP_POSITION.x) / Constants::TILE_WIDTH);
-    int newTileY = static_cast<int>((player->getSpritePos().y - Constants::TILEMAP_POSITION.y) / Constants::TILE_HEIGHT);
+    int newTileX = static_cast<int>((playerNum->getSpritePos().x - Constants::TILEMAP_POSITION.x) / Constants::TILE_WIDTH);
+    int newTileY = static_cast<int>((playerNum->getSpritePos().y - Constants::TILEMAP_POSITION.y) / Constants::TILE_HEIGHT);
     int newTileIndexInMap = newTileY * Constants::TILEMAP_WIDTH + newTileX;
     bool canWalkOnTileAgain = tileMap1->getTile(newTileIndexInMap)->getWalkable(); 
 
     if(!canWalkOnTileAgain){
-        player->changePosition(originalPlayerPos);
-        player->updatePos(); 
+        playerNum->changePosition(originalPlayerPos);
+        playerNum->updatePos(); 
     }
-    sf::Vector2f playerPos = player->getSpritePos();
+    sf::Vector2f playerPos = playerNum->getSpritePos();
     float spriteWidth = playerBounds.width;
     float spriteHeight = playerBounds.height;
 
     float newX = std::clamp(playerPos.x, spriteWidth, Constants::VIEW_SIZE_X - spriteWidth);
     float newY = std::clamp(playerPos.y, spriteHeight, Constants::VIEW_SIZE_Y - spriteHeight);
 
-    player->changePosition(sf::Vector2f{newX, newY});
-    player->updatePos(); 
+    playerNum->changePosition(sf::Vector2f{newX, newY});
+    playerNum->updatePos(); 
 }
 
 // Keeps sprites inside screen bounds, checks for collisions, update scores, and sets flagEvents.gameEnd to true in an event of collision 
@@ -261,12 +265,15 @@ void gamePlayScene::handleGameEvents() {
         player->setAutoNavigate(true); 
     }
     physics::calculateRayCast3d(player, tileMap1, rays, wallLine); // modifies the ray 
+    physics::calculateRayCast3d(player2, tileMap1, rays2, wallLine2); // modifies the rays2 
 } 
 
 void gamePlayScene::handleSceneFlags(){
     if(!FlagSystem::flagEvents.gameEnd && FlagSystem::gameScene1Flags.begin){
         scoreText->getText().setString("Seconds elapsed: " + std::to_string(beginTime));
     }
+
+    
 }
 
 void gamePlayScene::update() {
@@ -333,9 +340,7 @@ void gamePlayScene::drawInleftView(){
     int tileY = static_cast<int>((player->getSpritePos().y - Constants::TILEMAP_POSITION.y) / Constants::TILE_HEIGHT);
     int tileIndexInMap = tileY * Constants::TILEMAP_WIDTH + tileX;
 
-    if(tileIndexInMap == Constants::TILEMAP_PLAYERSPAWNINDEX){ 
-        drawVisibleObject(backgroundBigStart);
-    } else if (tileIndexInMap == Constants::TILEMAP_GOALINDEX){ 
+    if(tileIndexInMap == Constants::TILEMAP_GOALINDEX){ 
         FlagSystem::flagEvents.gameEnd = true;
         drawVisibleObject(backgroundBigFinal);
         drawVisibleObject(endingText);
@@ -344,54 +349,37 @@ void gamePlayScene::drawInleftView(){
     }
     window.draw(wallLine);
 
-  //  drawVisibleObject(bullets[0]); 
-    drawVisibleObject(frame); 
     drawVisibleObject(scoreText); 
     drawVisibleObject(introText);
-
-    if(FlagSystem::flagEvents.mPressed){
-        sf::RectangleShape mainRect(sf::Vector2f(Constants::VIEW_SIZE_X, Constants::VIEW_SIZE_Y));
-        mainRect.setFillColor(sf::Color::Magenta); // background for small view
-        mainRect.setPosition(0,0);
-
-        window.draw(mainRect);
-
-        drawVisibleObject(tileMap1);
-        drawVisibleObject(player);
-
-        window.draw(rays); 
-    }
-
-    drawVisibleObject(button1);
 }
 
 void gamePlayScene::drawInmiddleView(){
-    if(!FlagSystem::flagEvents.mPressed){
-        window.setView(MetaComponents::middleView);
+    window.setView(MetaComponents::middleView);
 
-        // temporary 
-        sf::RectangleShape mainRect(sf::Vector2f(Constants::VIEW_SIZE_X, Constants::VIEW_SIZE_Y));
-        mainRect.setFillColor(sf::Color::Magenta); // background for small view
-        mainRect.setPosition(0,0);
+    drawVisibleObject(board);
 
-        window.draw(mainRect);
+    for(const auto& stick : sticks) drawVisibleObject(stick);
 
-        drawVisibleObject(tileMap1);
-        drawVisibleObject(player);
-
-        window.draw(rays); 
-    }
+    drawVisibleObject(player);
+    window.draw(rays); // direct sf object
+    drawVisibleObject(player2);
+    window.draw(rays2); 
 }
 
 void gamePlayScene::drawInRightView(){
     window.setView(MetaComponents::rightView);
-//MetaComponents::rightView.setCenter(225.0f, 225.0f); // Center of 450x450 view
     
-    sf::RectangleShape mainRect(sf::Vector2f(Constants::VIEW_SIZE_X, Constants::VIEW_SIZE_Y));
+    int tileX = static_cast<int>((player2->getSpritePos().x - Constants::TILEMAP_POSITION.x) / Constants::TILE_WIDTH);
+    int tileY = static_cast<int>((player2->getSpritePos().y - Constants::TILEMAP_POSITION.y) / Constants::TILE_HEIGHT);
+    int tileIndexInMap = tileY * Constants::TILEMAP_WIDTH + tileX;
 
-    mainRect.setFillColor(sf::Color::Yellow); // background for small view
+    if(tileIndexInMap == Constants::TILEMAP_GOALINDEX){ 
+        FlagSystem::flagEvents.gameEnd = true;
+        drawVisibleObject(backgroundBigFinal);
+    } else {
+        drawVisibleObject(backgroundBig);
+    }
+    window.draw(wallLine2);
 
-    window.draw(mainRect);
-
-    drawVisibleObject(player);
+  //  drawVisibleObject(bullets[0]); 
 }

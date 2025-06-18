@@ -6,7 +6,7 @@
 
 class GameWindow{
 public: 
-    GameWindow( unsigned int screenWidth, unsigned int screenHeight, std::string gameTitle, unsigned int frameRate );
+    GameWindow( unsigned int screenWidth, unsigned int screenHeight, std::string gameTitle, unsigned int boardRate );
     sf::RenderWindow& getWindow() { return window; } 
     ~GameWindow() = default;
 
