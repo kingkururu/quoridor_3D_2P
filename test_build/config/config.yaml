@@ -164,6 +164,7 @@ board:
   path_tile_index: 1
   p1_goal_tile_index: 2 # player 1 goal tile index of tile from tile texture
   p2_goal_tile_index: 3 # player 2 goal tile index of tile from
+  blankwall_tile_index: 4 # blank wall tile index of tile from tile texture
   
 # Text settings
 text:

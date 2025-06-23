@@ -274,6 +274,7 @@ namespace Constants {
             PATH_TILE_INDEX = config["board"]["path_tile_index"].as<size_t>();
             P1_GOAL_TILE_INDEX = config["board"]["p1_goal_tile_index"].as<size_t>();
             P2_GOAL_TILE_INDEX = config["board"]["p2_goal_tile_index"].as<size_t>();
+            BLANKWALL_TILE_INDEX = config["board"]["blankwall_tile_index"].as<size_t>(); // additional tile type for walls that are not there yet
                             
             // Load text settings
             TEXT_SIZE = config["text"]["size"].as<unsigned short>();
@@ -388,7 +389,7 @@ namespace Constants {
             TILES_BITMASKS.emplace_back(createBitmask(TILES_TEXTURE, rect));
         }
 
-        for (size_t i = 0; i < 4; ++i) {
+        for (size_t i = 0; i < 5; ++i) {
             BOARDTILES_BITMASK[i] = createBitmask(BOARDTILES_TEXTURE, BOARDTILES_RECTS[i]);
         }
 

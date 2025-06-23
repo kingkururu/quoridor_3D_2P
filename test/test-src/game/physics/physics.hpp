@@ -101,8 +101,6 @@ namespace physics{
     void calculateRayCast3d(std::unique_ptr<Player>& player, std::unique_ptr<TileMap>& tileMap, sf::VertexArray& rays, sf::VertexArray& wallLine);
     void navigateMaze(std::unique_ptr<Player>& player, std::unique_ptr<TileMap>& tileMap, std::vector<size_t>& tilePathInstruction);
 
-    // collision methods
-    bool circleCollision(const sf::Vector2f pos1, float radius1, const sf::Vector2f pos2, float radius2);
     // raycast pre-collision in 2D space
     struct RaycastResult {
         std::vector<float> collisionTimes;
@@ -117,6 +115,7 @@ namespace physics{
     bool pixelPerfectCollision(const std::shared_ptr<sf::Uint8[]>& bitmask1, const sf::Vector2f& position1, const sf::Vector2f& size1,
                                const std::shared_ptr<sf::Uint8[]>& bitmask2, const sf::Vector2f& position2, const sf::Vector2f& size2,
                                float angle1, float angle2); // for rotated sprites
+    bool circleCollision(const sf::Vector2f pos1, float radius1, const sf::Vector2f pos2, float radius2);
 
     struct CollisionData {
         sf::Vector2f position;

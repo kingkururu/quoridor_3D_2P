@@ -89,35 +89,60 @@ TileMap::TileMap(std::shared_ptr<Tile>* tileTypesArray, unsigned int tileTypesNu
     }
 }
 
-BoardTileMap::BoardTileMap(std::array<std::shared_ptr<Tile>, 4> tileTypesArr) { 
+BoardTileMap::BoardTileMap(std::array<std::shared_ptr<Tile>, 5> tileTypesArr) {
     // tileTypesArr[0] = wall tile
     // tileTypesArr[1] = path tile  
     // tileTypesArr[2] = goal tile for p1
     // tileTypesArr[3] = goal tile for p2
-
+    // tileTypesArr[4] = blank wall tile
+    
     this->tileTypesArr = tileTypesArr;
-
+    
     wallTileSize = sf::Vector2i{tileTypesArr[0]->getTileSprite().getTextureRect().width, tileTypesArr[0]->getTileSprite().getTextureRect().height};
     pathTileSize = sf::Vector2i{tileTypesArr[1]->getTileSprite().getTextureRect().width, tileTypesArr[1]->getTileSprite().getTextureRect().height};
     goalTileSize = sf::Vector2i{tileTypesArr[2]->getTileSprite().getTextureRect().width, tileTypesArr[2]->getTileSprite().getTextureRect().height}; // should be the same for tile at index3, for player 2
     
-    for(int i = 0; i < 21; ++i) tiles[i] = tileTypesArr[0]; // Initialize first row to wall tiles
-    for(int i = 378; i < 399; ++i) tiles[i] = tileTypesArr[0]; // Initialize bottom row to wall tiles
-
-    for(int i = 21; i < 378; i += 21) {
-        tiles[i] = tileTypesArr[2]; // Initialize left column / starting index for p1
-        tiles[i + 20] = tileTypesArr[3]; // Initialize right column / starting index for p2
-    }
-
-    for(int i = 21; i < 378; ++i) {
-        if(tiles[i] == nullptr) {
-            tiles[i] = tileTypesArr[1]; // Initialize inner tiles to path tiles
+    // Initialize the board with the specified pattern
+    for(int row = 0; row < 21; ++row) {
+        int rowStart = row * 21;
+        
+        if(row == 0 || row == 20) {
+            // Top and bottom rows: All wall tiles (W)
+            for(int col = 0; col < 21; ++col) {
+                tiles[rowStart + col] = tileTypesArr[0];
+            }
+        }
+        else if(row % 2 == 0) {
+            // Even rows (2, 4, 6, 8, 10, 12, 14, 16, 18): S-B-P-B-P pattern (9 total)
+            for(int col = 0; col < 21; ++col) {
+                if(col == 0) {
+                    tiles[rowStart + col] = tileTypesArr[2]; // S - Start/goal for p1
+                }
+                else if(col == 20) {
+                    tiles[rowStart + col] = tileTypesArr[3]; // G - Goal for p2
+                }
+                else {
+                    // Alternate between B (blank wall) and P (path) for middle columns
+                    if(col % 2 == 1) {
+                        tiles[rowStart + col] = tileTypesArr[4]; // B - Blank wall
+                    } else {
+                        tiles[rowStart + col] = tileTypesArr[1]; // P - Path
+                    }
+                }
+            }
+        }
+        else {
+            // Odd rows (1, 3, 5, 7, 9, 11, 13, 15, 17, 19): All blank wall tiles (B) (10 total)
+            for(int col = 0; col < 21; ++col) {
+                tiles[rowStart + col] = tileTypesArr[4];
+            }
         }
     }
-
-    for(int i = 0; i < tiles.size(); ++i) { // for debugging
+    // Debug output
+    std::cout << tiles.size() << " tiles initialized in BoardTileMap." << std::endl;
+    for(int i = 0; i < tiles.size(); ++i) {
         if(tiles[i] == nullptr) {
-            std::cout << " " ;
+            std::cout << " ";
         }
         else if(tiles[i] == tileTypesArr[0]) {
             std::cout << "W"; // Wall tile
@@ -127,11 +152,13 @@ BoardTileMap::BoardTileMap(std::array<std::shared_ptr<Tile>, 4> tileTypesArr) {
             std::cout << "S"; // Start tile for p1
         } else if (tiles[i] == tileTypesArr[3]) {
             std::cout << "G"; // Goal tile for p2
+        } else if (tiles[i] == tileTypesArr[4]) {
+            std::cout << "B"; // Blank wall tile
         }
-
-         if ((i + 1) % 21 == 0) std::cout << std::endl;
+        
+        if ((i + 1) % 21 == 0) std::cout << std::endl;
     }
-
+    
     log_info("BoardTileMap initialized");
 }
 
