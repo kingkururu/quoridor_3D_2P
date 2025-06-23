@@ -109,10 +109,27 @@ BoardTileMap::BoardTileMap(std::array<std::shared_ptr<Tile>, 4> tileTypesArr) {
         tiles[i + 20] = tileTypesArr[3]; // Initialize right column / starting index for p2
     }
 
-    for(int i = 21; i < 278; ++i) {
+    for(int i = 21; i < 378; ++i) {
         if(tiles[i] == nullptr) {
             tiles[i] = tileTypesArr[1]; // Initialize inner tiles to path tiles
         }
+    }
+
+    for(int i = 0; i < tiles.size(); ++i) { // for debugging
+        if(tiles[i] == nullptr) {
+            std::cout << " " ;
+        }
+        else if(tiles[i] == tileTypesArr[0]) {
+            std::cout << "W"; // Wall tile
+        } else if (tiles[i] == tileTypesArr[1]) {
+            std::cout << "P"; // Path tile
+        } else if (tiles[i] == tileTypesArr[2]) {
+            std::cout << "S"; // Start tile for p1
+        } else if (tiles[i] == tileTypesArr[3]) {
+            std::cout << "G"; // Goal tile for p2
+        }
+
+         if ((i + 1) % 21 == 0) std::cout << std::endl;
     }
 
     log_info("BoardTileMap initialized");

@@ -11,6 +11,7 @@
 #include <SFML/Graphics.hpp>
 #include <fstream>
 #include <sstream>
+#include <iostream>
 
 #include "../../test-logging/log.hpp"
 
