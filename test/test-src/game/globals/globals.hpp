@@ -201,6 +201,17 @@ namespace Constants { // not actually "constants" in terms of being fixed, but s
     inline size_t TILEMAP_GOALINDEX;
     inline std::vector<size_t> TILEPATH_INSTRUCTION;
 
+    // Board tile settings
+    inline std::filesystem::path BOARDTILES_PATH;
+    inline size_t WALL_TILE_INDEX;
+    inline size_t PATH_TILE_INDEX;
+    inline size_t P1_GOAL_TILE_INDEX;
+    inline size_t P2_GOAL_TILE_INDEX;
+    inline sf::Vector2f BOARDTILES_SCALE;
+    inline std::shared_ptr<sf::Texture> BOARDTILES_TEXTURE = std::make_shared<sf::Texture>();
+    inline std::array<sf::IntRect, 4> BOARDTILES_RECTS; // 4 tile types: wall, path, player1 goal, player2 goal
+    inline std::array<std::shared_ptr<sf::Uint8[]>, 4> BOARDTILES_BITMASK; // 4 tile types: wall, path, player1 goal, player2 goal
+
     // Text settings
     inline unsigned short TEXT_SIZE;
     inline std::filesystem::path TEXT_PATH;

@@ -1,46 +1,47 @@
-[2025-06-06 08:18:30.969] [info_logger] [info] Succesfuly read yaml file
-[2025-06-06 08:18:30.969] [info_logger] [warning] Player spawn or goal index not found.
-[2025-06-06 08:18:31.020] [info_logger] [info] 	Constants initialized 
-[2025-06-06 08:18:31.065] [info_logger] [info] scene made
-[2025-06-06 08:18:31.065] [info_logger] [info] 	Game initialized
-[2025-06-06 08:18:31.065] [info_logger] [info] Sprite initialized successfully
-[2025-06-06 08:18:31.065] [info_logger] [info] Sprite initialized successfully
-[2025-06-06 08:18:31.065] [info_logger] [info] Sprite initialized successfully
-[2025-06-06 08:18:31.065] [info_logger] [info] Sprite initialized successfully
-[2025-06-06 08:18:31.065] [info_logger] [info] Sprite initialized successfully
-[2025-06-06 08:18:31.065] [info_logger] [info] Sprite initialized successfully
-[2025-06-06 08:18:31.065] [info_logger] [info] Sprite initialized successfully
-[2025-06-06 08:18:31.065] [info_logger] [info] Sprite initialized successfully
-[2025-06-06 08:18:31.065] [info_logger] [info] Sprite initialized successfully
-[2025-06-06 08:18:31.065] [info_logger] [info] Sprite initialized successfully
-[2025-06-06 08:18:31.065] [info_logger] [info] Sprite initialized successfully
-[2025-06-06 08:18:31.065] [info_logger] [info] Sprite initialized successfully
-[2025-06-06 08:18:31.065] [info_logger] [info] Sprite initialized successfully
-[2025-06-06 08:18:31.065] [info_logger] [info] Sprite initialized successfully
-[2025-06-06 08:18:31.065] [info_logger] [info] Sprite initialized successfully
-[2025-06-06 08:18:31.065] [info_logger] [info] Sprite initialized successfully
-[2025-06-06 08:18:31.065] [info_logger] [info] Sprite initialized successfully
-[2025-06-06 08:18:31.065] [info_logger] [info] Sprite initialized successfully
-[2025-06-06 08:18:31.065] [info_logger] [info] Sprite initialized successfully
-[2025-06-06 08:18:31.065] [info_logger] [info] Sprite initialized successfully
-[2025-06-06 08:18:31.065] [info_logger] [info] Sprite initialized successfully
-[2025-06-06 08:18:31.065] [info_logger] [info] Sprite initialized successfully
-[2025-06-06 08:18:31.065] [info_logger] [info] Sprite initialized successfully
-[2025-06-06 08:18:31.065] [info_logger] [info] Sprite initialized successfully
-[2025-06-06 08:18:31.065] [info_logger] [info] Sprite initialized successfully
-[2025-06-06 08:18:31.065] [info_logger] [info] Sprite initialized successfully
-[2025-06-06 08:18:31.065] [info_logger] [info] Sprite initialized successfully
-[2025-06-06 08:18:31.065] [info_logger] [info] Tile map initialized successfully
-[2025-06-06 08:18:31.065] [info_logger] [info] Music initialized successfully, volume is 80.000000
-[2025-06-06 08:18:31.065] [info_logger] [info] Sound initialized successfully
-[2025-06-06 08:18:31.065] [info_logger] [info] text initialized successully
-[2025-06-06 08:18:31.065] [info_logger] [info] text initialized successully
-[2025-06-06 08:18:31.065] [info_logger] [info] text initialized successully
-[2025-06-06 08:18:31.065] [info_logger] [info] Sprite inserted into quadtree node.
-[2025-06-06 08:18:31.065] [info_logger] [info] Sprite inserted into quadtree node.
-[2025-06-06 08:18:31.065] [info_logger] [info] initializing assets in scene 1: 0.418000ms
-[2025-06-06 08:18:33.643] [info_logger] [info] Window close event detected.
-[2025-06-06 08:18:33.651] [info_logger] [info] 	Game Ended
+[2025-06-22 21:30:33.114] [info_logger] [info] Succesfuly read yaml file
+[2025-06-22 21:30:33.114] [info_logger] [warning] Player spawn or goal index not found.
+[2025-06-22 21:30:33.181] [info_logger] [info] 	Constants initialized
+[2025-06-22 21:30:33.310] [info_logger] [info] scene made
+[2025-06-22 21:30:33.310] [info_logger] [info] 	Game initialized
+[2025-06-22 21:30:33.310] [info_logger] [info] Sprite initialized successfully
+[2025-06-22 21:30:33.310] [info_logger] [info] Sprite initialized successfully
+[2025-06-22 21:30:33.310] [info_logger] [info] Sprite initialized successfully
+[2025-06-22 21:30:33.310] [info_logger] [info] Sprite initialized successfully
+[2025-06-22 21:30:33.310] [info_logger] [info] Sprite initialized successfully
+[2025-06-22 21:30:33.310] [info_logger] [info] Sprite initialized successfully
+[2025-06-22 21:30:33.310] [info_logger] [info] Sprite initialized successfully
+[2025-06-22 21:30:33.310] [info_logger] [info] Sprite initialized successfully
+[2025-06-22 21:30:33.310] [info_logger] [info] Sprite initialized successfully
+[2025-06-22 21:30:33.310] [info_logger] [info] Sprite initialized successfully
+[2025-06-22 21:30:33.310] [info_logger] [info] Sprite initialized successfully
+[2025-06-22 21:30:33.310] [info_logger] [info] Sprite initialized successfully
+[2025-06-22 21:30:33.310] [info_logger] [info] Sprite initialized successfully
+[2025-06-22 21:30:33.310] [info_logger] [info] Sprite initialized successfully
+[2025-06-22 21:30:33.310] [info_logger] [info] Sprite initialized successfully
+[2025-06-22 21:30:33.310] [info_logger] [info] Sprite initialized successfully
+[2025-06-22 21:30:33.310] [info_logger] [info] Sprite initialized successfully
+[2025-06-22 21:30:33.310] [info_logger] [info] Sprite initialized successfully
+[2025-06-22 21:30:33.310] [info_logger] [info] Sprite initialized successfully
+[2025-06-22 21:30:33.310] [info_logger] [info] Sprite initialized successfully
+[2025-06-22 21:30:33.310] [info_logger] [info] Sprite initialized successfully
+[2025-06-22 21:30:33.310] [info_logger] [info] Sprite initialized successfully
+[2025-06-22 21:30:33.310] [info_logger] [info] Sprite initialized successfully
+[2025-06-22 21:30:33.310] [info_logger] [info] Sprite initialized successfully
+[2025-06-22 21:30:33.310] [info_logger] [info] Sprite initialized successfully
+[2025-06-22 21:30:33.310] [info_logger] [info] Sprite initialized successfully
+[2025-06-22 21:30:33.310] [info_logger] [info] Sprite initialized successfully
+[2025-06-22 21:30:33.310] [info_logger] [info] Tile map initialized successfully
+[2025-06-22 21:30:33.310] [info_logger] [info] BoardTileMap initialized
+[2025-06-22 21:30:33.310] [info_logger] [info] Music initialized successfully, volume is 80.000000
+[2025-06-22 21:30:33.310] [info_logger] [info] Sound initialized successfully
+[2025-06-22 21:30:33.310] [info_logger] [info] text initialized successully
+[2025-06-22 21:30:33.310] [info_logger] [info] text initialized successully
+[2025-06-22 21:30:33.310] [info_logger] [info] text initialized successully
+[2025-06-22 21:30:33.310] [info_logger] [info] Sprite inserted into quadtree node.
+[2025-06-22 21:30:33.310] [info_logger] [info] Sprite inserted into quadtree node.
+[2025-06-22 21:30:33.310] [info_logger] [info] initializing assets in scene 1: 0.494000ms
+[2025-06-22 21:30:36.676] [info_logger] [info] Window close event detected.
+[2025-06-22 21:30:36.681] [info_logger] [info] 	Game Ended
 
-[2025-06-06 08:18:33.651] [info_logger] [info] objects cleared.
-[2025-06-06 08:18:33.651] [info_logger] [info] Quadtree cleared.
+[2025-06-22 21:30:36.681] [info_logger] [info] objects cleared.
+[2025-06-22 21:30:36.681] [info_logger] [info] Quadtree cleared.

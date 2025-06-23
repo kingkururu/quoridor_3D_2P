@@ -159,3 +159,11 @@ std::unique_ptr<Tile>& TileMap::getTile(size_t index) {
         throw std::out_of_range("Index is out of range in getTile");
     }
 }
+
+void BoardTileMap::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+    // Your actual drawing code here
+    // For example:
+    // for (const auto& tile : tiles) {
+    //     target.draw(*tile, states);
+    // }
+}

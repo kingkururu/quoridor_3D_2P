@@ -154,6 +154,17 @@ tilemap:
   playerspawn_index: 20 # player spawn index of tile from tile texture
   goal_index: 226 # goal index of tile from tile map
 
+# Board settings
+board:
+  tiles_path: "test/test-assets/tiles/png/tilemap3.png"
+  scale:
+    x: 1.0
+    y: 1.0
+  wall_tile_index: 0 # wall tile index of tile from tile texture
+  path_tile_index: 1
+  p1_goal_tile_index: 2 # player 1 goal tile index of tile from tile texture
+  p2_goal_tile_index: 3 # player 2 goal tile index of tile from
+  
 # Text settings
 text:
   size: 20 # pixels 

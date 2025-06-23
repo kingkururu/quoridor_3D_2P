@@ -89,4 +89,6 @@ private:
     sf::Vector2i wallTileSize; // size of wall tile
     sf::Vector2i pathTileSize; // size of path tile
     sf::Vector2i goalTileSize; // size of goal tile for p1 and p2
+
+    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

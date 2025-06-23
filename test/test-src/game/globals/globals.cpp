@@ -266,6 +266,15 @@ namespace Constants {
             TILEMAP_PLAYERSPAWNINDEX = config["tilemap"]["playerspawn_index"].as<size_t>();
             TILEMAP_GOALINDEX = config["tilemap"]["goal_index"].as<size_t>();
 
+            // Load board tile settings
+            BOARDTILES_PATH = config["board"]["tiles_path"].as<std::string>();
+            BOARDTILES_SCALE = {config["board"]["scale"]["x"].as<float>(),
+                            config["board"]["scale"]["y"].as<float>()};     
+            WALL_TILE_INDEX = config["board"]["wall_tile_index"].as<size_t>();
+            PATH_TILE_INDEX = config["board"]["path_tile_index"].as<size_t>();
+            P1_GOAL_TILE_INDEX = config["board"]["p1_goal_tile_index"].as<size_t>();
+            P2_GOAL_TILE_INDEX = config["board"]["p2_goal_tile_index"].as<size_t>();
+                            
             // Load text settings
             TEXT_SIZE = config["text"]["size"].as<unsigned short>();
             TEXT_PATH = config["text"]["font_path"].as<std::string>();
@@ -318,6 +327,7 @@ namespace Constants {
         if (!BACKGROUNDBIG_TEXTURE->loadFromFile(BACKGROUNDBIG_PATH)) log_warning("Failed to load background big texture");
         if (!BACKGROUNDBIGFINAL_TEXTURE->loadFromFile(BACKGROUNDBIGFINAL_PATH)) log_warning("Failed to load background big final texture");
         if (!STICK_TEXTURE->loadFromFile(STICK_PATH)) log_warning("Failed to load stick texture");
+        if (!BOARDTILES_TEXTURE->loadFromFile(BOARDTILES_PATH)) log_warning("Failed to load board tiles texture");
 
         // music
         if (!BACKGROUNDMUSIC_MUSIC->openFromFile(BACKGROUNDMUSIC_PATH)) log_warning("Failed to load background music");
@@ -378,7 +388,11 @@ namespace Constants {
             TILES_BITMASKS.emplace_back(createBitmask(TILES_TEXTURE, rect));
         }
 
-        log_info("\tConstants initialized ");
+        for (size_t i = 0; i < 4; ++i) {
+            BOARDTILES_BITMASK[i] = createBitmask(BOARDTILES_TEXTURE, BOARDTILES_RECTS[i]);
+        }
+
+        log_info("\tConstants initialized");
     }
 
     void writeRandomTileMap(const std::filesystem::path filePath, std::function<void(std::ofstream& file, const unsigned short startingTileIndex, const unsigned short endingTileIndex, const unsigned short walkableTileIndex, const unsigned short wallTileIndex)> mazeGenerator) {
