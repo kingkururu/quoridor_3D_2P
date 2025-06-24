@@ -360,12 +360,16 @@ void gamePlayScene::drawInleftView(){
 
     drawVisibleObject(scoreText); 
     drawVisibleObject(introText);
+    
+    drawVisibleObject(boardTileMap); // temporary
+
 }
 
 void gamePlayScene::drawInmiddleView(){
     window.setView(MetaComponents::middleView);
 
     drawVisibleObject(board);
+  //drawVisibleObject(tileMap1);
 
     for(const auto& stick : sticks) drawVisibleObject(stick);
 

@@ -105,9 +105,7 @@ BoardTileMap::BoardTileMap(std::array<std::shared_ptr<Tile>, 6> tileTypesArr) {
     pathTileSize = sf::Vector2i{tileTypesArr[2]->getTileSprite().getTextureRect().width, tileTypesArr[2]->getTileSprite().getTextureRect().height};
     goalTileSize = sf::Vector2i{tileTypesArr[3]->getTileSprite().getTextureRect().width, tileTypesArr[3]->getTileSprite().getTextureRect().height}; // should be the same for tile at index 4, for player 2
     
-    // Initialize the 19x21 board with the specified pattern
-    std::cout << "=== BoardTileMap Pattern Debug ===" << std::endl;
-    
+    // Initialize the 19x21 board with the specified pattern    
     for(int row = 0; row < 21; ++row) {
         int rowStart = row * 19; // Changed from 21 to 19 columns
         std::cout << "Row " << std::setw(2) << row << ": ";
@@ -165,10 +163,7 @@ BoardTileMap::BoardTileMap(std::array<std::shared_ptr<Tile>, 6> tileTypesArr) {
             if(col < 18) std::cout << "-";
         }
         std::cout << std::endl;
-    }
-    
-    std::cout << "=== End Pattern Debug ===" << std::endl;
-    
+    }    
     log_info("BoardTileMap initialized with 19x21 grid");
 }
 
@@ -215,9 +210,9 @@ std::unique_ptr<Tile>& TileMap::getTile(size_t index) {
 }
 
 void BoardTileMap::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-    // Your actual drawing code here
-    // For example:
-    // for (const auto& tile : tiles) {
-    //     target.draw(*tile, states);
-    // }
+    for (const auto& tile : tiles) {
+        if (tile) {
+            target.draw(tile->getTileSprite(), states);
+        }
+    }
 }

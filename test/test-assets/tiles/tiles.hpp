@@ -83,6 +83,7 @@ private:
 class BoardTileMap : public sf::Drawable {
 public:
     explicit BoardTileMap(std::array<std::shared_ptr<Tile>, 6> tileTypesArr); // need wall tile index, path tile index, p1 start tile index, p2 start tile index
+    bool const getVisibleState() const { return true; }
 
 private:
     std::array<std::shared_ptr<Tile>, 399> tiles; // board with 21 x 19 tiles including walls
@@ -93,6 +94,7 @@ private:
     sf::Vector2i pathTileSize; // size of path tile
     sf::Vector2i goalTileSize; // size of goal tile for p1 and p2
 
-    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override; // temporary
+
 };
 
