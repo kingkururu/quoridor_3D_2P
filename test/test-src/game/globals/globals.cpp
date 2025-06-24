@@ -270,7 +270,8 @@ namespace Constants {
             BOARDTILES_PATH = config["board"]["tiles_path"].as<std::string>();
             BOARDTILES_SCALE = {config["board"]["scale"]["x"].as<float>(),
                             config["board"]["scale"]["y"].as<float>()};     
-            WALL_TILE_INDEX = config["board"]["wall_tile_index"].as<size_t>();
+            WALL_TILEX_INDEX = config["board"]["wall_tileY_index"].as<size_t>();
+            WALL_TILEY_INDEX = config["board"]["wall_tileY_index"].as<size_t>();
             PATH_TILE_INDEX = config["board"]["path_tile_index"].as<size_t>();
             P1_GOAL_TILE_INDEX = config["board"]["p1_goal_tile_index"].as<size_t>();
             P2_GOAL_TILE_INDEX = config["board"]["p2_goal_tile_index"].as<size_t>();
@@ -389,7 +390,13 @@ namespace Constants {
             TILES_BITMASKS.emplace_back(createBitmask(TILES_TEXTURE, rect));
         }
 
-        for (size_t i = 0; i < 5; ++i) {
+        BOARDTILES_RECTS[P1_GOAL_TILE_INDEX] = BOARDTILES_RECTS[P2_GOAL_TILE_INDEX] = sf::IntRect{0, 0, 46, 33}; // p1,p2 goal block
+        BOARDTILES_RECTS[PATH_TILE_INDEX] = sf::IntRect{0, 33, 33, 33}; // path block
+        BOARDTILES_RECTS[WALL_TILEX_INDEX] = sf::IntRect{0, 66, 36, 9}; // stick horizontal
+        BOARDTILES_RECTS[WALL_TILEY_INDEX] = sf::IntRect{0, 75, 9, 36}; // stick vertical
+        BOARDTILES_RECTS[BLANKWALL_TILE_INDEX] = sf::IntRect{0, 75, 9, 9}; // single space between stick and path
+
+        for (size_t i = 0; i < BOARDTILES_RECTS.size(); ++i) {
             BOARDTILES_BITMASK[i] = createBitmask(BOARDTILES_TEXTURE, BOARDTILES_RECTS[i]);
         }
 
