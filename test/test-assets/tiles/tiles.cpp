@@ -1,8 +1,8 @@
 #include "tiles.hpp"
 
 Tile::Tile(sf::Vector2f scale, std::weak_ptr<sf::Texture> texture, sf::IntRect textureRect, 
-           std::weak_ptr<sf::Uint8[]> bitmask, bool walkable)
-    : scale(scale), texture(texture), textureRect(textureRect), bitmask(bitmask), walkable(walkable) {
+           std::weak_ptr<sf::Uint8[]> bitmask, bool walkableState)
+    : scale(scale), texture(texture), textureRect(textureRect), bitmask(bitmask), walkableState(walkableState) {
     
     try {
         tileSprite = std::make_unique<sf::Sprite>(); // Use unique_ptr for tileSprite
@@ -16,6 +16,8 @@ Tile::Tile(sf::Vector2f scale, std::weak_ptr<sf::Texture> texture, sf::IntRect t
             tileSprite->setTexture(*sharedTexture); // Set the texture
             tileSprite->setScale(scale); // Set the scale
             tileSprite->setTextureRect(textureRect); // Set the texture rectangle
+            visibleState = true;
+
         } else {
             throw std::runtime_error("Tile texture is not available");
         }
@@ -28,7 +30,7 @@ Tile::Tile(sf::Vector2f scale, std::weak_ptr<sf::Texture> texture, sf::IntRect t
 Tile::Tile(const Tile& other)
     : position(other.position), scale(other.scale),
       texture(other.texture), textureRect(other.textureRect),
-      bitmask(other.bitmask), walkable(other.walkable) {
+      bitmask(other.bitmask), walkableState(other.walkableState) {
 
     // Create a new sprite with the same texture and scale
     tileSprite = std::make_unique<sf::Sprite>();
@@ -40,6 +42,7 @@ Tile::Tile(const Tile& other)
         tileSprite->setTextureRect(other.textureRect);
         tileSprite->setScale(scale); // Apply the scale
         tileSprite->setPosition(other.tileSprite->getPosition()); // Copy the position if needed
+        visibleState = true;
     } else {
         throw std::runtime_error("Texture for copied tile is not available");
     }
@@ -169,7 +172,7 @@ BoardTileMap::BoardTileMap(std::array<std::shared_ptr<Tile>, 6> tileTypesArr) {
 
 void TileMap::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     for (const auto& tile : tiles) {
-        if (tile) {
+        if (tile && tile->getVisibleState()) {
             target.draw(tile->getTileSprite(), states);
         }
     }
@@ -211,7 +214,7 @@ std::unique_ptr<Tile>& TileMap::getTile(size_t index) {
 
 void BoardTileMap::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     for (const auto& tile : tiles) {
-        if (tile) {
+        if (tile && tile->getVisibleState()) {
             target.draw(tile->getTileSprite(), states);
         }
     }

@@ -19,14 +19,17 @@
 class Tile {
 public:
     // Constructor with position, scale, texture, and a texture rect (to support tilesets)
-    explicit Tile(sf::Vector2f scale, std::weak_ptr<sf::Texture> texture, sf::IntRect textureRect, std::weak_ptr<sf::Uint8[]> bitmask, bool walkable = true); 
+    explicit Tile(sf::Vector2f scale, std::weak_ptr<sf::Texture> texture, sf::IntRect textureRect, std::weak_ptr<sf::Uint8[]> bitmask, bool walkableState = true); 
     sf::Sprite& getTileSprite() const { return *tileSprite; } 
 
     sf::IntRect const getTextureRect() const { return textureRect; }
     std::weak_ptr<sf::Uint8[]>  const getBitMask() const { return bitmask; }
  
-    bool getWalkable() const { return walkable; }
-    void setWalkable(bool newWalkable) { walkable = newWalkable; }
+    bool getWalkable() const { return walkableState; }
+    void setWalkable(bool walkableState) { this->walkableState = walkableState; }
+
+    bool getVisibleState() const { return visibleState; }
+    void setVisibleState(bool visibleState) { this->visibleState = visibleState; }
     
     // making copies for use in tilemap
     virtual std::unique_ptr<Tile> clone() const {
@@ -42,7 +45,8 @@ private:
     std::weak_ptr<sf::Texture> texture;
     sf::IntRect textureRect {};   // Texture portion for this tile
     std::weak_ptr<sf::Uint8[]> bitmask; 
-    bool walkable {};
+    bool walkableState {};
+    bool visibleState {};
 };
 
 class TileMap : public sf::Drawable {
@@ -83,7 +87,7 @@ private:
 class BoardTileMap : public sf::Drawable {
 public:
     explicit BoardTileMap(std::array<std::shared_ptr<Tile>, 6> tileTypesArr); // need wall tile index, path tile index, p1 start tile index, p2 start tile index
-    bool const getVisibleState() const { return true; }
+    bool const getVisibleState() const { return true; } // entire board, not each tiles
 
 private:
     std::array<std::shared_ptr<Tile>, 399> tiles; // board with 21 x 19 tiles including walls
