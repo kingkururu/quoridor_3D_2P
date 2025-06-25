@@ -345,21 +345,21 @@ void gamePlayScene::draw() {
 void gamePlayScene::drawInleftView(){
     window.setView(MetaComponents::leftView);
 
-    int tileX = static_cast<int>((player->getSpritePos().x - Constants::TILEMAP_POSITION.x) / Constants::TILE_WIDTH);
-    int tileY = static_cast<int>((player->getSpritePos().y - Constants::TILEMAP_POSITION.y) / Constants::TILE_HEIGHT);
-    int tileIndexInMap = tileY * Constants::TILEMAP_WIDTH + tileX;
+    // int tileX = static_cast<int>((player->getSpritePos().x - Constants::TILEMAP_POSITION.x) / Constants::TILE_WIDTH);
+    // int tileY = static_cast<int>((player->getSpritePos().y - Constants::TILEMAP_POSITION.y) / Constants::TILE_HEIGHT);
+    // int tileIndexInMap = tileY * Constants::TILEMAP_WIDTH + tileX;
 
-    if(tileIndexInMap == Constants::TILEMAP_GOALINDEX){ 
-        FlagSystem::flagEvents.gameEnd = true;
-        drawVisibleObject(backgroundBigFinal);
-        drawVisibleObject(endingText);
-    } else {
-        drawVisibleObject(backgroundBig);
-    }
-    window.draw(wallLine);
+    // if(tileIndexInMap == Constants::TILEMAP_GOALINDEX){ 
+    //     FlagSystem::flagEvents.gameEnd = true;
+    //     drawVisibleObject(backgroundBigFinal);
+    //     drawVisibleObject(endingText);
+    // } else {
+    //     drawVisibleObject(backgroundBig);
+    // }
+    // window.draw(wallLine);
 
-    drawVisibleObject(scoreText); 
-    drawVisibleObject(introText);
+    // drawVisibleObject(scoreText); 
+    // drawVisibleObject(introText);
     
     drawVisibleObject(boardTileMap); // temporary
 
