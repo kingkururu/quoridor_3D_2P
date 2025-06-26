@@ -94,9 +94,11 @@ private:
     std::array<std::shared_ptr<Tile>, 8> tileTypesArr; // wall, path, goal, additional tile type
     sf::Vector2i wallTileXSize; 
     sf::Vector2i wallTileYSize;
-    sf::Vector2i blankWallSize;
+    sf::Vector2i blankWallTileSize;
     sf::Vector2i pathTileSize; // size of path tile
     sf::Vector2i goalTileSize; // size of goal tile for p1 and p2
+    sf::Vector2i blankp1TileSize; // size of blank tile for p1
+    sf::Vector2i blankp2TileSize; // size of blank tile for p
 
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override; // temporary
 

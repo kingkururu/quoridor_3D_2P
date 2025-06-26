@@ -109,7 +109,20 @@ BoardTileMap::BoardTileMap(std::array<std::shared_ptr<Tile>, 8> tileTypesArr) {
     wallTileYSize = sf::Vector2i{9, 33};   // vertical wall
     pathTileSize = sf::Vector2i{33, 33};   // path tile
     goalTileSize = sf::Vector2i{46, 33};   // goal tiles
-    sf::Vector2i blankTileSize = sf::Vector2i{9, 9}; // blank tile
+    blankWallTileSize = sf::Vector2i{9, 9}; // blank tile
+    blankp1TileSize = sf::Vector2i{46, 9}; 
+    blankp2TileSize = sf::Vector2i{46, 9}; 
+
+    // DEBUG: Print all tile sizes
+    std::cout << "\n=== TILE SIZES DEBUG ===";
+    std::cout << "\nwallTileXSize (horizontal wall): " << wallTileXSize.x << "x" << wallTileXSize.y;
+    std::cout << "\nwallTileYSize (vertical wall): " << wallTileYSize.x << "x" << wallTileYSize.y;
+    std::cout << "\npathTileSize: " << pathTileSize.x << "x" << pathTileSize.y;
+    std::cout << "\ngoalTileSize: " << goalTileSize.x << "x" << goalTileSize.y;
+    std::cout << "\nblankWallTileSize: " << blankWallTileSize.x << "x" << blankWallTileSize.y;
+    std::cout << "\nblankp1TileSize: " << blankp1TileSize.x << "x" << blankp1TileSize.y;
+    std::cout << "\nblankp2TileSize: " << blankp2TileSize.x << "x" << blankp2TileSize.y;
+    std::cout << "\n========================\n";
 
     float currentY = 0.0f;
     
@@ -119,67 +132,78 @@ BoardTileMap::BoardTileMap(std::array<std::shared_ptr<Tile>, 8> tileTypesArr) {
         float currentX = 0.0f;
         float maxRowHeight = 0.0f; // Track the tallest tile in this row
         
-        std::cout << std::endl << "Row " << std::setw(2) << row << ": ";
-        
+        std::cout << "\n--- ROW " << row << " (" << (row % 2 == 0 ? "EVEN" : "ODD") << ") ---";
+                
         for(int col = 0; col < 19; ++col) {
             int tileIndex = -1;
             std::shared_ptr<Tile> selectedTile;
             sf::Vector2i tileSize;
+            std::string tileTypeName;
             
             if(row % 2 == 0) {
-                // Even rows: Pattern 3-2-1-2-1-2-1-2-1-2-1-2-1-2-1-2-1-2-4
                 if(col == 0) {
                     selectedTile = tileTypesArr[3]; // goal tile p1
                     tileSize = goalTileSize;
                     tileIndex = 3;
+                    tileTypeName = "goal_p1";
                 }
                 else if(col == 18) {
                     selectedTile = tileTypesArr[4]; // goal tile p2
                     tileSize = goalTileSize;
                     tileIndex = 4;
+                    tileTypeName = "goal_p2";
                 }
                 else if(col == 1) {
                     selectedTile = tileTypesArr[2]; // path tile
                     tileSize = pathTileSize;
                     tileIndex = 2;
+                    tileTypeName = "path";
                 }
                 else {
-                    // Alternate between horizontal wall (1) and path (2)
                     if(col % 2 == 0) {
                         selectedTile = tileTypesArr[1]; 
-                        tileSize = wallTileXSize;
+                        tileSize = wallTileYSize;
                         tileIndex = 1;
+                        tileTypeName = "wall_vertical";
                     } else {
                         selectedTile = tileTypesArr[2]; // path tile
                         tileSize = pathTileSize;
                         tileIndex = 2;
+                        tileTypeName = "path";
                     }
                 }
             }
             else {
-                // Odd rows: Pattern 3-0-5-0-5-0-5-0-5-0-5-0-5-0-5-0-5-0-4
                 if(col == 0) {
-                    selectedTile = tileTypesArr[6]; // goal tile p1
-                    tileSize = goalTileSize;
-                    tileIndex = 3;
+                    selectedTile = tileTypesArr[6]; // start piece
+                    tileSize = blankp1TileSize;
+                    tileIndex = 6;
+                    tileTypeName = "blank_p1";
                 }
                 else if(col == 18) {
-                    selectedTile = tileTypesArr[7]; // goal tile p2
-                    tileSize = goalTileSize;
-                    tileIndex = 4;
+                    selectedTile = tileTypesArr[7]; // end piece
+                    tileSize = blankp2TileSize;
+                    tileIndex = 7;
+                    tileTypeName = "blank_p2";
                 }
                 else {
                     if(col % 2 == 1) {
                         selectedTile = tileTypesArr[0]; 
-                        tileSize = wallTileYSize;
+                        tileSize = wallTileXSize;
                         tileIndex = 0;
+                        tileTypeName = "wall_horizontal";
                     } else {
                         selectedTile = tileTypesArr[5]; // blank tile
-                        tileSize = blankTileSize;
+                        tileSize = blankWallTileSize;
                         tileIndex = 5;
+                        tileTypeName = "blank";
                     }
                 }
             }
+            
+            // DEBUG: Print tile selection details
+            std::cout << "\n  Col " << col << ": " << tileTypeName << " (idx=" << tileIndex 
+                      << ") expectedSize=" << tileSize.x << "x" << tileSize.y;
             
             // Clone the tile and set its position
             tiles[rowStart + col] = selectedTile->clone(); 
@@ -188,43 +212,44 @@ BoardTileMap::BoardTileMap(std::array<std::shared_ptr<Tile>, 8> tileTypesArr) {
             if (tiles[rowStart + col]) {
                 tiles[rowStart + col]->getTileSprite().setPosition(currentX, currentY);
 
-                // Debug print for tile positioning
-                std::cout << "\n  Tile[" << row << "][" << col << "] (type " << tileIndex 
-                          << ") positioned at (" << currentX << ", " << currentY 
-                          << ") size(" << tileSize.x << "x" << tileSize.y << ")";
-                          
-                // Verify the position was set correctly
+                // DEBUG: Comprehensive tile positioning info
                 sf::Vector2f actualPos = tiles[rowStart + col]->getTileSprite().getPosition();
-                std::cout << " -> actual pos(" << actualPos.x << ", " << actualPos.y << ")";
-                
-                // Check if tile is visible
-                bool isVisible = tiles[rowStart + col]->getVisibleState();
-                std::cout << " visible:" << (isVisible ? "YES" : "NO");
-                
-                // Check texture rect
                 sf::IntRect texRect = tiles[rowStart + col]->getTileSprite().getTextureRect();
-                std::cout << " texRect(" << texRect.left << "," << texRect.top << "," 
-                          << texRect.width << "," << texRect.height << ")";
+                bool isVisible = tiles[rowStart + col]->getVisibleState();
+                
+                std::cout << "\n    -> Positioned at (" << currentX << ", " << currentY << ")";
+                std::cout << "\n    -> Actual sprite pos: (" << actualPos.x << ", " << actualPos.y << ")";
+                std::cout << "\n    -> Texture rect: (" << texRect.left << "," << texRect.top 
+                          << "," << texRect.width << "," << texRect.height << ")";
+                std::cout << "\n    -> Visible: " << (isVisible ? "YES" : "NO");
+                std::cout << "\n    -> Using size: " << tileSize.x << "x" << tileSize.y 
+                          << " (texture size: " << texRect.width << "x" << texRect.height << ")";
+                          
+                // Check if our expected size matches texture size
+                if(tileSize.x != texRect.width || tileSize.y != texRect.height) {
+                    std::cout << "\n    -> WARNING: Expected size doesn't match texture size!";
+                }
             } else {
-                std::cout << "\n  ERROR: Tile[" << row << "][" << col << "] is NULL!";
+                std::cout << "\n    -> ERROR: Tile is NULL!";
             }
             
-            // FIXED: Move to next column position using THIS tile's width
             currentX += tileSize.x;
             
             // Track the tallest tile in this row for proper row advancement
             maxRowHeight = std::max(maxRowHeight, static_cast<float>(tileSize.y));
-            
-            std::cout << tileIndex;
-            if(col < 18) std::cout << "-";
         }
         
-        // FIXED: Move to next row position using the actual tallest tile in this row
-        currentY += maxRowHeight;
+        // DEBUG: Row completion info
+        std::cout << "\n  Row " << row << " complete. Total width: " << currentX 
+                  << ", Max height: " << maxRowHeight << ", Moving Y from " << currentY 
+                  << " to " << (currentY + maxRowHeight);
         
-        std::cout << " (row height: " << maxRowHeight << ")" << std::endl;
-        std::cout << "  Row " << row << " complete, next row starts at Y=" << currentY << std::endl;
+        // Move to next row position using the actual tallest tile in this row
+        currentY += maxRowHeight;
     }    
+    
+    std::cout << "\n\n=== BOARD COMPLETE ===";
+    std::cout << "\n======================\n";
     
     log_info("BoardTileMap initialized with 21x19 grid at proper positions");
 }
