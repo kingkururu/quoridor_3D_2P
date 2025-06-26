@@ -231,6 +231,15 @@ std::unique_ptr<Tile>& TileMap::getTile(size_t index) {
     }
 }
 
+std::shared_ptr<Tile>& BoardTileMap::getTile(size_t index) {
+    if (index < tiles.size()) {
+        return tiles[index]; // Return the tile at the specified index
+    } else {
+        // Handle the case where the index is out of bounds, throw an exception or return a nullptr
+        throw std::out_of_range("Index is out of range in getTile");
+    }
+}
+
 void BoardTileMap::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     for (const auto& tile : tiles) {
         if (tile && tile->getVisibleState()) {

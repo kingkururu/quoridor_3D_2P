@@ -49,6 +49,22 @@ private:
     bool visibleState {};
 };
 
+// class AbstractTileMap : public sf::Drawable {
+// public:
+//     virtual ~AbstractTileMap() = default;
+
+//     // Pure virtual function to add a tile to the map at the specified grid position (x, y)
+//     virtual void addTile(unsigned int x, unsigned int y, std::unique_ptr<Tile> tile) = 0; 
+
+//     // Pure virtual function to get a tile by index
+//     virtual std::unique_ptr<Tile>& getTile(size_t index) = 0; 
+
+//     // Pure virtual function to draw the tile map
+//     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const = 0;
+// protected:
+
+// };
+
 class TileMap : public sf::Drawable {
 public:
     // Constructor now accepts a shared_ptr to a default tile, and initializes the map with it
@@ -88,6 +104,7 @@ class BoardTileMap : public sf::Drawable {
 public:
     explicit BoardTileMap(std::array<std::shared_ptr<Tile>, 8> tileTypesArr); // need wall tile index, path tile index, p1 start tile index, p2 start tile index
     bool const getVisibleState() const { return true; } // entire board, not each tiles
+    std::shared_ptr<Tile>& getTile(size_t index);
 
 private:
     std::array<std::shared_ptr<Tile>, 399> tiles; // board with 21 x 19 tiles including walls
