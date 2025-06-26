@@ -113,7 +113,7 @@ private:
   std::array<std::shared_ptr<Tile>, Constants::TILES_NUMBER> tiles1;   
   std::unique_ptr<TileMap> tileMap1; 
 
-  std::array<std::shared_ptr<Tile>, 6> boardTiles;
+  std::array<std::shared_ptr<Tile>, 8> boardTiles;
   std::unique_ptr<BoardTileMap> boardTileMap; // for the board with walls and goals
 
   // for 3d walls

@@ -166,6 +166,8 @@ board:
   p1_goal_tile_index: 3
   p2_goal_tile_index: 4
   blankwall_tile_index: 5
+  blank_p1_index: 6
+  blank_p2_index: 7
   
 # Text settings
 text:

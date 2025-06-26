@@ -276,6 +276,8 @@ namespace Constants {
             P1_GOAL_TILE_INDEX = config["board"]["p1_goal_tile_index"].as<size_t>();
             P2_GOAL_TILE_INDEX = config["board"]["p2_goal_tile_index"].as<size_t>();
             BLANKWALL_TILE_INDEX = config["board"]["blankwall_tile_index"].as<size_t>(); // additional tile type for walls that are not there yet
+            BLANKP1_INDEX = config["board"]["blank_p1_index"].as<size_t>(); // additional tile type for player 1
+            BLANKP2_INDEX = config["board"]["blank_p2_index"].as<size_t>(); // additional tile type for player 2
                             
             // Load text settings
             TEXT_SIZE = config["text"]["size"].as<unsigned short>();
@@ -392,9 +394,10 @@ namespace Constants {
 
         BOARDTILES_RECTS[P1_GOAL_TILE_INDEX] = BOARDTILES_RECTS[P2_GOAL_TILE_INDEX] = sf::IntRect{0, 0, 46, 33}; // p1,p2 goal block
         BOARDTILES_RECTS[PATH_TILE_INDEX] = sf::IntRect{0, 33, 33, 33}; // path block
-        BOARDTILES_RECTS[WALL_TILEX_INDEX] = sf::IntRect{0, 66, 36, 9}; // stick horizontal
-        BOARDTILES_RECTS[WALL_TILEY_INDEX] = sf::IntRect{0, 75, 9, 36}; // stick vertical
+        BOARDTILES_RECTS[WALL_TILEX_INDEX] = sf::IntRect{0, 66, 33, 9}; // stick horizontal
+        BOARDTILES_RECTS[WALL_TILEY_INDEX] = sf::IntRect{0, 75, 9, 33}; // stick vertical
         BOARDTILES_RECTS[BLANKWALL_TILE_INDEX] = sf::IntRect{0, 75, 9, 9}; // single space between stick and path
+        BOARDTILES_RECTS[BLANKP1_INDEX] = BOARDTILES_RECTS[BLANKP2_INDEX] = sf::IntRect{0, 0, 46, 9}; 
 
         for (size_t i = 0; i < BOARDTILES_RECTS.size(); ++i) {
             BOARDTILES_BITMASK[i] = createBitmask(BOARDTILES_TEXTURE, BOARDTILES_RECTS[i]);

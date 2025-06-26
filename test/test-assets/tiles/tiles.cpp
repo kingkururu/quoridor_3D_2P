@@ -92,43 +92,32 @@ TileMap::TileMap(std::shared_ptr<Tile>* tileTypesArray, unsigned int tileTypesNu
     }
 }
 
-BoardTileMap::BoardTileMap(std::array<std::shared_ptr<Tile>, 6> tileTypesArr) {
-    // tileTypesArr[0] = wall x tile (36x9)
-    // tileTypesArr[1] = wall y tile (9x36)
+BoardTileMap::BoardTileMap(std::array<std::shared_ptr<Tile>, 8> tileTypesArr) {
+    // tileTypesArr[0] = wall x tile (33x9)
+    // tileTypesArr[1] = wall y tile (9x33)
     // tileTypesArr[2] = path tile (33x33)
     // tileTypesArr[3] = goal tile for p1 (46x33)
     // tileTypesArr[4] = goal tile for p2 (46x33)
     // tileTypesArr[5] = blank tile (9x9)
+    // tileTypesArr[6] = middle bit of even and odd rows starting (46x9)
+    // tileTypesArr[7] = middle bit of even and odd rows ending (46x9)
     
     this->tileTypesArr = tileTypesArr;
     
     // Store tile sizes
-    wallTileXSize = sf::Vector2i{36, 9};   // horizontal wall
-    wallTileYSize = sf::Vector2i{9, 36};   // vertical wall
+    wallTileXSize = sf::Vector2i{33, 9};   // horizontal wall
+    wallTileYSize = sf::Vector2i{9, 33};   // vertical wall
     pathTileSize = sf::Vector2i{33, 33};   // path tile
     goalTileSize = sf::Vector2i{46, 33};   // goal tiles
     sf::Vector2i blankTileSize = sf::Vector2i{9, 9}; // blank tile
-    
-    // Pre-calculate row heights based on the tallest tile in each row
-    std::vector<float> rowHeights(21);
-    for(int row = 0; row < 21; ++row) {
-        if(row % 2 == 0) {
-            // Even rows have goal tiles (33), path tiles (33), and horizontal walls (9)
-            // The tallest tiles are goal and path tiles at 33
-            rowHeights[row] = 33.0f;
-        } else {
-            // Odd rows have goal tiles (33) and vertical walls (36)
-            // The tallest tiles are vertical walls at 36
-            rowHeights[row] = 36.0f;
-        }
-    }
-    
+
     float currentY = 0.0f;
     
     // Initialize the 21x19 board with the specified pattern    
     for(int row = 0; row < 21; ++row) {
         int rowStart = row * 19;
         float currentX = 0.0f;
+        float maxRowHeight = 0.0f; // Track the tallest tile in this row
         
         std::cout << std::endl << "Row " << std::setw(2) << row << ": ";
         
@@ -170,12 +159,12 @@ BoardTileMap::BoardTileMap(std::array<std::shared_ptr<Tile>, 6> tileTypesArr) {
             else {
                 // Odd rows: Pattern 3-0-5-0-5-0-5-0-5-0-5-0-5-0-5-0-5-0-4
                 if(col == 0) {
-                    selectedTile = tileTypesArr[3]; // goal tile p1
+                    selectedTile = tileTypesArr[6]; // goal tile p1
                     tileSize = goalTileSize;
                     tileIndex = 3;
                 }
                 else if(col == 18) {
-                    selectedTile = tileTypesArr[4]; // goal tile p2
+                    selectedTile = tileTypesArr[7]; // goal tile p2
                     tileSize = goalTileSize;
                     tileIndex = 4;
                 }
@@ -220,53 +209,24 @@ BoardTileMap::BoardTileMap(std::array<std::shared_ptr<Tile>, 6> tileTypesArr) {
                 std::cout << "\n  ERROR: Tile[" << row << "][" << col << "] is NULL!";
             }
             
-            // Move to next column position using THIS tile's width
+            // FIXED: Move to next column position using THIS tile's width
             currentX += tileSize.x;
+            
+            // Track the tallest tile in this row for proper row advancement
+            maxRowHeight = std::max(maxRowHeight, static_cast<float>(tileSize.y));
             
             std::cout << tileIndex;
             if(col < 18) std::cout << "-";
         }
         
-        // Move to next row position using the pre-calculated row height
-        currentY += rowHeights[row];
+        // FIXED: Move to next row position using the actual tallest tile in this row
+        currentY += maxRowHeight;
         
-        std::cout << " (row height: " << rowHeights[row] << ")" << std::endl;
+        std::cout << " (row height: " << maxRowHeight << ")" << std::endl;
         std::cout << "  Row " << row << " complete, next row starts at Y=" << currentY << std::endl;
     }    
     
     log_info("BoardTileMap initialized with 21x19 grid at proper positions");
-    
-    // Calculate total board dimensions
-    float totalBoardHeight = currentY;
-    
-    // Calculate total board width (sum of widths in any row)
-    float totalBoardWidth = 0.0f;
-    // Even row pattern: 46 + 33 + (8 * (36 + 33)) + 46 = 46 + 33 + 552 + 46 = 677
-    // But let's calculate it properly based on the actual pattern
-    if(true) { // Calculate from even row pattern
-        totalBoardWidth = 46 + 33; // goal + path
-        for(int i = 2; i < 18; i++) {
-            if(i % 2 == 0) {
-                totalBoardWidth += 36; // horizontal wall (but we're using type 1 which is 9x36, so width is 9)
-            } else {
-                totalBoardWidth += 33; // path
-            }
-        }
-        totalBoardWidth += 46; // final goal
-    }
-    
-    std::cout << "\n=== BOARDTILEMAP DIMENSIONS ===" << std::endl;
-    std::cout << "Total board size: " << totalBoardWidth << "x" << totalBoardHeight << std::endl;
-    std::cout << "Grid dimensions: 19 columns x 21 rows" << std::endl;
-    
-    // Print row heights
-    std::cout << "Row heights: ";
-    for(int i = 0; i < 21; i++) {
-        std::cout << rowHeights[i];
-        if(i < 20) std::cout << ", ";
-    }
-    std::cout << std::endl;
-    std::cout << "===============================" << std::endl;
 }
 
 void TileMap::draw(sf::RenderTarget& target, sf::RenderStates states) const {
