@@ -198,7 +198,7 @@ namespace physics {
         }
         return originalPos;
     }
-    
+
     void calculateRayCast3d(std::unique_ptr<Player>& player, std::unique_ptr<BoardTileMap>& tileMap, sf::VertexArray& lines, sf::VertexArray& wallLine) {
         if(!player || !tileMap){
             log_error("tile or player is not initialized");
@@ -257,7 +257,7 @@ namespace physics {
         for (size_t i = 0; i < itCount; ++i) {
             float angleOffset = (i - itCount * 0.5f) * angleStep;
             float rayAngle = playerAngle + angleOffset;
-
+        
             // Use fast trigonometry
             float dirX = std::cos(rayAngle);
             float dirY = std::sin(rayAngle);
@@ -453,7 +453,6 @@ namespace physics {
         return nullptr;
     }
 
-// collisions 
     // circle collision 
     bool circleCollision(sf::Vector2f pos1, float radius1, sf::Vector2f pos2, float radius2) {
         // Calculate the distance between the centers of the circles

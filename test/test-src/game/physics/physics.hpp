@@ -97,9 +97,6 @@ namespace physics{
         sprite->updatePos();
     }
 
-    // for 3D calculations
-    // void calculateRayCast3d(std::unique_ptr<Player>& player, std::unique_ptr<TileMap>& tileMap, sf::VertexArray& rays, sf::VertexArray& wallLine);
-
     // specific to board tilemap
     struct TilemapLookup {
         float minX, minY, maxX, maxY;
