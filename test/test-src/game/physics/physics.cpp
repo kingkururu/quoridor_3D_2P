@@ -198,113 +198,8 @@ namespace physics {
         }
         return originalPos;
     }
-
-    void navigateMaze(std::unique_ptr<Player>& player, std::unique_ptr<TileMap>& tileMap, std::vector<size_t>& tilePathInstruction) {
-        if (!player || !tileMap) {
-            log_error("Tile or player is not initialized");
-            return;
-        }
-                                                                // std::cout << "tilepath instruction before: ";
-                                                                // for (auto i : tilePathInstruction) std::cout << i << " "; // for debugging
-                                                                // std::cout << "\n";
-
-        // Get the player's current position
-        sf::Vector2f currentPos = player->getSpritePos();
-        int tileX = static_cast<int>((currentPos.x - tileMap->getTileMapPosition().x) / tileMap->getTileWidth());
-        int tileY = static_cast<int>((currentPos.y - tileMap->getTileMapPosition().y) / tileMap->getTileHeight());
-        sf::Vector2i currentTile = {tileX, tileY};
-        size_t currentTileIndex = tileY * tileMap->getTileMapWidth() + tileX;
-
-                                                            //    std::cout << "Current index in map: " << currentTileIndex << "\n";
-
-        // Determine direction based on current angle
-        float playerAngle = player->getHeadingAngle();
-
-        if (playerAngle == 0.0f) physics::spriteMover(player, physics::moveRight);
-        else if (playerAngle == 90.0f) physics::spriteMover(player, physics::moveDown);
-        else if (playerAngle == 180.0f) physics::spriteMover(player, physics::moveLeft);
-        else if (playerAngle == 270.0f) physics::spriteMover(player, physics::moveUp);
-        
-        if (tilePathInstruction.empty()) {
-                                                    // std::cout << "Tile path instruction is empty. Goal tile reached.\n";
-            return; 
-        }
-
-        // Recalculate player position after movement
-        currentPos = player->getSpritePos();
-        tileX = static_cast<int>((currentPos.x - tileMap->getTileMapPosition().x) / tileMap->getTileWidth());
-        tileY = static_cast<int>((currentPos.y - tileMap->getTileMapPosition().y) / tileMap->getTileHeight());
-        sf::Vector2i nextTile = {tileX, tileY};
-        size_t nextTileIndex = tileY * tileMap->getTileMapWidth() + tileX;
-
-        bool autoNaviStart = false;
-
-        if ((int)player->getHeadingAngle() % 90 != 0) {  // Check if player is off auto-path  
-                                                                //  std::cout << "Player is off auto path. Searching for closest valid tile...\n";
-
-            // Check if current tile is part of the path
-            auto it = std::find(tilePathInstruction.begin(), tilePathInstruction.end(), currentTileIndex);
-
-            if (it == tilePathInstruction.end()) {
-                // Find the closest index in tilePathInstruction
-                auto closestIt = std::min_element(tilePathInstruction.begin(), tilePathInstruction.end(),
-                    [currentTileIndex](size_t a, size_t b) {
-                        return std::abs(static_cast<int>(a) - static_cast<int>(currentTileIndex)) <
-                            std::abs(static_cast<int>(b) - static_cast<int>(currentTileIndex));
-                    });
-
-                it = closestIt; // Use closestIt directly, no need to find it again
-                nextTileIndex = *closestIt; // Update nextTileIndex to the closest tile index
-                nextTile.x = static_cast<int>(nextTileIndex % tileMap->getTileMapWidth());
-                nextTile.y = static_cast<int>(nextTileIndex / tileMap->getTileMapWidth());
-            }
-
-            if (it != tilePathInstruction.end() && std::next(it) != tilePathInstruction.end()) {
-                tilePathInstruction.erase(std::next(it), tilePathInstruction.end());
-            }
-            
-                                                                            // std::cout << "tilepath instruction after: ";
-                                                                            // for (auto i : tilePathInstruction) std::cout << i << " "; // for debugging
-                                                                            // std::cout << "\n";
-
-            player->returnSpritesShape().setRotation(0.0f); 
-            player->setHeadingAngle(player->returnSpritesShape().getRotation());
-
-            autoNaviStart = true;
-        }
-
-        if ((currentTile != nextTile) || autoNaviStart) {
-            // Snap player to the center of the new tile
-            float tileCenterX = tileMap->getTileMapPosition().x + (nextTile.x * tileMap->getTileWidth()) + tileMap->getTileWidth() / 2.0f;
-            float tileCenterY = tileMap->getTileMapPosition().y + (nextTile.y * tileMap->getTileHeight()) + tileMap->getTileHeight() / 2.0f;
-            player->changePosition(sf::Vector2f{tileCenterX, tileCenterY});
-            player->updatePos(); // Update the player's position after snapping
-
-            if (!tilePathInstruction.empty()) {
-                // Get the next target tile from the path
-                size_t nextIndex = tilePathInstruction.back();
-                sf::Vector2i targetTile = { static_cast<int>(nextIndex % tileMap->getTileMapWidth()), static_cast<int>(nextIndex / tileMap->getTileMapWidth()) };
-                
-                if(!autoNaviStart) tilePathInstruction.pop_back();
-
-                // Determine direction based on the new target tile
-                if (targetTile.x < nextTile.x) player->returnSpritesShape().setRotation(180.0f); // Left
-                else if (targetTile.x > nextTile.x) player->returnSpritesShape().setRotation(0.0f); // Right
-                else if (targetTile.y < nextTile.y) player->returnSpritesShape().setRotation(270.0f); // Up
-                else if (targetTile.y > nextTile.y) player->returnSpritesShape().setRotation(90.0f); // Down
-
-                // Update the player's heading angle
-                player->setHeadingAngle(player->returnSpritesShape().getRotation());
-                                                                                //  std::cout << "next index" << nextIndex << "\n";
-            }
-        }
-
-                                                                                // std::cout << "tilepath instruction after: ";
-                                                                                // for (auto i : tilePathInstruction) std::cout << i << " "; // for debugging
-                                                                                // std::cout << "\n";
-        }
     
-    void calculateRayCast3d(std::unique_ptr<Player>& player, std::unique_ptr<TileMap>& tileMap, sf::VertexArray& lines, sf::VertexArray& wallLine) {
+    void calculateRayCast3d(std::unique_ptr<Player>& player, std::unique_ptr<BoardTileMap>& tileMap, sf::VertexArray& lines, sf::VertexArray& wallLine) {
         if(!player || !tileMap){
             log_error("tile or player is not initialized");
             return;
@@ -312,91 +207,252 @@ namespace physics {
 
         float startX = player->getSpritePos().x;
         float startY = player->getSpritePos().y;
-        float playerAngle = player->getHeadingAngle(); // Player's rotation angle in degrees
+        float playerAngle = player->getHeadingAngle() * 3.14159f / 180.0f; // Convert to radians once
 
         size_t itCount = Constants::RAYS_NUM / 2;
         float screenWidth = static_cast<float>(MetaComponents::leftView.getSize().x);
         float screenHeight = static_cast<float>(MetaComponents::leftView.getSize().y);
-        float centerY = screenHeight / 2.0f;
+        float centerY = screenHeight * 0.5f;
 
-        const float wallHeightScale = 2500.0f;  // Scale factor for wall height
-        float angleStep = Constants::FOV / static_cast<float>(itCount);  // Angle step between rays
-        const float maxRayDistance = 1000.0f; // Maximum allowed ray distance to prevent infinite loops
+        const float wallHeightScale = 2500.0f;
+        float angleStep = Constants::FOV / static_cast<float>(itCount) * 3.14159f / 180.0f; // Convert to radians
+        const float maxRayDistance = 1000.0f;
+        const float stepSize = 1.0f;
+        const float maxSteps = maxRayDistance / stepSize;
+
+        // Pre-calculate tilemap properties for faster lookups
+        static TilemapLookup lookup;
+        static bool lookupInitialized = false;
+        if (!lookupInitialized) {
+            initializeTilemapLookup(tileMap, lookup);
+            lookupInitialized = true;
+        }
 
         wallLine.clear();
-        wallLine.setPrimitiveType(sf::Quads);  // Use quads for filled walls
+        wallLine.setPrimitiveType(sf::Quads);
         lines.clear();
         lines.setPrimitiveType(sf::Lines);
-        lines.resize(2 * itCount); // Ensure enough space for ray visualization
+        lines.resize(2 * itCount);
 
-        float sliceWidth = screenWidth / static_cast<float>(itCount); // Corrected wall slice width
+        float sliceWidth = screenWidth / static_cast<float>(itCount);
+
+        // Pre-calculate brightness lookup table
+        const float maxDistance = 100.0f;
+        const int brightnessLevels = 256;
+        static std::array<sf::Color, brightnessLevels> brightnessLUT;
+        static bool lutInitialized = false;
+        if (!lutInitialized) {
+            for (int i = 0; i < brightnessLevels; ++i) {
+                float distance = (i / float(brightnessLevels - 1)) * maxDistance;
+                float brightnessFactor = std::max(0.2f, 1.0f - (distance / maxDistance));
+                brightnessLUT[i] = sf::Color(
+                    Constants::WALL_COLOR.r * brightnessFactor,
+                    Constants::WALL_COLOR.g * brightnessFactor,
+                    Constants::WALL_COLOR.b * brightnessFactor
+                );
+            }
+            lutInitialized = true;
+        }
 
         for (size_t i = 0; i < itCount; ++i) {
-            float angleOffset = (i - itCount / 2.0f) * angleStep;
+            float angleOffset = (i - itCount * 0.5f) * angleStep;
             float rayAngle = playerAngle + angleOffset;
-            float radian = rayAngle * 3.14159f / 180.0f; // Convert to radians
 
-            float dirX = cos(radian);
-            float dirY = sin(radian);
-            float stepSize = 1.0f;
+            // Use fast trigonometry
+            float dirX = std::cos(rayAngle);
+            float dirY = std::sin(rayAngle);
 
             float rayX = startX;
             float rayY = startY;
-            bool hit = false;
             float rayDistance = 0.0f;
+            int steps = 0;
 
-            while (!hit && rayDistance < maxRayDistance) {
-                rayX += dirX * stepSize;
-                rayY += dirY * stepSize;
-                rayDistance += stepSize;
+            // DDA-style raycasting with larger steps when far from walls
+            while (steps < maxSteps) {
+                // Adaptive step size - use larger steps when far from obstacles
+                float currentStepSize = stepSize;
+                if (steps > 10) { // After initial precision steps
+                    currentStepSize = stepSize * 2.0f; // Double step size for distant checks
+                }
 
-                int tileX = static_cast<int>(rayX) / tileMap->getTileWidth();
-                int tileY = static_cast<int>(rayY) / tileMap->getTileHeight();
+                rayX += dirX * currentStepSize;
+                rayY += dirY * currentStepSize;
+                rayDistance += currentStepSize;
+                steps++;
 
-                if (tileX < 0 || tileY < 0 || tileX >= tileMap->getTileMapWidth() || tileY >= tileMap->getTileMapHeight()) break; // Exit if ray goes out of bounds
-            
-                // Store raycasting lines for debugging (2D representation)
-                lines[2 * i].position = sf::Vector2f(startX, startY);
-                lines[2 * i + 1].position = sf::Vector2f(rayX, rayY);
-                lines[2 * i].color = sf::Color::Red;
-                lines[2 * i + 1].color = sf::Color::Red;
+                // Fast tile lookup using spatial grid
+                auto hitTile = fastTileLookup(lookup, rayX, rayY);
+                
+                if (!hitTile) {
+                    break; // Out of bounds
+                }
 
-                auto& tile = tileMap->getTile(tileY * tileMap->getTileMapWidth() + tileX);
+                if (!hitTile->getWalkable()) {
+                    // Hit a wall - do precision check if we used large steps
+                    if (currentStepSize > stepSize) {
+                        // Step back and do precision check
+                        rayX -= dirX * currentStepSize;
+                        rayY -= dirY * currentStepSize;
+                        rayDistance -= currentStepSize;
+                        
+                        // Precision steps
+                        while (rayDistance < maxRayDistance) {
+                            rayX += dirX * stepSize;
+                            rayY += dirY * stepSize;
+                            rayDistance += stepSize;
+                            
+                            auto precisionTile = fastTileLookup(lookup, rayX, rayY);
+                            if (!precisionTile || !precisionTile->getWalkable()) {
+                                break;
+                            }
+                        }
+                    }
 
-                if (!tile->getWalkable()) { hit = true;
+                    // Store raycasting lines for debugging
+                    lines[2 * i].position = sf::Vector2f(startX, startY);
+                    lines[2 * i + 1].position = sf::Vector2f(rayX, rayY);
+                    lines[2 * i].color = sf::Color::Red;
+                    lines[2 * i + 1].color = sf::Color::Red;
 
-                // Correct fish-eye effect
-                float correctedDistance = rayDistance * cos((rayAngle - playerAngle) * 3.14159f / 180.0f);
-                correctedDistance = std::max(1.0f, correctedDistance); // Prevent division by zero or extreme values
+                    // Correct fish-eye effect
+                    float correctedDistance = rayDistance * std::cos(rayAngle - playerAngle);
+                    correctedDistance = std::max(1.0f, correctedDistance);
 
-                // Compute projected wall height
-                float wallHeight = wallHeightScale / correctedDistance;
+                    // Compute projected wall height
+                    float wallHeight = wallHeightScale / correctedDistance;
 
-                // Compute screen position for this wall slice
-                float screenX = i * sliceWidth;
-                float wallTopY = centerY - wallHeight / 2.0f;
-                float wallBottomY = centerY + wallHeight / 2.0f;
+                    // Compute screen position for this wall slice
+                    float screenX = i * sliceWidth;
+                    float wallTopY = centerY - wallHeight * 0.5f;
+                    float wallBottomY = centerY + wallHeight * 0.5f;
 
-                // Adjust brightness based on distance
-                const float maxDistance = 100.0f; // Adjust based on game scale
-                float brightnessFactor = std::max(0.2f, 1.0f - (correctedDistance / maxDistance));
+                    // Fast brightness lookup
+                    int lutIndex = std::min(brightnessLevels - 1, 
+                        static_cast<int>((correctedDistance / maxDistance) * brightnessLevels));
+                    sf::Color wallColor = brightnessLUT[lutIndex];
 
-                // Apply brightness factor to each RGB component
-                sf::Uint8 r = Constants::WALL_COLOR.r * brightnessFactor;
-                sf::Uint8 g = Constants::WALL_COLOR.g * brightnessFactor;
-                sf::Uint8 b = Constants::WALL_COLOR.b * brightnessFactor;
-                sf::Color wallColor(r, g, b);
-
-                // Define quad vertices for the wall slice
-                wallLine.append(sf::Vertex(sf::Vector2f(screenX, wallTopY), wallColor)); // Top Left
-                wallLine.append(sf::Vertex(sf::Vector2f(screenX + sliceWidth, wallTopY), wallColor)); // Top Right
-                wallLine.append(sf::Vertex(sf::Vector2f(screenX + sliceWidth, wallBottomY), wallColor)); // Bottom Right
-                wallLine.append(sf::Vertex(sf::Vector2f(screenX, wallBottomY), wallColor)); // Bottom Left
+                    // Define quad vertices for the wall slice
+                    wallLine.append(sf::Vertex(sf::Vector2f(screenX, wallTopY), wallColor));
+                    wallLine.append(sf::Vertex(sf::Vector2f(screenX + sliceWidth, wallTopY), wallColor));
+                    wallLine.append(sf::Vertex(sf::Vector2f(screenX + sliceWidth, wallBottomY), wallColor));
+                    wallLine.append(sf::Vertex(sf::Vector2f(screenX, wallBottomY), wallColor));
+                    
+                    break; // Ray hit wall, move to next ray
                 }
             }
         }
     }
-    
+
+    void initializeTilemapLookup(std::unique_ptr<BoardTileMap>& tileMap, TilemapLookup& lookup) {
+        lookup.allTiles.clear();
+        lookup.allTiles.reserve(399);
+        
+        // Calculate bounds and collect tiles
+        bool first = true;
+        for (size_t i = 0; i < 399; ++i) {
+            auto tile = tileMap->getTile(i);
+            if (tile) {
+                lookup.allTiles.push_back(tile);
+                sf::Vector2f pos = tile->getTileSprite().getPosition();
+                sf::Vector2f scale = tile->getTileSprite().getScale();
+                sf::IntRect rect = tile->getTextureRect();
+                
+                float tileWidth = rect.width * scale.x;
+                float tileHeight = rect.height * scale.y;
+                
+                if (first) {
+                    lookup.minX = pos.x;
+                    lookup.minY = pos.y;
+                    lookup.maxX = pos.x + tileWidth;
+                    lookup.maxY = pos.y + tileHeight;
+                    lookup.tileWidth = tileWidth;
+                    lookup.tileHeight = tileHeight;
+                    first = false;
+                } else {
+                    lookup.minX = std::min(lookup.minX, pos.x);
+                    lookup.minY = std::min(lookup.minY, pos.y);
+                    lookup.maxX = std::max(lookup.maxX, pos.x + tileWidth);
+                    lookup.maxY = std::max(lookup.maxY, pos.y + tileHeight);
+                }
+            }
+        }
+        
+        // Create spatial grid for faster lookups
+        const int gridResolution = 32; // Adjust based on tile density
+        lookup.gridWidth = gridResolution;
+        lookup.gridHeight = gridResolution;
+        lookup.spatialGrid.resize(gridResolution * gridResolution);
+        
+        float cellWidth = (lookup.maxX - lookup.minX) / gridResolution;
+        float cellHeight = (lookup.maxY - lookup.minY) / gridResolution;
+        
+        // Populate spatial grid
+        for (auto& tile : lookup.allTiles) {
+            sf::Vector2f pos = tile->getTileSprite().getPosition();
+            sf::Vector2f scale = tile->getTileSprite().getScale();
+            sf::IntRect rect = tile->getTextureRect();
+            
+            float tileWidth = rect.width * scale.x;
+            float tileHeight = rect.height * scale.y;
+            
+            // Find which grid cells this tile overlaps
+            int startX = std::max(0, static_cast<int>((pos.x - lookup.minX) / cellWidth));
+            int endX = std::min(gridResolution - 1, static_cast<int>((pos.x + tileWidth - lookup.minX) / cellWidth));
+            int startY = std::max(0, static_cast<int>((pos.y - lookup.minY) / cellHeight));
+            int endY = std::min(gridResolution - 1, static_cast<int>((pos.y + tileHeight - lookup.minY) / cellHeight));
+            
+            for (int y = startY; y <= endY; ++y) {
+                for (int x = startX; x <= endX; ++x) {
+                    lookup.spatialGrid[y * gridResolution + x].push_back(tile);
+                }
+            }
+        }
+    }
+
+    // Optimized point-in-tile check with early termination
+    bool isPointInTile(const std::shared_ptr<Tile>& tile, float worldX, float worldY) {
+        sf::Vector2f tilePos = tile->getTileSprite().getPosition();
+        
+        // Early rejection tests
+        if (worldX < tilePos.x || worldY < tilePos.y) {
+            return false;
+        }
+        
+        sf::Vector2f tileScale = tile->getTileSprite().getScale();
+        sf::IntRect textureRect = tile->getTextureRect();
+        
+        float tileWidth = textureRect.width * tileScale.x;
+        float tileHeight = textureRect.height * tileScale.y;
+        
+        return (worldX < tilePos.x + tileWidth && worldY < tilePos.y + tileHeight);
+    }
+
+    std::shared_ptr<Tile> fastTileLookup(const TilemapLookup& lookup, float worldX, float worldY) {
+        // Fast bounds check
+        if (worldX < lookup.minX || worldX > lookup.maxX || 
+            worldY < lookup.minY || worldY > lookup.maxY) {
+            return nullptr;
+        }
+        
+        // Find grid cell
+        int gridX = static_cast<int>((worldX - lookup.minX) / (lookup.maxX - lookup.minX) * lookup.gridWidth);
+        int gridY = static_cast<int>((worldY - lookup.minY) / (lookup.maxY - lookup.minY) * lookup.gridHeight);
+        
+        gridX = std::clamp(gridX, 0, lookup.gridWidth - 1);
+        gridY = std::clamp(gridY, 0, lookup.gridHeight - 1);
+        
+        int cellIndex = gridY * lookup.gridWidth + gridX;
+        
+        // Check tiles in this grid cell
+        for (const auto& tile : lookup.spatialGrid[cellIndex]) {
+            if (isPointInTile(tile, worldX, worldY)) {
+                return tile;
+            }
+        }
+        
+        return nullptr;
+    }
+
 // collisions 
     // circle collision 
     bool circleCollision(sf::Vector2f pos1, float radius1, sf::Vector2f pos2, float radius2) {

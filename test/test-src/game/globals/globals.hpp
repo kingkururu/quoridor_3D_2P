@@ -55,15 +55,6 @@ namespace Constants { // not actually "constants" in terms of being fixed, but s
 
     // make random positions each time
     extern sf::Vector2f makeRandomPosition(); 
-    extern sf::Vector2f makeRandomPositionCloud(); 
-    extern sf::Vector2f makeRandomPositionCoin(); 
-
-    void writeRandomTileMap(const std::filesystem::path filePath, std::function<void(std::ofstream& file, const unsigned short startingTileIndex, const unsigned short endingTileIndex, const unsigned short walkableTileIndex, const unsigned short wallTileIndex)> DFSmazeGenerator); 
-    void DFSmazeGenerator(std::ofstream& file, const unsigned short startingTileIndex, const unsigned short endingTileIndex, const unsigned short walkableTileIndex, const unsigned short wallTileIndex);
-    void PrimsMazeGenerator(std::ofstream& file, const unsigned short startingTileIndex, const unsigned short endingTileIndex, const unsigned short walkableTileIndex, const unsigned short wallTileIndex);
-    
-    void generateTilePathInstruction(const std::filesystem::path filePath, std::function<void(std::ifstream& file, const unsigned short startingTileIndex, const unsigned short endingTileIndex, const unsigned short walkableTileIndex, const unsigned short wallTileIndex, const unsigned short tileMapWidth, const unsigned short tileMapHeight)> pathInstructionGenerator);
-    void AstarPathInstructionGenerator(std::ifstream& file, const unsigned short startingTileIndex, const unsigned short endingTileIndex, const unsigned short walkableTileIndex, const unsigned short wallTileIndex, const unsigned short tileMapWidth, const unsigned short tileMapHeight);
 
     // load textures, fonts, music, and sound
     std::shared_ptr<sf::Uint8[]> createBitmask( const std::shared_ptr<sf::Texture>& texture, const sf::IntRect& rect, const float transparency = 0.0f);
@@ -125,7 +116,7 @@ namespace Constants { // not actually "constants" in terms of being fixed, but s
     inline std::vector<sf::IntRect> SPRITE2_ANIMATIONRECTS;
     inline std::vector<std::shared_ptr<sf::Uint8[]>> SPRITE2_BITMASK;
 
-    // enemy paths and settings
+    // not in use rn
     inline short BUTTON1_INDEXMAX;
     inline short BUTTON1_ANIMATIONROWS;  
     inline std::filesystem::path BUTTON1_PATH;
@@ -135,7 +126,7 @@ namespace Constants { // not actually "constants" in terms of being fixed, but s
     inline std::vector<sf::IntRect> BUTTON1_ANIMATIONRECTS;
     inline std::vector<std::shared_ptr<sf::Uint8[]>> BUTTON1_BITMASK;
  
-    // Bullet paths and settings
+    // not in use rn
     inline short BULLET_INDEXMAX;
     inline short BULLET_ANIMATIONROWS;  
     inline std::filesystem::path BULLET_PATH;
@@ -172,35 +163,6 @@ namespace Constants { // not actually "constants" in terms of being fixed, but s
     inline sf::Vector2f BACKGROUNDBIGFINAL_SCALE;
     inline std::shared_ptr<sf::Texture> BACKGROUNDBIGFINAL_TEXTURE = std::make_shared<sf::Texture>();
     
-    // Tile settings
-    inline sf::Vector2f TILEMAP_POSITION; 
-    inline std::filesystem::path TILES_PATH;
-    inline unsigned short TILES_ROWS;
-    inline unsigned short TILES_COLUMNS;
-    inline unsigned short TILES_NUM;
-    inline unsigned short const TILES_NUMBER = 60; // should be the same as tiles_num but need to be const 
-    inline std::array<bool, TILES_NUMBER> TILES_BOOLS; 
-
-    inline sf::Vector2f TILES_SCALE;
-    inline unsigned short TILE_WIDTH;
-    inline unsigned short TILE_HEIGHT;
-    inline std::shared_ptr<sf::Texture> TILES_TEXTURE = std::make_shared<sf::Texture>();
-    inline std::vector<sf::IntRect> TILES_SINGLE_RECTS;
-    inline std::vector<std::shared_ptr<sf::Uint8[]>> TILES_BITMASKS;
-    inline unsigned short TILE_STARTINGINDEX;
-    inline unsigned short TILE_ENDINGINDEX;
-    inline unsigned short TILE_WALKABLEINDEX;
-    inline unsigned short TILE_WALLINDEX;
-
-    // Tilemap settings
-    inline size_t TILEMAP_WIDTH;
-    inline size_t TILEMAP_HEIGHT;
-    inline float TILEMAP_BOUNDARYOFFSET; 
-    inline std::filesystem::path TILEMAP_FILEPATH;
-    inline size_t TILEMAP_PLAYERSPAWNINDEX;
-    inline size_t TILEMAP_GOALINDEX;
-    inline std::vector<size_t> TILEPATH_INSTRUCTION;
-
     // Board tile settings
     inline std::filesystem::path BOARDTILES_PATH;
     inline size_t PATH_TILE_INDEX;

@@ -98,8 +98,21 @@ namespace physics{
     }
 
     // for 3D calculations
-    void calculateRayCast3d(std::unique_ptr<Player>& player, std::unique_ptr<TileMap>& tileMap, sf::VertexArray& rays, sf::VertexArray& wallLine);
-    void navigateMaze(std::unique_ptr<Player>& player, std::unique_ptr<TileMap>& tileMap, std::vector<size_t>& tilePathInstruction);
+    // void calculateRayCast3d(std::unique_ptr<Player>& player, std::unique_ptr<TileMap>& tileMap, sf::VertexArray& rays, sf::VertexArray& wallLine);
+
+    // specific to board tilemap
+    struct TilemapLookup {
+        float minX, minY, maxX, maxY;
+        float tileWidth, tileHeight;
+        int gridWidth, gridHeight;
+        std::vector<std::vector<std::shared_ptr<Tile>>> spatialGrid;
+        std::vector<std::shared_ptr<Tile>> allTiles;
+    };
+    void initializeTilemapLookup(std::unique_ptr<BoardTileMap>& tileMap, TilemapLookup& lookup);    std::shared_ptr<Tile> fastTileLookup(const TilemapLookup& lookup, float worldX, float worldY);
+    bool isPointInTile(std::shared_ptr<Tile>& tile, float worldX, float worldY);
+    void calculateRayCast3d(std::unique_ptr<Player>& player, std::unique_ptr<BoardTileMap>& tileMap, sf::VertexArray& lines, sf::VertexArray& wallLine); 
+
+    // void navigateMaze(std::unique_ptr<Player>& player, std::unique_ptr<TileMap>& tileMap, std::vector<size_t>& tilePathInstruction);
 
     // raycast pre-collision in 2D space
     struct RaycastResult {

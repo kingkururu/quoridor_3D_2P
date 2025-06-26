@@ -110,9 +110,6 @@ private:
 
   std::unique_ptr<Button>button1;
   
-  std::array<std::shared_ptr<Tile>, Constants::TILES_NUMBER> tiles1;   
-  std::unique_ptr<TileMap> tileMap1; 
-
   std::array<std::shared_ptr<Tile>, 8> boardTiles;
   std::unique_ptr<BoardTileMap> boardTileMap; // for the board with walls and goals
 

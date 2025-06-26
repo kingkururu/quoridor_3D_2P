@@ -74,44 +74,11 @@ namespace Constants {
         float yPos = 0.0f;
         return sf::Vector2f{ xPos, yPos }; 
     }
-    
-    // make randome position from right side of the screen
-    sf::Vector2f makeRandomPositionCloud() {
-        // Get the bounds of the current view
-        float viewMaxX = MetaComponents::getmiddleViewMinX() + MetaComponents::getmiddleViewBounds().width;
-        float viewHeight = MetaComponents::getmiddleViewBounds().height;
-
-        // Generate a random x-position to the right of the current view,
-        // ensuring the cloud is fully off-screen initially
-        float xPos = static_cast<float>(viewMaxX + std::rand() % 300);
-
-        // Generate a random y-position within the view's height, adjusted to ensure the cloud is fully visible vertically
-        float yPos = static_cast<float>(std::rand() % static_cast<int>(viewHeight - 50));
-
-        return sf::Vector2f{ xPos, yPos };
-    }
-
-    // make randome position from right side of the screen
-    sf::Vector2f makeRandomPositionCoin() {
-        // Get the bounds of the current view
-        float viewMaxX = MetaComponents::getmiddleViewMinX() + MetaComponents::getmiddleViewBounds().width;
-        float viewHeight = MetaComponents::getmiddleViewBounds().height;
-
-        // Generate a random x-position to the right of the current view,
-        // ensuring the cloud is fully off-screen initially
-        float xPos = static_cast<float>(viewMaxX + std::rand() % 50);
-
-        // Generate a random y-position within the view's height, adjusted to ensure the cloud is fully visible vertically
-        float yPos = static_cast<float>(std::rand() % static_cast<int>(viewHeight - 50));
-
-        return sf::Vector2f{ xPos, yPos };
-    }
 
     void initialize(){
         std::srand(static_cast<unsigned int>(std::time(nullptr))); 
 
         readFromYaml(std::filesystem::path("test/test-src/game/globals/config.yaml"));
-        generateTilePathInstruction(std::filesystem::path("test/test-assets/tiles/tilemap.txt"), AstarPathInstructionGenerator);
 
         loadAssets();
         makeRectsAndBitmasks(); 
@@ -235,37 +202,6 @@ namespace Constants {
             BACKGROUNDBIGFINAL_SCALE = {config["sprites"]["background_big_final"]["scale"]["x"].as<float>(),
                                 config["sprites"]["background_big_final"]["scale"]["y"].as<float>()};
 
-            // Load tile settings
-            TILES_PATH = config["tiles"]["path"].as<std::string>();
-            TILES_ROWS = config["tiles"]["rows"].as<unsigned short>();
-            TILES_COLUMNS = config["tiles"]["columns"].as<unsigned short>();
-            TILES_NUM = config["tiles"]["number"].as<unsigned short>();
-            TILES_SCALE = {config["tiles"]["scale"]["x"].as<float>(),
-                        config["tiles"]["scale"]["y"].as<float>()};
-            TILE_WIDTH = config["tiles"]["tile_width"].as<unsigned short>();
-            TILE_HEIGHT = config["tiles"]["tile_height"].as<unsigned short>();
-            TILE_STARTINGINDEX = config["tiles"]["starting_index"].as<unsigned short>();
-            TILE_ENDINGINDEX = config["tiles"]["ending_index"].as<unsigned short>();
-            TILE_WALKABLEINDEX = config["tiles"]["walkable_index"].as<unsigned short>();
-            TILE_WALLINDEX = config["tiles"]["wall_index"].as<unsigned short>();
-            for (unsigned short i = 0; i < TILES_NUM; ++i) {
-                if (i == TILE_STARTINGINDEX || i == TILE_ENDINGINDEX || i == TILE_WALKABLEINDEX ){ 
-                    TILES_BOOLS[i] = true;
-                } else { 
-                    TILES_BOOLS[i] = false; 
-                }
-            }
-            
-            // Load tilemap settings
-            TILEMAP_POSITION = {config["tilemap"]["position"]["x"].as<float>(),
-                                config["tilemap"]["position"]["y"].as<float>()};
-            TILEMAP_WIDTH = config["tilemap"]["width"].as<size_t>();
-            TILEMAP_HEIGHT = config["tilemap"]["height"].as<size_t>();
-            TILEMAP_BOUNDARYOFFSET = config["tilemap"]["boundary_offset"].as<float>();
-            TILEMAP_FILEPATH = config["tilemap"]["filepath"].as<std::string>();
-            TILEMAP_PLAYERSPAWNINDEX = config["tilemap"]["playerspawn_index"].as<size_t>();
-            TILEMAP_GOALINDEX = config["tilemap"]["goal_index"].as<size_t>();
-
             // Load board tile settings
             BOARDTILES_PATH = config["board"]["tiles_path"].as<std::string>();
             BOARDTILES_SCALE = {config["board"]["scale"]["x"].as<float>(),
@@ -323,7 +259,6 @@ namespace Constants {
     void loadAssets(){  // load all sprites textures and stuff across scenes 
         // sprites
         if (!SPRITE1_TEXTURE->loadFromFile(SPRITE1_PATH)) log_warning("Failed to load sprite1 texture");
-        if (!TILES_TEXTURE->loadFromFile(TILES_PATH)) log_warning("Failed to load tiles texture");
         if (!SPRITE2_TEXTURE->loadFromFile(SPRITE2_PATH)) log_warning("Failed to load sprite2 texture");
         if (!BULLET_TEXTURE->loadFromFile(BULLET_PATH)) log_warning("Failed to load bullet texture");
         if (!BOARD_TEXTURE->loadFromFile(BOARD_PATH)) log_warning("Failed to load board texture");   
@@ -378,20 +313,6 @@ namespace Constants {
             }
         }
 
-        TILES_SINGLE_RECTS.reserve(TILES_NUMBER); 
-        // Populate individual tile rectangles
-        for (int row = 0; row < TILES_ROWS; ++row) {
-            for (int col = 0; col < TILES_COLUMNS; ++col) {
-                TILES_SINGLE_RECTS.emplace_back(sf::IntRect{col * TILE_WIDTH, row * TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT});
-            }
-        }
-
-        TILES_BITMASKS.reserve(TILES_NUMBER); 
-        // make bitmasks for tiles 
-        for (const auto& rect : TILES_SINGLE_RECTS ) {
-            TILES_BITMASKS.emplace_back(createBitmask(TILES_TEXTURE, rect));
-        }
-
         BOARDTILES_RECTS[P1_GOAL_TILE_INDEX] = BOARDTILES_RECTS[P2_GOAL_TILE_INDEX] = sf::IntRect{0, 0, 46, 33}; // p1,p2 goal block
         BOARDTILES_RECTS[PATH_TILE_INDEX] = sf::IntRect{0, 33, 33, 33}; // path block
         BOARDTILES_RECTS[WALL_TILEX_INDEX] = sf::IntRect{0, 66, 33, 9}; // stick horizontal
@@ -404,253 +325,6 @@ namespace Constants {
         }
 
         log_info("\tConstants initialized");
-    }
-
-    void writeRandomTileMap(const std::filesystem::path filePath, std::function<void(std::ofstream& file, const unsigned short startingTileIndex, const unsigned short endingTileIndex, const unsigned short walkableTileIndex, const unsigned short wallTileIndex)> mazeGenerator) {
-        try {
-            std::ofstream fileStream(filePath);
-
-            if (!fileStream.is_open()) {
-                throw std::runtime_error("Unable to open file: " + filePath.string());
-            }
-    
-            mazeGenerator(fileStream, TILE_STARTINGINDEX, TILE_ENDINGINDEX, TILE_WALKABLEINDEX, TILE_WALLINDEX);
-        } 
-        catch (const std::exception& e) {
-            log_warning("Error in writing random maze: " + std::string(e.what()));
-        }
-    }
-    
-    void DFSmazeGenerator(std::ofstream& file, const unsigned short startingTileIndex, const unsigned short endingTileIndex, const unsigned short walkableTileIndex, const unsigned short wallTileIndex) {
-        // Create a grid filled with walls
-        std::vector<std::vector<unsigned short>> tileMap(TILEMAP_HEIGHT, std::vector<unsigned short>(TILEMAP_WIDTH, wallTileIndex));
-    
-        // Maze generation setup
-        std::stack<std::pair<int, int>> cellStack;
-        std::vector<std::pair<int, int>> directions = {{0, -2}, {0, 2}, {-2, 0}, {2, 0}}; // Up, Down, Left, Right
-        std::random_device rd;
-        std::mt19937 rng(rd());
-        std::shuffle(directions.begin(), directions.end(), rng);
-    
-        // Start position (inside the maze, must be odd)
-        int startX = 1;
-        int startY = 1;
-        tileMap[startY][startX] = walkableTileIndex;
-        cellStack.push({startX, startY});
-    
-        while (!cellStack.empty()) {
-            auto [x, y] = cellStack.top();
-            cellStack.pop();
-            std::shuffle(directions.begin(), directions.end(), rng); // Shuffle to randomize path
-    
-            for (auto [dx, dy] : directions) {
-                int nx = x + dx;
-                int ny = y + dy;
-                int mx = x + dx / 2;
-                int my = y + dy / 2;
-    
-                // Check if within bounds and unvisited
-                if (nx > 0 && ny > 0 && nx < TILEMAP_WIDTH - 1 && ny < TILEMAP_HEIGHT - 1 && tileMap[ny][nx] == wallTileIndex) {
-                    tileMap[my][mx] = walkableTileIndex; // Remove wall between
-                    tileMap[ny][nx] = walkableTileIndex; // Mark new cell as visited
-                    cellStack.push({nx, ny});
-                }
-            }
-        }
-    
-        // Ensure there is a guaranteed path to goal
-        tileMap[1][1] = startingTileIndex;
-        tileMap[TILEMAP_HEIGHT - 2][TILEMAP_WIDTH - 2] = endingTileIndex;
-    
-        // Write the map to file
-        for (int y = 0; y < TILEMAP_HEIGHT; ++y) {
-            for (int x = 0; x < TILEMAP_WIDTH; ++x) {
-                file << tileMap[y][x] << " ";
-            }
-            file << std::endl;
-        }
-        file.close();
-        log_info("Successfully generated a DFS random maze with a guaranteed path.");
-    } 
-
-    void PrimsMazeGenerator(std::ofstream& file, const unsigned short startingTileIndex, const unsigned short endingTileIndex, const unsigned short walkableTileIndex, const unsigned short wallTileIndex) {
-        // Create a grid filled with walls
-        std::vector<std::vector<unsigned short>> tileMap(TILEMAP_HEIGHT, std::vector<unsigned short>(TILEMAP_WIDTH, wallTileIndex));
-    
-        // Priority queue to store frontier walls
-        std::vector<std::pair<int, int>> frontier;
-        std::random_device rd;
-        std::mt19937 rng(rd());
-    
-        // Start position (inside the maze, must be odd)
-        int startX = 1;
-        int startY = 1;
-        tileMap[startY][startX] = walkableTileIndex;
-        
-        // Lambda function to add frontier walls
-        auto addFrontier = [&](int x, int y) {
-            if (x > 0 && y > 0 && x < TILEMAP_WIDTH - 1 && y < TILEMAP_HEIGHT - 1 && tileMap[y][x] == wallTileIndex) {
-                tileMap[y][x] = 2; // Mark as frontier
-                frontier.emplace_back(x, y);
-            }
-        };
-        
-        // Add initial frontier walls
-        addFrontier(startX + 2, startY);
-        addFrontier(startX - 2, startY);
-        addFrontier(startX, startY + 2);
-        addFrontier(startX, startY - 2);
-    
-        while (!frontier.empty()) {
-            std::shuffle(frontier.begin(), frontier.end(), rng);
-            auto [x, y] = frontier.back();
-            frontier.pop_back();
-    
-            // Check neighbors (only odd-indexed tiles are valid paths)
-            std::vector<std::pair<int, int>> neighbors;
-            if (y >= 2 && tileMap[y - 2][x] == walkableTileIndex) neighbors.emplace_back(x, y - 2);
-            if (y < TILEMAP_HEIGHT - 2 && tileMap[y + 2][x] == walkableTileIndex) neighbors.emplace_back(x, y + 2);
-            if (x >= 2 && tileMap[y][x - 2] == walkableTileIndex) neighbors.emplace_back(x - 2, y);
-            if (x < TILEMAP_WIDTH - 2 && tileMap[y][x + 2] == walkableTileIndex) neighbors.emplace_back(x + 2, y);
-            
-            if (!neighbors.empty()) {
-                std::shuffle(neighbors.begin(), neighbors.end(), rng);
-                auto [nx, ny] = neighbors.front();
-                tileMap[y][x] = walkableTileIndex;
-                tileMap[(y + ny) / 2][(x + nx) / 2] = walkableTileIndex; // Remove wall
-                
-                // Add new frontier walls
-                addFrontier(x + 2, y);
-                addFrontier(x - 2, y);
-                addFrontier(x, y + 2);
-                addFrontier(x, y - 2);
-            }
-        }
-    
-        // Ensure a guaranteed path to the goal
-        tileMap[1][1] = startingTileIndex;
-        tileMap[TILEMAP_HEIGHT - 2][TILEMAP_WIDTH - 2] = endingTileIndex;
-    
-        // Write the map to file
-        for (int y = 0; y < TILEMAP_HEIGHT; ++y) {
-            for (int x = 0; x < TILEMAP_WIDTH; ++x) {
-                file << tileMap[y][x] << " ";
-            }
-            file << std::endl;
-        }
-        
-        file.close();
-        log_info("Successfully generated a Prim's Algorithm random maze with a guaranteed path.");
-    }
-
-    void generateTilePathInstruction(const std::filesystem::path filePath, std::function<void(std::ifstream& file, const unsigned short startingTileIndex, const unsigned short endingTileIndex, const unsigned short walkableTileIndex, const unsigned short wallTileIndex, const unsigned short tileMapWidth, const unsigned short tileMapHeight)> pathInstructionGenerator) {
-        try {
-            std::ifstream fileStream(filePath);
-
-            if (!fileStream.is_open()) {
-                throw std::runtime_error("In generating tile path instruction, unable to open file: " + filePath.string());
-            }
-            
-            TILEPATH_INSTRUCTION.reserve(TILEMAP_HEIGHT * TILEMAP_WIDTH);
-            pathInstructionGenerator(fileStream, TILE_STARTINGINDEX, TILE_ENDINGINDEX, TILE_WALKABLEINDEX, TILE_WALLINDEX, TILEMAP_WIDTH, TILEMAP_HEIGHT);
-
-            // for (const auto& i : TILEPATH_INSTRUCTION) {
-            //    std::cout << i << " "; // for debugging
-            // }
-        } 
-        catch (const std::exception& e) {
-            log_warning("Error in generating tile path instructions: " + std::string(e.what()));
-        }
-    }
- 
-    void AstarPathInstructionGenerator(std::ifstream& file, const unsigned short startingTileIndex, const unsigned short endingTileIndex, const unsigned short walkableTileIndex, const unsigned short wallTileIndex, const unsigned short tileMapWidth, const unsigned short tileMapHeight) {
-        std::vector<unsigned short> tileMap(tileMapWidth * tileMapHeight);
-        
-        for (size_t i = 0; i < tileMap.size(); ++i) file >> tileMap[i];
-        file.close();
-        
-        size_t startIndex = std::find(tileMap.begin(), tileMap.end(), startingTileIndex) - tileMap.begin();
-        size_t goalIndex = std::find(tileMap.begin(), tileMap.end(), endingTileIndex) - tileMap.begin();
-        
-        if (startIndex >= tileMap.size() || goalIndex >= tileMap.size()) {
-            log_warning("Player spawn or goal index not found.");
-            return;
-        }
-        
-        if (startIndex == goalIndex) {
-            TILEPATH_INSTRUCTION = { static_cast<unsigned short>(startIndex) };
-            log_info("Successfully generated tile path instructions.");
-            return;
-        }
-        
-        int goalX = goalIndex % tileMapWidth;
-        int goalY = goalIndex / tileMapWidth;
-        
-        auto heuristic = [goalX, goalY, tileMapWidth](size_t index) {
-            int x = index % tileMapWidth;
-            int y = index / tileMapWidth;
-            return std::abs(x - goalX) + std::abs(y - goalY);
-        };
-        
-        std::priority_queue<std::pair<int, size_t>, std::vector<std::pair<int, size_t>>, std::greater<std::pair<int, size_t>>> pq;
-        std::unordered_map<size_t, size_t> parent;
-        std::unordered_set<size_t> visited;
-        std::unordered_map<size_t, int> gCost; 
-        gCost[startIndex] = 0; // Initialize cost for start node
-
-        pq.push({ heuristic(startIndex), startIndex });
-        parent[startIndex] = startIndex;
-        
-        while (!pq.empty()) {
-            auto current = pq.top();
-            pq.pop();
-            size_t currentIndex = current.second;
-            
-            if (currentIndex == goalIndex) {
-                std::vector<size_t> path;
-                size_t node = goalIndex;
-                while (node != startIndex) {
-                    path.push_back(static_cast<unsigned short>(node));
-                    auto it = parent.find(node);
-                    if (it == parent.end()) {
-                        log_warning("Path reconstruction failed.");
-                        return;
-                    }
-                    node = it->second;
-                }
-                path.push_back(static_cast<unsigned short>(startIndex));
-                TILEPATH_INSTRUCTION = path;
-                log_info("Successfully generated tile path instructions.");
-                //for(auto i : TILEPATH_INSTRUCTION) std::cout << i << " "; // for debugging
-                return;
-            }
-            
-            if (visited.count(currentIndex)) continue;
-
-            visited.insert(currentIndex);
-            
-            int x = currentIndex % tileMapWidth;
-            int y = currentIndex / tileMapWidth;
-            
-            std::vector<size_t> neighbors;
-
-            if (x > 0) neighbors.push_back(y * tileMapWidth + (x - 1)); // Left
-            if (x < tileMapWidth - 1) neighbors.push_back(y * tileMapWidth + (x + 1)); // Right
-            if (y > 0) neighbors.push_back((y - 1) * tileMapWidth + x); // Up
-            if (y < tileMapHeight - 1) neighbors.push_back((y + 1) * tileMapWidth + x); // Down
-            
-            for (size_t neighbor : neighbors) {
-                if (tileMap[neighbor] == walkableTileIndex || tileMap[neighbor] == endingTileIndex) {
-                    int newCost = gCost[currentIndex] + 1; // Uniform cost
-                    if (!gCost.count(neighbor) || newCost < gCost[neighbor]) {
-                        gCost[neighbor] = newCost;
-                        pq.push({ newCost + heuristic(neighbor), neighbor });
-                        parent[neighbor] = currentIndex;
-                    }
-                }
-            }
-        }
-        log_warning("No path found between start and goal using A*.");
     }
 
     std::shared_ptr<sf::Uint8[]> createBitmask( const std::shared_ptr<sf::Texture>& texture, const sf::IntRect& rect, const float transparency) {

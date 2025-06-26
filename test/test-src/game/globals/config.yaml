@@ -126,34 +126,6 @@ sprites:
       x: 1.0
       y: 1.0
    
-# Tile settings
-tiles:
-  path: "test/test-assets/tiles/png/tilemap3.png"
-  rows: 6 # number of tiles in rows in tile map
-  columns: 10 # number of tiles in columns in tile map
-  number: 60 # total number of tiles 
-  scale:
-    x: 1.0
-    y: 1.0
-  tile_width: 32 # pixels 
-  tile_height: 32 # pixels 
-  starting_index: 4 # starting index of tile from tile texture
-  ending_index: 3 # ending index of tile from tile texture
-  walkable_index: 6 # walkable index of tile from tile texture
-  wall_index: 0 # wall index of tile from tile texture
-
-# Tile map settings
-tilemap:
-  position: 
-    x: 0.0 # pixels
-    y: 0.0 # pixels
-  width: 19 # number of grids in a row 
-  height: 13 # number of grids in a column 
-  boundary_offset: 0 
-  filepath: "test/test-assets/tiles/tilemap.txt"
-  playerspawn_index: 20 # player spawn index of tile from tile texture
-  goal_index: 226 # goal index of tile from tile map
-
 # Board settings
 board:
   tiles_path: "test/test-assets/tiles/png/tilemap1.png"

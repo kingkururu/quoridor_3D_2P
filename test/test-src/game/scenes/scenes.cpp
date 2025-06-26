@@ -116,21 +116,14 @@ void gamePlayScene::createAssets() {
                                                    Constants::BULLET_ANIMATIONRECTS, Constants::BULLET_INDEXMAX,  utils::convertToWeakPtrVector(Constants::BULLET_BITMASK)));
         bullets[0]->setRects(0);
 
-        // Tiles and tilemap
-        for (int i = 0; i < Constants::TILES_NUMBER; ++i) {
-            tiles1.at(i) = std::make_shared<Tile>(Constants::TILES_SCALE, Constants::TILES_TEXTURE, Constants::TILES_SINGLE_RECTS[i], Constants::TILES_BITMASKS[i], Constants::TILES_BOOLS[i]); 
-        }
-       
-        tileMap1 = std::make_unique<TileMap>(tiles1.data(), Constants::TILES_NUMBER, Constants::TILEMAP_WIDTH, Constants::TILEMAP_HEIGHT, Constants::TILE_WIDTH, Constants::TILE_HEIGHT, Constants::TILEMAP_FILEPATH, Constants::TILEMAP_POSITION); 
-
         boardTiles[0] = std::make_shared<Tile>(Constants::BOARDTILES_SCALE, Constants::BOARDTILES_TEXTURE, Constants::BOARDTILES_RECTS[Constants::WALL_TILEX_INDEX], Constants::BOARDTILES_BITMASK[Constants::WALL_TILEX_INDEX], true); // walkable set to true
         boardTiles[1] = std::make_shared<Tile>(Constants::BOARDTILES_SCALE, Constants::BOARDTILES_TEXTURE, Constants::BOARDTILES_RECTS[Constants::WALL_TILEY_INDEX], Constants::BOARDTILES_BITMASK[Constants::WALL_TILEY_INDEX], true); // walkable set to true
         boardTiles[2] = std::make_shared<Tile>(Constants::BOARDTILES_SCALE, Constants::BOARDTILES_TEXTURE, Constants::BOARDTILES_RECTS[Constants::PATH_TILE_INDEX], Constants::BOARDTILES_BITMASK[Constants::PATH_TILE_INDEX], true); 
         boardTiles[3] = std::make_shared<Tile>(Constants::BOARDTILES_SCALE, Constants::BOARDTILES_TEXTURE, Constants::BOARDTILES_RECTS[Constants::P1_GOAL_TILE_INDEX], Constants::BOARDTILES_BITMASK[Constants::P1_GOAL_TILE_INDEX], true); 
-        boardTiles[4] = std::make_shared<Tile >(Constants::BOARDTILES_SCALE, Constants::BOARDTILES_TEXTURE, Constants::BOARDTILES_RECTS[Constants::P2_GOAL_TILE_INDEX], Constants::BOARDTILES_BITMASK[Constants::P2_GOAL_TILE_INDEX], true); 
+        boardTiles[4] = std::make_shared<Tile >(Constants::BOARDTILES_SCALE, Constants::BOARDTILES_TEXTURE, Constants::BOARDTILES_RECTS[Constants::P2_GOAL_TILE_INDEX], Constants::BOARDTILES_BITMASK[Constants::P2_GOAL_TILE_INDEX], false); // temporary
         boardTiles[5] = std::make_shared<Tile>(Constants::BOARDTILES_SCALE, Constants::BOARDTILES_TEXTURE, Constants::BOARDTILES_RECTS[Constants::BLANKWALL_TILE_INDEX], Constants::BOARDTILES_BITMASK[Constants::BLANKWALL_TILE_INDEX], true); 
         boardTiles[6] = std::make_shared<Tile>(Constants::BOARDTILES_SCALE, Constants::BOARDTILES_TEXTURE, Constants::BOARDTILES_RECTS[Constants::BLANKP1_INDEX], Constants::BOARDTILES_BITMASK[Constants::BLANKP1_INDEX], true); 
-        boardTiles[7] = std::make_shared<Tile>(Constants::BOARDTILES_SCALE, Constants::BOARDTILES_TEXTURE, Constants::BOARDTILES_RECTS[Constants::BLANKP2_INDEX], Constants::BOARDTILES_BITMASK[Constants::BLANKP2_INDEX], true);
+        boardTiles[7] = std::make_shared<Tile>(Constants::BOARDTILES_SCALE, Constants::BOARDTILES_TEXTURE, Constants::BOARDTILES_RECTS[Constants::BLANKP2_INDEX], Constants::BOARDTILES_BITMASK[Constants::BLANKP2_INDEX], false);  // temporary
         boardTileMap = std::make_unique<BoardTileMap>(boardTiles); 
 
         rays = sf::VertexArray(sf::Quads, Constants::RAYS_NUM);
@@ -218,65 +211,99 @@ void gamePlayScene::handleMovementKeys() {
 
 void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum) {
     if(!playerNum || !playerNum->getMoveState()) return;
-
-    int tileX = static_cast<int>((playerNum->getSpritePos().x - Constants::TILEMAP_POSITION.x) / Constants::TILE_WIDTH);
-    int tileY = static_cast<int>((playerNum->getSpritePos().y - Constants::TILEMAP_POSITION.y) / Constants::TILE_HEIGHT);
-    int tileIndexInMap = tileY * Constants::TILEMAP_WIDTH + tileX;
-    bool canWalkOnTile = tileMap1->getTile(tileIndexInMap)->getWalkable(); 
-
-    sf::FloatRect playerBounds = playerNum->returnSpritesShape().getGlobalBounds();
-    sf::Vector2f originalPlayerPos = playerNum->getSpritePos();
     
-    if(FlagSystem::flagEvents.aPressed){ // turn left
+    // Get player's current position and bounds
+    sf::Vector2f playerPos = playerNum->getSpritePos();
+    sf::FloatRect playerBounds = playerNum->returnSpritesShape().getGlobalBounds();
+    sf::Vector2f originalPlayerPos = playerPos;
+    
+    // Function to check if player can walk at a given position
+    auto canWalkAtPosition = [&](sf::Vector2f pos) -> bool {
+        // Check collision with all tiles in the BoardTileMap
+        for (int i = 0; i < 21 * 19; ++i) {
+            try {
+                auto& tile = boardTileMap->getTile(i);
+                if (tile && tile->getVisibleState()) {
+                    sf::FloatRect tileBounds = tile->getTileSprite().getGlobalBounds();
+                    sf::FloatRect testPlayerBounds = playerBounds;
+                    testPlayerBounds.left = pos.x - playerBounds.width / 2;
+                    testPlayerBounds.top = pos.y - playerBounds.height / 2;
+                    
+                    // If player intersects with a non-walkable tile, return false
+                    if (tileBounds.intersects(testPlayerBounds) && !tile->getWalkable()) {
+                        return false;
+                    }
+                }
+            } catch (const std::exception& e) {
+                log_warning("Error checking tile collision: " + std::string(e.what()));
+            }
+        }
+        return true;
+    };
+    
+    // Check if current position is valid
+    bool canWalkOnCurrentTile = canWalkAtPosition(playerPos);
+    
+    // Handle player input
+    if(FlagSystem::flagEvents.aPressed) { // turn left
         playerNum->returnSpritesShape().rotate(-1.0f); // degrees
         float newAngle = playerNum->returnSpritesShape().getRotation();
         playerNum->setHeadingAngle(newAngle);
         FlagSystem::gameScene1Flags.begin = true;
     }
-    if(FlagSystem::flagEvents.dPressed){ // turn right 
+    
+    if(FlagSystem::flagEvents.dPressed) { // turn right
         playerNum->returnSpritesShape().rotate(1.0f); // degrees
         float newAngle = playerNum->returnSpritesShape().getRotation();
         playerNum->setHeadingAngle(newAngle);
         FlagSystem::gameScene1Flags.begin = true;
     }
-    if(FlagSystem::flagEvents.wPressed && canWalkOnTile){ // front 
-        physics::spriteMover(playerNum, physics::followDirVec); 
+    
+    // Store position before movement
+    sf::Vector2f positionBeforeMovement = playerNum->getSpritePos();
+    
+    if(FlagSystem::flagEvents.wPressed && canWalkOnCurrentTile) { // forward
+        physics::spriteMover(playerNum, physics::followDirVec);
         FlagSystem::gameScene1Flags.begin = true;
     }
-    if(FlagSystem::flagEvents.sPressed && canWalkOnTile){ // back
-        physics::spriteMover(playerNum, physics::followDirVecOpposite); 
+    
+    if(FlagSystem::flagEvents.sPressed && canWalkOnCurrentTile) { // backward
+        physics::spriteMover(playerNum, physics::followDirVecOpposite);
         FlagSystem::gameScene1Flags.begin = true;
-    }   
-
-    int newTileX = static_cast<int>((playerNum->getSpritePos().x - Constants::TILEMAP_POSITION.x) / Constants::TILE_WIDTH);
-    int newTileY = static_cast<int>((playerNum->getSpritePos().y - Constants::TILEMAP_POSITION.y) / Constants::TILE_HEIGHT);
-    int newTileIndexInMap = newTileY * Constants::TILEMAP_WIDTH + newTileX;
-    bool canWalkOnTileAgain = tileMap1->getTile(newTileIndexInMap)->getWalkable(); 
-
-    if(!canWalkOnTileAgain){
+    }
+    
+    // Check if new position after movement is valid
+    sf::Vector2f newPlayerPos = playerNum->getSpritePos();
+    bool canWalkAtNewPosition = canWalkAtPosition(newPlayerPos);
+    
+    // If new position is invalid, revert to original position
+    if(!canWalkAtNewPosition) {
         playerNum->changePosition(originalPlayerPos);
-        playerNum->updatePos(); 
+        playerNum->updatePos();
     }
-    sf::Vector2f playerPos = playerNum->getSpritePos();
-    float spriteWidth = playerBounds.width;
-    float spriteHeight = playerBounds.height;
-
-    float newX = std::clamp(playerPos.x, spriteWidth, Constants::VIEW_SIZE_X - spriteWidth);
-    float newY = std::clamp(playerPos.y, spriteHeight, Constants::VIEW_SIZE_Y - spriteHeight);
-
+    
+    // Apply screen boundary constraints
+    sf::Vector2f finalPlayerPos = playerNum->getSpritePos();
+    sf::FloatRect finalPlayerBounds = playerNum->returnSpritesShape().getGlobalBounds();
+    
+    float newX = std::clamp(finalPlayerPos.x, 
+                           finalPlayerBounds.width / 2, 
+                           Constants::VIEW_SIZE_X - finalPlayerBounds.width / 2);
+    float newY = std::clamp(finalPlayerPos.y, 
+                           finalPlayerBounds.height / 2, 
+                           Constants::VIEW_SIZE_Y - finalPlayerBounds.height / 2);
+    
     playerNum->changePosition(sf::Vector2f{newX, newY});
-    playerNum->updatePos(); 
+    playerNum->updatePos();
 }
 
 // Keeps sprites inside screen bounds, checks for collisions, update scores, and sets flagEvents.gameEnd to true in an event of collision 
 void gamePlayScene::handleGameEvents() { 
     // scoreText->getText().setPosition(MetaComponents::middleView.getCenter().x - 460, MetaComponents::middleView.getCenter().y - 270);
-    if(button1->getClickedBool() && player && player->getMoveState()){
-        physics::navigateMaze(player, tileMap1, Constants::TILEPATH_INSTRUCTION);
-        player->setAutoNavigate(true); 
-    }
-    physics::calculateRayCast3d(player, tileMap1, rays, wallLine); // modifies the ray 
-    physics::calculateRayCast3d(player2, tileMap1, rays2, wallLine2); // modifies the rays2 
+
+    for (int i = 200; i < 399; ++i ) boardTileMap->getTile(i)->setWalkable(false); // set the tile walkable to false if it is a wall tile
+
+    physics::calculateRayCast3d(player, boardTileMap, rays, wallLine); // board specific
 } 
 
 void gamePlayScene::handleSceneFlags(){
@@ -347,31 +374,20 @@ void gamePlayScene::draw() {
 void gamePlayScene::drawInleftView(){
     window.setView(MetaComponents::leftView);
 
-    // int tileX = static_cast<int>((player->getSpritePos().x - Constants::TILEMAP_POSITION.x) / Constants::TILE_WIDTH);
-    // int tileY = static_cast<int>((player->getSpritePos().y - Constants::TILEMAP_POSITION.y) / Constants::TILE_HEIGHT);
-    // int tileIndexInMap = tileY * Constants::TILEMAP_WIDTH + tileX;
+    drawVisibleObject(backgroundBig);
 
-    // if(tileIndexInMap == Constants::TILEMAP_GOALINDEX){ 
-    //     FlagSystem::flagEvents.gameEnd = true;
-    //     drawVisibleObject(backgroundBigFinal);
-    //     drawVisibleObject(endingText);
-    // } else {
-    //     drawVisibleObject(backgroundBig);
-    // }
-    // window.draw(wallLine);
+    window.draw(wallLine);
 
-    // drawVisibleObject(scoreText); 
-    // drawVisibleObject(introText);
+    drawVisibleObject(scoreText); 
+    drawVisibleObject(introText);
     
-    drawVisibleObject(boardTileMap); // temporary
-
 }
 
 void gamePlayScene::drawInmiddleView(){
     window.setView(MetaComponents::middleView);
 
     drawVisibleObject(board);
-  //drawVisibleObject(tileMap1);
+    drawVisibleObject(boardTileMap); // temporary
 
     for(const auto& stick : sticks) drawVisibleObject(stick);
 
@@ -384,16 +400,8 @@ void gamePlayScene::drawInmiddleView(){
 void gamePlayScene::drawInRightView(){
     window.setView(MetaComponents::rightView);
     
-    int tileX = static_cast<int>((player2->getSpritePos().x - Constants::TILEMAP_POSITION.x) / Constants::TILE_WIDTH);
-    int tileY = static_cast<int>((player2->getSpritePos().y - Constants::TILEMAP_POSITION.y) / Constants::TILE_HEIGHT);
-    int tileIndexInMap = tileY * Constants::TILEMAP_WIDTH + tileX;
+    drawVisibleObject(backgroundBig);
 
-    if(tileIndexInMap == Constants::TILEMAP_GOALINDEX){ 
-        FlagSystem::flagEvents.gameEnd = true;
-        drawVisibleObject(backgroundBigFinal);
-    } else {
-        drawVisibleObject(backgroundBig);
-    }
     window.draw(wallLine2);
 
   //  drawVisibleObject(bullets[0]); 
