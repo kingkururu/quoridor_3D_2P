@@ -15,7 +15,7 @@ class NetworkManager {
     void runClient(const std::string& host_ip, int port);
     void receiveData(int sock, char buffer[]);
     void sendData(int sock, std::string& message);
-}
+};
 #else 
 
 #endif 
