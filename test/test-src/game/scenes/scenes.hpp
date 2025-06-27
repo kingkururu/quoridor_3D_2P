@@ -67,7 +67,7 @@ private:
   void insertItemsInQuadtree() override; 
 
   void handleInput() override; 
-  void handleMouseClick(); 
+  void handleMouseKey(); 
   void handleSpaceKey();
   void handleMovementKeys(); 
   void handleEachPlayer(std::unique_ptr<Player>& playerNum);

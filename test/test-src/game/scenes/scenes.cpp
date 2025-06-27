@@ -160,19 +160,157 @@ void gamePlayScene::setTime(){
 } 
 
 void gamePlayScene::handleInput() {
-    handleMouseClick();
+    handleMouseKey();
     handleSpaceKey(); 
     handleMovementKeys();
 }
 
-void gamePlayScene::handleMouseClick() {    
-    // just mouse movement
-    int currentTileindex = boardTileMap->getTileIndex(MetaComponents::middleViewmouseClickedPosition_f);
-
-    if(stickIndex < Constants::STICKS_NUMBER) sticks[stickIndex]->returnSpritesShape().setPosition(MetaComponents::middleViewmouseCurrentPosition_f);
+void gamePlayScene::handleMouseKey() {
+    // Get current tile index for both hover and click
+    int currentTileIndex = boardTileMap->getTileIndex(MetaComponents::middleViewmouseClickedPosition_f);
+    sf::Vector2f stickPos;
+    size_t targetTileIndex;
     
-    // actual click
-    if(FlagSystem::flagEvents.mouseClicked && boardTileMap->isGreyTile(currentTileindex)) ++stickIndex;
+    // Calculate stick position based on closest grey tile
+    if (boardTileMap->isGreyTile(currentTileIndex)) {
+        // If current tile is already grey, use its position
+        stickPos = boardTileMap->getTile(currentTileIndex)->getTileSprite().getPosition();
+        targetTileIndex = currentTileIndex;
+    } else {
+        // Find the closest grey tile
+        float minDistance = std::numeric_limits<float>::max();
+        size_t closestGreyTileIndex = 0;
+        
+        // Check all tiles to find the closest grey one
+        for (size_t i = 0; i < boardTileMap->getTileMapNumber(); ++i) {
+            if (boardTileMap->isGreyTile(i)) {
+                sf::Vector2f tilePos = boardTileMap->getTile(i)->getTileSprite().getPosition();
+                
+                // Calculate distance from mouse position to this grey tile
+                float dx = MetaComponents::middleViewmouseClickedPosition_f.x - tilePos.x;
+                float dy = MetaComponents::middleViewmouseClickedPosition_f.y - tilePos.y;
+                float distance = std::sqrt(dx * dx + dy * dy);
+                
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    closestGreyTileIndex = i;
+                }
+            }
+        }
+        
+        // Use the position of the closest grey tile
+        stickPos = boardTileMap->getTile(closestGreyTileIndex)->getTileSprite().getPosition();
+        targetTileIndex = closestGreyTileIndex;
+    }
+    
+    // HOVER EFFECT: Always show the current stick (hovering effect) when mouse moves
+    if (stickIndex < Constants::STICKS_NUMBER) {
+        // Check if this will be a vertical stick
+        bool isVertical = boardTileMap->isVerticalWallTile(targetTileIndex);
+        
+        // Adjust position for vertical sticks (shift 9 pixels to the right)
+        sf::Vector2f adjustedPos = stickPos;
+        if (isVertical) {
+            adjustedPos.x += 9.0f;
+        }
+        
+        // Update stick position for hover effect
+        sticks[stickIndex]->returnSpritesShape().setPosition(adjustedPos);
+        
+        // Set rotation based on tile type
+        if (isVertical) {
+            sticks[stickIndex]->returnSpritesShape().setRotation(90.0f);
+        } else {
+            sticks[stickIndex]->returnSpritesShape().setRotation(0.0f);
+        }
+        
+        // Make stick semi-transparent for hover effect
+        sf::Color hoverColor = sticks[stickIndex]->returnSpritesShape().getColor();
+        hoverColor.a = 128; // 50% transparency
+        sticks[stickIndex]->returnSpritesShape().setColor(hoverColor);
+    }
+    
+    // TILE HOVER EFFECT: Highlight the target tile
+    static size_t lastHoveredTileIndex = SIZE_MAX;
+    static sf::Color originalTileColor;
+    
+    // Restore previous hovered tile to original color
+    if (lastHoveredTileIndex != SIZE_MAX && lastHoveredTileIndex < boardTileMap->getTileMapNumber()) {
+        boardTileMap->getTile(lastHoveredTileIndex)->getTileSprite().setColor(originalTileColor);
+    }
+    
+    // Highlight current tile
+    if (targetTileIndex < boardTileMap->getTileMapNumber()) {
+        originalTileColor = boardTileMap->getTile(targetTileIndex)->getTileSprite().getColor();
+        sf::Color highlightColor = originalTileColor;
+        highlightColor.r = std::min(255, (int)(highlightColor.r * 1.2f)); // Brighten
+        highlightColor.g = std::min(255, (int)(highlightColor.g * 1.2f));
+        highlightColor.b = std::min(255, (int)(highlightColor.b * 1.2f));
+        boardTileMap->getTile(targetTileIndex)->getTileSprite().setColor(highlightColor);
+        lastHoveredTileIndex = targetTileIndex;
+    }
+    
+    // ACTUAL CLICK: Place stick with overlap and X-direction limit checks
+    if (FlagSystem::flagEvents.mouseClicked && boardTileMap->isGreyTile(currentTileIndex)) {
+        sf::Vector2f targetPos = boardTileMap->getTile(currentTileIndex)->getTileSprite().getPosition();
+        bool willBeVertical = boardTileMap->isVerticalWallTile(currentTileIndex);
+        
+        // Adjust target position for vertical sticks
+        if (willBeVertical) {
+            targetPos.x += 9.0f;
+        }
+        
+        // Check for overlaps with existing sticks (using adjusted positions)
+        bool hasOverlap = false;
+        for (int i = 0; i < stickIndex; ++i) {
+            sf::Vector2f existingPos = sticks[i]->returnSpritesShape().getPosition();
+            if (std::abs(existingPos.x - targetPos.x) < 1.0f && std::abs(existingPos.y - targetPos.y) < 1.0f) {
+                hasOverlap = true;
+                break;
+            }
+        }
+        
+        // Check X-direction limit (max 4 sticks in same X coordinate)
+        // Use original tile position for X-direction counting, not adjusted position
+        sf::Vector2f originalTilePos = boardTileMap->getTile(currentTileIndex)->getTileSprite().getPosition();
+        int sticksInSameX = 0;
+        for (int i = 0; i < stickIndex; ++i) {
+            sf::Vector2f existingPos = sticks[i]->returnSpritesShape().getPosition();
+            sf::Vector2f existingOriginalPos = existingPos;
+            
+            // Reverse the adjustment to get original tile position for comparison
+            // Check if existing stick is vertical by checking its rotation
+            if (std::abs(sticks[i]->returnSpritesShape().getRotation() - 90.0f) < 1.0f) {
+                existingOriginalPos.x -= 9.0f;
+            }
+            
+            if (std::abs(existingOriginalPos.x - originalTilePos.x) < 1.0f) {
+                ++sticksInSameX;
+            }
+        }
+        
+        // Only place stick if no overlap and X-direction limit not exceeded
+        if (!hasOverlap && sticksInSameX < 4 && stickIndex < Constants::STICKS_NUMBER) {
+            // Set final position and rotation for the placed stick
+            sticks[stickIndex]->returnSpritesShape().setPosition(targetPos);
+            
+            if (willBeVertical) {
+                sticks[stickIndex]->returnSpritesShape().setRotation(90.0f);
+            } else {
+                sticks[stickIndex]->returnSpritesShape().setRotation(0.0f);
+            }
+            
+            // Make stick fully opaque when placed
+            sf::Color finalColor = sticks[stickIndex]->returnSpritesShape().getColor();
+            finalColor.a = 255; // Full opacity
+            sticks[stickIndex]->returnSpritesShape().setColor(finalColor);
+            
+            // SET WALKABLE TO FALSE for the grey tile where the stick is placed
+            boardTileMap->getTile(currentTileIndex)->setWalkable(false);
+            
+            ++stickIndex;
+        }
+    }
 }
 
 void gamePlayScene::handleSpaceKey() {

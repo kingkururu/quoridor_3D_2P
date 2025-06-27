@@ -504,8 +504,41 @@ bool BoardTileMap::isGreyTile(size_t index) {
             if (originalCol % 2 == 1) {
                 return true; // Wall X tiles are grey
             } else {
-                return true; // Blank tiles are grey
+                return false; // Blank tiles (9x9) are NOT grey anymore
             }
         }
     }
+}
+bool BoardTileMap::isVerticalWallTile(size_t index) {
+    // Check if index is valid
+    if (index >= tiles.size()) {
+        return false;
+    }
+    
+    // Calculate row and column from index
+    int row = index / 21;
+    int col = index % 21;
+    
+    // Only interior tiles can be vertical walls
+    if (row == 0 || row == 22 || col == 0 || col == 20) {
+        return false;
+    }
+    
+    // Interior tiles (original 21x19 grid logic, offset by 1)
+    int originalRow = row - 1;
+    int originalCol = col - 1;
+    
+    // Vertical wall tiles (9x33) only exist in even rows at even columns (excluding special cases)
+    if (originalRow % 2 == 0) {
+        // Skip goal tiles and first path tile
+        if (originalCol == 0 || originalCol == 18 || originalCol == 1) {
+            return false;
+        }
+        // Even columns in even rows are vertical wall tiles (9x33)
+        if (originalCol % 2 == 0) {
+            return true; // This is a vertical wall tile (wallTileYSize = 9x33)
+        }
+    }
+    
+    return false;
 }

@@ -93,6 +93,7 @@ public:
     size_t getTileIndex(sf::Vector2i position); 
     size_t getTileIndex(sf::Vector2f postiion);
     bool isGreyTile(size_t index); 
+    bool isVerticalWallTile(size_t index);
 
 private:
     std::array<std::shared_ptr<Tile>, 483> tiles; // board with 21 x 19 tiles including walls
