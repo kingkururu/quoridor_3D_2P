@@ -116,12 +116,12 @@ sprites:
       y: 1.0
   stick:
     path: "test/test-assets/sprites/png/stick.png"
-    spacing: 19 # pixels, spacing between sticks
-    right_offset_x: 70 # pixels, offset for right stick
-    right_offset_y: 20 # pixels, offset for right stick
-    positions:
-      x: -20.0 # pixels
-      y: 31 # starting position pixels
+    spacing: 21 # pixels, spacing between sticks
+    starting_position:
+      x: -30.0 # pixels
+      y: 12
+    right_stick_offset_x: -10.0 # pixels, offset for right stick
+    right_stick_offset_y: 20.0 # pixels, offset for right stick
     scale:
       x: 1.0
       y: 1.0

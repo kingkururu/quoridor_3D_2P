@@ -147,8 +147,9 @@ namespace Constants { // not actually "constants" in terms of being fixed, but s
     inline unsigned short const STICKS_NUMBER = 20; // always 20 sticks in the game
     inline std::filesystem::path STICK_PATH;
     inline float STICK_SPACING;
-    inline float RIGHTSTICK_OFFSET_X;
-    inline float RIGHTSTICK_OFFSET_Y;
+    inline sf::Vector2f STICK_STARTING_POSITION; // starting position of the first stick
+    inline float RIGHTSTICK_OFFSET_X; // offset for right stick
+    inline float RIGHTSTICK_OFFSET_Y; // offset for right stick
     inline std::array<sf::Vector2f, STICKS_NUMBER> STICK_POSITIONS; 
     inline sf::Vector2f STICK_SCALE;
     inline std::shared_ptr<sf::Texture> STICK_TEXTURE = std::make_shared<sf::Texture>();

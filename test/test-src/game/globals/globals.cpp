@@ -174,19 +174,18 @@ namespace Constants {
             // Load stick paths and settings
             STICK_PATH = config["sprites"]["stick"]["path"].as<std::string>();
             STICK_SPACING = config["sprites"]["stick"]["spacing"].as<float>();
-            RIGHTSTICK_OFFSET_X = config["sprites"]["stick"]["right_offset_x"].as<float>();
-            RIGHTSTICK_OFFSET_Y = config["sprites"]["stick"]["right_offset_y"].as<float>();
+            STICK_STARTING_POSITION = {config["sprites"]["stick"]["starting_position"]["x"].as<float>(),
+                                config["sprites"]["stick"]["starting_position"]["y"].as<float>()};
             STICK_SCALE = {config["sprites"]["stick"]["scale"]["x"].as<float>(),
                             config["sprites"]["stick"]["scale"]["y"].as<float>()};
+            RIGHTSTICK_OFFSET_X = config["sprites"]["stick"]["right_stick_offset_x"].as<float>();
+            RIGHTSTICK_OFFSET_Y = config["sprites"]["stick"]["right_stick_offset_y"].as<float>();
             for(unsigned short i = 0; i < STICKS_NUMBER; ++i) {
-                if(i % 2) { // sticks at odd index are for player 1 and even is for player 2
-                    STICK_POSITIONS[i] = {config["sprites"]["stick"]["positions"]["x"].as<float>(),
-                                        config["sprites"]["stick"]["positions"]["y"].as<float>() + i * STICK_SPACING}; // left sticks
+                if(i % 2) { // sticks at even index are for player 1 and odd is for player 2
+                    STICK_POSITIONS[i] = { STICK_STARTING_POSITION.x, STICK_STARTING_POSITION.y + i * STICK_SPACING};
                 } else {
-                    STICK_POSITIONS[i] = { VIEW_SIZE_X - config["sprites"]["stick"]["positions"]["x"].as<float>() - RIGHTSTICK_OFFSET_X,
-                                    config["sprites"]["stick"]["positions"]["y"].as<float>() + i * STICK_SPACING + RIGHTSTICK_OFFSET_Y}; // right sticks 
+                    STICK_POSITIONS[i] = { VIEW_SIZE_X + RIGHTSTICK_OFFSET_X + STICK_STARTING_POSITION.x, RIGHTSTICK_OFFSET_Y + STICK_STARTING_POSITION.y + i * STICK_SPACING};
                 }
-                std::cout << "Stick position " << i << ": " << STICK_POSITIONS[i].x << ", " << STICK_POSITIONS[i].y << std::endl;
             }
 
             // Load background (in the big screen) settings

@@ -121,7 +121,7 @@ BoardTileMap::BoardTileMap(std::array<std::shared_ptr<Tile>, 11> tileTypesArr) {
     sf::Vector2i borderShortSize = sf::Vector2i{11, 9};    // short part of border
     sf::Vector2i borderTopBottomSize = sf::Vector2i{23, 9}; // top and bottom of border
     
-    float currentY = -5.0f; // Start 5 pixels higher
+    float currentY = -10.0f; // Start 10 pixels higher
     
     // Initialize the 23x21 board with border (21 rows + 2 border rows, 19 cols + 2 border cols)
     for(int row = 0; row < 23; ++row) {

@@ -226,23 +226,19 @@ void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum) {
         );
 
         // Check collision with all tiles in the BoardTileMap
-        for (int i = 0; i < 23 * 21; ++i) {
+        for (int i = 0; i < 23 * 21; ++i) { // num or rows and columns from boardTileMap
             try {
                 auto& tile = boardTileMap->getTile(i);
                 if (tile && tile->getVisibleState()) {
                     sf::FloatRect tileBounds = tile->getTileSprite().getGlobalBounds();
 
                     // If player intersects with a non-walkable tile, return false
-                    if (tileBounds.intersects(testPlayerBounds) && !tile->getWalkable()) {
-                        std::cout << "Collision detected with tile and tile not walkable: " << i << std::endl;
-                        return false;
-                    }
+                    if (tileBounds.intersects(testPlayerBounds) && !tile->getWalkable()) return false;
                 }
             } catch (const std::exception& e) {
                 log_warning("Error checking tile collision: " + std::string(e.what()));
             }
         }
-
         return true;
     };
         
@@ -306,6 +302,8 @@ void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum) {
 void gamePlayScene::handleGameEvents() { 
     // scoreText->getText().setPosition(MetaComponents::middleView.getCenter().x - 460, MetaComponents::middleView.getCenter().y - 270);
 
+    // int arr[] = { 42, 62, 84, 104, 126, 146, 168, 188, 210, 230, 252, 272, 294, 314, 336, 356, 378, 398, 420, 440 };
+
     physics::calculateRayCast3d(player, boardTileMap, rays, wallLine); // board specific
 
     boardTileMap->getTile(44)->setWalkable(false); // temporary for testing
@@ -315,8 +313,6 @@ void gamePlayScene::handleSceneFlags(){
     if(!FlagSystem::flagEvents.gameEnd && FlagSystem::gameScene1Flags.begin){
         scoreText->getText().setString("Seconds elapsed: " + std::to_string(beginTime));
     }
-
-    
 }
 
 void gamePlayScene::update() {
@@ -388,10 +384,11 @@ void gamePlayScene::drawInmiddleView(){
     // drawVisibleObject(board);
     drawVisibleObject(boardTileMap); // temporary
 
-    //for(const auto& stick : sticks) drawVisibleObject(stick);
+    for(const auto& stick : sticks) drawVisibleObject(stick);
 
     drawVisibleObject(player);
     window.draw(rays); // direct sf object
+
     drawVisibleObject(player2);
     window.draw(rays2); 
 }
