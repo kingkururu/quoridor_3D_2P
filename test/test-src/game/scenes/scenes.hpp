@@ -36,7 +36,6 @@ protected:
   // blank templates here
   virtual void setInitialTimes(){};
   virtual void insertItemsInQuadtree(){}; 
-  virtual void handleInvisibleSprites(){};  
 
   virtual void setTime(){}; 
 
@@ -45,7 +44,6 @@ protected:
   virtual void respawnAssets(){}; 
 
   virtual void handleGameEvents(){};
-  virtual void updateDrawablesVisibility(){}; 
 
   virtual void update(){};
   virtual void draw(); 
@@ -75,16 +73,12 @@ private:
   void handleEachPlayer(std::unique_ptr<Player>& playerNum);
 
   void respawnAssets() override; 
-  void handleInvisibleSprites() override;
 
   void setTime() override;
 
   void handleGameEvents() override; 
 
   void update() override; 
-  void updateDrawablesVisibility() override; 
-  void updatePlayerAndView(); 
-  void updateEntityStates(); 
   void changeAnimation();
 
   void draw() override; 
@@ -123,7 +117,10 @@ private:
   std::unique_ptr<TextClass> scoreText; 
   std::unique_ptr<TextClass> endingText; 
 
+  unsigned int stickIndex{}; // even is player 2 odd is player 1
+
   float beginTime{};
   unsigned int player1prevBlockIndex{};
-  bool turnPlayed{};
+  bool moved{}; 
+  bool stickPlaced{};
 };

@@ -33,7 +33,9 @@ namespace MetaComponents{
 
     inline sf::Vector2i middleViewmouseClickedPosition_i {}; 
     inline sf::Vector2f middleViewmouseClickedPosition_f {}; 
-
+    inline sf::Vector2f middleViewmouseCurrentPosition_f {};
+    inline sf::Vector2i middleViewmouseCurrentPosition_i {};
+    
     inline float globalTime {};
     inline float deltaTime {}; 
     inline float spacePressedElapsedTime{};

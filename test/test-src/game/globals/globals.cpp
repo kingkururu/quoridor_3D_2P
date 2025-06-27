@@ -181,7 +181,7 @@ namespace Constants {
             RIGHTSTICK_OFFSET_X = config["sprites"]["stick"]["right_stick_offset_x"].as<float>();
             RIGHTSTICK_OFFSET_Y = config["sprites"]["stick"]["right_stick_offset_y"].as<float>();
             for(unsigned short i = 0; i < STICKS_NUMBER; ++i) {
-                if(i % 2) { // sticks at even index are for player 1 and odd is for player 2
+                if(i % 2) { // sticks at even index are for player 2 and odd is for player 1
                     STICK_POSITIONS[i] = { STICK_STARTING_POSITION.x, STICK_STARTING_POSITION.y + i * STICK_SPACING};
                 } else {
                     STICK_POSITIONS[i] = { VIEW_SIZE_X + RIGHTSTICK_OFFSET_X + STICK_STARTING_POSITION.x, RIGHTSTICK_OFFSET_Y + STICK_STARTING_POSITION.y + i * STICK_SPACING};

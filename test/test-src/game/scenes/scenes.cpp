@@ -162,11 +162,12 @@ void gamePlayScene::setTime(){
 void gamePlayScene::handleInput() {
     handleMouseClick();
     handleSpaceKey(); 
-    if(!player->getAutoNavigate()) handleMovementKeys();
+    handleMovementKeys();
 }
 
 void gamePlayScene::handleMouseClick() {    
-    
+    if(stickIndex < Constants::STICKS_NUMBER) sticks[stickIndex]->returnSpritesShape().setPosition(MetaComponents::middleViewmouseCurrentPosition_f);
+    if(FlagSystem::flagEvents.mouseClicked) ++stickIndex;
 }
 
 void gamePlayScene::handleSpaceKey() {
@@ -176,9 +177,8 @@ void gamePlayScene::handleSpaceKey() {
 }
 
 void gamePlayScene::handleMovementKeys() {
-    FlagSystem::gameScene1Flags.player2turn = true; 
-    if(FlagSystem::gameScene1Flags.player1turn) handleEachPlayer(player);
-    if(FlagSystem::gameScene1Flags.player2turn) handleEachPlayer(player2);
+    handleEachPlayer(player);
+    handleEachPlayer(player2);
 }
 
 void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum) {
@@ -278,12 +278,29 @@ void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum) {
 
 // Keeps sprites inside screen bounds, checks for collisions, update scores, and sets flagEvents.gameEnd to true in an event of collision 
 void gamePlayScene::handleGameEvents() { 
-    // int arr[] = { 42, 62, 84, 104, 126, 146, 168, 188, 210, 230, 252, 272, 294, 314, 336, 356, 378, 398, 420, 440 };
-
     physics::calculateRayCast3d(player, boardTileMap, rays, wallLine); // board specific
     physics::calculateRayCast3d(player2, boardTileMap, rays2, wallLine2); // board specific
 
-    boardTileMap->getTile(44)->setWalkable(false); // temporary for testing
+                     boardTileMap->getTile(44)->setWalkable(false); // temporary for testing
+
+    // check which players turn
+    if(FlagSystem::gameScene1Flags.player1turn) {
+        player2->setMoveState(false); // player 2 cannot move
+    }
+    else if(FlagSystem::gameScene1Flags.player2turn) {
+        player->setMoveState(false); // player 1 cannot move
+    }
+
+    // check move made (moved path or placed stick)
+    if(moved || stickPlaced){
+
+    }
+    
+    // check if player reached goal tile
+
+    // victory
+        // FlagSystem::flagEvents.gameEnd to true if player reached goal tile
+        // score? 
 } 
 
 void gamePlayScene::update() {
