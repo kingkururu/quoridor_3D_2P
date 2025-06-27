@@ -166,8 +166,13 @@ void gamePlayScene::handleInput() {
 }
 
 void gamePlayScene::handleMouseClick() {    
+    // just mouse movement
+    int currentTileindex = boardTileMap->getTileIndex(MetaComponents::middleViewmouseClickedPosition_f);
+
     if(stickIndex < Constants::STICKS_NUMBER) sticks[stickIndex]->returnSpritesShape().setPosition(MetaComponents::middleViewmouseCurrentPosition_f);
-    if(FlagSystem::flagEvents.mouseClicked) ++stickIndex;
+    
+    // actual click
+    if(FlagSystem::flagEvents.mouseClicked && boardTileMap->isGreyTile(currentTileindex)) ++stickIndex;
 }
 
 void gamePlayScene::handleSpaceKey() {

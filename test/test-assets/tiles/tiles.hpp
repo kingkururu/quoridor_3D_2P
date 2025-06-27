@@ -89,7 +89,10 @@ public:
     explicit BoardTileMap(std::array<std::shared_ptr<Tile>, 11> tileTypesArr); // need wall tile index, path tile index, p1 start tile index, p2 start tile index
     bool const getVisibleState() const { return true; } // entire board, not each tiles
     std::shared_ptr<Tile>& getTile(size_t index);
-    size_t getTileMapNumber() const { return tiles.size(); } // returns the number of tiles in the board
+    size_t getTileMapNumber() const { return tiles.size(); } // returns the number of tiles in the board (483)
+    size_t getTileIndex(sf::Vector2i position); 
+    size_t getTileIndex(sf::Vector2f postiion);
+    bool isGreyTile(size_t index); 
 
 private:
     std::array<std::shared_ptr<Tile>, 483> tiles; // board with 21 x 19 tiles including walls

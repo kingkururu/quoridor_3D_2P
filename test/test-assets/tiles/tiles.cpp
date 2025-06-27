@@ -286,3 +286,226 @@ void BoardTileMap::draw(sf::RenderTarget& target, sf::RenderStates states) const
         if (tile && tile->getVisibleState()) target.draw(tile->getTileSprite(), states);
     }
 }
+
+size_t BoardTileMap::getTileIndex(sf::Vector2i position) {
+    return getTileIndex(sf::Vector2f(static_cast<float>(position.x), static_cast<float>(position.y)));
+}
+
+size_t BoardTileMap::getTileIndex(sf::Vector2f position) {
+    // Starting position offset (same as in constructor)
+    float startX = -15.0f;
+    float startY = -10.0f;
+    
+    // Adjust position relative to the tilemap's starting position
+    float relativeX = position.x - startX;
+    float relativeY = position.y - startY;
+    
+    // If position is before the tilemap starts, return invalid index
+    if (relativeX < 0 || relativeY < 0) {
+        throw std::out_of_range("Position is before tilemap bounds");
+    }
+    
+    // Find the row by iterating through row heights
+    float currentY = 0.0f;
+    int targetRow = -1;
+    
+    for (int row = 0; row < 23; ++row) {
+        float maxRowHeight = 0.0f;
+        
+        // Calculate the tallest tile height in this row
+        for (int col = 0; col < 21; ++col) {
+            sf::Vector2i tileSize;
+            
+            // Determine tile size based on position (same logic as constructor)
+            if (row == 0 || row == 22) { // Top/bottom border
+                tileSize = sf::Vector2i{23, 9}; // borderTopBottomSize
+            }
+            else if (col == 0 || col == 20) { // Left/right border
+                if ((row - 1) % 2 == 0) {
+                    tileSize = sf::Vector2i{11, 33}; // borderLongSize
+                } else {
+                    tileSize = sf::Vector2i{11, 9}; // borderShortSize
+                }
+            }
+            else { // Interior tiles
+                int originalRow = row - 1;
+                int originalCol = col - 1;
+                
+                if (originalRow % 2 == 0) {
+                    if (originalCol == 0 || originalCol == 18) {
+                        tileSize = goalTileSize; // sf::Vector2i{46, 33}
+                    }
+                    else if (originalCol == 1) {
+                        tileSize = pathTileSize; // sf::Vector2i{33, 33}
+                    }
+                    else {
+                        if (originalCol % 2 == 0) {
+                            tileSize = wallTileYSize; // sf::Vector2i{9, 33}
+                        } else {
+                            tileSize = pathTileSize; // sf::Vector2i{33, 33}
+                        }
+                    }
+                }
+                else {
+                    if (originalCol == 0) {
+                        tileSize = blankp1TileSize; // sf::Vector2i{46, 9}
+                    }
+                    else if (originalCol == 18) {
+                        tileSize = blankp2TileSize; // sf::Vector2i{46, 9}
+                    }
+                    else {
+                        if (originalCol % 2 == 1) {
+                            tileSize = wallTileXSize; // sf::Vector2i{33, 9}
+                        } else {
+                            tileSize = blankWallTileSize; // sf::Vector2i{9, 9}
+                        }
+                    }
+                }
+            }
+            
+            maxRowHeight = std::max(maxRowHeight, static_cast<float>(tileSize.y));
+        }
+        
+        // Check if the Y position falls within this row
+        if (relativeY >= currentY && relativeY < currentY + maxRowHeight) {
+            targetRow = row;
+            break;
+        }
+        
+        currentY += maxRowHeight;
+    }
+    
+    // If no row was found, position is beyond tilemap bounds
+    if (targetRow == -1) {
+        throw std::out_of_range("Position is beyond tilemap bounds");
+    }
+    
+    // Now find the column within the target row
+    float currentX = 0.0f;
+    int targetCol = -1;
+    
+    for (int col = 0; col < 21; ++col) {
+        sf::Vector2i tileSize;
+        
+        // Determine tile size for this specific tile (same logic as above)
+        if (targetRow == 0 || targetRow == 22) { // Top/bottom border
+            tileSize = sf::Vector2i{23, 9};
+        }
+        else if (col == 0 || col == 20) { // Left/right border
+            if ((targetRow - 1) % 2 == 0) {
+                tileSize = sf::Vector2i{11, 33};
+            } else {
+                tileSize = sf::Vector2i{11, 9};
+            }
+        }
+        else { // Interior tiles
+            int originalRow = targetRow - 1;
+            int originalCol = col - 1;
+            
+            if (originalRow % 2 == 0) {
+                if (originalCol == 0 || originalCol == 18) {
+                    tileSize = goalTileSize;
+                }
+                else if (originalCol == 1) {
+                    tileSize = pathTileSize;
+                }
+                else {
+                    if (originalCol % 2 == 0) {
+                        tileSize = wallTileYSize;
+                    } else {
+                        tileSize = pathTileSize;
+                    }
+                }
+            }
+            else {
+                if (originalCol == 0) {
+                    tileSize = blankp1TileSize;
+                }
+                else if (originalCol == 18) {
+                    tileSize = blankp2TileSize;
+                }
+                else {
+                    if (originalCol % 2 == 1) {
+                        tileSize = wallTileXSize;
+                    } else {
+                        tileSize = blankWallTileSize;
+                    }
+                }
+            }
+        }
+        
+        // Check if the X position falls within this column
+        if (relativeX >= currentX && relativeX < currentX + tileSize.x) {
+            targetCol = col;
+            break;
+        }
+        
+        currentX += tileSize.x;
+    }
+    
+    // If no column was found, position is beyond tilemap bounds
+    if (targetCol == -1) {
+        throw std::out_of_range("Position is beyond tilemap bounds");
+    }
+    
+    // Calculate and return the tile index
+    size_t index = targetRow * 21 + targetCol;
+    
+    // Ensure index is within valid range
+    if (index >= tiles.size()) {
+        throw std::out_of_range("Calculated tile index is out of bounds");
+    }
+    
+    return index;
+}
+
+bool BoardTileMap::isGreyTile(size_t index) {
+    // Check if index is valid
+    if (index >= tiles.size()) {
+        throw std::out_of_range("Tile index out of bounds in isGreyTile");
+    }
+    
+    // Calculate row and column from index
+    int row = index / 21;
+    int col = index % 21;
+    
+    // Border tiles are considered grey (non-playable)
+    if (row == 0 || row == 22 || col == 0 || col == 20) {
+        return true;
+    }
+    
+    // Interior tiles (original 21x19 grid logic, offset by 1)
+    int originalRow = row - 1;
+    int originalCol = col - 1;
+    
+    if (originalRow % 2 == 0) { // Even rows
+        // Goal tiles (p1 and p2) are not grey - they're playable
+        if (originalCol == 0 || originalCol == 18) {
+            return false; // Goal tiles
+        }
+        // Path tiles are not grey - they're playable
+        else if (originalCol == 1) {
+            return false; // Path tile
+        }
+        else {
+            if (originalCol % 2 == 0) {
+                return true; // Wall Y tiles are grey
+            } else {
+                return false; // Path tiles are not grey
+            }
+        }
+    }
+    else { // Odd rows
+        // Start and end pieces are grey (non-playable decorative tiles)
+        if (originalCol == 0 || originalCol == 18) {
+            return true; // Start/end pieces
+        }
+        else {
+            if (originalCol % 2 == 1) {
+                return true; // Wall X tiles are grey
+            } else {
+                return true; // Blank tiles are grey
+            }
+        }
+    }
+}
