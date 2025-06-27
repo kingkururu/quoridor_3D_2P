@@ -33,8 +33,6 @@ void Scene::runScene() {
     respawnAssets();
 
     handleGameEvents();
-    handleGameFlags();
-    handleSceneFlags();
 
     update();
     draw();
@@ -63,24 +61,7 @@ void Scene::moveViewPortWASD(){
 
 // Resets everything for scene to start again. The position, moveState, flagEvents, etc are all reset 
 void Scene::restartScene() {
-    // re-play background music
-
-    // set sprite movestates to true
-   
-    // re-set sprite and text positions 
-
-    // clear respawn time vectors or any other unecessary vectors 
-
-    // re-set flagEvents
     sceneEvents.resetFlags(); 
-}
-
-// Handles events from flagEvents
-void Scene::handleGameFlags(){
-    // if flagEvents.gameEnd is true or some event ... do somthing 
-    if(FlagSystem::flagEvents.gameEnd){
-       
-    }
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////
@@ -166,10 +147,6 @@ void gamePlayScene::respawnAssets(){
    
 } 
 
-void gamePlayScene::handleInvisibleSprites() {
-    
-}
-
 void gamePlayScene::setTime(){
     if(FlagSystem::gameScene1Flags.begin){
         beginTime += MetaComponents::deltaTime;
@@ -205,6 +182,7 @@ void gamePlayScene::handleMovementKeys() {
 }
 
 void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum) {
+
     if(!playerNum || !playerNum->getMoveState()) return;
     
     // Get player's current position and bounds
@@ -250,14 +228,14 @@ void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum) {
         playerNum->returnSpritesShape().rotate(-1.0f); // degrees
         float newAngle = playerNum->returnSpritesShape().getRotation();
         playerNum->setHeadingAngle(newAngle);
-        FlagSystem::gameScene1Flags.begin = true;
+       // FlagSystem::gameScene1Flags.begin = true;
     }
     
     if(FlagSystem::flagEvents.dPressed) { // turn right
         playerNum->returnSpritesShape().rotate(1.0f); // degrees
         float newAngle = playerNum->returnSpritesShape().getRotation();
         playerNum->setHeadingAngle(newAngle);
-        FlagSystem::gameScene1Flags.begin = true;
+       // FlagSystem::gameScene1Flags.begin = true;
     }
     
     // Store position before movement
@@ -265,12 +243,12 @@ void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum) {
     
     if(FlagSystem::flagEvents.wPressed && canWalkOnCurrentTile) { // forward
         physics::spriteMover(playerNum, physics::followDirVec);
-        FlagSystem::gameScene1Flags.begin = true;
+        // FlagSystem::gameScene1Flags.begin = true;
     }
     
     if(FlagSystem::flagEvents.sPressed && canWalkOnCurrentTile) { // backward
         physics::spriteMover(playerNum, physics::followDirVecOpposite);
-        FlagSystem::gameScene1Flags.begin = true;
+       // FlagSystem::gameScene1Flags.begin = true;
     }
     
     // Check if new position after movement is valid
@@ -300,29 +278,17 @@ void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum) {
 
 // Keeps sprites inside screen bounds, checks for collisions, update scores, and sets flagEvents.gameEnd to true in an event of collision 
 void gamePlayScene::handleGameEvents() { 
-    // scoreText->getText().setPosition(MetaComponents::middleView.getCenter().x - 460, MetaComponents::middleView.getCenter().y - 270);
-
     // int arr[] = { 42, 62, 84, 104, 126, 146, 168, 188, 210, 230, 252, 272, 294, 314, 336, 356, 378, 398, 420, 440 };
 
     physics::calculateRayCast3d(player, boardTileMap, rays, wallLine); // board specific
+    physics::calculateRayCast3d(player2, boardTileMap, rays2, wallLine2); // board specific
 
     boardTileMap->getTile(44)->setWalkable(false); // temporary for testing
 } 
 
-void gamePlayScene::handleSceneFlags(){
-    if(!FlagSystem::flagEvents.gameEnd && FlagSystem::gameScene1Flags.begin){
-        scoreText->getText().setString("Seconds elapsed: " + std::to_string(beginTime));
-    }
-}
-
 void gamePlayScene::update() {
     try {
-        updateEntityStates();
         changeAnimation();
-        updateDrawablesVisibility(); 
-        handleInvisibleSprites();
-
-        updatePlayerAndView(); 
         quadtree.update(); 
 
         // Set the view for the window
@@ -333,21 +299,9 @@ void gamePlayScene::update() {
     }
 }
 
-void gamePlayScene::updateEntityStates(){ // manually change the sprite's state
-   
-}
-
 void gamePlayScene::changeAnimation(){ // change animation for sprites. change animation for texts if necessary     if (button1 && button1->getVisibleState()) button1->changeAnimation(); 
    // for (const auto& bullet : bullets) if (bullet) bullet->changeAnimation();
    // if (button1) button1->changeAnimation(); 
-}
-
-void gamePlayScene::updatePlayerAndView() {
-    
-}
-
-void gamePlayScene::updateDrawablesVisibility(){
-   
 }
 
 // Draws only the visible sprite and texts
@@ -375,7 +329,6 @@ void gamePlayScene::drawInleftView(){
 
     drawVisibleObject(scoreText); 
     drawVisibleObject(introText);
-    
 }
 
 void gamePlayScene::drawInmiddleView(){
