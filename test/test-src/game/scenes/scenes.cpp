@@ -203,7 +203,6 @@ void gamePlayScene::handleMouseKey() {
         targetTileIndex = closestGreyTileIndex;
     }
     
-    // HOVER EFFECT: Always show the current stick (hovering effect) when mouse moves
     if (stickIndex < Constants::STICKS_NUMBER) {
         // Check if this will be a vertical stick
         bool isVertical = boardTileMap->isVerticalWallTile(targetTileIndex);
@@ -223,31 +222,6 @@ void gamePlayScene::handleMouseKey() {
         } else {
             sticks[stickIndex]->returnSpritesShape().setRotation(0.0f);
         }
-        
-        // Make stick semi-transparent for hover effect
-        sf::Color hoverColor = sticks[stickIndex]->returnSpritesShape().getColor();
-        hoverColor.a = 128; // 50% transparency
-        sticks[stickIndex]->returnSpritesShape().setColor(hoverColor);
-    }
-    
-    // TILE HOVER EFFECT: Highlight the target tile
-    static size_t lastHoveredTileIndex = SIZE_MAX;
-    static sf::Color originalTileColor;
-    
-    // Restore previous hovered tile to original color
-    if (lastHoveredTileIndex != SIZE_MAX && lastHoveredTileIndex < boardTileMap->getTileMapNumber()) {
-        boardTileMap->getTile(lastHoveredTileIndex)->getTileSprite().setColor(originalTileColor);
-    }
-    
-    // Highlight current tile
-    if (targetTileIndex < boardTileMap->getTileMapNumber()) {
-        originalTileColor = boardTileMap->getTile(targetTileIndex)->getTileSprite().getColor();
-        sf::Color highlightColor = originalTileColor;
-        highlightColor.r = std::min(255, (int)(highlightColor.r * 1.2f)); // Brighten
-        highlightColor.g = std::min(255, (int)(highlightColor.g * 1.2f));
-        highlightColor.b = std::min(255, (int)(highlightColor.b * 1.2f));
-        boardTileMap->getTile(targetTileIndex)->getTileSprite().setColor(highlightColor);
-        lastHoveredTileIndex = targetTileIndex;
     }
     
     // ACTUAL CLICK: Place stick with overlap and X-direction limit checks
@@ -289,6 +263,9 @@ void gamePlayScene::handleMouseKey() {
             }
         }
         
+        unsigned int nextTileIndex = 0; // Initialize next tile index
+        unsigned int nextBlankTileIndex = 0; // Initialize next blank tile index
+
         // Only place stick if no overlap and X-direction limit not exceeded
         if (!hasOverlap && sticksInSameX < 4 && stickIndex < Constants::STICKS_NUMBER) {
             // Set final position and rotation for the placed stick
@@ -296,17 +273,26 @@ void gamePlayScene::handleMouseKey() {
             
             if (willBeVertical) {
                 sticks[stickIndex]->returnSpritesShape().setRotation(90.0f);
-            } else {
-                sticks[stickIndex]->returnSpritesShape().setRotation(0.0f);
-            }
+                if(currentTileIndex % 19 == 0){
+                    nextBlankTileIndex = currentTileIndex - 21; // vertical stick, next tile is above
+                    nextTileIndex = nextBlankTileIndex - 21; // next tile is above
+                } else {
+                    nextBlankTileIndex = currentTileIndex + 21; // vertical stick, next tile is below
+                    nextTileIndex = nextBlankTileIndex + 21; // next tile is below
+                }
+            } else {                
+                if(currentTileIndex % 19 == 0){
+                    nextBlankTileIndex = currentTileIndex - 1; // horizontal stick, next tile is to the left
+                    nextTileIndex = nextBlankTileIndex - 1;
+                } else {
+                    nextBlankTileIndex = currentTileIndex + 1; // horizontal stick, next tile is to the left
+                    nextTileIndex = nextBlankTileIndex + 1;
+                }
+            }        
             
-            // Make stick fully opaque when placed
-            sf::Color finalColor = sticks[stickIndex]->returnSpritesShape().getColor();
-            finalColor.a = 255; // Full opacity
-            sticks[stickIndex]->returnSpritesShape().setColor(finalColor);
-            
-            // SET WALKABLE TO FALSE for the grey tile where the stick is placed
             boardTileMap->getTile(currentTileIndex)->setWalkable(false);
+            boardTileMap->getTile(nextTileIndex)->setWalkable(false);
+            boardTileMap->getTile(nextBlankTileIndex)->setWalkable(false);
             
             ++stickIndex;
         }
@@ -423,8 +409,6 @@ void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum) {
 void gamePlayScene::handleGameEvents() { 
     physics::calculateRayCast3d(player, boardTileMap, rays, wallLine); // board specific
     physics::calculateRayCast3d(player2, boardTileMap, rays2, wallLine2); // board specific
-
-                     boardTileMap->getTile(44)->setWalkable(false); // temporary for testing
 
     // check which players turn
     if(FlagSystem::gameScene1Flags.player1turn) {
