@@ -49,22 +49,6 @@ private:
     bool visibleState {};
 };
 
-// class AbstractTileMap : public sf::Drawable {
-// public:
-//     virtual ~AbstractTileMap() = default;
-
-//     // Pure virtual function to add a tile to the map at the specified grid position (x, y)
-//     virtual void addTile(unsigned int x, unsigned int y, std::unique_ptr<Tile> tile) = 0; 
-
-//     // Pure virtual function to get a tile by index
-//     virtual std::unique_ptr<Tile>& getTile(size_t index) = 0; 
-
-//     // Pure virtual function to draw the tile map
-//     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const = 0;
-// protected:
-
-// };
-
 class TileMap : public sf::Drawable {
 public:
     // Constructor now accepts a shared_ptr to a default tile, and initializes the map with it
@@ -119,6 +103,5 @@ private:
     sf::Vector2i blankp2TileSize; // size of blank tile for p
 
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override; // temporary
-
 };
 

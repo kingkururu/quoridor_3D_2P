@@ -94,33 +94,30 @@ void gamePlayScene::createAssets() {
     try {
         globalTimer.Reset();  
         
-        // Animated sprites
         player = std::make_unique<Player>(Constants::SPRITE1_POSITION, Constants::SPRITE1_SCALE, Constants::SPRITE1_TEXTURE, Constants::SPRITE1_SPEED, Constants::SPRITE1_ACCELERATION, 
                                           Constants::SPRITE1_ANIMATIONRECTS, Constants::SPRITE1_INDEXMAX, utils::convertToWeakPtrVector(Constants::SPRITE1_BITMASK));
         player2 = std::make_unique<Player>(Constants::SPRITE2_POSITION, Constants::SPRITE2_SCALE, Constants::SPRITE2_TEXTURE, Constants::SPRITE2_SPEED, Constants::SPRITE2_ACCELERATION, 
                                           Constants::SPRITE2_ANIMATIONRECTS, Constants::SPRITE2_INDEXMAX, utils::convertToWeakPtrVector(Constants::SPRITE2_BITMASK));
 
-        for(int i = 0; i < Constants::STICKS_NUMBER; ++i) {
-            sticks[i] = std::make_unique<Sprite>(Constants::STICK_POSITIONS[i], Constants::STICK_SCALE, Constants::STICK_TEXTURE);
-        }
+        for(int i = 0; i < Constants::STICKS_NUMBER; ++i) sticks[i] = std::make_unique<Sprite>(Constants::STICK_POSITIONS[i], Constants::STICK_SCALE, Constants::STICK_TEXTURE);
 
         board = std::make_unique<Sprite>(Constants::BOARD_POSITION, Constants::BOARD_SCALE, Constants::BOARD_TEXTURE); 
         backgroundBig = std::make_unique<Sprite>(Constants::BACKGROUNDBIG_POSITION, Constants::BACKGROUNDBIG_SCALE, Constants::BACKGROUNDBIG_TEXTURE); 
 
         backgroundBigFinal = std::make_unique<Sprite>(Constants::BACKGROUNDBIGFINAL_POSITION, Constants::BACKGROUNDBIGFINAL_SCALE, Constants::BACKGROUNDBIGFINAL_TEXTURE); 
         
-        button1 = std::make_unique<Button>(Constants::BUTTON1_POSITION, Constants::BUTTON1_SCALE, Constants::BUTTON1_TEXTURE, Constants::BUTTON1_ANIMATIONRECTS, Constants::BUTTON1_INDEXMAX, utils::convertToWeakPtrVector(Constants::BUTTON1_BITMASK)); 
-        button1->setRects(0); 
+        // button1 = std::make_unique<Button>(Constants::BUTTON1_POSITION, Constants::BUTTON1_SCALE, Constants::BUTTON1_TEXTURE, Constants::BUTTON1_ANIMATIONRECTS, Constants::BUTTON1_INDEXMAX, utils::convertToWeakPtrVector(Constants::BUTTON1_BITMASK)); 
+        // button1->setRects(0); 
 
-        bullets.push_back(std::make_unique<Bullet>(Constants::BULLET_STARTINGPOS, Constants::BULLET_STARTINGSCALE, Constants::BULLET_TEXTURE, Constants::BULLET_INITIALSPEED, Constants::BULLET_ACCELERATION, 
-                                                   Constants::BULLET_ANIMATIONRECTS, Constants::BULLET_INDEXMAX,  utils::convertToWeakPtrVector(Constants::BULLET_BITMASK)));
-        bullets[0]->setRects(0);
+        // bullets.push_back(std::make_unique<Bullet>(Constants::BULLET_STARTINGPOS, Constants::BULLET_STARTINGSCALE, Constants::BULLET_TEXTURE, Constants::BULLET_INITIALSPEED, Constants::BULLET_ACCELERATION, 
+        //                                            Constants::BULLET_ANIMATIONRECTS, Constants::BULLET_INDEXMAX,  utils::convertToWeakPtrVector(Constants::BULLET_BITMASK)));
+        // bullets[0]->setRects(0);
 
-        boardTiles[0] = std::make_shared<Tile>(Constants::BOARDTILES_SCALE, Constants::BOARDTILES_TEXTURE, Constants::BOARDTILES_RECTS[Constants::WALL_TILEX_INDEX], Constants::BOARDTILES_BITMASK[Constants::WALL_TILEX_INDEX], true); // walkable set to true
-        boardTiles[1] = std::make_shared<Tile>(Constants::BOARDTILES_SCALE, Constants::BOARDTILES_TEXTURE, Constants::BOARDTILES_RECTS[Constants::WALL_TILEY_INDEX], Constants::BOARDTILES_BITMASK[Constants::WALL_TILEY_INDEX], true); // walkable set to true
+        boardTiles[0] = std::make_shared<Tile>(Constants::BOARDTILES_SCALE, Constants::BOARDTILES_TEXTURE, Constants::BOARDTILES_RECTS[Constants::WALL_TILEX_INDEX], Constants::BOARDTILES_BITMASK[Constants::WALL_TILEX_INDEX], true); // walkable all true
+        boardTiles[1] = std::make_shared<Tile>(Constants::BOARDTILES_SCALE, Constants::BOARDTILES_TEXTURE, Constants::BOARDTILES_RECTS[Constants::WALL_TILEY_INDEX], Constants::BOARDTILES_BITMASK[Constants::WALL_TILEY_INDEX], true); 
         boardTiles[2] = std::make_shared<Tile>(Constants::BOARDTILES_SCALE, Constants::BOARDTILES_TEXTURE, Constants::BOARDTILES_RECTS[Constants::PATH_TILE_INDEX], Constants::BOARDTILES_BITMASK[Constants::PATH_TILE_INDEX], true); 
         boardTiles[3] = std::make_shared<Tile>(Constants::BOARDTILES_SCALE, Constants::BOARDTILES_TEXTURE, Constants::BOARDTILES_RECTS[Constants::P1_GOAL_TILE_INDEX], Constants::BOARDTILES_BITMASK[Constants::P1_GOAL_TILE_INDEX], true); 
-        boardTiles[4] = std::make_shared<Tile >(Constants::BOARDTILES_SCALE, Constants::BOARDTILES_TEXTURE, Constants::BOARDTILES_RECTS[Constants::P2_GOAL_TILE_INDEX], Constants::BOARDTILES_BITMASK[Constants::P2_GOAL_TILE_INDEX], true); // temporary
+        boardTiles[4] = std::make_shared<Tile >(Constants::BOARDTILES_SCALE, Constants::BOARDTILES_TEXTURE, Constants::BOARDTILES_RECTS[Constants::P2_GOAL_TILE_INDEX], Constants::BOARDTILES_BITMASK[Constants::P2_GOAL_TILE_INDEX], true); 
         boardTiles[5] = std::make_shared<Tile>(Constants::BOARDTILES_SCALE, Constants::BOARDTILES_TEXTURE, Constants::BOARDTILES_RECTS[Constants::BLANKWALL_TILE_INDEX], Constants::BOARDTILES_BITMASK[Constants::BLANKWALL_TILE_INDEX], true); 
         boardTiles[6] = std::make_shared<Tile>(Constants::BOARDTILES_SCALE, Constants::BOARDTILES_TEXTURE, Constants::BOARDTILES_RECTS[Constants::BLANKP1_INDEX], Constants::BOARDTILES_BITMASK[Constants::BLANKP1_INDEX], true); 
         boardTiles[7] = std::make_shared<Tile>(Constants::BOARDTILES_SCALE, Constants::BOARDTILES_TEXTURE, Constants::BOARDTILES_RECTS[Constants::BLANKP2_INDEX], Constants::BOARDTILES_BITMASK[Constants::BLANKP2_INDEX], true);  
@@ -162,7 +159,7 @@ void gamePlayScene::setInitialTimes(){
 
 void gamePlayScene::insertItemsInQuadtree(){
     quadtree.insert(player);  
-    quadtree.insert(bullets[bullets.size() - 1]); 
+    //quadtree.insert(bullets[bullets.size() - 1]); 
 }
 
 void gamePlayScene::respawnAssets(){
@@ -192,14 +189,7 @@ void gamePlayScene::handleInput() {
 }
 
 void gamePlayScene::handleMouseClick() {    
-    if(FlagSystem::flagEvents.mouseClicked) {
-        if(physics::collisionHelper(button1, MetaComponents::leftViewmouseClickedPosition_f)){
-            button1->setVisibleState(false); 
-            button1->setClickedBool(true);
-            FlagSystem::gameScene1Flags.begin = true;
-            buttonClickSound->returnSound().play();
-        }
-    }
+    
 }
 
 void gamePlayScene::handleSpaceKey() {
@@ -221,21 +211,30 @@ void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum) {
     sf::Vector2f playerPos = playerNum->getSpritePos();
     sf::FloatRect playerBounds = playerNum->returnSpritesShape().getGlobalBounds();
     sf::Vector2f originalPlayerPos = playerPos;
-    
+
     // Function to check if player can walk at a given position
     auto canWalkAtPosition = [&](sf::Vector2f pos) -> bool {
+        // Custom player collision box (smaller than full sprite)
+        float collisionWidth = playerBounds.width * 0.6f;
+        float collisionHeight = playerBounds.height * 0.4f;
+
+        sf::FloatRect testPlayerBounds(
+            pos.x - collisionWidth / 2.f,
+            pos.y - collisionHeight / 2.f,
+            collisionWidth,
+            collisionHeight
+        );
+
         // Check collision with all tiles in the BoardTileMap
-        for (int i = 0; i < 21 * 19; ++i) {
+        for (int i = 0; i < 23 * 21; ++i) {
             try {
                 auto& tile = boardTileMap->getTile(i);
                 if (tile && tile->getVisibleState()) {
                     sf::FloatRect tileBounds = tile->getTileSprite().getGlobalBounds();
-                    sf::FloatRect testPlayerBounds = playerBounds;
-                    testPlayerBounds.left = pos.x - playerBounds.width / 2;
-                    testPlayerBounds.top = pos.y - playerBounds.height / 2;
-                    
+
                     // If player intersects with a non-walkable tile, return false
                     if (tileBounds.intersects(testPlayerBounds) && !tile->getWalkable()) {
+                        std::cout << "Collision detected with tile and tile not walkable: " << i << std::endl;
                         return false;
                     }
                 }
@@ -243,9 +242,10 @@ void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum) {
                 log_warning("Error checking tile collision: " + std::string(e.what()));
             }
         }
+
         return true;
     };
-    
+        
     // Check if current position is valid
     bool canWalkOnCurrentTile = canWalkAtPosition(playerPos);
     
@@ -307,6 +307,8 @@ void gamePlayScene::handleGameEvents() {
     // scoreText->getText().setPosition(MetaComponents::middleView.getCenter().x - 460, MetaComponents::middleView.getCenter().y - 270);
 
     physics::calculateRayCast3d(player, boardTileMap, rays, wallLine); // board specific
+
+    boardTileMap->getTile(44)->setWalkable(false); // temporary for testing
 } 
 
 void gamePlayScene::handleSceneFlags(){
@@ -341,7 +343,7 @@ void gamePlayScene::updateEntityStates(){ // manually change the sprite's state
 
 void gamePlayScene::changeAnimation(){ // change animation for sprites. change animation for texts if necessary     if (button1 && button1->getVisibleState()) button1->changeAnimation(); 
    // for (const auto& bullet : bullets) if (bullet) bullet->changeAnimation();
-   if (button1) button1->changeAnimation(); 
+   // if (button1) button1->changeAnimation(); 
 }
 
 void gamePlayScene::updatePlayerAndView() {
@@ -349,13 +351,7 @@ void gamePlayScene::updatePlayerAndView() {
 }
 
 void gamePlayScene::updateDrawablesVisibility(){
-    try{
-        if(MetaComponents::globalTime > 3.0) introText->setVisibleState(false);
-        button1->setVisibleState(!FlagSystem::flagEvents.mPressed && !player->getAutoNavigate());
-    }
-    catch(const std::exception & e){
-        log_error("Exception in updateDrawablesVisibility: " + std::string(e.what()));
-    }
+   
 }
 
 // Draws only the visible sprite and texts

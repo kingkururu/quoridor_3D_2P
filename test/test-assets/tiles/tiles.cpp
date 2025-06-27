@@ -229,13 +229,12 @@ BoardTileMap::BoardTileMap(std::array<std::shared_ptr<Tile>, 11> tileTypesArr) {
         // Move to next row position using the actual tallest tile in this row
         currentY += maxRowHeight;
     }
+    log_info("Boardtilemap initialized"); 
 }
 
 void TileMap::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     for (const auto& tile : tiles) {
-        if (tile && tile->getVisibleState()) {
-            target.draw(tile->getTileSprite(), states);
-        }
+        if (tile && tile->getVisibleState()) target.draw(tile->getTileSprite(), states);
     }
 }
 
@@ -284,8 +283,6 @@ std::shared_ptr<Tile>& BoardTileMap::getTile(size_t index) {
 
 void BoardTileMap::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     for (const auto& tile : tiles) {
-        if (tile && tile->getVisibleState()) {
-            target.draw(tile->getTileSprite(), states);
-        }
+        if (tile && tile->getVisibleState()) target.draw(tile->getTileSprite(), states);
     }
 }

@@ -101,14 +101,14 @@ private:
   std::unique_ptr<Player> player; 
   std::unique_ptr<Player> player2; 
 
-  std::vector<std::unique_ptr<Bullet>> bullets; 
+ // std::vector<std::unique_ptr<Bullet>> bullets; 
   std::unique_ptr<Sprite> board; 
   std::unique_ptr<Sprite> backgroundBig; 
   std::unique_ptr<Sprite> backgroundBigFinal; 
 
   std::array<std::unique_ptr<Sprite>, Constants::STICKS_NUMBER> sticks;
 
-  std::unique_ptr<Button>button1;
+  //std::unique_ptr<Button>button1;
   
   std::array<std::shared_ptr<Tile>, 11> boardTiles;
   std::unique_ptr<BoardTileMap> boardTileMap; // for the board with walls and goals
