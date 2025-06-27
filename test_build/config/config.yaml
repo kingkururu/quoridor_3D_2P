@@ -140,7 +140,10 @@ board:
   blankwall_tile_index: 5
   blank_p1_index: 6
   blank_p2_index: 7
-  
+  wall_index: 8
+  wall_blank_index: 9
+  wall_top_index: 10
+
 # Text settings
 text:
   size: 20 # pixels 

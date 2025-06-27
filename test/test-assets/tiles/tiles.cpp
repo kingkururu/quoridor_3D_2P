@@ -92,7 +92,7 @@ TileMap::TileMap(std::shared_ptr<Tile>* tileTypesArray, unsigned int tileTypesNu
     }
 }
 
-BoardTileMap::BoardTileMap(std::array<std::shared_ptr<Tile>, 8> tileTypesArr) {
+BoardTileMap::BoardTileMap(std::array<std::shared_ptr<Tile>, 11> tileTypesArr) {
     // tileTypesArr[0] = wall x tile (33x9)
     // tileTypesArr[1] = wall y tile (9x33)
     // tileTypesArr[2] = path tile (33x33)
@@ -101,6 +101,9 @@ BoardTileMap::BoardTileMap(std::array<std::shared_ptr<Tile>, 8> tileTypesArr) {
     // tileTypesArr[5] = blank tile (9x9)
     // tileTypesArr[6] = middle bit of even and odd rows starting (46x9)
     // tileTypesArr[7] = middle bit of even and odd rows ending (46x9)
+    // tileTypesArr[8] = long part of border (11x33)
+    // tileTypesArr[9] = short part of border (11x9)
+    // tileTypesArr[10] = top and bottom of border (23x9)
     
     this->tileTypesArr = tileTypesArr;
     
@@ -110,67 +113,108 @@ BoardTileMap::BoardTileMap(std::array<std::shared_ptr<Tile>, 8> tileTypesArr) {
     pathTileSize = sf::Vector2i{33, 33};   // path tile
     goalTileSize = sf::Vector2i{46, 33};   // goal tiles
     blankWallTileSize = sf::Vector2i{9, 9}; // blank tile
-    blankp1TileSize = sf::Vector2i{46, 9}; 
-    blankp2TileSize = sf::Vector2i{46, 9}; 
-
-    float currentY = 0.0f;
+    blankp1TileSize = sf::Vector2i{46, 9};
+    blankp2TileSize = sf::Vector2i{46, 9};
     
-    // Initialize the 21x19 board with the specified pattern    
-    for(int row = 0; row < 21; ++row) {
-        int rowStart = row * 19;
-        float currentX = -5.5f; // Start 5 pixels to the left
+    // Border tile sizes
+    sf::Vector2i borderLongSize = sf::Vector2i{11, 33};    // long part of border
+    sf::Vector2i borderShortSize = sf::Vector2i{11, 9};    // short part of border
+    sf::Vector2i borderTopBottomSize = sf::Vector2i{23, 9}; // top and bottom of border
+    
+    float currentY = -5.0f; // Start 5 pixels higher
+    
+    // Initialize the 23x21 board with border (21 rows + 2 border rows, 19 cols + 2 border cols)
+    for(int row = 0; row < 23; ++row) {
+        int rowStart = row * 21;
+        float currentX = -15.0f; // Start pixels to the left
         float maxRowHeight = 0.0f; // Track the tallest tile in this row
-                
-        for(int col = 0; col < 19; ++col) {
+        
+        for(int col = 0; col < 21; ++col) {
             std::shared_ptr<Tile> selectedTile;
             sf::Vector2i tileSize;
             
-            if(row % 2 == 0) {
-                if(col == 0) {
-                    selectedTile = tileTypesArr[3]; // goal tile p1
-                    tileSize = goalTileSize;
+            // Top border row (row 0)
+            if(row == 0) {
+                selectedTile = tileTypesArr[10]; // top border
+                tileSize = borderTopBottomSize;
+            }
+            // Bottom border row (row 22)
+            else if(row == 22) {
+                selectedTile = tileTypesArr[10]; // bottom border
+                tileSize = borderTopBottomSize;
+            }
+            // Left border column (col 0)
+            else if(col == 0) {
+                if((row - 1) % 2 == 0) { // Even rows in original grid (accounting for top border offset)
+                    selectedTile = tileTypesArr[8]; // long part of border
+                    tileSize = borderLongSize;
+                } else { // Odd rows in original grid
+                    selectedTile = tileTypesArr[9]; // short part of border
+                    tileSize = borderShortSize;
                 }
-                else if(col == 18) {
-                    selectedTile = tileTypesArr[4]; // goal tile p2
-                    tileSize = goalTileSize;
+            }
+            // Right border column (col 20)
+            else if(col == 20) {
+                if((row - 1) % 2 == 0) { // Even rows in original grid (accounting for top border offset)
+                    selectedTile = tileTypesArr[8]; // long part of border
+                    tileSize = borderLongSize;
+                } else { // Odd rows in original grid
+                    selectedTile = tileTypesArr[9]; // short part of border
+                    tileSize = borderShortSize;
                 }
-                else if(col == 1) {
-                    selectedTile = tileTypesArr[2]; // path tile
-                    tileSize = pathTileSize;
-                }
-                else {
-                    if(col % 2 == 0) {
-                        selectedTile = tileTypesArr[1]; 
-                        tileSize = wallTileYSize;
-                    } else {
+            }
+            // Interior tiles (original 21x19 grid logic, but offset by 1 row and 1 col)
+            else {
+                int originalRow = row - 1; // Offset for top border
+                int originalCol = col - 1; // Offset for left border
+                
+                if(originalRow % 2 == 0) {
+                    if(originalCol == 0) {
+                        selectedTile = tileTypesArr[3]; // goal tile p1
+                        tileSize = goalTileSize;
+                    }
+                    else if(originalCol == 18) {
+                        selectedTile = tileTypesArr[4]; // goal tile p2
+                        tileSize = goalTileSize;
+                    }
+                    else if(originalCol == 1) {
                         selectedTile = tileTypesArr[2]; // path tile
                         tileSize = pathTileSize;
                     }
-                }
-            }
-            else {
-                if(col == 0) {
-                    selectedTile = tileTypesArr[6]; // start piece
-                    tileSize = blankp1TileSize;
-                }
-                else if(col == 18) {
-                    selectedTile = tileTypesArr[7]; // end piece
-                    tileSize = blankp2TileSize;
+                    else {
+                        if(originalCol % 2 == 0) {
+                            selectedTile = tileTypesArr[1];
+                            tileSize = wallTileYSize;
+                        } else {
+                            selectedTile = tileTypesArr[2]; // path tile
+                            tileSize = pathTileSize;
+                        }
+                    }
                 }
                 else {
-                    if(col % 2 == 1) {
-                        selectedTile = tileTypesArr[0]; 
-                        tileSize = wallTileXSize;
-                    } else {
-                        selectedTile = tileTypesArr[5]; // blank tile
-                        tileSize = blankWallTileSize;
+                    if(originalCol == 0) {
+                        selectedTile = tileTypesArr[6]; // start piece
+                        tileSize = blankp1TileSize;
+                    }
+                    else if(originalCol == 18) {
+                        selectedTile = tileTypesArr[7]; // end piece
+                        tileSize = blankp2TileSize;
+                    }
+                    else {
+                        if(originalCol % 2 == 1) {
+                            selectedTile = tileTypesArr[0];
+                            tileSize = wallTileXSize;
+                        } else {
+                            selectedTile = tileTypesArr[5]; // blank tile
+                            tileSize = blankWallTileSize;
+                        }
                     }
                 }
             }
             
             // Clone the tile and set its position
-            tiles[rowStart + col] = selectedTile->clone(); 
-
+            tiles[rowStart + col] = selectedTile->clone();
+            
             // Set the position of the tile sprite
             if (tiles[rowStart + col]) {
                 tiles[rowStart + col]->getTileSprite().setPosition(currentX, currentY);
@@ -184,9 +228,7 @@ BoardTileMap::BoardTileMap(std::array<std::shared_ptr<Tile>, 8> tileTypesArr) {
         
         // Move to next row position using the actual tallest tile in this row
         currentY += maxRowHeight;
-    }    
-    
-    log_info("BoardTileMap initialized with 21x19 grid at proper positions");
+    }
 }
 
 void TileMap::draw(sf::RenderTarget& target, sf::RenderStates states) const {

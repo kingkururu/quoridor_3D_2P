@@ -4,7 +4,7 @@
 To compile and run, download the zip file from release.
 locate program through terminal via
 cd /User/ … (type in the path)
-cd maze_3D-1.0.3
+cd 3Dquoridor
 make install
 brew install sfml@2
 make test

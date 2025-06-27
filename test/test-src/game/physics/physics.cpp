@@ -345,11 +345,14 @@ namespace physics {
 
     void initializeTilemapLookup(std::unique_ptr<BoardTileMap>& tileMap, TilemapLookup& lookup) {
         lookup.allTiles.clear();
-        lookup.allTiles.reserve(399);
+
+        size_t num = tileMap->getTileMapNumber(); 
+
+        lookup.allTiles.reserve(num);
         
         // Calculate bounds and collect tiles
         bool first = true;
-        for (size_t i = 0; i < 399; ++i) {
+        for (size_t i = 0; i < num; ++i) {
             auto tile = tileMap->getTile(i);
             if (tile) {
                 lookup.allTiles.push_back(tile);

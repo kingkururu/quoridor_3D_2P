@@ -109,8 +109,6 @@ namespace physics{
     bool isPointInTile(std::shared_ptr<Tile>& tile, float worldX, float worldY);
     void calculateRayCast3d(std::unique_ptr<Player>& player, std::unique_ptr<BoardTileMap>& tileMap, sf::VertexArray& lines, sf::VertexArray& wallLine); 
 
-    // void navigateMaze(std::unique_ptr<Player>& player, std::unique_ptr<TileMap>& tileMap, std::vector<size_t>& tilePathInstruction);
-
     // raycast pre-collision in 2D space
     struct RaycastResult {
         std::vector<float> collisionTimes;
