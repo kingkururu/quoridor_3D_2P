@@ -76,20 +76,6 @@ sprites:
     scale:
       x: 1.0
       y: 1.0
-  bullet: 
-    speed: 30.0
-    acceleration:
-      x: 2.0 
-      y: 2.0
-    index_max: 6 # number of total images for animation 
-    animation_rows: 1 # number of rows for animation 
-    path: "test/test-assets/sprites/png/bullet.png"
-    position:
-      x: 78.0 # pixels 
-      y: 15.0 # pixels 
-    scale:
-      x: 1.0
-      y: 1.0
   pawn_blue: 
     path: "test/test-assets/sprites/png/pawnBlue.png"
     position:

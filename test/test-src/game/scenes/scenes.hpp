@@ -92,8 +92,7 @@ private:
   std::unique_ptr<Player> player; 
   std::unique_ptr<Player> player2; 
 
-  // std::vector<std::unique_ptr<Bullet>> bullets; // not in use 
-  //std::unique_ptr<Button>button1; // not in use
+  std::unique_ptr<Button>button1;
 
   std::unique_ptr<Sprite> pawnBlue; // for 3D rendering
   std::unique_ptr<Sprite> pawnRed;

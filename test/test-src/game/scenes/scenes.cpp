@@ -89,12 +89,8 @@ void gamePlayScene::createAssets() {
 
         backgroundBigFinal = std::make_unique<Sprite>(Constants::BACKGROUNDBIGFINAL_POSITION, Constants::BACKGROUNDBIGFINAL_SCALE, Constants::BACKGROUNDBIGFINAL_TEXTURE); 
         
-        // button1 = std::make_unique<Button>(Constants::BUTTON1_POSITION, Constants::BUTTON1_SCALE, Constants::BUTTON1_TEXTURE, Constants::BUTTON1_ANIMATIONRECTS, Constants::BUTTON1_INDEXMAX, utils::convertToWeakPtrVector(Constants::BUTTON1_BITMASK)); 
-        // button1->setRects(0); 
-
-        // bullets.push_back(std::make_unique<Bullet>(Constants::BULLET_STARTINGPOS, Constants::BULLET_STARTINGSCALE, Constants::BULLET_TEXTURE, Constants::BULLET_INITIALSPEED, Constants::BULLET_ACCELERATION, 
-        //                                            Constants::BULLET_ANIMATIONRECTS, Constants::BULLET_INDEXMAX,  utils::convertToWeakPtrVector(Constants::BULLET_BITMASK)));
-        // bullets[0]->setRects(0);
+        button1 = std::make_unique<Button>(Constants::BUTTON1_POSITION, Constants::BUTTON1_SCALE, Constants::BUTTON1_TEXTURE, Constants::BUTTON1_ANIMATIONRECTS, Constants::BUTTON1_INDEXMAX, utils::convertToWeakPtrVector(Constants::BUTTON1_BITMASK)); 
+        button1->setRects(0); 
 
         boardTiles[0] = std::make_shared<Tile>(Constants::BOARDTILES_SCALE, Constants::BOARDTILES_TEXTURE, Constants::BOARDTILES_RECTS[Constants::WALL_TILEX_INDEX], Constants::BOARDTILES_BITMASK[Constants::WALL_TILEX_INDEX], true); // walkable all true
         boardTiles[1] = std::make_shared<Tile>(Constants::BOARDTILES_SCALE, Constants::BOARDTILES_TEXTURE, Constants::BOARDTILES_RECTS[Constants::WALL_TILEY_INDEX], Constants::BOARDTILES_BITMASK[Constants::WALL_TILEY_INDEX], true); 
@@ -142,7 +138,7 @@ void gamePlayScene::setInitialTimes(){
 
 void gamePlayScene::insertItemsInQuadtree(){
     quadtree.insert(player);  
-    //quadtree.insert(bullets[bullets.size() - 1]); 
+    quadtree.insert(player2);
 }
 
 void gamePlayScene::respawnAssets(){
@@ -436,9 +432,8 @@ void gamePlayScene::update() {
     }
 }
 
-void gamePlayScene::changeAnimation(){ // change animation for sprites. change animation for texts if necessary     if (button1 && button1->getVisibleState()) button1->changeAnimation(); 
-   // for (const auto& bullet : bullets) if (bullet) bullet->changeAnimation();
-   // if (button1) button1->changeAnimation(); 
+void gamePlayScene::changeAnimation(){ // change animation for sprites. change animation for texts if necessary   
+    if (button1) button1->changeAnimation(); 
 }
 
 // Draws only the visible sprite and texts
@@ -492,7 +487,7 @@ void gamePlayScene::drawInRightView(){
 
     window.draw(wallLine2);
 
-  //  drawVisibleObject(bullets[0]); 
     drawVisibleObject(pawnBlue);
     drawVisibleObject(endingText);
+    drawVisibleObject(button1); 
 }

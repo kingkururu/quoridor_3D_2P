@@ -151,19 +151,7 @@ namespace Constants {
                                 config["sprites"]["button1"]["position"]["y"].as<float>()};
             BUTTON1_SCALE = {config["sprites"]["button1"]["scale"]["x"].as<float>(),
                             config["sprites"]["button1"]["scale"]["y"].as<float>()};                
-            
-            // Load bullet paths and settings
-            BULLET_PATH = config["sprites"]["bullet"]["path"].as<std::string>();
-            BULLET_INITIALSPEED = config["sprites"]["bullet"]["speed"].as<float>();
-            BULLET_ACCELERATION = {config["sprites"]["bullet"]["acceleration"]["x"].as<float>(),
-                                config["sprites"]["bullet"]["acceleration"]["y"].as<float>()};           
-            BULLET_INDEXMAX = config["sprites"]["bullet"]["index_max"].as<short>();
-            BULLET_ANIMATIONROWS = config["sprites"]["bullet"]["animation_rows"].as<short>();
-            BULLET_STARTINGPOS = {config["sprites"]["bullet"]["position"]["x"].as<float>(),
-                                config["sprites"]["bullet"]["position"]["y"].as<float>()};
-            BULLET_STARTINGSCALE = {config["sprites"]["bullet"]["scale"]["x"].as<float>(),
-                            config["sprites"]["bullet"]["scale"]["y"].as<float>()};
-
+        
             // Load pawn paths and settings
             PAWNBLUE_PATH = config["sprites"]["pawn_blue"]["path"].as<std::string>();
             PAWNBLUE_POSITION = {config["sprites"]["pawn_blue"]["position"]["x"].as<float>(),
@@ -271,7 +259,6 @@ namespace Constants {
         // sprites
         if (!SPRITE1_TEXTURE->loadFromFile(SPRITE1_PATH)) log_warning("Failed to load sprite1 texture");
         if (!SPRITE2_TEXTURE->loadFromFile(SPRITE2_PATH)) log_warning("Failed to load sprite2 texture");
-        if (!BULLET_TEXTURE->loadFromFile(BULLET_PATH)) log_warning("Failed to load bullet texture");
         if (!PAWNBLUE_TEXTURE->loadFromFile(PAWNBLUE_PATH)) log_warning("Failed to load board texture"); 
         if (!PAWNRED_TEXTURE->loadFromFile(PAWNRED_PATH)) log_warning("Failed to load board texture");  
         if (!BUTTON1_TEXTURE->loadFromFile(BUTTON1_PATH)) log_warning("Failed to load enemy texture");  
@@ -316,13 +303,6 @@ namespace Constants {
         // make bitmasks for tiles 
         for (const auto& rect : BUTTON1_ANIMATIONRECTS ) {
             BUTTON1_BITMASK.emplace_back(createBitmask(BUTTON1_TEXTURE, rect));
-        }
-
-        BULLET_ANIMATIONRECTS.reserve(BULLET_INDEXMAX); 
-        for (int row = 0; row < BULLET_ANIMATIONROWS; ++row) {
-            for (int col = 0; col < BULLET_INDEXMAX / BULLET_ANIMATIONROWS; ++col) {
-                BULLET_ANIMATIONRECTS.emplace_back(sf::IntRect{col * 16, row * 16, 16, 16});
-            }
         }
 
         BOARDTILES_RECTS[P1_GOAL_TILE_INDEX] = BOARDTILES_RECTS[P2_GOAL_TILE_INDEX] = sf::IntRect{0, 0, 46, 33}; // p1,p2 goal block

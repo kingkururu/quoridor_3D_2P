@@ -455,7 +455,6 @@ namespace physics {
         const float maxVisibleDistance = 800.0f;
         if (distance > maxVisibleDistance) {
             sprite->setVisibleState(false);
-            log_info("Sprite hidden: too far away");
             return;
         }
         
@@ -464,7 +463,6 @@ namespace physics {
         
         if (!hasLineOfSight) {
             sprite->setVisibleState(false);
-            log_info("Sprite hidden: line of sight blocked");
             return;
         }
         
