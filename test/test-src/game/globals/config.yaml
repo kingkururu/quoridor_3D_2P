@@ -44,8 +44,8 @@ sprites:
     animation_rows: 1 # number of rows for animation 
     path: "test/test-assets/sprites/png/1.png"
     position:
-      x: 13.0 # pixels 
-      y: 210.0 # pixels 
+      x: 21.0 # pixels 
+      y: 225.0 # pixels 
     scale:
       x: 1.0
       y: 1.0
@@ -61,8 +61,8 @@ sprites:
     animation_rows: 1 # number of rows for animation 
     path: "test/test-assets/sprites/png/2.png"
     position:
-      x: 406.0 # pixels 
-      y: 210.0 # pixels 
+      x: 430.0 # pixels 
+      y: 225.0 # pixels 
     scale:
       x: 1.0
       y: 1.0

@@ -166,141 +166,115 @@ void gamePlayScene::handleInput() {
 }
 
 void gamePlayScene::handleMouseKey() {
-    if(!MetaComponents::middleViewmouseClickedPosition_f.x && !MetaComponents::middleViewmouseClickedPosition_f.x || !boardTileMap) return; // Ensure mouse position and boardTileMap are valid
+    if (!MetaComponents::middleViewmouseClickedPosition_f.x || !boardTileMap) return;
 
-    // Get current tile index for both hover and click
     int currentTileIndex = boardTileMap->getTileIndex(MetaComponents::middleViewmouseClickedPosition_f);
-    sf::Vector2f stickPos;
-    size_t targetTileIndex;
+    size_t targetTileIndex = currentTileIndex;
     
-    // Calculate stick position based on closest grey tile
-    if (boardTileMap->isGreyTile(currentTileIndex)) {
-        // If current tile is already grey, use its position
-        stickPos = boardTileMap->getTile(currentTileIndex)->getTileSprite().getPosition();
-        targetTileIndex = currentTileIndex;
-    } else {
-        // Find the closest grey tile
+    // Find closest grey tile if current isn't grey
+    if (!boardTileMap->isGreyTile(currentTileIndex)) {
         float minDistance = std::numeric_limits<float>::max();
-        size_t closestGreyTileIndex = 0;
         
-        // Check all tiles to find the closest grey one
         for (size_t i = 0; i < boardTileMap->getTileMapNumber(); ++i) {
             if (boardTileMap->isGreyTile(i)) {
                 sf::Vector2f tilePos = boardTileMap->getTile(i)->getTileSprite().getPosition();
-                
-                // Calculate distance from mouse position to this grey tile
                 float dx = MetaComponents::middleViewmouseClickedPosition_f.x - tilePos.x;
                 float dy = MetaComponents::middleViewmouseClickedPosition_f.y - tilePos.y;
                 float distance = std::sqrt(dx * dx + dy * dy);
                 
                 if (distance < minDistance) {
                     minDistance = distance;
-                    closestGreyTileIndex = i;
+                    targetTileIndex = i;
                 }
             }
         }
-        
-        // Use the position of the closest grey tile
-        stickPos = boardTileMap->getTile(closestGreyTileIndex)->getTileSprite().getPosition();
-        targetTileIndex = closestGreyTileIndex;
     }
     
     if (stickIndex < Constants::STICKS_NUMBER) {
-        // Check if this will be a vertical stick
+        sf::Vector2f stickPos = boardTileMap->getTile(targetTileIndex)->getTileSprite().getPosition();
         bool isVertical = boardTileMap->isVerticalWallTile(targetTileIndex);
         
-        // Adjust position for vertical sticks (shift 9 pixels to the right)
-        sf::Vector2f adjustedPos = stickPos;
-        if (isVertical) {
-            adjustedPos.x += 9.0f;
-        }
+        if (isVertical) stickPos.x += 9.0f;
         
-        // Update stick position for hover effect
-        sticks[stickIndex]->returnSpritesShape().setPosition(adjustedPos);
+        sticks[stickIndex]->returnSpritesShape().setPosition(stickPos);
+        sticks[stickIndex]->returnSpritesShape().setRotation(isVertical ? 90.0f : 0.0f);
+    }
+    
+    // ACTUAL CLICK - Early exit if invalid
+    if (!FlagSystem::flagEvents.mouseClicked || !boardTileMap->isGreyTile(currentTileIndex) || 
+        stickIndex >= Constants::STICKS_NUMBER) return;
+    
+    // Check direction limits - EARLY EXIT
+    bool willBeVertical = boardTileMap->isVerticalWallTile(currentTileIndex);
+    sf::Vector2f originalTilePos = boardTileMap->getTile(currentTileIndex)->getTileSprite().getPosition();
+    int sticksInSameDirection = 1;
+    
+    for (int i = 0; i < stickIndex; ++i) {
+        sf::Vector2f existingPos = sticks[i]->returnSpritesShape().getPosition();
+        bool existingIsVertical = (std::abs(sticks[i]->returnSpritesShape().getRotation() - 90.0f) < 1.0f);
         
-        // Set rotation based on tile type
-        if (isVertical) {
-            sticks[stickIndex]->returnSpritesShape().setRotation(90.0f);
-        } else {
-            sticks[stickIndex]->returnSpritesShape().setRotation(0.0f);
+        // Adjust existing position back to original tile position
+        if (existingIsVertical) existingPos.x -= 9.0f;
+        
+        // Count sticks in same direction at same position
+        if (willBeVertical == existingIsVertical) {
+            if (willBeVertical && std::abs(existingPos.x - originalTilePos.x) < 1.0f) {
+                ++sticksInSameDirection;
+            } else if (!willBeVertical && std::abs(existingPos.y - originalTilePos.y) < 1.0f) {
+                ++sticksInSameDirection;
+            }
         }
     }
     
-    // ACTUAL CLICK: Place stick with overlap and X-direction limit checks
-    if (FlagSystem::flagEvents.mouseClicked && boardTileMap->isGreyTile(currentTileIndex)) {
-        sf::Vector2f targetPos = boardTileMap->getTile(currentTileIndex)->getTileSprite().getPosition();
-        bool willBeVertical = boardTileMap->isVerticalWallTile(currentTileIndex);
-        
-        // Adjust target position for vertical sticks
-        if (willBeVertical) {
-            targetPos.x += 9.0f;
-        }
-        
-        // Check for overlaps with existing sticks (using adjusted positions)
-        bool hasOverlap = false;
-        for (int i = 0; i < stickIndex; ++i) {
-            sf::Vector2f existingPos = sticks[i]->returnSpritesShape().getPosition();
-            if (std::abs(existingPos.x - targetPos.x) < 1.0f && std::abs(existingPos.y - targetPos.y) < 1.0f) {
-                hasOverlap = true;
-                break;
-            }
-        }
-        
-        // Check X-direction limit (max 4 sticks in same X coordinate)
-        // Use original tile position for X-direction counting, not adjusted position
-        sf::Vector2f originalTilePos = boardTileMap->getTile(currentTileIndex)->getTileSprite().getPosition();
-        int sticksInSameX = 0;
-        for (int i = 0; i < stickIndex; ++i) {
-            sf::Vector2f existingPos = sticks[i]->returnSpritesShape().getPosition();
-            sf::Vector2f existingOriginalPos = existingPos;
-            
-            // Reverse the adjustment to get original tile position for comparison
-            // Check if existing stick is vertical by checking its rotation
-            if (std::abs(sticks[i]->returnSpritesShape().getRotation() - 90.0f) < 1.0f) {
-                existingOriginalPos.x -= 9.0f;
-            }
-            
-            if (std::abs(existingOriginalPos.x - originalTilePos.x) < 1.0f) {
-                ++sticksInSameX;
-            }
-        }
-        
-        unsigned int nextTileIndex = 0; // Initialize next tile index
-        unsigned int nextBlankTileIndex = 0; // Initialize next blank tile index
-
-        // Only place stick if no overlap and X-direction limit not exceeded
-        if (!hasOverlap && sticksInSameX < 4 && stickIndex < Constants::STICKS_NUMBER) {
-            // Set final position and rotation for the placed stick
-            sticks[stickIndex]->returnSpritesShape().setPosition(targetPos);
-            
-            if (willBeVertical) {
-                sticks[stickIndex]->returnSpritesShape().setRotation(90.0f);
-                if(currentTileIndex % 19 == 0){
-                    nextBlankTileIndex = currentTileIndex - 21; // vertical stick, next tile is above
-                    nextTileIndex = nextBlankTileIndex - 21; // next tile is above
-                } else {
-                    nextBlankTileIndex = currentTileIndex + 21; // vertical stick, next tile is below
-                    nextTileIndex = nextBlankTileIndex + 21; // next tile is below
-                }
-            } else {                
-                if(currentTileIndex % 19 == 0){
-                    nextBlankTileIndex = currentTileIndex - 1; // horizontal stick, next tile is to the left
-                    nextTileIndex = nextBlankTileIndex - 1;
-                } else {
-                    nextBlankTileIndex = currentTileIndex + 1; // horizontal stick, next tile is to the left
-                    nextTileIndex = nextBlankTileIndex + 1;
-                }
-            }        
-            
-            boardTileMap->getTile(currentTileIndex)->setWalkable(false);
-            boardTileMap->getTile(nextTileIndex)->setWalkable(false);
-            boardTileMap->getTile(nextBlankTileIndex)->setWalkable(false);
-            
-            ++stickIndex;
-
-            FlagSystem::gameScene1Flags.stickPlaced = true; // Set flag for stick placement
+    std::cout << "Sticks in same direction: " << sticksInSameDirection << std::endl;
+    // EXIT if limits exceeded
+    if ((willBeVertical && sticksInSameDirection >= 5) || (!willBeVertical && sticksInSameDirection >= 4)) {
+        return;
+    }
+    
+    // Check for overlaps
+    sf::Vector2f targetPos = originalTilePos;
+    if (willBeVertical) targetPos.x += 9.0f;
+    
+    for (int i = 0; i < stickIndex; ++i) {
+        sf::Vector2f existingPos = sticks[i]->returnSpritesShape().getPosition();
+        if (std::abs(existingPos.x - targetPos.x) < 1.0f && std::abs(existingPos.y - targetPos.y) < 1.0f) {
+            return; // Overlap found - exit
         }
     }
+    
+    // PLACE STICK - Calculate affected tiles
+    unsigned int nextBlankTileIndex, nextTileIndex;
+    
+    if (willBeVertical) {
+        if (currentTileIndex % 21 == 0) {
+            nextBlankTileIndex = currentTileIndex - 21;
+            nextTileIndex = nextBlankTileIndex - 21;
+        } else {
+            nextBlankTileIndex = currentTileIndex + 21;
+            nextTileIndex = nextBlankTileIndex + 21;
+        }
+    } else {
+        if (currentTileIndex % 21 == 0) {
+            nextBlankTileIndex = currentTileIndex - 1;
+            nextTileIndex = nextBlankTileIndex - 1;
+        } else {
+            nextBlankTileIndex = currentTileIndex + 1;
+            nextTileIndex = nextBlankTileIndex + 1;
+        }
+    }
+    
+    // Set stick position and properties
+    sticks[stickIndex]->returnSpritesShape().setPosition(targetPos);
+    sticks[stickIndex]->returnSpritesShape().setRotation(willBeVertical ? 90.0f : 0.0f);
+    
+    // Update tile walkability
+    boardTileMap->getTile(currentTileIndex)->setWalkable(false);
+    boardTileMap->getTile(nextTileIndex)->setWalkable(false);
+    boardTileMap->getTile(nextBlankTileIndex)->setWalkable(false);
+    
+    ++stickIndex;
+    FlagSystem::gameScene1Flags.stickPlaced = true;
 }
 
 void gamePlayScene::handleSpaceKey() {
@@ -314,35 +288,128 @@ void gamePlayScene::handleMovementKeys() {
     handleEachPlayer(player2);
 }
 
-void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum) {
+// void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum) {
 
+//     if(!playerNum || !playerNum->getMoveState()) return;
+    
+//     // Get player's current position and bounds
+//     sf::Vector2f playerPos = playerNum->getSpritePos();
+//     sf::FloatRect playerBounds = playerNum->returnSpritesShape().getGlobalBounds();
+//     sf::Vector2f originalPlayerPos = playerPos;
+
+//     // Function to check if player can walk at a given position
+//     auto canWalkAtPosition = [&](sf::Vector2f pos) -> bool {
+//         // Custom player collision box (smaller than full sprite)
+//         float collisionWidth = playerBounds.width * 0.6f;
+//         float collisionHeight = playerBounds.height * 0.4f;
+
+//         sf::FloatRect testPlayerBounds(
+//             pos.x - collisionWidth / 2.f,
+//             pos.y - collisionHeight / 2.f,
+//             collisionWidth,
+//             collisionHeight
+//         );
+
+//         // Check collision with all tiles in the BoardTileMap
+//         for (int i = 0; i < 23 * 21; ++i) { // num or rows and columns from boardTileMap
+//             try {
+//                 auto& tile = boardTileMap->getTile(i);
+//                 if (tile && tile->getVisibleState()) {
+//                     sf::FloatRect tileBounds = tile->getTileSprite().getGlobalBounds();
+
+//                     // If player intersects with a non-walkable tile, return false
+//                     if (tileBounds.intersects(testPlayerBounds) && !tile->getWalkable()) return false;
+//                 }
+//             } catch (const std::exception& e) {
+//                 log_warning("Error checking tile collision: " + std::string(e.what()));
+//             }
+//         }
+//         return true;
+//     };
+        
+//     // Check if current position is valid
+//     bool canWalkOnCurrentTile = canWalkAtPosition(playerPos);
+    
+//     // Handle player input
+//     if(FlagSystem::flagEvents.aPressed) { // turn left
+//         playerNum->returnSpritesShape().rotate(-1.0f); // degrees
+//         float newAngle = playerNum->returnSpritesShape().getRotation();
+//         playerNum->setHeadingAngle(newAngle);
+//        // FlagSystem::gameScene1Flags.begin = true;
+//     }
+    
+//     if(FlagSystem::flagEvents.dPressed) { // turn right
+//         playerNum->returnSpritesShape().rotate(1.0f); // degrees
+//         float newAngle = playerNum->returnSpritesShape().getRotation();
+//         playerNum->setHeadingAngle(newAngle);
+//        // FlagSystem::gameScene1Flags.begin = true;
+//     }
+    
+//     // Store position before movement
+//     sf::Vector2f positionBeforeMovement = playerNum->getSpritePos();
+    
+//     if(FlagSystem::flagEvents.wPressed && canWalkOnCurrentTile) { // forward
+//         physics::spriteMover(playerNum, physics::followDirVec);
+//         // FlagSystem::gameScene1Flags.begin = true;
+//     }
+    
+//     if(FlagSystem::flagEvents.sPressed && canWalkOnCurrentTile) { // backward
+//         physics::spriteMover(playerNum, physics::followDirVecOpposite);
+//        // FlagSystem::gameScene1Flags.begin = true;
+//     }
+    
+//     // Check if new position after movement is valid
+//     sf::Vector2f newPlayerPos = playerNum->getSpritePos();
+//     bool canWalkAtNewPosition = canWalkAtPosition(newPlayerPos);
+    
+//     // If new position is invalid, revert to original position
+//     if(!canWalkAtNewPosition) {
+//         playerNum->changePosition(originalPlayerPos);
+//         playerNum->updatePos();
+//     }
+    
+//     // Apply screen boundary constraints
+//     sf::Vector2f finalPlayerPos = playerNum->getSpritePos();
+//     sf::FloatRect finalPlayerBounds = playerNum->returnSpritesShape().getGlobalBounds();
+    
+//     float newX = std::clamp(finalPlayerPos.x, 
+//                            finalPlayerBounds.width / 2, 
+//                            Constants::VIEW_SIZE_X - finalPlayerBounds.width / 2);
+//     float newY = std::clamp(finalPlayerPos.y, 
+//                            finalPlayerBounds.height / 2, 
+//                            Constants::VIEW_SIZE_Y - finalPlayerBounds.height / 2);
+    
+//     playerNum->changePosition(sf::Vector2f{newX, newY});
+//     playerNum->updatePos();
+// }
+void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum) {
     if(!playerNum || !playerNum->getMoveState()) return;
     
     // Get player's current position and bounds
     sf::Vector2f playerPos = playerNum->getSpritePos();
     sf::FloatRect playerBounds = playerNum->returnSpritesShape().getGlobalBounds();
     sf::Vector2f originalPlayerPos = playerPos;
-
+    
     // Function to check if player can walk at a given position
     auto canWalkAtPosition = [&](sf::Vector2f pos) -> bool {
         // Custom player collision box (smaller than full sprite)
         float collisionWidth = playerBounds.width * 0.6f;
         float collisionHeight = playerBounds.height * 0.4f;
-
+        
         sf::FloatRect testPlayerBounds(
             pos.x - collisionWidth / 2.f,
             pos.y - collisionHeight / 2.f,
             collisionWidth,
             collisionHeight
         );
-
+        
         // Check collision with all tiles in the BoardTileMap
         for (int i = 0; i < 23 * 21; ++i) { // num or rows and columns from boardTileMap
             try {
                 auto& tile = boardTileMap->getTile(i);
                 if (tile && tile->getVisibleState()) {
                     sf::FloatRect tileBounds = tile->getTileSprite().getGlobalBounds();
-
+                    
                     // If player intersects with a non-walkable tile, return false
                     if (tileBounds.intersects(testPlayerBounds) && !tile->getWalkable()) return false;
                 }
@@ -352,63 +419,76 @@ void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum) {
         }
         return true;
     };
+    
+    // Function to simulate movement and get destination position
+    auto getDestinationPos = [&](bool isForward) -> sf::Vector2f {
+        // Create a temporary copy of current position
+        sf::Vector2f tempPos = playerPos;
         
-    // Check if current position is valid
-    bool canWalkOnCurrentTile = canWalkAtPosition(playerPos);
+        // Temporarily move the player to calculate destination
+        sf::Vector2f originalPos = playerNum->getSpritePos();
+        
+        if (isForward) {
+            physics::spriteMover(playerNum, physics::followDirVec);
+        } else {
+            physics::spriteMover(playerNum, physics::followDirVecOpposite);
+        }
+        
+        sf::Vector2f destinationPos = playerNum->getSpritePos();
+        
+        // Restore original position
+        playerNum->changePosition(originalPos);
+        playerNum->updatePos();
+        
+        return destinationPos;
+    };
     
     // Handle player input
     if(FlagSystem::flagEvents.aPressed) { // turn left
         playerNum->returnSpritesShape().rotate(-1.0f); // degrees
         float newAngle = playerNum->returnSpritesShape().getRotation();
         playerNum->setHeadingAngle(newAngle);
-       // FlagSystem::gameScene1Flags.begin = true;
     }
     
     if(FlagSystem::flagEvents.dPressed) { // turn right
         playerNum->returnSpritesShape().rotate(1.0f); // degrees
         float newAngle = playerNum->returnSpritesShape().getRotation();
         playerNum->setHeadingAngle(newAngle);
-       // FlagSystem::gameScene1Flags.begin = true;
     }
     
     // Store position before movement
     sf::Vector2f positionBeforeMovement = playerNum->getSpritePos();
     
-    if(FlagSystem::flagEvents.wPressed && canWalkOnCurrentTile) { // forward
-        physics::spriteMover(playerNum, physics::followDirVec);
-        // FlagSystem::gameScene1Flags.begin = true;
+    if(FlagSystem::flagEvents.wPressed) { // forward
+        // Check if forward movement destination is valid
+        sf::Vector2f forwardDestination = getDestinationPos(true);
+        if(canWalkAtPosition(forwardDestination)) {
+            physics::spriteMover(playerNum, physics::followDirVec);
+        }
     }
     
-    if(FlagSystem::flagEvents.sPressed && canWalkOnCurrentTile) { // backward
-        physics::spriteMover(playerNum, physics::followDirVecOpposite);
-       // FlagSystem::gameScene1Flags.begin = true;
-    }
-    
-    // Check if new position after movement is valid
-    sf::Vector2f newPlayerPos = playerNum->getSpritePos();
-    bool canWalkAtNewPosition = canWalkAtPosition(newPlayerPos);
-    
-    // If new position is invalid, revert to original position
-    if(!canWalkAtNewPosition) {
-        playerNum->changePosition(originalPlayerPos);
-        playerNum->updatePos();
+    if(FlagSystem::flagEvents.sPressed) { // backward
+        // Check if backward movement destination is valid
+        sf::Vector2f backwardDestination = getDestinationPos(false);
+        if(canWalkAtPosition(backwardDestination)) {
+            physics::spriteMover(playerNum, physics::followDirVecOpposite);
+        }
     }
     
     // Apply screen boundary constraints
     sf::Vector2f finalPlayerPos = playerNum->getSpritePos();
     sf::FloatRect finalPlayerBounds = playerNum->returnSpritesShape().getGlobalBounds();
     
-    float newX = std::clamp(finalPlayerPos.x, 
-                           finalPlayerBounds.width / 2, 
-                           Constants::VIEW_SIZE_X - finalPlayerBounds.width / 2);
-    float newY = std::clamp(finalPlayerPos.y, 
-                           finalPlayerBounds.height / 2, 
-                           Constants::VIEW_SIZE_Y - finalPlayerBounds.height / 2);
+    float newX = std::clamp(finalPlayerPos.x,
+                            finalPlayerBounds.width / 2,
+                            Constants::VIEW_SIZE_X - finalPlayerBounds.width / 2);
+    float newY = std::clamp(finalPlayerPos.y,
+                            finalPlayerBounds.height / 2,
+                            Constants::VIEW_SIZE_Y - finalPlayerBounds.height / 2);
     
     playerNum->changePosition(sf::Vector2f{newX, newY});
     playerNum->updatePos();
 }
-
 // Keeps sprites inside screen bounds, checks for collisions, update scores, and sets flagEvents.gameEnd to true in an event of collision 
 void gamePlayScene::handleGameEvents() { 
     physics::calculateRayCast3d(player, boardTileMap, rays, wallLine); // board specific
@@ -416,6 +496,7 @@ void gamePlayScene::handleGameEvents() {
 
     // check which players turn
     if(FlagSystem::gameScene1Flags.player1turn) {
+        player->setMoveState(true); // player 1 can move
         player2->setMoveState(false); // player 2 cannot move
 
         if(FlagSystem::gameScene1Flags.moved || FlagSystem::gameScene1Flags.stickPlaced) {
@@ -433,6 +514,7 @@ void gamePlayScene::handleGameEvents() {
         }
     }
     else if(FlagSystem::gameScene1Flags.player2turn) {
+        player2->setMoveState(true); // player 1 can move
         player->setMoveState(false); // player 1 cannot move
 
         if(FlagSystem::gameScene1Flags.moved || FlagSystem::gameScene1Flags.stickPlaced) {
@@ -521,6 +603,5 @@ void gamePlayScene::drawInRightView(){
     window.draw(wallLine2);
 
   //  drawVisibleObject(bullets[0]); 
-      drawVisibleObject(endingText);
-
+    drawVisibleObject(endingText);
 }
