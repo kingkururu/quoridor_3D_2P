@@ -89,8 +89,8 @@ private:
   template<typename drawableType>
   void drawVisibleObject(drawableType& drawable){ if (drawable && drawable->getVisibleState()) window.draw(*drawable); }
 
-  std::unique_ptr<Player> player; 
-  std::unique_ptr<Player> player2; 
+  std::unique_ptr<Player> player; // red
+  std::unique_ptr<Player> player2; // blue
 
   std::unique_ptr<Button>button1;
 
@@ -119,7 +119,7 @@ private:
   std::unique_ptr<TextClass> scoreText; 
   std::unique_ptr<TextClass> endingText; 
 
-  unsigned int stickIndex{}; // even is player 2 odd is player 1
+  unsigned int stickIndex{}; 
 
   size_t p1pathCount{};
   unsigned int p1PrevPathIndex{};

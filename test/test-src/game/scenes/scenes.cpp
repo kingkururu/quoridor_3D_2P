@@ -394,41 +394,39 @@ void gamePlayScene::handleGameEvents() {
     backgroundBigHalfBlue->setVisibleState(pawnBlueBlocked);
 
     // check which players turn
-    if(FlagSystem::gameScene1Flags.player1turn) {
+    if(FlagSystem::gameScene1Flags.playerRedTurn) {
         player->setMoveState(true); // player 1 can move
         player2->setMoveState(false); // player 2 cannot move
 
         if(FlagSystem::gameScene1Flags.moved || FlagSystem::gameScene1Flags.stickPlaced) {
-            FlagSystem::gameScene1Flags.player1turn = false; // switch to player 2's turn
-            FlagSystem::gameScene1Flags.player2turn = true; // set player 2's turn
+            FlagSystem::gameScene1Flags.playerRedTurn = false; // switch to player 2's turn
+            FlagSystem::gameScene1Flags.playerBlueTurn = true; // set player 2's turn
             FlagSystem::gameScene1Flags.moved = false; // reset moved flag
             FlagSystem::gameScene1Flags.stickPlaced = false; // reset stick placed flag
         }
 
         if(boardTileMap->isP2StartTile(boardTileMap->getTileIndex(player->getSpritePos()))) {
             FlagSystem::flagEvents.gameEnd = true; // player 1 reached goal tile
-            endingText->updateText(Constants::ENDINGTEXT_MESSAGE + " Player 1 wins!");
-            std::cout << "Player 1 reached goal tile!" << std::endl;
+            endingText->updateText(Constants::ENDINGTEXT_MESSAGE + " Player Red wins!");
             endingText->setVisibleState(true);
             backgroundBigFinal->setVisibleState(true); // show final background
             backgroundBig->setVisibleState(false); // hide initial background
         }
     }
-    else if(FlagSystem::gameScene1Flags.player2turn) {
+    else if(FlagSystem::gameScene1Flags.playerBlueTurn) {
         player2->setMoveState(true); // player 1 can move
         player->setMoveState(false); // player 1 cannot move
 
         if(FlagSystem::gameScene1Flags.moved || FlagSystem::gameScene1Flags.stickPlaced) {
-            FlagSystem::gameScene1Flags.player2turn = false; // switch to player 1's turn
-            FlagSystem::gameScene1Flags.player1turn = true; // set player 1's turn
+            FlagSystem::gameScene1Flags.playerBlueTurn = false; // switch to player 1's turn
+            FlagSystem::gameScene1Flags.playerRedTurn = true; // set player 1's turn
             FlagSystem::gameScene1Flags.moved = false; // reset moved flag
             FlagSystem::gameScene1Flags.stickPlaced = false; // reset stick placed flag
         }
 
         if(boardTileMap->isP1StartTile(boardTileMap->getTileIndex(player2->getSpritePos()))) {
             FlagSystem::flagEvents.gameEnd = true; // player 2 reached goal tile
-            endingText->updateText(Constants::ENDINGTEXT_MESSAGE + " Player 2 wins!");
-            std::cout << "Player 2 reached goal tile!" << std::endl;
+            endingText->updateText(Constants::ENDINGTEXT_MESSAGE + " Player Blue wins!");
             endingText->setVisibleState(true);
             backgroundBigFinal->setVisibleState(true); // show final background
             backgroundBig->setVisibleState(false); // hide initial background

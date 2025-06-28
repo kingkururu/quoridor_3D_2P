@@ -287,20 +287,20 @@ namespace FlagSystem {
 
         bool begin; 
 
-        bool player1turn;
-        bool player2turn;
+        bool playerBlueTurn;
+        bool playerRedTurn;
 
         bool stickPlaced; // true if player placed a stick
         bool moved; // true if player moved
 
-        GameSceneEvents1() : sceneEnd(false), sceneStart(true), begin(false), player1turn(true), player2turn(false), stickPlaced(false), moved(false) {}
+        GameSceneEvents1() : sceneEnd(false), sceneStart(true), begin(false), playerBlueTurn(true), playerRedTurn(false), stickPlaced(false), moved(false) {}
 
           void resetFlags() {
             sceneEnd = false;
             sceneStart = false;
             begin = false;
-            player1turn = true;  // Default to player 1's turn
-            player2turn = false;
+            playerBlueTurn = true;  // Default to player 1's turn
+            playerRedTurn = false;
             stickPlaced = false;
             moved = false;
             log_info("Reset GameSceneEvents1 flags");
