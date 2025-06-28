@@ -92,15 +92,15 @@ private:
   std::unique_ptr<Player> player; 
   std::unique_ptr<Player> player2; 
 
- // std::vector<std::unique_ptr<Bullet>> bullets; 
-  std::unique_ptr<Sprite> pawnBlue;  
+  // std::vector<std::unique_ptr<Bullet>> bullets; // not in use 
+  //std::unique_ptr<Button>button1; // not in use
+
+  std::unique_ptr<Sprite> pawnBlue; // for 3D rendering
   std::unique_ptr<Sprite> pawnRed;
   std::unique_ptr<Sprite> backgroundBig; 
   std::unique_ptr<Sprite> backgroundBigFinal; 
 
   std::array<std::unique_ptr<Sprite>, Constants::STICKS_NUMBER> sticks;
-
-  //std::unique_ptr<Button>button1;
   
   std::array<std::shared_ptr<Tile>, 11> boardTiles;
   std::unique_ptr<BoardTileMap> boardTileMap; // for the board with walls and goals
@@ -118,9 +118,9 @@ private:
   std::unique_ptr<TextClass> scoreText; 
   std::unique_ptr<TextClass> endingText; 
 
-  unsigned int stickIndex{}; // even is player 2 odd is player 1
-
   float beginTime{};
+
+  unsigned int stickIndex{}; // even is player 2 odd is player 1
 
   size_t p1pathCount{};
   unsigned int p1PrevPathIndex{};

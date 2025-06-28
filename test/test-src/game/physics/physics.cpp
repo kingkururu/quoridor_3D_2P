@@ -220,8 +220,6 @@ namespace physics {
         const float stepSize = 1.0f;
         const float maxSteps = maxRayDistance / stepSize;
 
-        // Pre-calculate tilemap properties for faster lookups
-        static TilemapLookup lookup;
         static bool lookupInitialized = false;
         if (!lookupInitialized) {
             initializeTilemapLookup(tileMap, lookup);
@@ -436,6 +434,160 @@ namespace physics {
             if (isPointInTile(tile, worldX, worldY)) return tile;
         }
         return nullptr;
+    }
+
+    void calculateSprite3D(std::unique_ptr<Sprite>& sprite, std::unique_ptr<Player>& player, std::unique_ptr<BoardTileMap>& tileMap) {
+        if (!sprite || !player || !tileMap) {
+            log_error("sprite, player, or tilemap is not initialized");
+            return;
+        }
+
+        // Get positions
+        sf::Vector2f playerPos = player->getSpritePos();
+        sf::Vector2f spritePos = sprite->getSpritePos();
+        
+        // Calculate distance from player to sprite
+        float deltaX = spritePos.x - playerPos.x;
+        float deltaY = spritePos.y - playerPos.y;
+        float distance = std::sqrt(deltaX * deltaX + deltaY * deltaY);
+        
+        // Early exit if sprite is too far away
+        const float maxVisibleDistance = 800.0f;
+        if (distance > maxVisibleDistance) {
+            sprite->setVisibleState(false);
+            log_info("Sprite hidden: too far away");
+            return;
+        }
+        
+        // Perform line-of-sight check using BoardTileMap
+        bool hasLineOfSight = checkLineOfSightWithTileMap(playerPos, spritePos, tileMap);
+        
+        if (!hasLineOfSight) {
+            sprite->setVisibleState(false);
+            log_info("Sprite hidden: line of sight blocked");
+            return;
+        }
+        
+        // Calculate angle from player to sprite
+        float playerAngle = player->getHeadingAngle() * 3.14159f / 180.0f;
+        float spriteAngle = std::atan2(deltaY, deltaX);
+        float angleDiff = spriteAngle - playerAngle;
+        
+        // Normalize angle difference to [-π, π]
+        while (angleDiff > 3.14159f) angleDiff -= 2.0f * 3.14159f;
+        while (angleDiff < -3.14159f) angleDiff += 2.0f * 3.14159f;
+        
+        // Check if sprite is within field of view
+        float fovRadians = Constants::FOV * 3.14159f / 180.0f;
+        if (std::abs(angleDiff) > fovRadians * 0.5f) {
+            sprite->setVisibleState(false);
+            log_info("Sprite hidden: outside field of view");
+            return;
+        }
+        
+        // Sprite is visible - calculate 3D properties
+        sprite->setVisibleState(true);
+        
+        // Distance-based scaling (similar to wall height calculation)
+        const float baseSpriteScale = 1.0f;
+        const float scaleDistance = 100.0f; // Distance at which sprite appears at base scale
+        float scale3D = baseSpriteScale * (scaleDistance / std::max(1.0f, distance));
+        
+        // Clamp scaling to reasonable bounds
+        scale3D = std::clamp(scale3D, 0.1f, 5.0f);
+        
+        // Apply corrected distance for fish-eye effect 
+        float correctedDistance = distance * std::cos(angleDiff);
+        float correctedScale = baseSpriteScale * (scaleDistance / std::max(1.0f, correctedDistance));
+        correctedScale = std::clamp(correctedScale, 0.1f, 5.0f);
+        
+        // Set the sprite scale
+        sprite->returnSpritesShape().setScale(correctedScale, correctedScale);
+        
+        // Calculate screen position for 3D effect
+        float screenWidth = static_cast<float>(MetaComponents::leftView.getSize().x);
+        float screenHeight = static_cast<float>(MetaComponents::leftView.getSize().y);
+        
+        // Project sprite position to screen coordinates
+        float screenX = (screenWidth * 0.5f) + (angleDiff / (fovRadians * 0.5f)) * (screenWidth * 0.5f);
+        
+        // Calculate vertical position - center sprite vertically on screen
+        float spriteHeight = sprite->returnSpritesShape().getGlobalBounds().height;
+        float screenY = (screenHeight * 0.5f) - (spriteHeight * 0.5f); // Center vertically
+        
+        // Set screen position
+        sf::Vector2f screenPosition(screenX - spriteHeight * 0.5f, screenY);
+        sprite->setScreenPosition(screenPosition);
+        sprite->returnSpritesShape().setPosition(sprite->getScreenPosition());
+        
+        // Apply distance-based brightness by darkening with black tint
+        float brightnessFactor = std::max(0.3f, 1.0f - (distance / maxVisibleDistance));
+        sf::Uint8 colorValue = static_cast<sf::Uint8>(255 * brightnessFactor);
+        sprite->returnSpritesShape().setColor(sf::Color(colorValue, colorValue, colorValue, 255));
+    }
+
+    // Updated helper function for line-of-sight checking using BoardTileMap
+    bool checkLineOfSightWithTileMap(sf::Vector2f start, sf::Vector2f end, std::unique_ptr<BoardTileMap>& tileMap) {
+        
+        float deltaX = end.x - start.x;
+        float deltaY = end.y - start.y;
+        float distance = std::sqrt(deltaX * deltaX + deltaY * deltaY);
+        
+        if (distance < 1.0f) return true; // Very close, assume visible
+        
+        // Normalize direction
+        float dirX = deltaX / distance;
+        float dirY = deltaY / distance;
+        
+        // Step along the line checking for walls and barriers
+        const float stepSize = 2.0f; // Smaller steps for more accuracy
+        float currentDistance = 0.0f;
+        
+        while (currentDistance < distance) {
+            float checkX = start.x + dirX * currentDistance;
+            float checkY = start.y + dirY * currentDistance;
+            
+            // Get tile index from world position
+            size_t tileIndex = tileMap->getTileIndex(sf::Vector2f(checkX, checkY));
+            
+            // Check if the tile index is valid (within bounds)
+            if (tileIndex < tileMap->getTileMapNumber()) {
+                auto& tile = tileMap->getTile(tileIndex);
+                
+                // Check if tile exists and is not walkable (wall or barrier like placed stick)
+                if (tile && !tile->getWalkable()) return false; // Line of sight blocked by wall or barrier
+            }
+            currentDistance += stepSize;
+        }
+        return true; // Clear line of sight
+    }
+
+    // Alternative version for more precise checking
+    bool checkLineOfSightWithTileMapPrecise(sf::Vector2f start, sf::Vector2f end, std::unique_ptr<BoardTileMap>& tileMap) {
+        
+        float deltaX = end.x - start.x;
+        float deltaY = end.y - start.y;
+        float distance = std::sqrt(deltaX * deltaX + deltaY * deltaY);
+        
+        if (distance < 1.0f) return true;
+        
+        // Use Bresenham-like algorithm for more precise tile checking
+        int steps = static_cast<int>(distance / 1.0f); // Check every pixel essentially
+        
+        for (int i = 0; i <= steps; ++i) {
+            float t = static_cast<float>(i) / static_cast<float>(steps);
+            float checkX = start.x + deltaX * t;
+            float checkY = start.y + deltaY * t;
+            
+            size_t tileIndex = tileMap->getTileIndex(sf::Vector2f(checkX, checkY));
+            
+            if (tileIndex < tileMap->getTileMapNumber()) {
+                auto& tile = tileMap->getTile(tileIndex);
+                
+                if (tile && !tile->getWalkable()) return false;
+            }
+        }
+        return true;
     }
 
     // circle collision 

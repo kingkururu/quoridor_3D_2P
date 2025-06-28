@@ -24,6 +24,7 @@ public:
     virtual ~Sprite() = default;
 
     sf::Vector2f getSpritePos() const { return position; };
+    void updateSpritePos(sf::Vector2f position) { this->position = position; spriteCreated->setPosition(position); }
     sf::Sprite& returnSpritesShape() const { return *spriteCreated; } 
     bool getVisibleState() const { return visibleState; }
     void setVisibleState(bool visibleState){ this->visibleState = visibleState; }

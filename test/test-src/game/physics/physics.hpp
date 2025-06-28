@@ -105,9 +105,18 @@ namespace physics{
         std::vector<std::vector<std::shared_ptr<Tile>>> spatialGrid;
         std::vector<std::shared_ptr<Tile>> allTiles;
     };
-    void initializeTilemapLookup(std::unique_ptr<BoardTileMap>& tileMap, TilemapLookup& lookup);    std::shared_ptr<Tile> fastTileLookup(const TilemapLookup& lookup, float worldX, float worldY);
+    static TilemapLookup lookup;
+
+    // walls
+    void initializeTilemapLookup(std::unique_ptr<BoardTileMap>& tileMap, TilemapLookup& lookup);    
+    std::shared_ptr<Tile> fastTileLookup(const TilemapLookup& lookup, float worldX, float worldY);
     bool isPointInTile(std::shared_ptr<Tile>& tile, float worldX, float worldY);
     void calculateRayCast3d(std::unique_ptr<Player>& player, std::unique_ptr<BoardTileMap>& tileMap, sf::VertexArray& lines, sf::VertexArray& wallLine); 
+
+    // rescale sprite for 3D rendering
+    void calculateSprite3D(std::unique_ptr<Sprite>& sprite, std::unique_ptr<Player>& player, std::unique_ptr<BoardTileMap>& tileMap);
+    bool checkLineOfSightWithTileMap(sf::Vector2f start, sf::Vector2f end, std::unique_ptr<BoardTileMap>& tileMap);
+    bool checkLineOfSightWithTileMapPrecise(sf::Vector2f start, sf::Vector2f end, std::unique_ptr<BoardTileMap>& tileMap);
 
     // raycast pre-collision in 2D space
     struct RaycastResult {
