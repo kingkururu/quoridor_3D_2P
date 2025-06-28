@@ -481,7 +481,6 @@ namespace physics {
         float fovRadians = Constants::FOV * 3.14159f / 180.0f;
         if (std::abs(angleDiff) > fovRadians * 0.5f) {
             sprite->setVisibleState(false);
-            log_info("Sprite hidden: outside field of view");
             return;
         }
         
