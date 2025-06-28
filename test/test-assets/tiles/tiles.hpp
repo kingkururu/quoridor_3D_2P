@@ -98,7 +98,7 @@ public:
     bool isP2StartTile(size_t index) const;
 
 private:
-    std::array<std::shared_ptr<Tile>, 483> tiles; // board with 23 x 21 tiles including walls
+    std::array<std::shared_ptr<Tile>, 399> tiles; // board with 19 x 21 tiles including walls
     std::array<std::shared_ptr<Tile>, 11> tileTypesArr; // wall, path, goal, additional tile type
     sf::Vector2i wallTileXSize; 
     sf::Vector2i wallTileYSize;

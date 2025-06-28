@@ -121,10 +121,10 @@ BoardTileMap::BoardTileMap(std::array<std::shared_ptr<Tile>, 11> tileTypesArr) {
     sf::Vector2i borderShortSize = sf::Vector2i{11, 9};    // short part of border
     sf::Vector2i borderTopBottomSize = sf::Vector2i{23, 9}; // top and bottom of border
     
-    float currentY = -10.0f; // Start 10 pixels higher
+    float currentY = 32.0f; // Start 10 pixels higher
     
-    // Initialize the 23x21 board with border (21 rows + 2 border rows, 19 cols + 2 border cols)
-    for(int row = 0; row < 23; ++row) {
+    // Initialize the 19x21 board (removed first and last rows, and row 18)
+    for(int row = 0; row < 19; ++row) {
         int rowStart = row * 21;
         float currentX = -15.0f; // Start pixels to the left
         float maxRowHeight = 0.0f; // Track the tallest tile in this row
@@ -133,19 +133,19 @@ BoardTileMap::BoardTileMap(std::array<std::shared_ptr<Tile>, 11> tileTypesArr) {
             std::shared_ptr<Tile> selectedTile;
             sf::Vector2i tileSize;
             
-            // Top border row (row 0)
+            // First row - all wall tiles (row 0, was row 1)
             if(row == 0) {
-                selectedTile = tileTypesArr[10]; // top border
+                selectedTile = tileTypesArr[10]; // top and bottom border tiles
                 tileSize = borderTopBottomSize;
             }
-            // Bottom border row (row 22)
-            else if(row == 22) {
-                selectedTile = tileTypesArr[10]; // bottom border
+            // Last row - all wall tiles (row 18)
+            else if(row == 18) {
+                selectedTile = tileTypesArr[10]; // bottom border tiles
                 tileSize = borderTopBottomSize;
             }
             // Left border column (col 0)
             else if(col == 0) {
-                if((row - 1) % 2 == 0) { // Even rows in original grid (accounting for top border offset)
+                if((row - 1) % 2 == 0) { // Even rows in original grid (accounting for wall row offset)
                     selectedTile = tileTypesArr[8]; // long part of border
                     tileSize = borderLongSize;
                 } else { // Odd rows in original grid
@@ -155,7 +155,7 @@ BoardTileMap::BoardTileMap(std::array<std::shared_ptr<Tile>, 11> tileTypesArr) {
             }
             // Right border column (col 20)
             else if(col == 20) {
-                if((row - 1) % 2 == 0) { // Even rows in original grid (accounting for top border offset)
+                if((row - 1) % 2 == 0) { // Even rows in original grid (accounting for wall row offset)
                     selectedTile = tileTypesArr[8]; // long part of border
                     tileSize = borderLongSize;
                 } else { // Odd rows in original grid
@@ -165,7 +165,7 @@ BoardTileMap::BoardTileMap(std::array<std::shared_ptr<Tile>, 11> tileTypesArr) {
             }
             // Interior tiles (original 21x19 grid logic, but offset by 1 row and 1 col)
             else {
-                int originalRow = row - 1; // Offset for top border
+                int originalRow = row - 1; // Offset for wall row
                 int originalCol = col - 1; // Offset for left border
                 
                 if(originalRow % 2 == 0) {
@@ -228,6 +228,70 @@ BoardTileMap::BoardTileMap(std::array<std::shared_ptr<Tile>, 11> tileTypesArr) {
         
         // Move to next row position using the actual tallest tile in this row
         currentY += maxRowHeight;
+    }
+    
+    // Print debugging - show entire board tile indices (19x21 grid):
+    log_info("Board tile indices (19x21 grid):");
+    for(int row = 0; row < 19; ++row) {
+        std::string rowStr = "Row " + std::to_string(row) + ": ";
+        for(int col = 0; col < 21; ++col) {
+            
+            // Determine which tile type was used based on the logic above
+            int selectedTileIndex = -1;
+            
+            if(row == 0 || row == 18) {
+                selectedTileIndex = 10; // wall row
+            }
+            else if(col == 0 || col == 20) {
+                if((row - 1) % 2 == 0) {
+                    selectedTileIndex = 8; // long border
+                } else {
+                    selectedTileIndex = 9; // short border
+                }
+            }
+            else {
+                int originalRow = row - 1;
+                int originalCol = col - 1;
+                
+                if(originalRow % 2 == 0) {
+                    if(originalCol == 0) {
+                        selectedTileIndex = 3; // goal p1
+                    }
+                    else if(originalCol == 18) {
+                        selectedTileIndex = 4; // goal p2
+                    }
+                    else if(originalCol == 1) {
+                        selectedTileIndex = 2; // path
+                    }
+                    else {
+                        if(originalCol % 2 == 0) {
+                            selectedTileIndex = 1; // wall y
+                        } else {
+                            selectedTileIndex = 2; // path
+                        }
+                    }
+                }
+                else {
+                    if(originalCol == 0) {
+                        selectedTileIndex = 6; // start piece
+                    }
+                    else if(originalCol == 18) {
+                        selectedTileIndex = 7; // end piece
+                    }
+                    else {
+                        if(originalCol % 2 == 1) {
+                            selectedTileIndex = 0; // wall x
+                        } else {
+                            selectedTileIndex = 5; // blank
+                        }
+                    }
+                }
+            }
+            
+            rowStr += std::to_string(selectedTileIndex);
+            if(col < 20) rowStr += ",";
+        }
+        log_info(rowStr);
     }
     log_info("Boardtilemap initialized"); 
 }

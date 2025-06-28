@@ -166,8 +166,7 @@ void gamePlayScene::handleInput() {
 }
 
 void gamePlayScene::handleMouseKey() {
-    if (FlagSystem::flagEvents.mouseClicked && buttonClickSound) 
-        buttonClickSound->returnSound().play();
+    if (FlagSystem::flagEvents.mouseClicked && buttonClickSound) buttonClickSound->returnSound().play();
 
     if (!boardTileMap || stickIndex >= Constants::STICKS_NUMBER) return;
 
@@ -177,22 +176,18 @@ void gamePlayScene::handleMouseKey() {
     sf::Vector2f mousePos = MetaComponents::middleViewmouseCurrentPosition_f;
     
     // Check if mouse position is valid and within reasonable bounds
-    if (mousePos.x == 0.0f && mousePos.y == 0.0f) {
-        mousePos = sf::Vector2f{20.0f, 20.0f}; // default position
-    }
+    if (mousePos.x == 0.0f && mousePos.y == 0.0f) mousePos = sf::Vector2f{20.0f, 20.0f}; // default position
     
     // Try to get tile index with exception handling
     try {
         currentTileIndex = boardTileMap->getTileIndex(mousePos);
-    } catch (const std::out_of_range& e) {
-        // Mouse is outside tilemap bounds - exit early
-        return;
+    } 
+    catch (const std::out_of_range& e) {  // Mouse is outside tilemap bounds - exit early
+        return;        
     }
     
     // Additional safety check
-    if (currentTileIndex < 0 || currentTileIndex >= boardTileMap->getTileMapNumber()) {
-        return;
-    }
+    if (currentTileIndex < 0 || currentTileIndex >= boardTileMap->getTileMapNumber()) return;
     
     size_t targetTileIndex = currentTileIndex;
 
@@ -219,8 +214,8 @@ void gamePlayScene::handleMouseKey() {
     }
 
     // Constants for your grid (from getTileIndex function)
-    const int GRID_WIDTH = 21;  // columns (from getTileIndex: col < 21)
-    const int GRID_HEIGHT = 23; // rows (from getTileIndex: row < 23)
+    const int GRID_WIDTH = 19; 
+    const int GRID_HEIGHT = 21; 
     
     // Convert tile index to row/col coordinates
     int row = targetTileIndex / GRID_WIDTH;
@@ -263,13 +258,7 @@ void gamePlayScene::handleMouseKey() {
     }
 
     // Only place stick if within valid boundaries
-    if (!validPlacement) return;
-
-    // Verify all affected tiles are valid indices
-    if (nextBlankTileIndex >= boardTileMap->getTileMapNumber() || 
-        nextTileIndex >= boardTileMap->getTileMapNumber()) {
-        return;
-    }
+    if (!validPlacement || nextBlankTileIndex >= boardTileMap->getTileMapNumber() || nextTileIndex >= boardTileMap->getTileMapNumber()) return;
 
     // Update tile walkability
     boardTileMap->getTile(targetTileIndex)->setWalkable(false);
@@ -318,7 +307,7 @@ void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum, size_t&
         );
         
         // Check collision with all tiles in the BoardTileMap
-        for (int i = 0; i < 23 * 21; ++i) { // num or rows and columns from boardTileMap
+        for (int i = 0; i < 19 * 21; ++i) { // num or rows and columns from boardTileMap
             try {
                 auto& tile = boardTileMap->getTile(i);
                 if (tile && tile->getVisibleState()) {
