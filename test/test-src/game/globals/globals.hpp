@@ -140,11 +140,16 @@ namespace Constants { // not actually "constants" in terms of being fixed, but s
     inline std::vector<sf::IntRect> BULLET_ANIMATIONRECTS;
     inline std::vector<std::shared_ptr<sf::Uint8[]>> BULLET_BITMASK;
 
-    // board paths and settings
-    inline std::filesystem::path BOARD_PATH;
-    inline sf::Vector2f BOARD_POSITION;
-    inline sf::Vector2f BOARD_SCALE;
-    inline std::shared_ptr<sf::Texture> BOARD_TEXTURE = std::make_shared<sf::Texture>();
+    // pawn paths and settings
+    inline std::filesystem::path PAWNBLUE_PATH;
+    inline sf::Vector2f PAWNBLUE_POSITION;
+    inline sf::Vector2f PAWNBLUE_SCALE;
+    inline std::shared_ptr<sf::Texture> PAWNBLUE_TEXTURE = std::make_shared<sf::Texture>();
+
+    inline std::filesystem::path PAWNRED_PATH;
+    inline sf::Vector2f PAWNRED_POSITION;
+    inline sf::Vector2f PAWNRED_SCALE;
+    inline std::shared_ptr<sf::Texture> PAWNRED_TEXTURE = std::make_shared<sf::Texture>();
 
     inline unsigned short const STICKS_NUMBER = 20; // always 20 sticks in the game
     inline std::filesystem::path STICK_PATH;

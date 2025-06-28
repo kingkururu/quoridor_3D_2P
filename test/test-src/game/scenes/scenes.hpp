@@ -93,7 +93,8 @@ private:
   std::unique_ptr<Player> player2; 
 
  // std::vector<std::unique_ptr<Bullet>> bullets; 
-  std::unique_ptr<Sprite> board;  // not in use rn
+  std::unique_ptr<Sprite> pawnBlue;  
+  std::unique_ptr<Sprite> pawnRed;
   std::unique_ptr<Sprite> backgroundBig; 
   std::unique_ptr<Sprite> backgroundBigFinal; 
 

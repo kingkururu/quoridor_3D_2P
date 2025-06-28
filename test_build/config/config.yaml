@@ -90,11 +90,19 @@ sprites:
     scale:
       x: 1.0
       y: 1.0
-  board: 
-    path: "test/test-assets/sprites/png/boardBackground.png"
+  pawn_blue: 
+    path: "test/test-assets/sprites/png/pawnBlue.png"
     position:
-      x: 0.0 # pixels 
-      y: 0.0 # pixels 
+      x: 80.0 # pixels 
+      y: 170.0 # pixels 
+    scale:
+      x: 1.0
+      y: 1.0
+  pawn_red: 
+    path: "test/test-assets/sprites/png/pawnRed.png"
+    position:
+      x: 80.0 # pixels 
+      y: 170.0 # pixels 
     scale:
       x: 1.0
       y: 1.0

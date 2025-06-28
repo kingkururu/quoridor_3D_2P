@@ -271,9 +271,7 @@ namespace physics {
             while (steps < maxSteps) {
                 // Adaptive step size - use larger steps when far from obstacles
                 float currentStepSize = stepSize;
-                if (steps > 10) { // After initial precision steps
-                    currentStepSize = stepSize * 2.0f; // Double step size for distant checks
-                }
+                if (steps > 10) currentStepSize = stepSize * 2.0f; // Double step size for distant checks
 
                 rayX += dirX * currentStepSize;
                 rayY += dirY * currentStepSize;
@@ -283,9 +281,7 @@ namespace physics {
                 // Fast tile lookup using spatial grid
                 auto hitTile = fastTileLookup(lookup, rayX, rayY);
                 
-                if (!hitTile) {
-                    break; // Out of bounds
-                }
+                if (!hitTile) break; // Out of bounds
 
                 if (!hitTile->getWalkable()) {
                     // Hit a wall - do precision check if we used large steps
@@ -302,9 +298,7 @@ namespace physics {
                             rayDistance += stepSize;
                             
                             auto precisionTile = fastTileLookup(lookup, rayX, rayY);
-                            if (!precisionTile || !precisionTile->getWalkable()) {
-                                break;
-                            }
+                            if (!precisionTile || !precisionTile->getWalkable()) break;
                         }
                     }
 
@@ -327,8 +321,7 @@ namespace physics {
                     float wallBottomY = centerY + wallHeight * 0.5f;
 
                     // Fast brightness lookup
-                    int lutIndex = std::min(brightnessLevels - 1, 
-                        static_cast<int>((correctedDistance / maxDistance) * brightnessLevels));
+                    int lutIndex = std::min(brightnessLevels - 1, static_cast<int>((correctedDistance / maxDistance) * brightnessLevels));
                     sf::Color wallColor = brightnessLUT[lutIndex];
 
                     // Define quad vertices for the wall slice
@@ -405,9 +398,7 @@ namespace physics {
             int endY = std::min(gridResolution - 1, static_cast<int>((pos.y + tileHeight - lookup.minY) / cellHeight));
             
             for (int y = startY; y <= endY; ++y) {
-                for (int x = startX; x <= endX; ++x) {
-                    lookup.spatialGrid[y * gridResolution + x].push_back(tile);
-                }
+                for (int x = startX; x <= endX; ++x) lookup.spatialGrid[y * gridResolution + x].push_back(tile);
             }
         }
     }
@@ -416,10 +407,7 @@ namespace physics {
     bool isPointInTile(const std::shared_ptr<Tile>& tile, float worldX, float worldY) {
         sf::Vector2f tilePos = tile->getTileSprite().getPosition();
         
-        // Early rejection tests
-        if (worldX < tilePos.x || worldY < tilePos.y) {
-            return false;
-        }
+        if (worldX < tilePos.x || worldY < tilePos.y) return false;        // Early rejection tests
         
         sf::Vector2f tileScale = tile->getTileSprite().getScale();
         sf::IntRect textureRect = tile->getTextureRect();
@@ -432,10 +420,7 @@ namespace physics {
 
     std::shared_ptr<Tile> fastTileLookup(const TilemapLookup& lookup, float worldX, float worldY) {
         // Fast bounds check
-        if (worldX < lookup.minX || worldX > lookup.maxX || 
-            worldY < lookup.minY || worldY > lookup.maxY) {
-            return nullptr;
-        }
+        if (worldX < lookup.minX || worldX > lookup.maxX || worldY < lookup.minY || worldY > lookup.maxY) return nullptr;
         
         // Find grid cell
         int gridX = static_cast<int>((worldX - lookup.minX) / (lookup.maxX - lookup.minX) * lookup.gridWidth);
@@ -448,11 +433,8 @@ namespace physics {
         
         // Check tiles in this grid cell
         for (const auto& tile : lookup.spatialGrid[cellIndex]) {
-            if (isPointInTile(tile, worldX, worldY)) {
-                return tile;
-            }
+            if (isPointInTile(tile, worldX, worldY)) return tile;
         }
-        
         return nullptr;
     }
 

@@ -164,12 +164,18 @@ namespace Constants {
             BULLET_STARTINGSCALE = {config["sprites"]["bullet"]["scale"]["x"].as<float>(),
                             config["sprites"]["bullet"]["scale"]["y"].as<float>()};
 
-            // Load board paths and settings
-            BOARD_PATH = config["sprites"]["board"]["path"].as<std::string>();
-            BOARD_POSITION = {config["sprites"]["board"]["position"]["x"].as<float>(),
-                                config["sprites"]["board"]["position"]["y"].as<float>()};
-            BOARD_SCALE = {config["sprites"]["board"]["scale"]["x"].as<float>(),
-                            config["sprites"]["board"]["scale"]["y"].as<float>()};
+            // Load pawn paths and settings
+            PAWNBLUE_PATH = config["sprites"]["pawn_blue"]["path"].as<std::string>();
+            PAWNBLUE_POSITION = {config["sprites"]["pawn_blue"]["position"]["x"].as<float>(),
+                                config["sprites"]["pawn_blue"]["position"]["y"].as<float>()};
+            PAWNBLUE_SCALE = {config["sprites"]["pawn_blue"]["scale"]["x"].as<float>(),
+                            config["sprites"]["pawn_blue"]["scale"]["y"].as<float>()};
+
+            PAWNRED_PATH = config["sprites"]["pawn_red"]["path"].as<std::string>();
+            PAWNRED_POSITION = {config["sprites"]["pawn_red"]["position"]["x"].as<float>(),
+                                config["sprites"]["pawn_red"]["position"]["y"].as<float>()};
+            PAWNRED_SCALE = {config["sprites"]["pawn_red"]["scale"]["x"].as<float>(),
+                            config["sprites"]["pawn_red"]["scale"]["y"].as<float>()};
   
             // Load stick paths and settings
             STICK_PATH = config["sprites"]["stick"]["path"].as<std::string>();
@@ -266,7 +272,8 @@ namespace Constants {
         if (!SPRITE1_TEXTURE->loadFromFile(SPRITE1_PATH)) log_warning("Failed to load sprite1 texture");
         if (!SPRITE2_TEXTURE->loadFromFile(SPRITE2_PATH)) log_warning("Failed to load sprite2 texture");
         if (!BULLET_TEXTURE->loadFromFile(BULLET_PATH)) log_warning("Failed to load bullet texture");
-        if (!BOARD_TEXTURE->loadFromFile(BOARD_PATH)) log_warning("Failed to load board texture");   
+        if (!PAWNBLUE_TEXTURE->loadFromFile(PAWNBLUE_PATH)) log_warning("Failed to load board texture"); 
+        if (!PAWNRED_TEXTURE->loadFromFile(PAWNRED_PATH)) log_warning("Failed to load board texture");  
         if (!BUTTON1_TEXTURE->loadFromFile(BUTTON1_PATH)) log_warning("Failed to load enemy texture");  
         if (!BACKGROUNDBIG_TEXTURE->loadFromFile(BACKGROUNDBIG_PATH)) log_warning("Failed to load background big texture");
         if (!BACKGROUNDBIGFINAL_TEXTURE->loadFromFile(BACKGROUNDBIGFINAL_PATH)) log_warning("Failed to load background big final texture");

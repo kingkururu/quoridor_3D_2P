@@ -82,7 +82,9 @@ void gamePlayScene::createAssets() {
 
         for(int i = 0; i < Constants::STICKS_NUMBER; ++i) sticks[i] = std::make_unique<Sprite>(Constants::STICK_POSITIONS[i], Constants::STICK_SCALE, Constants::STICK_TEXTURE);
 
-        board = std::make_unique<Sprite>(Constants::BOARD_POSITION, Constants::BOARD_SCALE, Constants::BOARD_TEXTURE); 
+        pawnBlue = std::make_unique<Sprite>(Constants::PAWNBLUE_POSITION, Constants::PAWNBLUE_SCALE, Constants::PAWNBLUE_TEXTURE); 
+        pawnRed = std::make_unique<Sprite>(Constants::PAWNRED_POSITION, Constants::PAWNRED_SCALE, Constants::PAWNRED_TEXTURE);
+
         backgroundBig = std::make_unique<Sprite>(Constants::BACKGROUNDBIG_POSITION, Constants::BACKGROUNDBIG_SCALE, Constants::BACKGROUNDBIG_TEXTURE); 
 
         backgroundBigFinal = std::make_unique<Sprite>(Constants::BACKGROUNDBIGFINAL_POSITION, Constants::BACKGROUNDBIGFINAL_SCALE, Constants::BACKGROUNDBIGFINAL_TEXTURE); 
@@ -114,8 +116,8 @@ void gamePlayScene::createAssets() {
 
         // Music
         backgroundMusic = std::make_unique<MusicClass>(std::move(Constants::BACKGROUNDMUSIC_MUSIC), Constants::BACKGROUNDMUSIC_VOLUME);
-        if(backgroundMusic) backgroundMusic->returnMusic().play(); 
-        if(backgroundMusic) backgroundMusic->returnMusic().setLoop(Constants::BACKGROUNDMUSIC_LOOP);
+        // if(backgroundMusic) backgroundMusic->returnMusic().play(); 
+        // if(backgroundMusic) backgroundMusic->returnMusic().setLoop(Constants::BACKGROUNDMUSIC_LOOP);
 
         buttonClickSound = std::make_unique<SoundClass>(Constants::BUTTONCLICK_SOUNDBUFF, Constants::BUTTONCLICKSOUND_VOLUME);
 
@@ -467,13 +469,14 @@ void gamePlayScene::drawInleftView(){
     drawVisibleObject(scoreText); 
     drawVisibleObject(introText);
     drawVisibleObject(endingText);
+
+    drawVisibleObject(pawnRed); // pawn red is player 2
 }
 
 void gamePlayScene::drawInmiddleView(){
     window.setView(MetaComponents::middleView);
 
-    // drawVisibleObject(board);
-    drawVisibleObject(boardTileMap); // temporary
+    drawVisibleObject(boardTileMap); 
 
     for(const auto& stick : sticks) drawVisibleObject(stick);
 
@@ -482,7 +485,6 @@ void gamePlayScene::drawInmiddleView(){
 
     drawVisibleObject(player2);
     window.draw(rays2); 
-
 }
 
 void gamePlayScene::drawInRightView(){
@@ -493,5 +495,6 @@ void gamePlayScene::drawInRightView(){
     window.draw(wallLine2);
 
   //  drawVisibleObject(bullets[0]); 
+    drawVisibleObject(pawnBlue);
     drawVisibleObject(endingText);
 }
