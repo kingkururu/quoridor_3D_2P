@@ -70,7 +70,7 @@ private:
   void handleMouseKey(); 
   void handleSpaceKey();
   void handleMovementKeys(); 
-  void handleEachPlayer(std::unique_ptr<Player>& playerNum);
+  void handleEachPlayer(std::unique_ptr<Player>& playerNum, size_t& moveCount, unsigned int& prevPathIndex);
 
   void respawnAssets() override; 
 
@@ -120,4 +120,9 @@ private:
   unsigned int stickIndex{}; // even is player 2 odd is player 1
 
   float beginTime{};
+
+  size_t p1pathCount{};
+  unsigned int p1PrevPathIndex{};
+  size_t p2pathCount{};
+  unsigned int p2PrevPathIndex{};
 };

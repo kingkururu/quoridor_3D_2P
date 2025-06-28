@@ -302,7 +302,7 @@ size_t BoardTileMap::getTileIndex(sf::Vector2f position) {
     
     // If position is before the tilemap starts, return invalid index
     if (relativeX < 0 || relativeY < 0) {
-        throw std::out_of_range("Position is before tilemap bounds");
+        throw std::out_of_range("Position is before tilemap bounds" + std::to_string(position.x) + ", " + std::to_string(position.y));
     }
     
     // Find the row by iterating through row heights
