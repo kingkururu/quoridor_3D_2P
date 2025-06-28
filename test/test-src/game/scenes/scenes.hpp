@@ -120,7 +120,4 @@ private:
   unsigned int stickIndex{}; // even is player 2 odd is player 1
 
   float beginTime{};
-  unsigned int player1prevBlockIndex{};
-  bool moved{}; 
-  bool stickPlaced{};
 };

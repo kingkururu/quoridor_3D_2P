@@ -92,11 +92,13 @@ public:
     size_t getTileMapNumber() const { return tiles.size(); } // returns the number of tiles in the board (483)
     size_t getTileIndex(sf::Vector2i position); 
     size_t getTileIndex(sf::Vector2f postiion);
-    bool isGreyTile(size_t index); 
-    bool isVerticalWallTile(size_t index);
+    bool isGreyTile(size_t index) const; 
+    bool isVerticalWallTile(size_t index) const;
+    bool isP1StartTile(size_t index) const;
+    bool isP2StartTile(size_t index) const;
 
 private:
-    std::array<std::shared_ptr<Tile>, 483> tiles; // board with 21 x 19 tiles including walls
+    std::array<std::shared_ptr<Tile>, 483> tiles; // board with 23 x 21 tiles including walls
     std::array<std::shared_ptr<Tile>, 11> tileTypesArr; // wall, path, goal, additional tile type
     sf::Vector2i wallTileXSize; 
     sf::Vector2i wallTileYSize;

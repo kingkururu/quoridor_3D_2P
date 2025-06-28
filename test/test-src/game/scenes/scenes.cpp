@@ -166,6 +166,8 @@ void gamePlayScene::handleInput() {
 }
 
 void gamePlayScene::handleMouseKey() {
+    if(!MetaComponents::middleViewmouseClickedPosition_f.x && !MetaComponents::middleViewmouseClickedPosition_f.x || !boardTileMap) return; // Ensure mouse position and boardTileMap are valid
+
     // Get current tile index for both hover and click
     int currentTileIndex = boardTileMap->getTileIndex(MetaComponents::middleViewmouseClickedPosition_f);
     sf::Vector2f stickPos;
@@ -295,6 +297,8 @@ void gamePlayScene::handleMouseKey() {
             boardTileMap->getTile(nextBlankTileIndex)->setWalkable(false);
             
             ++stickIndex;
+
+            FlagSystem::gameScene1Flags.stickPlaced = true; // Set flag for stick placement
         }
     }
 }
@@ -413,21 +417,38 @@ void gamePlayScene::handleGameEvents() {
     // check which players turn
     if(FlagSystem::gameScene1Flags.player1turn) {
         player2->setMoveState(false); // player 2 cannot move
+
+        if(FlagSystem::gameScene1Flags.moved || FlagSystem::gameScene1Flags.stickPlaced) {
+            FlagSystem::gameScene1Flags.player1turn = false; // switch to player 2's turn
+            FlagSystem::gameScene1Flags.player2turn = true; // set player 2's turn
+            FlagSystem::gameScene1Flags.moved = false; // reset moved flag
+            FlagSystem::gameScene1Flags.stickPlaced = false; // reset stick placed flag
+        }
+
+        if(boardTileMap->isP2StartTile(boardTileMap->getTileIndex(player->getSpritePos()))) {
+            FlagSystem::flagEvents.gameEnd = true; // player 1 reached goal tile
+            endingText->updateText(Constants::ENDINGTEXT_MESSAGE + " Player 1 wins!");
+            std::cout << "Player 1 reached goal tile!" << std::endl;
+            endingText->setVisibleState(true);
+        }
     }
     else if(FlagSystem::gameScene1Flags.player2turn) {
         player->setMoveState(false); // player 1 cannot move
+
+        if(FlagSystem::gameScene1Flags.moved || FlagSystem::gameScene1Flags.stickPlaced) {
+            FlagSystem::gameScene1Flags.player2turn = false; // switch to player 1's turn
+            FlagSystem::gameScene1Flags.player1turn = true; // set player 1's turn
+            FlagSystem::gameScene1Flags.moved = false; // reset moved flag
+            FlagSystem::gameScene1Flags.stickPlaced = false; // reset stick placed flag
+        }
+
+        if(boardTileMap->isP1StartTile(boardTileMap->getTileIndex(player2->getSpritePos()))) {
+            FlagSystem::flagEvents.gameEnd = true; // player 2 reached goal tile
+            endingText->updateText(Constants::ENDINGTEXT_MESSAGE + " Player 2 wins!");
+            std::cout << "Player 2 reached goal tile!" << std::endl;
+            endingText->setVisibleState(true);
+        }
     }
-
-    // check move made (moved path or placed stick)
-    if(moved || stickPlaced){
-
-    }
-    
-    // check if player reached goal tile
-
-    // victory
-        // FlagSystem::flagEvents.gameEnd to true if player reached goal tile
-        // score? 
 } 
 
 void gamePlayScene::update() {
@@ -473,6 +494,7 @@ void gamePlayScene::drawInleftView(){
 
     drawVisibleObject(scoreText); 
     drawVisibleObject(introText);
+    drawVisibleObject(endingText);
 }
 
 void gamePlayScene::drawInmiddleView(){
@@ -488,6 +510,7 @@ void gamePlayScene::drawInmiddleView(){
 
     drawVisibleObject(player2);
     window.draw(rays2); 
+
 }
 
 void gamePlayScene::drawInRightView(){
@@ -498,4 +521,6 @@ void gamePlayScene::drawInRightView(){
     window.draw(wallLine2);
 
   //  drawVisibleObject(bullets[0]); 
+      drawVisibleObject(endingText);
+
 }

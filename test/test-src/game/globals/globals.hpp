@@ -291,7 +291,10 @@ namespace FlagSystem {
         bool player1turn;
         bool player2turn;
 
-        GameSceneEvents1() : sceneEnd(false), sceneStart(true), begin(false), player1turn(true), player2turn(false) {}
+        bool stickPlaced; // true if player placed a stick
+        bool moved; // true if player moved
+
+        GameSceneEvents1() : sceneEnd(false), sceneStart(true), begin(false), player1turn(true), player2turn(false), stickPlaced(false), moved(false) {}
 
         void resetFlags() {
             log_error("failed resetting scene Flags");

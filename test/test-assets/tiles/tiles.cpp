@@ -459,7 +459,7 @@ size_t BoardTileMap::getTileIndex(sf::Vector2f position) {
     return index;
 }
 
-bool BoardTileMap::isGreyTile(size_t index) {
+bool BoardTileMap::isGreyTile(size_t index) const {
     // Check if index is valid
     if (index >= tiles.size()) {
         throw std::out_of_range("Tile index out of bounds in isGreyTile");
@@ -509,7 +509,8 @@ bool BoardTileMap::isGreyTile(size_t index) {
         }
     }
 }
-bool BoardTileMap::isVerticalWallTile(size_t index) {
+
+bool BoardTileMap::isVerticalWallTile(size_t index) const {
     // Check if index is valid
     if (index >= tiles.size()) {
         return false;
@@ -541,4 +542,28 @@ bool BoardTileMap::isVerticalWallTile(size_t index) {
     }
     
     return false;
+}
+
+bool BoardTileMap::isP1StartTile(size_t index) const {
+    // P1 start tiles are in the first column after the left border
+    // Grid is 21 columns × 23 rows (based on getTileIndex function)
+    
+    int row = index / 21;  // Calculate which row this tile is in
+    int col = index % 21;  // Calculate which column this tile is in
+    
+    // Check if it's in P1's starting column (first column after left border)
+    // and not in the top or bottom border rows
+    return (col == 1 && row > 0 && row < 22);  // 21 columns, 23 rows with borders
+}
+
+bool BoardTileMap::isP2StartTile(size_t index) const {
+    // P2 start tiles are in the last column before the right border
+    // Grid is 21 columns × 23 rows (based on getTileIndex function)
+    
+    int row = index / 21;  // Calculate which row this tile is in
+    int col = index % 21;  // Calculate which column this tile is in
+    
+    // Check if it's in P2's starting column (last column before right border)
+    // and not in the top or bottom border rows
+    return (col == 19 && row > 0 && row < 22);  // 21 columns, 23 rows with borders
 }
