@@ -108,6 +108,14 @@ sprites:
     scale:
       x: 1.0
       y: 1.0
+  background_big_half:  
+    path: "test/test-assets/sprites/png/half1.png"
+    position:
+      x: 0.0 # pixels 
+      y: 0.0 # pixels
+    scale:
+      x: 1.0
+      y: 1.0
   stick:
     path: "test/test-assets/sprites/png/stick.png"
     spacing: 21 # pixels, spacing between sticks

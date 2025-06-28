@@ -89,7 +89,13 @@ void gamePlayScene::createAssets() {
 
         backgroundBigFinal = std::make_unique<Sprite>(Constants::BACKGROUNDBIGFINAL_POSITION, Constants::BACKGROUNDBIGFINAL_SCALE, Constants::BACKGROUNDBIGFINAL_TEXTURE); 
         backgroundBigFinal->setVisibleState(false); // hide final background at the start
-        
+
+        backgroundBigHalfRed = std::make_unique<Sprite>(Constants::BACKGROUNDBIGHALF_POSITION, Constants::BACKGROUNDBIGHALF_SCALE, Constants::BACKGROUNDBIGHALF_TEXTURE);
+        backgroundBigHalfRed->setVisibleState(false); // hide half background at the start
+
+        backgroundBigHalfBlue = std::make_unique<Sprite>(Constants::BACKGROUNDBIGHALF_POSITION, Constants::BACKGROUNDBIGHALF_SCALE, Constants::BACKGROUNDBIGHALF_TEXTURE);
+        backgroundBigHalfBlue->setVisibleState(false); // hide half background at the start
+
         button1 = std::make_unique<Button>(Constants::BUTTON1_POSITION, Constants::BUTTON1_SCALE, Constants::BUTTON1_TEXTURE, Constants::BUTTON1_ANIMATIONRECTS, Constants::BUTTON1_INDEXMAX, utils::convertToWeakPtrVector(Constants::BUTTON1_BITMASK)); 
         button1->setRects(0); 
 
@@ -384,6 +390,9 @@ void gamePlayScene::handleGameEvents() {
     physics::calculateSprite3D(pawnRed, player, boardTileMap, pawnRedBlocked); // pawn red is player 2
     physics::calculateSprite3D(pawnBlue, player2, boardTileMap, pawnBlueBlocked); // pawn blue is player 1
 
+    backgroundBigHalfRed->setVisibleState(pawnRedBlocked);
+    backgroundBigHalfBlue->setVisibleState(pawnBlueBlocked);
+
     // check which players turn
     if(FlagSystem::gameScene1Flags.player1turn) {
         player->setMoveState(true); // player 1 can move
@@ -469,6 +478,7 @@ void gamePlayScene::drawInleftView(){
 
     if(pawnRedBlocked){
         drawVisibleObject(pawnRed);
+        drawVisibleObject(backgroundBigHalfRed);
         window.draw(wallLine);
     } else {
         window.draw(wallLine);
@@ -501,6 +511,7 @@ void gamePlayScene::drawInRightView(){
 
     if(pawnBlueBlocked){
         drawVisibleObject(pawnBlue);
+        drawVisibleObject(backgroundBigHalfBlue);
         window.draw(wallLine2);
     } else {
         window.draw(wallLine2);

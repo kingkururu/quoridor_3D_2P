@@ -195,6 +195,12 @@ namespace Constants {
             BACKGROUNDBIGFINAL_SCALE = {config["sprites"]["background_big_final"]["scale"]["x"].as<float>(),
                                 config["sprites"]["background_big_final"]["scale"]["y"].as<float>()};
 
+            BACKGROUNDBIGHALF_PATH = config["sprites"]["background_big_half"]["path"].as<std::string>();
+            BACKGROUNDBIGHALF_POSITION = {config["sprites"]["background_big_half"]["position"]["x"].as<float>(),
+                                    config["sprites"]["background_big_half"]["position"]["y"].as<float>()};
+            BACKGROUNDBIGHALF_SCALE = {config["sprites"]["background_big_half"]["scale"]["x"].as<float>(),
+                                config["sprites"]["background_big_half"]["scale"]["y"].as<float>()};
+
             // Load board tile settings
             BOARDTILES_PATH = config["board"]["tiles_path"].as<std::string>();
             BOARDTILES_SCALE = {config["board"]["scale"]["x"].as<float>(),
@@ -264,6 +270,7 @@ namespace Constants {
         if (!BUTTON1_TEXTURE->loadFromFile(BUTTON1_PATH)) log_warning("Failed to load enemy texture");  
         if (!BACKGROUNDBIG_TEXTURE->loadFromFile(BACKGROUNDBIG_PATH)) log_warning("Failed to load background big texture");
         if (!BACKGROUNDBIGFINAL_TEXTURE->loadFromFile(BACKGROUNDBIGFINAL_PATH)) log_warning("Failed to load background big final texture");
+        if (!BACKGROUNDBIGHALF_TEXTURE->loadFromFile(BACKGROUNDBIGHALF_PATH)) log_warning("Failed to load background big half texture");
         if (!STICK_TEXTURE->loadFromFile(STICK_PATH)) log_warning("Failed to load stick texture");
         if (!BOARDTILES_TEXTURE->loadFromFile(BOARDTILES_PATH)) log_warning("Failed to load board tiles texture");
 

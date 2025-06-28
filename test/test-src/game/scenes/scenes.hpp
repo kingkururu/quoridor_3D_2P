@@ -98,6 +98,8 @@ private:
   std::unique_ptr<Sprite> pawnRed;
   std::unique_ptr<Sprite> backgroundBig; 
   std::unique_ptr<Sprite> backgroundBigFinal; 
+  std::unique_ptr<Sprite> backgroundBigHalfRed; // for 3D rendering
+  std::unique_ptr<Sprite> backgroundBigHalfBlue; // for 3D rendering
 
   std::array<std::unique_ptr<Sprite>, Constants::STICKS_NUMBER> sticks;
   
