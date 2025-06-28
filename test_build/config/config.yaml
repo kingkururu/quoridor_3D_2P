@@ -158,15 +158,15 @@ board:
 text:
   size: 20 # pixels 
   font_path: "test/test-assets/fonts/ttf/font1.ttf"
-  message: "Press WASD to move and M to see map" # actual content in the text
+  message: "Standard Quoridor rule applies.\nPress WASD to move" # actual content in the text
   position:
-    x: 100.0 # pixels 
-    y: 200.0 # pixels 
+    x: 20.0 # pixels 
+    y: 50.0 # pixels 
   color: "YELLOW" # sf::Color 
 ending_text:
   size: 20 # pixels 
   font_path: "test/test-assets/fonts/ttf/font1.ttf"
-  message: "You win!" # actual content in the text
+  message: "" # actual content in the text
   position:
     x: 260.0 # pixels 
     y: 50.0 # pixels 
@@ -174,9 +174,9 @@ ending_text:
 score_text:
   size: 20 # pixels 
   font_path: "test/test-assets/fonts/ttf/font1.ttf"
-  message: "Time elapsed since start: " # actual content in the text
+  message: "Reach the other side to win" # actual content in the text
   position:
-    x: 100.0 # pixels 
+    x: 20.0 # pixels 
     y: 10.0 # pixels 
   color: "WHITE" # sf::Color
 

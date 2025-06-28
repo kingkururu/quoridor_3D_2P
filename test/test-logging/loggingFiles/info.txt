@@ -1,44 +1,562 @@
-[2025-06-28 11:27:39.487] [info_logger] [info] Succesfuly read yaml file
-[2025-06-28 11:27:39.535] [info_logger] [info] 	Constants initialized
-[2025-06-28 11:27:39.597] [info_logger] [info] scene made
-[2025-06-28 11:27:39.597] [info_logger] [info] 	Game initialized
-[2025-06-28 11:27:39.597] [info_logger] [info] Sprite initialized successfully
-[2025-06-28 11:27:39.597] [info_logger] [info] Sprite initialized successfully
-[2025-06-28 11:27:39.597] [info_logger] [info] Sprite initialized successfully
-[2025-06-28 11:27:39.597] [info_logger] [info] Sprite initialized successfully
-[2025-06-28 11:27:39.597] [info_logger] [info] Sprite initialized successfully
-[2025-06-28 11:27:39.597] [info_logger] [info] Sprite initialized successfully
-[2025-06-28 11:27:39.597] [info_logger] [info] Sprite initialized successfully
-[2025-06-28 11:27:39.597] [info_logger] [info] Sprite initialized successfully
-[2025-06-28 11:27:39.597] [info_logger] [info] Sprite initialized successfully
-[2025-06-28 11:27:39.597] [info_logger] [info] Sprite initialized successfully
-[2025-06-28 11:27:39.597] [info_logger] [info] Sprite initialized successfully
-[2025-06-28 11:27:39.597] [info_logger] [info] Sprite initialized successfully
-[2025-06-28 11:27:39.597] [info_logger] [info] Sprite initialized successfully
-[2025-06-28 11:27:39.597] [info_logger] [info] Sprite initialized successfully
-[2025-06-28 11:27:39.598] [info_logger] [info] Sprite initialized successfully
-[2025-06-28 11:27:39.598] [info_logger] [info] Sprite initialized successfully
-[2025-06-28 11:27:39.598] [info_logger] [info] Sprite initialized successfully
-[2025-06-28 11:27:39.598] [info_logger] [info] Sprite initialized successfully
-[2025-06-28 11:27:39.598] [info_logger] [info] Sprite initialized successfully
-[2025-06-28 11:27:39.598] [info_logger] [info] Sprite initialized successfully
-[2025-06-28 11:27:39.598] [info_logger] [info] Sprite initialized successfully
-[2025-06-28 11:27:39.598] [info_logger] [info] Sprite initialized successfully
-[2025-06-28 11:27:39.598] [info_logger] [info] Sprite initialized successfully
-[2025-06-28 11:27:39.598] [info_logger] [info] Sprite initialized successfully
-[2025-06-28 11:27:39.598] [info_logger] [info] Sprite initialized successfully
-[2025-06-28 11:27:39.598] [info_logger] [info] Sprite initialized successfully
-[2025-06-28 11:27:39.598] [info_logger] [info] Board tile indices (19x21 grid):
-[2025-06-28 11:27:39.598] [info_logger] [info] Boardtilemap initialized
-[2025-06-28 11:27:39.598] [info_logger] [info] Music initialized successfully, volume is 80.000000
-[2025-06-28 11:27:39.598] [info_logger] [info] Sound initialized successfully
-[2025-06-28 11:27:39.598] [info_logger] [info] text initialized successully
-[2025-06-28 11:27:39.598] [info_logger] [info] text initialized successully
-[2025-06-28 11:27:39.598] [info_logger] [info] text initialized successully
-[2025-06-28 11:27:39.598] [info_logger] [info] Sprite inserted into quadtree node.
-[2025-06-28 11:27:39.598] [info_logger] [info] initializing assets in scene 1: 0.611000ms
-[2025-06-28 11:27:51.481] [info_logger] [info] Window close event detected.
-[2025-06-28 11:27:51.487] [info_logger] [info] 	Game Ended
+[2025-06-28 11:41:53.052] [info_logger] [info] Succesfuly read yaml file
+[2025-06-28 11:41:53.100] [info_logger] [info] 	Constants initialized
+[2025-06-28 11:41:53.148] [info_logger] [info] scene made
+[2025-06-28 11:41:53.148] [info_logger] [info] 	Game initialized
+[2025-06-28 11:41:53.148] [info_logger] [info] Sprite initialized successfully
+[2025-06-28 11:41:53.148] [info_logger] [info] Sprite initialized successfully
+[2025-06-28 11:41:53.148] [info_logger] [info] Sprite initialized successfully
+[2025-06-28 11:41:53.148] [info_logger] [info] Sprite initialized successfully
+[2025-06-28 11:41:53.148] [info_logger] [info] Sprite initialized successfully
+[2025-06-28 11:41:53.148] [info_logger] [info] Sprite initialized successfully
+[2025-06-28 11:41:53.148] [info_logger] [info] Sprite initialized successfully
+[2025-06-28 11:41:53.148] [info_logger] [info] Sprite initialized successfully
+[2025-06-28 11:41:53.148] [info_logger] [info] Sprite initialized successfully
+[2025-06-28 11:41:53.148] [info_logger] [info] Sprite initialized successfully
+[2025-06-28 11:41:53.148] [info_logger] [info] Sprite initialized successfully
+[2025-06-28 11:41:53.148] [info_logger] [info] Sprite initialized successfully
+[2025-06-28 11:41:53.148] [info_logger] [info] Sprite initialized successfully
+[2025-06-28 11:41:53.148] [info_logger] [info] Sprite initialized successfully
+[2025-06-28 11:41:53.148] [info_logger] [info] Sprite initialized successfully
+[2025-06-28 11:41:53.148] [info_logger] [info] Sprite initialized successfully
+[2025-06-28 11:41:53.148] [info_logger] [info] Sprite initialized successfully
+[2025-06-28 11:41:53.148] [info_logger] [info] Sprite initialized successfully
+[2025-06-28 11:41:53.148] [info_logger] [info] Sprite initialized successfully
+[2025-06-28 11:41:53.148] [info_logger] [info] Sprite initialized successfully
+[2025-06-28 11:41:53.148] [info_logger] [info] Sprite initialized successfully
+[2025-06-28 11:41:53.148] [info_logger] [info] Sprite initialized successfully
+[2025-06-28 11:41:53.148] [info_logger] [info] Sprite initialized successfully
+[2025-06-28 11:41:53.148] [info_logger] [info] Sprite initialized successfully
+[2025-06-28 11:41:53.148] [info_logger] [info] Sprite initialized successfully
+[2025-06-28 11:41:53.148] [info_logger] [info] Sprite initialized successfully
+[2025-06-28 11:41:53.148] [info_logger] [info] Board tile indices (19x21 grid):
+[2025-06-28 11:41:53.148] [info_logger] [info] Boardtilemap initialized
+[2025-06-28 11:41:53.148] [info_logger] [info] Music initialized successfully, volume is 80.000000
+[2025-06-28 11:41:53.148] [info_logger] [info] Sound initialized successfully
+[2025-06-28 11:41:53.148] [info_logger] [info] text initialized successully
+[2025-06-28 11:41:53.148] [info_logger] [info] text initialized successully
+[2025-06-28 11:41:53.148] [info_logger] [info] text initialized successully
+[2025-06-28 11:41:53.148] [info_logger] [info] Sprite inserted into quadtree node.
+[2025-06-28 11:41:53.148] [info_logger] [info] initializing assets in scene 1: 0.405000ms
+[2025-06-28 11:42:11.006] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.006] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.023] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.023] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.041] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.041] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.059] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.059] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.077] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.077] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.094] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.094] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.112] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.113] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.130] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.130] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.147] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.147] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.164] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.164] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.183] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.183] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.200] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.200] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.217] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.218] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.236] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.236] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.254] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.254] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.271] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.271] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.289] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.289] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.307] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.307] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.323] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.323] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.341] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.341] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.359] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.359] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.376] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.376] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.394] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.394] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.411] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.411] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.430] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.430] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.445] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.446] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.463] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.464] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.481] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.482] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.499] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.499] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.519] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.519] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.534] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.534] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.551] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.551] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.569] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.569] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.587] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.587] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.605] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.606] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.624] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.624] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.641] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.641] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.659] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.659] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.675] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.675] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.695] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.695] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.711] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.711] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.729] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.729] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.747] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.747] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.765] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.766] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.782] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.782] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.799] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.799] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.817] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.817] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.834] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.834] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.852] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.852] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.870] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.870] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.887] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.887] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.905] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.905] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.923] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.923] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.941] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.941] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.958] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.958] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.975] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.976] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.993] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:11.993] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.012] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.012] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.028] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.028] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.044] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.044] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.062] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.062] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.079] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.079] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.097] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.097] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.115] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.115] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.134] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.134] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.150] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.150] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.168] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.168] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.186] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.186] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.203] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.203] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.221] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.222] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.240] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.240] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.258] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.258] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.275] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.276] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.293] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.293] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.310] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.310] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.328] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.328] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.345] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.346] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.363] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.363] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.381] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.382] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.398] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.398] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.415] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.415] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.433] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.433] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.450] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.451] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.468] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.468] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.487] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.487] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.505] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.505] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.523] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.523] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.539] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.539] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.557] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.557] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.576] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.576] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.592] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.592] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.611] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.612] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.627] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.627] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.645] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.645] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.663] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.663] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.680] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.681] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.697] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.697] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.717] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.717] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.733] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.733] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.750] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.751] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.769] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.769] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.789] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.790] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.804] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.804] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.822] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.822] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.840] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.840] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.858] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.858] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.875] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.875] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.894] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.894] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.909] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.909] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.927] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.927] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.946] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.946] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.964] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.964] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.979] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.979] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.998] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:12.998] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.016] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.016] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.032] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.032] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.048] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.048] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.066] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.066] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.083] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.084] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.101] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.101] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.118] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.119] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.137] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.137] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.155] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.155] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.172] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.173] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.188] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.189] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.206] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.207] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.225] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.225] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.244] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.244] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.262] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.262] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.278] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.278] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.296] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.296] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.314] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.314] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.329] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.329] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.347] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.347] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.364] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.364] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.384] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.384] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.400] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.401] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.417] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.418] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.436] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.436] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.453] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.453] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.471] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.471] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.489] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.489] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.505] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.505] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.525] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.525] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.541] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.541] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.559] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.559] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.576] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.576] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.593] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.594] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.611] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.611] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.627] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.627] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.645] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.646] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.663] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.663] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.681] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.681] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.699] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.700] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.715] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.716] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.733] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.733] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.751] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.751] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.769] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.770] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.787] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.787] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.804] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.805] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.821] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.821] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.839] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.839] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.858] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.858] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.874] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.874] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.891] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.891] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.909] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.909] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.926] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.927] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.944] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.944] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.961] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.962] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.979] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.979] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.996] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:13.996] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.014] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.014] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.030] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.031] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.049] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.049] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.066] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.066] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.083] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.084] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.101] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.101] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.119] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.119] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.137] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.137] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.155] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.155] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.173] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.173] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.190] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.190] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.206] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.206] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.225] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.225] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.242] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.242] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.258] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.258] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.277] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.277] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.296] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.297] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.314] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.314] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.332] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.332] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.348] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.348] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.365] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.366] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.384] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.384] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.400] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.400] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.418] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.418] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.435] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.435] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.454] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.454] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.472] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.472] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.490] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.491] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.506] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.506] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.524] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.524] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.542] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.542] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.560] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.560] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.579] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.579] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.594] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.594] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.614] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.614] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.629] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.630] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.647] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.649] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.666] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.666] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.682] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.683] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.700] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.700] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.717] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.717] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.735] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.735] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.752] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.752] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.770] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.770] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.786] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.787] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.805] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.805] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.824] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.824] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.841] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.841] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.856] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.857] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.874] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.875] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.892] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.892] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.911] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.911] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.929] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.929] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.946] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.946] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.963] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.963] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.981] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.981] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.996] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:14.997] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.014] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.015] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.032] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.032] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.051] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.051] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.069] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.069] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.086] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.086] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.104] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.104] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.121] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.122] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.140] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.140] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.157] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.158] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.177] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.177] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.192] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.192] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.209] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.209] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.227] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.228] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.244] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.244] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.262] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.262] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.279] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.279] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.296] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.296] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.315] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.316] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.331] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.331] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.348] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.349] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.367] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.367] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.384] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.384] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.401] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.403] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.419] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.419] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.438] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.438] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.456] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.456] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.473] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.473] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.490] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.490] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.508] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.508] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.527] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.527] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.544] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.545] [info_logger] [info] Sprite hidden: line of sight blocked
+[2025-06-28 11:42:15.564] [info_logger] [info] Window close event detected.
+[2025-06-28 11:42:15.593] [info_logger] [info] 	Game Ended
 
-[2025-06-28 11:27:51.488] [info_logger] [info] objects cleared.
-[2025-06-28 11:27:51.488] [info_logger] [info] Quadtree cleared.
+[2025-06-28 11:42:15.593] [info_logger] [info] objects cleared.
+[2025-06-28 11:42:15.593] [info_logger] [info] Quadtree cleared.

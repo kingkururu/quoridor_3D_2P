@@ -151,7 +151,7 @@ void gamePlayScene::respawnAssets(){
 
 void gamePlayScene::setTime(){
     if(FlagSystem::gameScene1Flags.begin){
-        beginTime += MetaComponents::deltaTime;
+        MetaComponents::globalTime += MetaComponents::deltaTime;
     }
     if(FlagSystem::flagEvents.spacePressed || MetaComponents::spacePressedElapsedTime) {
         MetaComponents::spacePressedElapsedTime += MetaComponents::deltaTime; 
@@ -375,6 +375,9 @@ void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum, size_t&
 
 // Keeps sprites inside screen bounds, checks for collisions, update scores, and sets flagEvents.gameEnd to true in an event of collision 
 void gamePlayScene::handleGameEvents() { 
+
+    if(MetaComponents::globalTime >= 5.0) introText->setVisibleState(false); // hide intro text after 5 seconds
+
     physics::calculateRayCast3d(player, boardTileMap, rays, wallLine); // board specific
     physics::calculateRayCast3d(player2, boardTileMap, rays2, wallLine2); // board specific
 

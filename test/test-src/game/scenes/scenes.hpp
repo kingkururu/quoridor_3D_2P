@@ -118,8 +118,6 @@ private:
   std::unique_ptr<TextClass> scoreText; 
   std::unique_ptr<TextClass> endingText; 
 
-  float beginTime{};
-
   unsigned int stickIndex{}; // even is player 2 odd is player 1
 
   size_t p1pathCount{};
