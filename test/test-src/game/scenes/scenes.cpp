@@ -286,9 +286,7 @@ void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum, size_t&
     ++moveCount;
 
     // Get player's current position and bounds
-    sf::Vector2f playerPos = playerNum->getSpritePos();
     sf::FloatRect playerBounds = playerNum->returnSpritesShape().getGlobalBounds();
-    sf::Vector2f originalPlayerPos = playerPos;
     
     // Function to check if player can walk at a given position
     auto canWalkAtPosition = [&](sf::Vector2f pos) -> bool {
@@ -321,11 +319,7 @@ void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum, size_t&
     };
     
     // Function to simulate movement and get destination position
-    auto getDestinationPos = [&](bool isForward) -> sf::Vector2f {
-        // Create a temporary copy of current position
-        sf::Vector2f tempPos = playerPos;
-        
-        // Temporarily move the player to calculate destination
+    auto getDestinationPos = [&](bool isForward) -> sf::Vector2f {        
         sf::Vector2f originalPos = playerNum->getSpritePos();
         
         if (isForward) physics::spriteMover(playerNum, physics::followDirVec);
@@ -352,10 +346,7 @@ void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum, size_t&
         float newAngle = playerNum->returnSpritesShape().getRotation();
         playerNum->setHeadingAngle(newAngle);
     }
-    
-    // Store position before movement
-    sf::Vector2f positionBeforeMovement = playerNum->getSpritePos();
-    
+        
     if(FlagSystem::flagEvents.wPressed) { // forward
         sf::Vector2f forwardDestination = getDestinationPos(true);
         if(canWalkAtPosition(forwardDestination)) physics::spriteMover(playerNum, physics::followDirVec);

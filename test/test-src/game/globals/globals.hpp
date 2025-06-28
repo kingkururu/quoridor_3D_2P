@@ -283,8 +283,8 @@ namespace FlagSystem {
         SceneEvents() : sceneEnd(false), sceneStart(false) {} 
 
         void resetFlags() {
-            log_error("failed resetting scene Flags");
-            std::memset(this, 0, sizeof(*this));
+            sceneEnd = false;
+            sceneStart = false;
             log_info("Reset sceneEvents flags");
         }
     };
@@ -303,9 +303,14 @@ namespace FlagSystem {
 
         GameSceneEvents1() : sceneEnd(false), sceneStart(true), begin(false), player1turn(true), player2turn(false), stickPlaced(false), moved(false) {}
 
-        void resetFlags() {
-            log_error("failed resetting scene Flags");
-            std::memset(this, 0, sizeof(*this));
+          void resetFlags() {
+            sceneEnd = false;
+            sceneStart = false;
+            begin = false;
+            player1turn = true;  // Default to player 1's turn
+            player2turn = false;
+            stickPlaced = false;
+            moved = false;
             log_info("Reset GameSceneEvents1 flags");
         }
     };
