@@ -288,100 +288,6 @@ void gamePlayScene::handleMovementKeys() {
     handleEachPlayer(player2);
 }
 
-// void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum) {
-
-//     if(!playerNum || !playerNum->getMoveState()) return;
-    
-//     // Get player's current position and bounds
-//     sf::Vector2f playerPos = playerNum->getSpritePos();
-//     sf::FloatRect playerBounds = playerNum->returnSpritesShape().getGlobalBounds();
-//     sf::Vector2f originalPlayerPos = playerPos;
-
-//     // Function to check if player can walk at a given position
-//     auto canWalkAtPosition = [&](sf::Vector2f pos) -> bool {
-//         // Custom player collision box (smaller than full sprite)
-//         float collisionWidth = playerBounds.width * 0.6f;
-//         float collisionHeight = playerBounds.height * 0.4f;
-
-//         sf::FloatRect testPlayerBounds(
-//             pos.x - collisionWidth / 2.f,
-//             pos.y - collisionHeight / 2.f,
-//             collisionWidth,
-//             collisionHeight
-//         );
-
-//         // Check collision with all tiles in the BoardTileMap
-//         for (int i = 0; i < 23 * 21; ++i) { // num or rows and columns from boardTileMap
-//             try {
-//                 auto& tile = boardTileMap->getTile(i);
-//                 if (tile && tile->getVisibleState()) {
-//                     sf::FloatRect tileBounds = tile->getTileSprite().getGlobalBounds();
-
-//                     // If player intersects with a non-walkable tile, return false
-//                     if (tileBounds.intersects(testPlayerBounds) && !tile->getWalkable()) return false;
-//                 }
-//             } catch (const std::exception& e) {
-//                 log_warning("Error checking tile collision: " + std::string(e.what()));
-//             }
-//         }
-//         return true;
-//     };
-        
-//     // Check if current position is valid
-//     bool canWalkOnCurrentTile = canWalkAtPosition(playerPos);
-    
-//     // Handle player input
-//     if(FlagSystem::flagEvents.aPressed) { // turn left
-//         playerNum->returnSpritesShape().rotate(-1.0f); // degrees
-//         float newAngle = playerNum->returnSpritesShape().getRotation();
-//         playerNum->setHeadingAngle(newAngle);
-//        // FlagSystem::gameScene1Flags.begin = true;
-//     }
-    
-//     if(FlagSystem::flagEvents.dPressed) { // turn right
-//         playerNum->returnSpritesShape().rotate(1.0f); // degrees
-//         float newAngle = playerNum->returnSpritesShape().getRotation();
-//         playerNum->setHeadingAngle(newAngle);
-//        // FlagSystem::gameScene1Flags.begin = true;
-//     }
-    
-//     // Store position before movement
-//     sf::Vector2f positionBeforeMovement = playerNum->getSpritePos();
-    
-//     if(FlagSystem::flagEvents.wPressed && canWalkOnCurrentTile) { // forward
-//         physics::spriteMover(playerNum, physics::followDirVec);
-//         // FlagSystem::gameScene1Flags.begin = true;
-//     }
-    
-//     if(FlagSystem::flagEvents.sPressed && canWalkOnCurrentTile) { // backward
-//         physics::spriteMover(playerNum, physics::followDirVecOpposite);
-//        // FlagSystem::gameScene1Flags.begin = true;
-//     }
-    
-//     // Check if new position after movement is valid
-//     sf::Vector2f newPlayerPos = playerNum->getSpritePos();
-//     bool canWalkAtNewPosition = canWalkAtPosition(newPlayerPos);
-    
-//     // If new position is invalid, revert to original position
-//     if(!canWalkAtNewPosition) {
-//         playerNum->changePosition(originalPlayerPos);
-//         playerNum->updatePos();
-//     }
-    
-//     // Apply screen boundary constraints
-//     sf::Vector2f finalPlayerPos = playerNum->getSpritePos();
-//     sf::FloatRect finalPlayerBounds = playerNum->returnSpritesShape().getGlobalBounds();
-    
-//     float newX = std::clamp(finalPlayerPos.x, 
-//                            finalPlayerBounds.width / 2, 
-//                            Constants::VIEW_SIZE_X - finalPlayerBounds.width / 2);
-//     float newY = std::clamp(finalPlayerPos.y, 
-//                            finalPlayerBounds.height / 2, 
-//                            Constants::VIEW_SIZE_Y - finalPlayerBounds.height / 2);
-    
-//     playerNum->changePosition(sf::Vector2f{newX, newY});
-//     playerNum->updatePos();
-// }
 void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum) {
     if(!playerNum || !playerNum->getMoveState()) return;
     
@@ -428,11 +334,8 @@ void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum) {
         // Temporarily move the player to calculate destination
         sf::Vector2f originalPos = playerNum->getSpritePos();
         
-        if (isForward) {
-            physics::spriteMover(playerNum, physics::followDirVec);
-        } else {
-            physics::spriteMover(playerNum, physics::followDirVecOpposite);
-        }
+        if (isForward) physics::spriteMover(playerNum, physics::followDirVec);
+        else physics::spriteMover(playerNum, physics::followDirVecOpposite);
         
         sf::Vector2f destinationPos = playerNum->getSpritePos();
         
@@ -460,35 +363,26 @@ void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum) {
     sf::Vector2f positionBeforeMovement = playerNum->getSpritePos();
     
     if(FlagSystem::flagEvents.wPressed) { // forward
-        // Check if forward movement destination is valid
         sf::Vector2f forwardDestination = getDestinationPos(true);
-        if(canWalkAtPosition(forwardDestination)) {
-            physics::spriteMover(playerNum, physics::followDirVec);
-        }
+        if(canWalkAtPosition(forwardDestination)) physics::spriteMover(playerNum, physics::followDirVec);
     }
     
     if(FlagSystem::flagEvents.sPressed) { // backward
-        // Check if backward movement destination is valid
         sf::Vector2f backwardDestination = getDestinationPos(false);
-        if(canWalkAtPosition(backwardDestination)) {
-            physics::spriteMover(playerNum, physics::followDirVecOpposite);
-        }
+        if(canWalkAtPosition(backwardDestination)) physics::spriteMover(playerNum, physics::followDirVecOpposite);
     }
     
     // Apply screen boundary constraints
     sf::Vector2f finalPlayerPos = playerNum->getSpritePos();
     sf::FloatRect finalPlayerBounds = playerNum->returnSpritesShape().getGlobalBounds();
     
-    float newX = std::clamp(finalPlayerPos.x,
-                            finalPlayerBounds.width / 2,
-                            Constants::VIEW_SIZE_X - finalPlayerBounds.width / 2);
-    float newY = std::clamp(finalPlayerPos.y,
-                            finalPlayerBounds.height / 2,
-                            Constants::VIEW_SIZE_Y - finalPlayerBounds.height / 2);
+    float newX = std::clamp(finalPlayerPos.x, finalPlayerBounds.width / 2, Constants::VIEW_SIZE_X - finalPlayerBounds.width / 2);
+    float newY = std::clamp(finalPlayerPos.y, finalPlayerBounds.height / 2, Constants::VIEW_SIZE_Y - finalPlayerBounds.height / 2);
     
     playerNum->changePosition(sf::Vector2f{newX, newY});
     playerNum->updatePos();
 }
+
 // Keeps sprites inside screen bounds, checks for collisions, update scores, and sets flagEvents.gameEnd to true in an event of collision 
 void gamePlayScene::handleGameEvents() { 
     physics::calculateRayCast3d(player, boardTileMap, rays, wallLine); // board specific
@@ -536,12 +430,9 @@ void gamePlayScene::handleGameEvents() {
 void gamePlayScene::update() {
     try {
         changeAnimation();
-        quadtree.update(); 
-
-        // Set the view for the window
-        window.setView(MetaComponents::middleView);
-        
-    } catch (const std::exception& e) {
+        quadtree.update();         
+    } 
+    catch (const std::exception& e) {
         log_error("Exception in updateSprites: " + std::string(e.what()));
     }
 }
