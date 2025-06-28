@@ -107,7 +107,7 @@ void gamePlayScene::createAssets() {
         boardTiles[9] = std::make_shared<Tile>(Constants::BOARDTILES_SCALE, Constants::BOARDTILES_TEXTURE, Constants::BOARDTILES_RECTS[Constants::WALLBLANK_INDEX], Constants::BOARDTILES_BITMASK[Constants::WALLBLANK_INDEX], false); 
         boardTiles[10] = std::make_shared<Tile>(Constants::BOARDTILES_SCALE, Constants::BOARDTILES_TEXTURE, Constants::BOARDTILES_RECTS[Constants::WALLTOP_INDEX], Constants::BOARDTILES_BITMASK[Constants::WALLTOP_INDEX], false); 
 
-        boardTileMap = std::make_unique<BoardTileMap>(boardTiles); 
+        boardTileMap = std::make_unique<BoardTileMap>(boardTiles, Constants::BOARDTILES_ROW, Constants::BOARDTILES_COL); // 19 x 21 tiles including walls
 
         rays = sf::VertexArray(sf::Quads, Constants::RAYS_NUM);
         rays2 = sf::VertexArray(sf::Quads, Constants::RAYS_NUM);
@@ -213,13 +213,9 @@ void gamePlayScene::handleMouseKey() {
         if (!foundGreyTile) return;
     }
 
-    // Constants for your grid (from getTileIndex function)
-    const int GRID_WIDTH = 19; 
-    const int GRID_HEIGHT = 21; 
-    
     // Convert tile index to row/col coordinates
-    int row = targetTileIndex / GRID_WIDTH;
-    int col = targetTileIndex % GRID_WIDTH;
+    int row = targetTileIndex / Constants::BOARDTILES_ROW;
+    int col = targetTileIndex % Constants::BOARDTILES_ROW;
     
     bool isVertical = boardTileMap->isVerticalWallTile(targetTileIndex);
 
@@ -240,35 +236,34 @@ void gamePlayScene::handleMouseKey() {
     bool validPlacement = false;
 
     if (isVertical) {
-        // Vertical stick spans 3 tiles vertically
-        // Need at least 1 tile above and 1 tile below for the stick
-        if (row >= 1 && row < GRID_HEIGHT - 2) {
-            nextBlankTileIndex = targetTileIndex + GRID_WIDTH;  // tile above
-            nextTileIndex = nextBlankTileIndex + GRID_WIDTH;    // tile above that
+        if (row < Constants::BOARDTILES_ROW - 2) {
+            nextBlankTileIndex = targetTileIndex + Constants::BOARDTILES_ROW + 2;
+            nextTileIndex = nextBlankTileIndex + Constants::BOARDTILES_ROW + 2;
             validPlacement = true;
         }
     } else {
-        // Horizontal stick spans 3 tiles horizontally  
-        // Need at least 1 tile left and 1 tile right for the stick
-        if (col >= 1 && col < GRID_WIDTH - 2) {
+        if (col >= 1 && col < Constants::BOARDTILES_ROW - 2) {
             nextBlankTileIndex = targetTileIndex + 1;  // tile to the right
-            nextTileIndex = nextBlankTileIndex + 1;    // tile to the right of that
+            nextTileIndex = nextBlankTileIndex + 1;    // tile to the right
             validPlacement = true;
         }
     }
 
-    // Only place stick if within valid boundaries
-    if (!validPlacement || nextBlankTileIndex >= boardTileMap->getTileMapNumber() || nextTileIndex >= boardTileMap->getTileMapNumber()) return;
+    // Only place stick if within valid boundaries and variables are properly set
+    if (!validPlacement || 
+        nextBlankTileIndex >= boardTileMap->getTileMapNumber() || 
+        nextTileIndex >= boardTileMap->getTileMapNumber()) {
+        return;
+    }
 
     // Update tile walkability
     boardTileMap->getTile(targetTileIndex)->setWalkable(false);
-    boardTileMap->getTile(nextTileIndex)->setWalkable(false);
     boardTileMap->getTile(nextBlankTileIndex)->setWalkable(false);
+    boardTileMap->getTile(nextTileIndex)->setWalkable(false);
 
     ++stickIndex;
     FlagSystem::gameScene1Flags.stickPlaced = true;
 }
-
 void gamePlayScene::handleSpaceKey() {
     if(MetaComponents::spacePressedElapsedTime) {
        
@@ -307,7 +302,7 @@ void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum, size_t&
         );
         
         // Check collision with all tiles in the BoardTileMap
-        for (int i = 0; i < 19 * 21; ++i) { // num or rows and columns from boardTileMap
+        for (int i = 0; i < Constants::BOARDTILES_ROW * Constants::BOARDTILES_COL; ++i) { // num or rows and columns from boardTileMap
             try {
                 auto& tile = boardTileMap->getTile(i);
                 if (tile && tile->getVisibleState()) {
@@ -380,16 +375,7 @@ void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum, size_t&
     playerNum->updatePos();
 
     unsigned int currentPathIndex = boardTileMap->getTileIndex(playerNum->getSpritePos());
-    // // if moving towards right
-    // if(currentPathIndex == prevPathIndex + 21 || currentPathIndex == prevPathIndex - 21 || 
-    //    currentPathIndex == prevPathIndex + 1 || currentPathIndex == prevPathIndex - 1 ||
-    //    currentPathIndex == prevPathIndex + 42 || currentPathIndex == prevPathIndex - 42 ) {
-    
-    //    FlagSystem::gameScene1Flags.moved = false;
-    // } else {
-    //     FlagSystem::gameScene1Flags.moved = true; // player moved
-    //     moveCount = 0; // reset move count
-    // }
+   
     if(currentPathIndex != prevPathIndex) {
         FlagSystem::gameScene1Flags.moved = true; // player moved
         moveCount = 0; // reset move count

@@ -92,7 +92,7 @@ TileMap::TileMap(std::shared_ptr<Tile>* tileTypesArray, unsigned int tileTypesNu
     }
 }
 
-BoardTileMap::BoardTileMap(std::array<std::shared_ptr<Tile>, 11> tileTypesArr) {
+BoardTileMap::BoardTileMap(std::array<std::shared_ptr<Tile>, 11> tileTypesArr, size_t rowsTotal, size_t colsTotal) {
     // tileTypesArr[0] = wall x tile (33x9)
     // tileTypesArr[1] = wall y tile (9x33)
     // tileTypesArr[2] = path tile (33x33)
@@ -106,6 +106,8 @@ BoardTileMap::BoardTileMap(std::array<std::shared_ptr<Tile>, 11> tileTypesArr) {
     // tileTypesArr[10] = top and bottom of border (23x9)
     
     this->tileTypesArr = tileTypesArr;
+    this->rowsTotal = rowsTotal; // 19 rows
+    this->colsTotal = colsTotal; // 21 columns
     
     // Store tile sizes
     wallTileXSize = sf::Vector2i{33, 9};   // horizontal wall
@@ -121,15 +123,15 @@ BoardTileMap::BoardTileMap(std::array<std::shared_ptr<Tile>, 11> tileTypesArr) {
     sf::Vector2i borderShortSize = sf::Vector2i{11, 9};    // short part of border
     sf::Vector2i borderTopBottomSize = sf::Vector2i{23, 9}; // top and bottom of border
     
-    float currentY = 32.0f; // Start 10 pixels higher
+    float currentY = 32.0f; // Start pixels higher
     
     // Initialize the 19x21 board (removed first and last rows, and row 18)
-    for(int row = 0; row < 19; ++row) {
-        int rowStart = row * 21;
+    for(int row = 0; row < rowsTotal; ++row) {
+        int rowStart = row * colsTotal;
         float currentX = -15.0f; // Start pixels to the left
         float maxRowHeight = 0.0f; // Track the tallest tile in this row
         
-        for(int col = 0; col < 21; ++col) {
+        for(int col = 0; col < colsTotal; ++col) {
             std::shared_ptr<Tile> selectedTile;
             sf::Vector2i tileSize;
             
@@ -163,7 +165,7 @@ BoardTileMap::BoardTileMap(std::array<std::shared_ptr<Tile>, 11> tileTypesArr) {
                     tileSize = borderShortSize;
                 }
             }
-            // Interior tiles (original 21x19 grid logic, but offset by 1 row and 1 col)
+            // Interior tiles
             else {
                 int originalRow = row - 1; // Offset for wall row
                 int originalCol = col - 1; // Offset for left border
@@ -232,9 +234,9 @@ BoardTileMap::BoardTileMap(std::array<std::shared_ptr<Tile>, 11> tileTypesArr) {
     
     // Print debugging - show entire board tile indices (19x21 grid):
     log_info("Board tile indices (19x21 grid):");
-    for(int row = 0; row < 19; ++row) {
-        std::string rowStr = "Row " + std::to_string(row) + ": ";
-        for(int col = 0; col < 21; ++col) {
+    for(int row = 0; row < rowsTotal; ++row) {
+        // std::string rowStr = "Row " + std::to_string(row) + ": ";
+        for(int col = 0; col < colsTotal; ++col) {
             
             // Determine which tile type was used based on the logic above
             int selectedTileIndex = -1;
@@ -287,11 +289,9 @@ BoardTileMap::BoardTileMap(std::array<std::shared_ptr<Tile>, 11> tileTypesArr) {
                     }
                 }
             }
-            
-            rowStr += std::to_string(selectedTileIndex);
-            if(col < 20) rowStr += ",";
+            // rowStr += std::to_string(selectedTileIndex);
+            // if(col < 20) rowStr += ",";
         }
-        log_info(rowStr);
     }
     log_info("Boardtilemap initialized"); 
 }
@@ -358,7 +358,7 @@ size_t BoardTileMap::getTileIndex(sf::Vector2i position) {
 size_t BoardTileMap::getTileIndex(sf::Vector2f position) {
     // Starting position offset (same as in constructor)
     float startX = -15.0f;
-    float startY = -10.0f;
+    float startY = 32.0f;
     
     // Adjust position relative to the tilemap's starting position
     float relativeX = position.x - startX;
@@ -373,15 +373,16 @@ size_t BoardTileMap::getTileIndex(sf::Vector2f position) {
     float currentY = 0.0f;
     int targetRow = -1;
     
-    for (int row = 0; row < 23; ++row) {
+    for (int row = 0; row < rowsTotal; ++row) {
         float maxRowHeight = 0.0f;
         
         // Calculate the tallest tile height in this row
-        for (int col = 0; col < 21; ++col) {
+        for (int col = 0; col < colsTotal; ++col) {
             sf::Vector2i tileSize;
             
             // Determine tile size based on position (same logic as constructor)
-            if (row == 0 || row == 22) { // Top/bottom border
+            // Updated for 19x21 grid: rows 0 and 18 are borders
+            if (row == 0 || row == 18) { // Top/bottom border
                 tileSize = sf::Vector2i{23, 9}; // borderTopBottomSize
             }
             else if (col == 0 || col == 20) { // Left/right border
@@ -448,11 +449,12 @@ size_t BoardTileMap::getTileIndex(sf::Vector2f position) {
     float currentX = 0.0f;
     int targetCol = -1;
     
-    for (int col = 0; col < 21; ++col) {
+    for (int col = 0; col < colsTotal; ++col) {
         sf::Vector2i tileSize;
         
         // Determine tile size for this specific tile (same logic as above)
-        if (targetRow == 0 || targetRow == 22) { // Top/bottom border
+        // Updated for 19x21 grid: rows 0 and 18 are borders
+        if (targetRow == 0 || targetRow == 18) { // Top/bottom border
             tileSize = sf::Vector2i{23, 9};
         }
         else if (col == 0 || col == 20) { // Left/right border
@@ -503,7 +505,6 @@ size_t BoardTileMap::getTileIndex(sf::Vector2f position) {
             targetCol = col;
             break;
         }
-        
         currentX += tileSize.x;
     }
     
@@ -530,11 +531,12 @@ bool BoardTileMap::isGreyTile(size_t index) const {
     }
     
     // Calculate row and column from index
-    int row = index / 21;
-    int col = index % 21;
+    int row = index / colsTotal;
+    int col = index % colsTotal;
     
     // Border tiles are considered grey (non-playable)
-    if (row == 0 || row == 22 || col == 0 || col == 20) {
+    // Updated for 19x21 grid: row 0 and 18 are borders
+    if (row == 0 || row == 18 || col == 0 || col == 20) {
         return true;
     }
     
@@ -581,15 +583,15 @@ bool BoardTileMap::isVerticalWallTile(size_t index) const {
     }
     
     // Calculate row and column from index
-    int row = index / 21;
-    int col = index % 21;
+    int row = index / colsTotal;
+    int col = index % colsTotal;
     
     // Only interior tiles can be vertical walls
-    if (row == 0 || row == 22 || col == 0 || col == 20) {
+    // Updated for 19x21 grid: row 0 and 18 are borders, cols 0 and 20 are borders
+    if (row == 0 || row == 18 || col == 0 || col == 20) {
         return false;
     }
     
-    // Interior tiles (original 21x19 grid logic, offset by 1)
     int originalRow = row - 1;
     int originalCol = col - 1;
     
@@ -604,30 +606,29 @@ bool BoardTileMap::isVerticalWallTile(size_t index) const {
             return true; // This is a vertical wall tile (wallTileYSize = 9x33)
         }
     }
-    
     return false;
 }
 
 bool BoardTileMap::isP1StartTile(size_t index) const {
     // P1 start tiles are in the first column after the left border
-    // Grid is 21 columns × 23 rows (based on getTileIndex function)
+    // Grid is 21 columns × 19 rows (updated grid size)
     
-    int row = index / 21;  // Calculate which row this tile is in
-    int col = index % 21;  // Calculate which column this tile is in
+    int row = index / colsTotal;  // Calculate which row this tile is in
+    int col = index % colsTotal;  // Calculate which column this tile is in
     
     // Check if it's in P1's starting column (first column after left border)
     // and not in the top or bottom border rows
-    return (col == 1 && row > 0 && row < 22);  // 21 columns, 23 rows with borders
+    return (col == 1 && row > 0 && row < 18);  // 21 columns, 19 rows with borders
 }
 
 bool BoardTileMap::isP2StartTile(size_t index) const {
     // P2 start tiles are in the last column before the right border
-    // Grid is 21 columns × 23 rows (based on getTileIndex function)
+    // Grid is 21 columns × 19 rows (updated grid size)
     
-    int row = index / 21;  // Calculate which row this tile is in
-    int col = index % 21;  // Calculate which column this tile is in
+    int row = index / colsTotal;  // Calculate which row this tile is in
+    int col = index % colsTotal;  // Calculate which column this tile is in
     
     // Check if it's in P2's starting column (last column before right border)
     // and not in the top or bottom border rows
-    return (col == 19 && row > 0 && row < 22);  // 21 columns, 23 rows with borders
+    return (col == 19 && row > 0 && row < 18);  // 21 columns, 19 rows with borders
 }

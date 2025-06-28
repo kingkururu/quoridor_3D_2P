@@ -204,7 +204,10 @@ namespace Constants {
             // Load board tile settings
             BOARDTILES_PATH = config["board"]["tiles_path"].as<std::string>();
             BOARDTILES_SCALE = {config["board"]["scale"]["x"].as<float>(),
-                            config["board"]["scale"]["y"].as<float>()};     
+                            config["board"]["scale"]["y"].as<float>()};   
+            BOARDTILES_ROW = config["board"]["tiles_row"].as<size_t>();
+            BOARDTILES_COL = config["board"]["tiles_col"].as<size_t>(); 
+            
             WALL_TILEX_INDEX = config["board"]["wall_tileX_index"].as<size_t>();
             WALL_TILEY_INDEX = config["board"]["wall_tileY_index"].as<size_t>();
             PATH_TILE_INDEX = config["board"]["path_tile_index"].as<size_t>();

@@ -184,6 +184,8 @@ namespace Constants { // not actually "constants" in terms of being fixed, but s
     inline std::shared_ptr<sf::Texture> BOARDTILES_TEXTURE = std::make_shared<sf::Texture>();
     inline std::array<sf::IntRect, 11> BOARDTILES_RECTS; 
     inline std::array<std::shared_ptr<sf::Uint8[]>, 11> BOARDTILES_BITMASK; 
+    inline size_t BOARDTILES_ROW;
+    inline size_t BOARDTILES_COL;
 
     // Text settings
     inline unsigned short TEXT_SIZE;
