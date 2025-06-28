@@ -123,4 +123,7 @@ private:
   unsigned int p1PrevPathIndex{};
   size_t p2pathCount{};
   unsigned int p2PrevPathIndex{};
+
+  bool pawnRedBlocked = false; // for player 2
+  bool pawnBlueBlocked = false; // for player 1
 };

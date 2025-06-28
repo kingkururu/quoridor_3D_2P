@@ -156,31 +156,6 @@ protected:
     sf::Vector2f acceleration{}; 
 };
 
-class Cloud : public NonStatic{
-public:
-    explicit Cloud(sf::Vector2f position, sf::Vector2f scale, std::weak_ptr<sf::Texture> texture, float speed, sf::Vector2f acceleration, std::weak_ptr<sf::Uint8[]>& bitMask)
-        : Sprite(position, scale, texture), NonStatic(position, scale, texture, speed, acceleration), bitMask(bitMask) {}
-    ~Cloud() override{}; 
-
-    std::shared_ptr<sf::Uint8[]> const getBitmask(size_t index) const override;     
-    bool getMoveState() const { return true; }
-     
-private: 
-    std::weak_ptr<sf::Uint8[]> bitMask;
-};
-
-class Coin : public NonStatic{
-public:
-    explicit Coin(sf::Vector2f position, sf::Vector2f scale, std::weak_ptr<sf::Texture> texture, float speed, sf::Vector2f acceleration, std::weak_ptr<sf::Uint8[]>& bitMask)
-        : Sprite(position, scale, texture), NonStatic(position, scale, texture, speed, acceleration), bitMask(bitMask) {}
-    ~Coin() override{}; 
-
-    std::shared_ptr<sf::Uint8[]> const getBitmask(size_t index) const override;     
-     
-private: 
-    std::weak_ptr<sf::Uint8[]> bitMask;
-};
-
 // player class deriving from NonStatic; refers to movable player 
 class Player : public NonStatic, public Animated {
  public:
@@ -216,45 +191,6 @@ class Player : public NonStatic, public Animated {
     bool isFalling = false; 
     float headingAngle{}; 
     bool autoNavigate = false;
-};
-
-// obstacle class deriving from NonStatic; refers to movable obstacles 
-class Obstacle : public NonStatic, public Animated {
-public:
-    explicit Obstacle(sf::Vector2f position, sf::Vector2f scale, std::weak_ptr<sf::Texture> texture, 
-                      float speed, sf::Vector2f acceleration,  
-                      const std::vector<sf::IntRect> animationRects, unsigned int indexMax, 
-                      const std::vector<std::weak_ptr<sf::Uint8[]>>& bitMask)
-        : Sprite(position, scale, texture), 
-          NonStatic(position, scale, texture, speed, acceleration), 
-          Animated(position, scale, texture, animationRects, indexMax, bitMask) 
-    {}
-    ~Obstacle() override = default;
-    
-    using Sprite::getDirectionVector;
-    sf::Vector2f getDirectionVector() const override { return directionVector; }
-    using NonStatic::setDirectionVector;
-    void setDirectionVector(float angle);
-
-private:
-};
-
-class Bullet : public NonStatic, public Animated {
-public:
-   explicit Bullet(sf::Vector2f position, sf::Vector2f scale, std::weak_ptr<sf::Texture> texture, 
-                    float speed, sf::Vector2f acceleration,  
-                    const std::vector<sf::IntRect> animationRects, unsigned int indexMax, 
-                    const std::vector<std::weak_ptr<sf::Uint8[]>>& bitMask)
-        : Sprite(position, scale, texture), 
-          NonStatic(position, scale, texture, speed, acceleration), 
-          Animated(position, scale, texture, animationRects, indexMax, bitMask) 
-    {}
-    ~Bullet() override = default;
-    
-    using NonStatic::setDirectionVector;
-    void setDirectionVector(sf::Vector2i projectionPos);
-
-private:
 };
 
 class Button : public Animated {

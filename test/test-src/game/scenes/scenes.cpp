@@ -88,6 +88,7 @@ void gamePlayScene::createAssets() {
         backgroundBig = std::make_unique<Sprite>(Constants::BACKGROUNDBIG_POSITION, Constants::BACKGROUNDBIG_SCALE, Constants::BACKGROUNDBIG_TEXTURE); 
 
         backgroundBigFinal = std::make_unique<Sprite>(Constants::BACKGROUNDBIGFINAL_POSITION, Constants::BACKGROUNDBIGFINAL_SCALE, Constants::BACKGROUNDBIGFINAL_TEXTURE); 
+        backgroundBigFinal->setVisibleState(false); // hide final background at the start
         
         button1 = std::make_unique<Button>(Constants::BUTTON1_POSITION, Constants::BUTTON1_SCALE, Constants::BUTTON1_TEXTURE, Constants::BUTTON1_ANIMATIONRECTS, Constants::BUTTON1_INDEXMAX, utils::convertToWeakPtrVector(Constants::BUTTON1_BITMASK)); 
         button1->setRects(0); 
@@ -380,8 +381,8 @@ void gamePlayScene::handleGameEvents() {
     pawnRed->updateSpritePos(player2->getSpritePos()); // pawn red is player 2
     pawnBlue->updateSpritePos(player->getSpritePos()); // pawn blue is player
 
-    physics::calculateSprite3D(pawnRed, player, boardTileMap);
-    physics::calculateSprite3D(pawnBlue, player2, boardTileMap);
+    physics::calculateSprite3D(pawnRed, player, boardTileMap, pawnRedBlocked); // pawn red is player 2
+    physics::calculateSprite3D(pawnBlue, player2, boardTileMap, pawnBlueBlocked); // pawn blue is player 1
 
     // check which players turn
     if(FlagSystem::gameScene1Flags.player1turn) {
@@ -400,6 +401,8 @@ void gamePlayScene::handleGameEvents() {
             endingText->updateText(Constants::ENDINGTEXT_MESSAGE + " Player 1 wins!");
             std::cout << "Player 1 reached goal tile!" << std::endl;
             endingText->setVisibleState(true);
+            backgroundBigFinal->setVisibleState(true); // show final background
+            backgroundBig->setVisibleState(false); // hide initial background
         }
     }
     else if(FlagSystem::gameScene1Flags.player2turn) {
@@ -418,6 +421,8 @@ void gamePlayScene::handleGameEvents() {
             endingText->updateText(Constants::ENDINGTEXT_MESSAGE + " Player 2 wins!");
             std::cout << "Player 2 reached goal tile!" << std::endl;
             endingText->setVisibleState(true);
+            backgroundBigFinal->setVisibleState(true); // show final background
+            backgroundBig->setVisibleState(false); // hide initial background
         }
     }
 } 
@@ -456,14 +461,19 @@ void gamePlayScene::drawInleftView(){
     window.setView(MetaComponents::leftView);
 
     drawVisibleObject(backgroundBig);
-
-    window.draw(wallLine);
+    drawVisibleObject(backgroundBigFinal);
 
     drawVisibleObject(scoreText); 
     drawVisibleObject(introText);
     drawVisibleObject(endingText);
 
-    drawVisibleObject(pawnRed); // pawn red is player 2
+    if(pawnRedBlocked){
+        drawVisibleObject(pawnRed);
+        window.draw(wallLine);
+    } else {
+        window.draw(wallLine);
+        drawVisibleObject(pawnRed); // pawn red is player 2
+    }
 }
 
 void gamePlayScene::drawInmiddleView(){
@@ -484,10 +494,16 @@ void gamePlayScene::drawInRightView(){
     window.setView(MetaComponents::rightView);
     
     drawVisibleObject(backgroundBig);
+    drawVisibleObject(backgroundBigFinal);
 
-    window.draw(wallLine2);
-
-    drawVisibleObject(pawnBlue);
     drawVisibleObject(endingText);
     drawVisibleObject(button1); 
+
+    if(pawnBlueBlocked){
+        drawVisibleObject(pawnBlue);
+        window.draw(wallLine2);
+    } else {
+        window.draw(wallLine2);
+        drawVisibleObject(pawnBlue); // pawn red is player 2
+    }
 }

@@ -436,7 +436,7 @@ namespace physics {
         return nullptr;
     }
 
-    void calculateSprite3D(std::unique_ptr<Sprite>& sprite, std::unique_ptr<Player>& player, std::unique_ptr<BoardTileMap>& tileMap) {
+    void calculateSprite3D(std::unique_ptr<Sprite>& sprite, std::unique_ptr<Player>& player, std::unique_ptr<BoardTileMap>& tileMap, bool& blockedView) {
         if (!sprite || !player || !tileMap) {
             log_error("sprite, player, or tilemap is not initialized");
             return;
@@ -460,11 +460,7 @@ namespace physics {
         
         // Perform line-of-sight check using BoardTileMap
         bool hasLineOfSight = checkLineOfSightWithTileMap(playerPos, spritePos, tileMap);
-        
-        if (!hasLineOfSight) {
-            sprite->setVisibleState(false);
-            return;
-        }
+        blockedView = !hasLineOfSight;
         
         // Calculate angle from player to sprite
         float playerAngle = player->getHeadingAngle() * 3.14159f / 180.0f;

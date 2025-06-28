@@ -114,7 +114,7 @@ namespace physics{
     void calculateRayCast3d(std::unique_ptr<Player>& player, std::unique_ptr<BoardTileMap>& tileMap, sf::VertexArray& lines, sf::VertexArray& wallLine); 
 
     // rescale sprite for 3D rendering
-    void calculateSprite3D(std::unique_ptr<Sprite>& sprite, std::unique_ptr<Player>& player, std::unique_ptr<BoardTileMap>& tileMap);
+    void calculateSprite3D(std::unique_ptr<Sprite>& sprite, std::unique_ptr<Player>& player, std::unique_ptr<BoardTileMap>& tileMap, bool& blockedView);
     bool checkLineOfSightWithTileMap(sf::Vector2f start, sf::Vector2f end, std::unique_ptr<BoardTileMap>& tileMap);
     bool checkLineOfSightWithTileMapPrecise(sf::Vector2f start, sf::Vector2f end, std::unique_ptr<BoardTileMap>& tileMap);
 

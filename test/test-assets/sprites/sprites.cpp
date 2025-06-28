@@ -258,28 +258,6 @@ std::shared_ptr<sf::Uint8[]> const Animated::getBitmask(size_t index) const {
     }
 }
 
-// returns bitmask for a sprite 
-std::shared_ptr<sf::Uint8[]> const Cloud::getBitmask(size_t index) const {
-    try {
-        return bitMask.lock();
-    } 
-    catch (const std::exception& e) {
-        log_error("Error in getBitmask for cloud: " + std::string(e.what()));
-        throw;
-    }
-}
-
-// returns bitmask for a sprite 
-std::shared_ptr<sf::Uint8[]> const Coin::getBitmask(size_t index) const {
-    try {
-        return bitMask.lock();
-    } 
-    catch (const std::exception& e) {
-        log_error("Error in getBitmask for coin: " + std::string(e.what()));
-        throw;
-    }
-}
-
 // specialized player position update method 
 void Player::updatePlayer(sf::Vector2f newPos) {
     changePosition(newPos); 
@@ -323,26 +301,4 @@ void Player::setHeadingAngle(float headingAngle){
     float angleRad = headingAngle * (3.14f / 180.f);
     directionVector.x = std::cos(angleRad);
     directionVector.y = std::sin(angleRad);
-}
-
-// calculates obstacle's direction vector when bullet is made 
-void Obstacle::setDirectionVector(float angle) {
-    float angleRad = angle * (3.14f / 180.f);
-    directionVector.x = std::cos(angleRad);
-    directionVector.y = std::sin(angleRad);
-    log_info("Obstacle direction vector set based on angle " + std::to_string(angle));
-}
-
-// sets bullet's direction vector 
-void Bullet::setDirectionVector(sf::Vector2i projectionPos) {
-    directionVector = static_cast<sf::Vector2f>(projectionPos) - position;
-    
-    // Calculate the length of the direction vector (distance to the target)
-    float length = std::sqrt(directionVector.x * directionVector.x + directionVector.y * directionVector.y);
-
-    if (length != 0) {
-        directionVector.x /= length;
-        directionVector.y /= length;
-    }
-    log_info("Bullet direction vector calculated.");
 }
