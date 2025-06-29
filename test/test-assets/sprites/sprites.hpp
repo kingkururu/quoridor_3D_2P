@@ -181,8 +181,22 @@ class Player : public NonStatic, public Animated {
     void setHeadingAngle(float headingAngle);
     float getHeadingAngle() const { return headingAngle; }
     bool isCentered() const { return true; }
-    bool getAutoNavigate() const { return autoNavigate; }
-    void setAutoNavigate(bool autoNavigate) { this->autoNavigate = autoNavigate; }
+   
+    bool getTurnInProgress() const { return turnInProgress; }
+    int getTlesMovedThisTurn() const { return tilesMovedThisTurn; }
+    bool getIsMoving() const { return isMoving; }
+    int getCurrentDirection() const { return currentDirection; }
+    sf::Vector2f getTargetPosition() const { return targetPosition; }
+
+    void setTurnInProgress(bool turnInProgress) { this->turnInProgress = turnInProgress; }
+    void setTilesMovedThisTurn(int tilesMovedThisTurn) { this->tilesMovedThisTurn = tilesMovedThisTurn; }
+    void setIsMoving(bool isMoving) { this->isMoving = isMoving; }
+    void setCurrentDirection(int currentDirection) { this->currentDirection = currentDirection; }
+    
+    void setTargetPosition(sf::Vector2f targetPosition) {
+        this->targetPosition = targetPosition;
+        spriteCreated->setPosition(targetPosition);
+    }
 
  private:
     bool firstTurnInstance = true; 
@@ -190,7 +204,12 @@ class Player : public NonStatic, public Animated {
     bool isJumping = false;  
     bool isFalling = false; 
     float headingAngle{}; 
-    bool autoNavigate = false;
+
+    bool turnInProgress = false;
+    int tilesMovedThisTurn = 0;
+    bool isMoving = false;
+    int currentDirection = -1; 
+    sf::Vector2f targetPosition {}; 
 };
 
 class Button : public Animated {

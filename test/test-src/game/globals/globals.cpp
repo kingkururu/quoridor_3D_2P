@@ -219,6 +219,7 @@ namespace Constants {
             WALL_INDEX = config["board"]["wall_index"].as<size_t>();
             WALLBLANK_INDEX = config["board"]["wall_blank_index"].as<size_t>(); 
             WALLTOP_INDEX = config["board"]["wall_top_index"].as<size_t>(); // both top and bottom
+            TILE_THRESHOLD = config["board"]["tile_threshold"].as<float>(); // threshold for tile movement
                                       
             // Load text settings
             TEXT_SIZE = config["text"]["size"].as<unsigned short>();

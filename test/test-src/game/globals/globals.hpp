@@ -176,6 +176,7 @@ namespace Constants { // not actually "constants" in terms of being fixed, but s
     inline size_t WALL_INDEX;
     inline size_t WALLBLANK_INDEX; // horizontal wall tile  
     inline size_t WALLTOP_INDEX; // vertical wall tile 
+    inline float TILE_THRESHOLD; // threshold for tile movement
 
     inline sf::Vector2f BOARDTILES_SCALE;
     inline std::shared_ptr<sf::Texture> BOARDTILES_TEXTURE = std::make_shared<sf::Texture>();

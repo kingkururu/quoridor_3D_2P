@@ -147,6 +147,7 @@ board:
   wall_index: 8
   wall_blank_index: 9
   wall_top_index: 10
+  tile_threshold: 5.0 # pixels, threshold for tile movement
 
 # Text settings
 text:

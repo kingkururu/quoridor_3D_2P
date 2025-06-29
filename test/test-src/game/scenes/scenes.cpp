@@ -286,19 +286,18 @@ void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum, size_t&
     if (!playerNum || !playerNum->getMoveState()) return;
     
     // Static variables for turn tracking
-    static bool turnInProgress = false;
-    static int tilesMovedThisTurn = 0;
-    static bool isMoving = false;
-    static sf::Vector2f targetPosition;
-    static int currentDirection = -1;
-    static const float TILE_THRESHOLD = 5.0f;
+    bool turnInProgress = playerNum->getTurnInProgress();
+    int tilesMovedThisTurn = playerNum->getTlesMovedThisTurn();
+    bool isMoving = playerNum->getIsMoving();
+    sf::Vector2f targetPosition = playerNum->getTargetPosition();
+    int currentDirection = playerNum->getCurrentDirection();
 
     // Reset turn state
     if (moveCount == 0) {
         prevPathIndex = boardTileMap->getTileIndex(playerNum->getSpritePos());
-        turnInProgress = false;
-        tilesMovedThisTurn = 0;
-        isMoving = false;
+        playerNum->setTurnInProgress(false);
+        playerNum->setTilesMovedThisTurn(0);
+        playerNum->setIsMoving(false);
     }
     ++moveCount;
 
@@ -321,9 +320,7 @@ void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum, size_t&
             try {
                 auto& tile = boardTileMap->getTile(i);
                 if (tile && tile->getVisibleState() && !tile->getWalkable()) {
-                    if (tile->getTileSprite().getGlobalBounds().intersects(testBounds)) {
-                        collisionCount++;
-                    }
+                    if (tile->getTileSprite().getGlobalBounds().intersects(testBounds)) collisionCount++;
                 }
             } catch (const std::exception& e) {
                 log_warning("Tile collision check error: " + std::string(e.what()));
@@ -344,9 +341,7 @@ void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum, size_t&
                 try {
                     auto& tile = boardTileMap->getTile(i);
                     if (tile && tile->getVisibleState() && !tile->getWalkable()) {
-                        if (tile->getTileSprite().getGlobalBounds().intersects(currentBounds)) {
-                            currentCollisions++;
-                        }
+                        if (tile->getTileSprite().getGlobalBounds().intersects(currentBounds)) currentCollisions++;
                     }
                 } catch (const std::exception& e) {
                     log_warning("Current collision check error: " + std::string(e.what()));
@@ -354,7 +349,6 @@ void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum, size_t&
             }
             return collisionCount <= currentCollisions;
         }
-        
         return collisionCount == 0;
     };
     
@@ -365,14 +359,9 @@ void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum, size_t&
         // Check start tile restrictions for horizontal movement
         if (direction == 1) { // moving right
             if (boardTileMap->isP1StartTile(fromTileIndex) || 
-                (col + 1 < Constants::BOARDTILES_COL && boardTileMap->isP2StartTile(fromTileIndex + 1))) {
-                return 1;
-            }
+                (col + 1 < Constants::BOARDTILES_COL && boardTileMap->isP2StartTile(fromTileIndex + 1))) return 1;
         } else if (direction == 3) { // moving left
-            if ((col > 0 && boardTileMap->isP1StartTile(fromTileIndex - 1)) || 
-                boardTileMap->isP2StartTile(fromTileIndex)) {
-                return 1;
-            }
+            if ((col > 0 && boardTileMap->isP1StartTile(fromTileIndex - 1)) || boardTileMap->isP2StartTile(fromTileIndex)) return 1;
         }
         
         // Standard movement rules
@@ -436,11 +425,11 @@ void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum, size_t&
         sf::Vector2f playerPos = playerNum->getSpritePos();
         float distance = std::sqrt(std::pow(targetPosition.x - playerPos.x, 2) + std::pow(targetPosition.y - playerPos.y, 2));
         
-        if (distance <= TILE_THRESHOLD) {
+        if (distance <= Constants::TILE_THRESHOLD) {
             playerNum->changePosition(targetPosition);
             playerNum->updatePos();
-            isMoving = false;
-            currentDirection = -1;
+            playerNum->setIsMoving(false); 
+            playerNum->setCurrentDirection(-1);
         } else {
             // Continue movement
             switch (currentDirection) {
@@ -468,7 +457,7 @@ void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum, size_t&
     auto attemptMovement = [&](bool isForward) {
         if (tilesMovedThisTurn > 0) return; // Already moved this turn
         
-        if (!turnInProgress) turnInProgress = true;
+        if (!turnInProgress) playerNum->setTurnInProgress(true);
         
         int direction = getMovementDirection(isForward);
         int maxTiles = getMaxTilesInDirection(currentTileIndex, direction);
@@ -482,19 +471,16 @@ void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum, size_t&
             if (testTileIndex == -1) break;
             
             sf::Vector2f testPos = getTileCenter(testTileIndex);
-            if (canWalkAtPosition(testPos, !isForward)) {
-                validDistance = dist;
-            } else {
-                break;
-            }
+            if (canWalkAtPosition(testPos, !isForward)) validDistance = dist;
+            else break;
         }
         
         if (validDistance > 0) {
             int finalTileIndex = getAdjacentTileIndex(currentTileIndex, direction, validDistance);
-            targetPosition = getTileCenter(finalTileIndex);
-            currentDirection = direction;
-            isMoving = true;
-            tilesMovedThisTurn = validDistance;
+            playerNum->setTargetPosition(getTileCenter(finalTileIndex));
+            playerNum->setCurrentDirection(direction);
+            playerNum->setIsMoving(true);
+            playerNum->setTilesMovedThisTurn(validDistance);
         }
     };
     
@@ -516,8 +502,8 @@ void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum, size_t&
     if (newTileIndex != prevPathIndex && !isMoving) {
         FlagSystem::gameScene1Flags.moved = true;
         moveCount = 0;
-        turnInProgress = false;
-        tilesMovedThisTurn = 0;
+        playerNum->setTurnInProgress(false);
+        playerNum->setTilesMovedThisTurn(0);
         prevPathIndex = newTileIndex;
     }
 }
@@ -553,7 +539,7 @@ void gamePlayScene::handleGameEvents() {
 
         if(boardTileMap->isP2StartTile(boardTileMap->getTileIndex(player->getSpritePos()))) {
             FlagSystem::flagEvents.gameEnd = true; // player 1 reached goal tile
-            endingText->updateText(Constants::ENDINGTEXT_MESSAGE + " Player Red wins!");
+            endingText->updateText(Constants::ENDINGTEXT_MESSAGE + " Player Blue wins!");
             endingText->setVisibleState(true);
             backgroundBigFinal->setVisibleState(true); // show final background
             backgroundBig->setVisibleState(false); // hide initial background
@@ -572,7 +558,7 @@ void gamePlayScene::handleGameEvents() {
 
         if(boardTileMap->isP1StartTile(boardTileMap->getTileIndex(player2->getSpritePos()))) {
             FlagSystem::flagEvents.gameEnd = true; // player 2 reached goal tile
-            endingText->updateText(Constants::ENDINGTEXT_MESSAGE + " Player Blue wins!");
+            endingText->updateText(Constants::ENDINGTEXT_MESSAGE + " Player Red wins!");
             endingText->setVisibleState(true);
             backgroundBigFinal->setVisibleState(true); // show final background
             backgroundBig->setVisibleState(false); // hide initial background
