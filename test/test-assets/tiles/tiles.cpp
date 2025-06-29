@@ -527,9 +527,7 @@ size_t BoardTileMap::getTileIndex(sf::Vector2f position) {
 
 bool BoardTileMap::isGreyTile(size_t index) const {
     // Check if index is valid
-    if (index >= tiles.size()) {
-        throw std::out_of_range("Tile index out of bounds in isGreyTile");
-    }
+    if (index >= tiles.size()) throw std::out_of_range("Tile index out of bounds in isGreyTile");
     
     // Calculate row and column from index
     int row = index / colsTotal;
@@ -545,32 +543,20 @@ bool BoardTileMap::isGreyTile(size_t index) const {
     
     if (originalRow % 2 == 0) { // Even rows
         // Goal tiles (p1 and p2) are not grey - they're playable
-        if (originalCol == 0 || originalCol >= 17) {
-            return false; // Goal tiles
-        }
+        if (originalCol == 0 || originalCol >= 17) return false; // Goal tiles
         // Path tiles are not grey - they're playable
-        else if (originalCol == 1) {
-            return false; // Path tile
-        }
+        else if (originalCol == 1) return false; // Path tile
         else {
-            if (originalCol % 2 == 0) {
-                return true; // Wall Y tiles are grey
-            } else {
-                return false; // Path tiles are not grey
-            }
+            if (originalCol % 2 == 0) return true; // Wall Y tiles are grey
+            else return false; // Path tiles are not grey
         }
     }
     else { // Odd rows
         // Start and end pieces are grey (non-playable decorative tiles)
-        if (originalCol == 0 || originalCol >= 17) {
-            return false; // Start/end pieces
-        }
+        if (originalCol == 0 || originalCol >= 17) return false; // Start/end pieces
         else {
-            if (originalCol % 2 == 1) {
-                return true; // Wall X tiles are grey
-            } else {
-                return false; // Blank tiles (9x9) are NOT grey anymore
-            }
+            if (originalCol % 2 == 1) return true; // Wall X tiles are grey
+            else return false; // Blank tiles (9x9) are NOT grey anymore
         }
     }
 }

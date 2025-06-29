@@ -243,13 +243,13 @@ void gamePlayScene::handleMouseKey() {
     bool validPlacement = false;
 
     if (isVertical) {
-        if (row < Constants::BOARDTILES_ROW - 2) {
+        if (row < Constants::BOARDTILES_ROW - 1) {
             nextBlankTileIndex = targetTileIndex + Constants::BOARDTILES_ROW + 2;
             nextTileIndex = nextBlankTileIndex + Constants::BOARDTILES_ROW + 2;
             validPlacement = true;
         }
     } else {
-        if (col >= 1 && col < Constants::BOARDTILES_ROW - 2) {
+        if (col >= 1 && col < Constants::BOARDTILES_ROW - 1) {
             nextBlankTileIndex = targetTileIndex + 1;  // tile to the right
             nextTileIndex = nextBlankTileIndex + 1;    // tile to the right
             validPlacement = true;
