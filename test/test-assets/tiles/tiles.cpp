@@ -235,7 +235,7 @@ BoardTileMap::BoardTileMap(std::array<std::shared_ptr<Tile>, 11> tileTypesArr, s
     // Print debugging - show entire board tile indices (19x21 grid):
     log_info("Board tile indices (19x21 grid):");
     for(int row = 0; row < rowsTotal; ++row) {
-        // std::string rowStr = "Row " + std::to_string(row) + ": ";
+         std::string rowStr = "Row " + std::to_string(row) + ": ";
         for(int col = 0; col < colsTotal; ++col) {
             
             // Determine which tile type was used based on the logic above
@@ -289,9 +289,10 @@ BoardTileMap::BoardTileMap(std::array<std::shared_ptr<Tile>, 11> tileTypesArr, s
                     }
                 }
             }
-            // rowStr += std::to_string(selectedTileIndex);
-            // if(col < 20) rowStr += ",";
+            rowStr += std::to_string(selectedTileIndex);
+            if(col < 20) rowStr += ",";
         }
+        log_info(rowStr); // Log the row string
     }
     log_info("Boardtilemap initialized"); 
 }
