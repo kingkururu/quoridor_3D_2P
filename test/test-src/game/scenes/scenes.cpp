@@ -229,13 +229,13 @@ void gamePlayScene::handleMouseKey() {
     bool validPlacement = false;
 
     if (isVertical) {
-        if (row < Constants::BOARDTILES_ROW) { // Ensure there's enough space vertically
+        if (row < Constants::BOARDTILES_ROW) {
             nextBlankTileIndex = targetTileIndex + Constants::BOARDTILES_ROW + 2;
             nextTileIndex = nextBlankTileIndex + Constants::BOARDTILES_ROW + 2;
             validPlacement = true;
         }
     } else {
-        if (col < Constants::BOARDTILES_ROW) { // Ensure there's enough space horizontally
+        if (col < Constants::BOARDTILES_ROW) {
             nextBlankTileIndex = targetTileIndex + 1;
             nextTileIndex = nextBlankTileIndex + 1;
             validPlacement = true;
@@ -271,7 +271,7 @@ void gamePlayScene::handleMovementKeys() {
 
 void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum, std::unique_ptr<Player>& playerToCheck, size_t& moveCount, unsigned int& prevPathIndex) {
     if (!playerNum || !playerNum->getMoveState()) return;
-    
+
     // Static variables for turn tracking
     bool turnInProgress = playerNum->getTurnInProgress();
     int tilesMovedThisTurn = playerNum->getTlesMovedThisTurn();
@@ -279,7 +279,7 @@ void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum, std::un
     sf::Vector2f targetPosition = playerNum->getTargetPosition();
     int currentDirection = playerNum->getCurrentDirection();
 
-    // Reset turn state
+    // Reset turn state at the beginning of a new move cycle
     if (moveCount == 0) {
         prevPathIndex = boardTileMap->getTileIndex(playerNum->getSpritePos());
         playerNum->setTurnInProgress(false);
@@ -290,8 +290,8 @@ void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum, std::un
 
     sf::Vector2f currentPos = playerNum->getSpritePos();
     unsigned int currentTileIndex = boardTileMap->getTileIndex(currentPos);
-    
-    // Check collision at position
+
+    // Lambda for checking walkability at a given position
     auto canWalkAtPosition = [&](sf::Vector2f pos, bool isBackwardMove = false) -> bool {
         sf::FloatRect playerBounds = playerNum->returnSpritesShape().getGlobalBounds();
         sf::FloatRect testBounds(
@@ -300,8 +300,7 @@ void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum, std::un
             playerBounds.width * 0.6f,
             playerBounds.height * 0.4f
         );
-        
-        // Count collisions
+
         int collisionCount = 0;
         for (int i = 0; i < Constants::BOARDTILES_ROW * Constants::BOARDTILES_COL; ++i) {
             try {
@@ -313,8 +312,7 @@ void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum, std::un
                 log_warning("Tile collision check error: " + std::string(e.what()));
             }
         }
-        
-        // Anti-stuck logic for backward moves
+
         if (isBackwardMove) {
             sf::FloatRect currentBounds(
                 currentPos.x - playerBounds.width * 0.3f,
@@ -322,7 +320,6 @@ void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum, std::un
                 playerBounds.width * 0.6f,
                 playerBounds.height * 0.4f
             );
-            
             int currentCollisions = 0;
             for (int i = 0; i < Constants::BOARDTILES_ROW * Constants::BOARDTILES_COL; ++i) {
                 try {
@@ -338,47 +335,38 @@ void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum, std::un
         }
         return collisionCount == 0;
     };
-    
-    // Get max tiles allowed in direction
+
+    // Lambda for getting max tiles a player can move in a direction
     auto getMaxTilesInDirection = [&](unsigned int fromTileIndex, int direction) -> int {
         int col = fromTileIndex % Constants::BOARDTILES_COL;
-        
-        // Check start tile restrictions for horizontal movement
-        if (direction == 1) { // moving right
-            if (boardTileMap->isP1StartTile(fromTileIndex) || 
-                (col + 1 < Constants::BOARDTILES_COL && boardTileMap->isP2StartTile(fromTileIndex + 1))) return 1;
-        } else if (direction == 3) { // moving left
-            if ((col > 0 && boardTileMap->isP1StartTile(fromTileIndex - 1)) || boardTileMap->isP2StartTile(fromTileIndex)) return 1;
+        if ((direction == 1 && (boardTileMap->isP1StartTile(fromTileIndex) || (col + 1 < Constants::BOARDTILES_COL && boardTileMap->isP2StartTile(fromTileIndex + 1)))) ||
+            (direction == 3 && ((col > 0 && boardTileMap->isP1StartTile(fromTileIndex - 1)) || boardTileMap->isP2StartTile(fromTileIndex)))) {
+            return 1;
         }
-        
-        // Standard movement rules
+
         switch (direction) {
-            case 0: case 2: return 2; // up/down: always 2
-            case 1: // right
-                if (col >= Constants::BOARDTILES_COL - 1) return 0;
-                return (col == 0 || col == Constants::BOARDTILES_COL - 2) ? 1 : 2;
-            case 3: // left
-                if (col == 0) return 0;
-                return (col == 1 || col == Constants::BOARDTILES_COL - 1) ? 1 : 2;
+            case 0: case 2: return 2; // Up/down always 2
+            case 1: return (col >= Constants::BOARDTILES_COL - 1) ? 0 : ((col == 0 || col == Constants::BOARDTILES_COL - 2) ? 1 : 2); // Right
+            case 3: return (col == 0) ? 0 : ((col == 1 || col == Constants::BOARDTILES_COL - 1) ? 1 : 2); // Left
         }
         return 0;
     };
-    
-    // Get adjacent tile index
+
+    // Lambda for getting adjacent tile index
     auto getAdjacentTileIndex = [&](unsigned int fromIndex, int direction, int distance) -> int {
         int row = fromIndex / Constants::BOARDTILES_COL;
         int col = fromIndex % Constants::BOARDTILES_COL;
-        
+
         switch (direction) {
-            case 0: return (row >= distance) ? (row - distance) * Constants::BOARDTILES_COL + col : -1; // up
-            case 1: return (col + distance < Constants::BOARDTILES_COL) ? row * Constants::BOARDTILES_COL + (col + distance) : -1; // right
-            case 2: return (row + distance < Constants::BOARDTILES_ROW) ? (row + distance) * Constants::BOARDTILES_COL + col : -1; // down
-            case 3: return (col >= distance) ? row * Constants::BOARDTILES_COL + (col - distance) : -1; // left
+            case 0: return (row >= distance) ? (row - distance) * Constants::BOARDTILES_COL + col : -1;
+            case 1: return (col + distance < Constants::BOARDTILES_COL) ? row * Constants::BOARDTILES_COL + (col + distance) : -1;
+            case 2: return (row + distance < Constants::BOARDTILES_ROW) ? (row + distance) * Constants::BOARDTILES_COL + col : -1;
+            case 3: return (col >= distance) ? row * Constants::BOARDTILES_COL + (col - distance) : -1;
         }
         return -1;
     };
-    
-    // Get tile center position
+
+    // Lambda for getting tile center position
     auto getTileCenter = [&](unsigned int tileIndex) -> sf::Vector2f {
         try {
             auto& tile = boardTileMap->getTile(tileIndex);
@@ -391,34 +379,33 @@ void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum, std::un
         }
         return sf::Vector2f(0, 0);
     };
-    
-    // Get movement direction from player rotation
+
+    // Lambda for getting movement direction from player rotation
     auto getMovementDirection = [&](bool forward) -> int {
         float angle = playerNum->returnSpritesShape().getRotation();
         while (angle < 0) angle += 360;
         while (angle >= 360) angle -= 360;
-        
+
         int direction;
-        if (angle >= 315 || angle < 45) direction = 1;      // right
-        else if (angle >= 45 && angle < 135) direction = 2;  // down
-        else if (angle >= 135 && angle < 225) direction = 3; // left
-        else direction = 0;                                  // up
-        
+        if (angle >= 315 || angle < 45) direction = 1;      // Right
+        else if (angle >= 45 && angle < 135) direction = 2;  // Down
+        else if (angle >= 135 && angle < 225) direction = 3; // Left
+        else direction = 0;                                  // Up
+
         return forward ? direction : (direction + 2) % 4;
     };
-    
+
     // Handle ongoing movement animation
     if (isMoving) {
         sf::Vector2f playerPos = playerNum->getSpritePos();
         float distance = std::sqrt(std::pow(targetPosition.x - playerPos.x, 2) + std::pow(targetPosition.y - playerPos.y, 2));
-        
+
         if (distance <= Constants::TILE_THRESHOLD) {
             playerNum->changePosition(targetPosition);
             playerNum->updatePos();
-            playerNum->setIsMoving(false); 
+            playerNum->setIsMoving(false);
             playerNum->setCurrentDirection(-1);
         } else {
-            // Continue movement
             switch (currentDirection) {
                 case 0: physics::spriteMover(playerNum, physics::moveUp, Constants::SPRITE1_SPEED, playerPos); break;
                 case 1: physics::spriteMover(playerNum, physics::moveRight, Constants::SPRITE1_SPEED, playerPos); break;
@@ -428,40 +415,35 @@ void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum, std::un
         }
         return;
     }
-    
-    // Handle rotation (only when not moving or turn hasn't started)
-    if (FlagSystem::flagEvents.aPressed && (!turnInProgress || tilesMovedThisTurn == 0)) {
-        playerNum->returnSpritesShape().rotate(-1.0f);
+
+    // Handle rotation input when not moving or at start of turn
+    if ((FlagSystem::flagEvents.aPressed || FlagSystem::flagEvents.dPressed) && (!turnInProgress || tilesMovedThisTurn == 0)) {
+        if (FlagSystem::flagEvents.aPressed) playerNum->returnSpritesShape().rotate(-1.0f);
+        if (FlagSystem::flagEvents.dPressed) playerNum->returnSpritesShape().rotate(1.0f);
         playerNum->setHeadingAngle(playerNum->returnSpritesShape().getRotation());
     }
-    
-    if (FlagSystem::flagEvents.dPressed && (!turnInProgress || tilesMovedThisTurn == 0)) {
-        playerNum->returnSpritesShape().rotate(1.0f);
-        playerNum->setHeadingAngle(playerNum->returnSpritesShape().getRotation());
-    }
-    
-    // Handle movement input
+
+    // Lambda for attempting player movement
     auto attemptMovement = [&](bool isForward) {
         if (tilesMovedThisTurn > 0) return; // Already moved this turn
-        
+
         if (!turnInProgress) playerNum->setTurnInProgress(true);
-        
+
         int direction = getMovementDirection(isForward);
         int maxTiles = getMaxTilesInDirection(currentTileIndex, direction);
-        
         if (maxTiles <= 0) return;
-        
+
         // Find furthest valid position
         int validDistance = 0;
         for (int dist = 1; dist <= maxTiles; ++dist) {
             int testTileIndex = getAdjacentTileIndex(currentTileIndex, direction, dist);
             if (testTileIndex == -1) break;
-            
+
             sf::Vector2f testPos = getTileCenter(testTileIndex);
             if (canWalkAtPosition(testPos, !isForward)) validDistance = dist;
             else break;
         }
-        
+
         if (validDistance > 0) {
             int finalTileIndex = getAdjacentTileIndex(currentTileIndex, direction, validDistance);
             playerNum->setTargetPosition(getTileCenter(finalTileIndex));
@@ -470,21 +452,21 @@ void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum, std::un
             playerNum->setTilesMovedThisTurn(validDistance);
         }
     };
-    
-    if (FlagSystem::flagEvents.wPressed) attemptMovement(true);   // forward
-    if (FlagSystem::flagEvents.sPressed) attemptMovement(false);  // backward
-    
+
+    // Trigger movement based on input
+    if (FlagSystem::flagEvents.wPressed) attemptMovement(true);   // Forward
+    if (FlagSystem::flagEvents.sPressed) attemptMovement(false);  // Backward
+
     // Apply screen boundaries
     sf::Vector2f finalPos = playerNum->getSpritePos();
     sf::FloatRect bounds = playerNum->returnSpritesShape().getGlobalBounds();
-    
-    float newX = std::clamp(finalPos.x, bounds.width / 2, Constants::VIEW_SIZE_X - bounds.width / 2);
-    float newY = std::clamp(finalPos.y, bounds.height / 2, Constants::VIEW_SIZE_Y - bounds.height / 2);
-    
-    playerNum->changePosition(sf::Vector2f{newX, newY});
+    playerNum->changePosition(sf::Vector2f{
+        std::clamp(finalPos.x, bounds.width / 2, Constants::VIEW_SIZE_X - bounds.width / 2),
+        std::clamp(finalPos.y, bounds.height / 2, Constants::VIEW_SIZE_Y - bounds.height / 2)
+    });
     playerNum->updatePos();
 
-    // Check if turn is complete
+    // Complete turn if player has moved to a new tile and finished animating
     unsigned int newTileIndex = boardTileMap->getTileIndex(playerNum->getSpritePos());
     if (newTileIndex != prevPathIndex && !isMoving) {
         FlagSystem::gameScene1Flags.moved = true;
@@ -494,6 +476,7 @@ void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum, std::un
         prevPathIndex = newTileIndex;
     }
 }
+
 // Keeps sprites inside screen bounds, checks for collisions, update scores, and sets flagEvents.gameEnd to true in an event of collision 
 void gamePlayScene::handleGameEvents() { 
 
