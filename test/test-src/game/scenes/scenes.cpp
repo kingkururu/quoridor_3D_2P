@@ -243,13 +243,13 @@ void gamePlayScene::handleMouseKey() {
     bool validPlacement = false;
 
     if (isVertical) {
-        if (row < Constants::BOARDTILES_ROW - 1) {
+        if (row < Constants::BOARDTILES_ROW) {
             nextBlankTileIndex = targetTileIndex + Constants::BOARDTILES_ROW + 2;
             nextTileIndex = nextBlankTileIndex + Constants::BOARDTILES_ROW + 2;
             validPlacement = true;
         }
     } else {
-        if (col >= 1 && col < Constants::BOARDTILES_ROW - 1) {
+        if (col < Constants::BOARDTILES_ROW) {
             nextBlankTileIndex = targetTileIndex + 1;  // tile to the right
             nextTileIndex = nextBlankTileIndex + 1;    // tile to the right
             validPlacement = true;
@@ -278,14 +278,14 @@ void gamePlayScene::handleSpaceKey() {
 }
 
 void gamePlayScene::handleMovementKeys() {
-    // handleEachPlayer(player, player2, p1pathCount, p1PrevPathIndex);
-    // handleEachPlayer(player2, player, p2pathCount, p2PrevPathIndex);
+    handleEachPlayer(player, player2, p1pathCount, p1PrevPathIndex);
+    handleEachPlayer(player2, player, p2pathCount, p2PrevPathIndex);
 
-     handleEachPlayer(player, p1pathCount, p1PrevPathIndex);
-    handleEachPlayer(player2, p2pathCount, p2PrevPathIndex);
+    //  handleEachPlayer(player, p1pathCount, p1PrevPathIndex);
+    // handleEachPlayer(player2, p2pathCount, p2PrevPathIndex);
 }
 
-void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum, size_t& moveCount, unsigned int& prevPathIndex) {
+void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum, std::unique_ptr<Player>& playerToCheck, size_t& moveCount, unsigned int& prevPathIndex) {
     if (!playerNum || !playerNum->getMoveState()) return;
     
     // Static variables for turn tracking

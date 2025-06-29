@@ -12,7 +12,7 @@ world:
       x: 0.0 # pixels, absoloute from window
       y: 0.0 # pixels, absoloute from window
   FOV: 60 # degrees
-  rays_num: 200 # number of rays
+  rays_num: 100 # number of rays
   wall_color: "CUSTOMCOLOR_BROWN"
   
 # Game score settings
