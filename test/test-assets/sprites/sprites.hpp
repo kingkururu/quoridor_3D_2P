@@ -194,6 +194,11 @@ class Player : public NonStatic, public Animated {
     void setCurrentDirection(int currentDirection) { this->currentDirection = currentDirection; }
     void setTargetPosition(sf::Vector2f targetPosition) { this->targetPosition = targetPosition; spriteCreated->setPosition(targetPosition); }
 
+    void setIsSpecialMovement(bool isSpecialMovement) { this->isSpecialMovement = isSpecialMovement; }
+    bool getIsSpecialMovement() const { return isSpecialMovement; }
+    void setHasReachedOtherPlayer(bool hasReachedOtherPlayer) { this->hasReachedOtherPlayer = hasReachedOtherPlayer; }
+    bool getHasReachedOtherPlayer() const { return hasReachedOtherPlayer; }
+
  private:
     bool firstTurnInstance = true; 
     bool prevTurnBool{}; 
@@ -206,6 +211,8 @@ class Player : public NonStatic, public Animated {
     bool isMoving = false;
     int currentDirection = -1; 
     sf::Vector2f targetPosition {}; 
+    bool isSpecialMovement = false; // true if player is doing special 4-tile movement
+    bool hasReachedOtherPlayer = false; // true if player has reached the other player during
 };
 
 class Button : public Animated {
