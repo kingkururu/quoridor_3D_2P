@@ -70,6 +70,7 @@ private:
   void handleMouseKey(); 
   void handleSpaceKey();
   void handleMovementKeys(); 
+  void handleEachPlayer(std::unique_ptr<Player>& playerNum, std::unique_ptr<Player>& playerToCheck, size_t& moveCount, unsigned int& prevPathIndex);
   void handleEachPlayer(std::unique_ptr<Player>& playerNum, size_t& moveCount, unsigned int& prevPathIndex);
 
   void respawnAssets() override; 

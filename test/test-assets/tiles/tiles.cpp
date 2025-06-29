@@ -535,19 +535,17 @@ bool BoardTileMap::isGreyTile(size_t index) const {
     int row = index / colsTotal;
     int col = index % colsTotal;
     
-    // Border tiles are considered grey (non-playable)
+    // Border tiles are not considered grey (non-playable)
     // Updated for 19x21 grid: row 0 and 18 are borders
-    if (row == 0 || row == 18 || col == 0 || col == 20) {
-        return true;
-    }
-    
+    if (row == 0 || row == 18) return false;
+
     // Interior tiles (original 21x19 grid logic, offset by 1)
     int originalRow = row - 1;
     int originalCol = col - 1;
     
     if (originalRow % 2 == 0) { // Even rows
         // Goal tiles (p1 and p2) are not grey - they're playable
-        if (originalCol == 0 || originalCol == 18) {
+        if (originalCol == 0 || originalCol >= 17) {
             return false; // Goal tiles
         }
         // Path tiles are not grey - they're playable
@@ -564,8 +562,8 @@ bool BoardTileMap::isGreyTile(size_t index) const {
     }
     else { // Odd rows
         // Start and end pieces are grey (non-playable decorative tiles)
-        if (originalCol == 0 || originalCol == 18) {
-            return true; // Start/end pieces
+        if (originalCol == 0 || originalCol >= 17) {
+            return false; // Start/end pieces
         }
         else {
             if (originalCol % 2 == 1) {
@@ -579,9 +577,7 @@ bool BoardTileMap::isGreyTile(size_t index) const {
 
 bool BoardTileMap::isVerticalWallTile(size_t index) const {
     // Check if index is valid
-    if (index >= tiles.size()) {
-        return false;
-    }
+    if (index >= tiles.size()) return false;
     
     // Calculate row and column from index
     int row = index / colsTotal;
@@ -589,9 +585,7 @@ bool BoardTileMap::isVerticalWallTile(size_t index) const {
     
     // Only interior tiles can be vertical walls
     // Updated for 19x21 grid: row 0 and 18 are borders, cols 0 and 20 are borders
-    if (row == 0 || row == 18 || col == 0 || col == 20) {
-        return false;
-    }
+    if (row == 0 || row == 18 || col == 0 || col == 20) return false;
     
     int originalRow = row - 1;
     int originalCol = col - 1;
@@ -599,13 +593,10 @@ bool BoardTileMap::isVerticalWallTile(size_t index) const {
     // Vertical wall tiles (9x33) only exist in even rows at even columns (excluding special cases)
     if (originalRow % 2 == 0) {
         // Skip goal tiles and first path tile
-        if (originalCol == 0 || originalCol == 18 || originalCol == 1) {
-            return false;
-        }
+        if (originalCol == 0 || originalCol == 18 || originalCol == 1) return false;
+
         // Even columns in even rows are vertical wall tiles (9x33)
-        if (originalCol % 2 == 0) {
-            return true; // This is a vertical wall tile (wallTileYSize = 9x33)
-        }
+        if (originalCol % 2 == 0) return true; // This is a vertical wall tile (wallTileYSize = 9x33)
     }
     return false;
 }

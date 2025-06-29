@@ -192,11 +192,7 @@ class Player : public NonStatic, public Animated {
     void setTilesMovedThisTurn(int tilesMovedThisTurn) { this->tilesMovedThisTurn = tilesMovedThisTurn; }
     void setIsMoving(bool isMoving) { this->isMoving = isMoving; }
     void setCurrentDirection(int currentDirection) { this->currentDirection = currentDirection; }
-    
-    void setTargetPosition(sf::Vector2f targetPosition) {
-        this->targetPosition = targetPosition;
-        spriteCreated->setPosition(targetPosition);
-    }
+    void setTargetPosition(sf::Vector2f targetPosition) { this->targetPosition = targetPosition; spriteCreated->setPosition(targetPosition); }
 
  private:
     bool firstTurnInstance = true; 

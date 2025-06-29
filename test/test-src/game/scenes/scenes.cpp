@@ -278,7 +278,10 @@ void gamePlayScene::handleSpaceKey() {
 }
 
 void gamePlayScene::handleMovementKeys() {
-    handleEachPlayer(player, p1pathCount, p1PrevPathIndex);
+    // handleEachPlayer(player, player2, p1pathCount, p1PrevPathIndex);
+    // handleEachPlayer(player2, player, p2pathCount, p2PrevPathIndex);
+
+     handleEachPlayer(player, p1pathCount, p1PrevPathIndex);
     handleEachPlayer(player2, p2pathCount, p2PrevPathIndex);
 }
 
@@ -507,7 +510,6 @@ void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum, size_t&
         prevPathIndex = newTileIndex;
     }
 }
-
 // Keeps sprites inside screen bounds, checks for collisions, update scores, and sets flagEvents.gameEnd to true in an event of collision 
 void gamePlayScene::handleGameEvents() { 
 
