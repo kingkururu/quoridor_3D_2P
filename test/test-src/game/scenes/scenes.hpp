@@ -94,14 +94,15 @@ private:
 
   std::unique_ptr<Button>button1;
 
-  std::unique_ptr<Sprite> pawnBlue; // for 3D rendering
-  std::unique_ptr<Sprite> pawnRed;
+  std::unique_ptr<Sprite> pawn; // for 3D rendering
+  std::unique_ptr<Sprite> pawn2;
   std::unique_ptr<Sprite> backgroundBig; 
   std::unique_ptr<Sprite> backgroundBigFinal; 
   std::unique_ptr<Sprite> backgroundBigHalfRed; // for 3D rendering
   std::unique_ptr<Sprite> backgroundBigHalfBlue; // for 3D rendering
 
-  std::array<std::unique_ptr<Sprite>, Constants::STICKS_NUMBER> sticks;
+  std::array<std::unique_ptr<Sprite>, Constants::STICKS_NUMBER / 2> sticksBlue;
+  std::array<std::unique_ptr<Sprite>, Constants::STICKS_NUMBER / 2> sticksRed;
   
   std::array<std::shared_ptr<Tile>, 11> boardTiles;
   std::unique_ptr<BoardTileMap> boardTileMap; // for the board with walls and goals
@@ -119,7 +120,8 @@ private:
   std::unique_ptr<TextClass> scoreText; 
   std::unique_ptr<TextClass> endingText; 
 
-  unsigned int stickIndex{}; 
+  unsigned int stickIndexBlue{}; 
+  unsigned int stickIndexRed{};
 
   size_t p1pathCount{};
   unsigned int p1PrevPathIndex{};

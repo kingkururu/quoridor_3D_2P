@@ -145,7 +145,8 @@ namespace Constants { // not actually "constants" in terms of being fixed, but s
     inline sf::Vector2f STICK_STARTING_POSITION; // starting position of the first stick
     inline float RIGHTSTICK_OFFSET_X; // offset for right stick
     inline float RIGHTSTICK_OFFSET_Y; // offset for right stick
-    inline std::array<sf::Vector2f, STICKS_NUMBER> STICK_POSITIONS; 
+    inline std::array<sf::Vector2f, STICKS_NUMBER> STICK_POSITIONSBLUE; 
+    inline std::array<sf::Vector2f, STICKS_NUMBER> STICK_POSITIONSRED;
     inline sf::Vector2f STICK_SCALE;
     inline std::shared_ptr<sf::Texture> STICK_TEXTURE = std::make_shared<sf::Texture>();
 

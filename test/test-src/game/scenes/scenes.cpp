@@ -82,10 +82,11 @@ void gamePlayScene::createAssets() {
         player2->returnSpritesShape().rotate(180.0f);
         player2->setHeadingAngle(player2->returnSpritesShape().getRotation());
 
-        for(int i = 0; i < Constants::STICKS_NUMBER; ++i) sticks[i] = std::make_unique<Sprite>(Constants::STICK_POSITIONS[i], Constants::STICK_SCALE, Constants::STICK_TEXTURE);
+        for(int i = 0; i < Constants::STICKS_NUMBER / 2; ++i) sticksBlue[i] = std::make_unique<Sprite>(Constants::STICK_POSITIONSBLUE[i], Constants::STICK_SCALE, Constants::STICK_TEXTURE);
+        for(int i = 0; i < Constants::STICKS_NUMBER / 2; ++i) sticksRed[i] = std::make_unique<Sprite>(Constants::STICK_POSITIONSRED[i], Constants::STICK_SCALE, Constants::STICK_TEXTURE);
 
-        pawnBlue = std::make_unique<Sprite>(Constants::PAWNBLUE_POSITION, Constants::PAWNBLUE_SCALE, Constants::PAWNBLUE_TEXTURE); 
-        pawnRed = std::make_unique<Sprite>(Constants::PAWNRED_POSITION, Constants::PAWNRED_SCALE, Constants::PAWNRED_TEXTURE);
+        pawn = std::make_unique<Sprite>(Constants::PAWNBLUE_POSITION, Constants::PAWNBLUE_SCALE, Constants::PAWNBLUE_TEXTURE); 
+        pawn2 = std::make_unique<Sprite>(Constants::PAWNRED_POSITION, Constants::PAWNRED_SCALE, Constants::PAWNRED_TEXTURE);
 
         backgroundBig = std::make_unique<Sprite>(Constants::BACKGROUNDBIG_POSITION, Constants::BACKGROUNDBIG_SCALE, Constants::BACKGROUNDBIG_TEXTURE); 
 
@@ -174,8 +175,12 @@ void gamePlayScene::handleInput() {
 
 void gamePlayScene::handleMouseKey() {
     if (FlagSystem::flagEvents.mouseClicked && buttonClickSound) buttonClickSound->returnSound().play();
+    
+    unsigned int stickIndex;
+    if(FlagSystem::gameScene1Flags.playerBlueTurn) stickIndex = stickIndexBlue;
+    else if(FlagSystem::gameScene1Flags.playerRedTurn) stickIndex = stickIndexRed;
 
-    if (!boardTileMap || stickIndex >= Constants::STICKS_NUMBER) return;
+    if (!boardTileMap || stickIndex >= Constants::STICKS_NUMBER / 2 ) return;
 
     sf::Vector2f mousePos = MetaComponents::middleViewmouseCurrentPosition_f;
     if (mousePos.x == 0.0f && mousePos.y == 0.0f)  mousePos = sf::Vector2f{20.0f, 20.0f}; // Default position
@@ -220,8 +225,13 @@ void gamePlayScene::handleMouseKey() {
     sf::Vector2f stickPos = boardTileMap->getTile(targetTileIndex)->getTileSprite().getPosition();
     if (isVertical) stickPos.x += 9.0f;
 
-    sticks[stickIndex]->returnSpritesShape().setPosition(stickPos);
-    sticks[stickIndex]->returnSpritesShape().setRotation(isVertical ? 90.0f : 0.0f);
+    if(FlagSystem::gameScene1Flags.playerBlueTurn){
+        sticksBlue[stickIndex]->returnSpritesShape().setPosition(stickPos);
+        sticksBlue[stickIndex]->returnSpritesShape().setRotation(isVertical ? 90.0f : 0.0f);
+    } else if (FlagSystem::gameScene1Flags.playerRedTurn){
+        sticksRed[stickIndex]->returnSpritesShape().setPosition(stickPos);
+        sticksRed[stickIndex]->returnSpritesShape().setRotation(isVertical ? 90.0f : 0.0f);
+    }
 
     if (!FlagSystem::flagEvents.mouseClicked) return; // Only apply changes on click
 
@@ -251,8 +261,13 @@ void gamePlayScene::handleMouseKey() {
     boardTileMap->getTile(nextBlankTileIndex)->setWalkable(false);
     boardTileMap->getTile(nextTileIndex)->setWalkable(false);
 
-    ++stickIndex;
+    if(FlagSystem::gameScene1Flags.playerBlueTurn) ++stickIndexBlue;
+    else if (FlagSystem::gameScene1Flags.playerRedTurn) ++stickIndexRed;
     FlagSystem::gameScene1Flags.stickPlaced = true;
+
+    // std::cout << "red index: " << stickIndexRed << std::endl;
+    // std::cout << "blue index: " << stickIndexBlue << std::endl;
+    // std::cout << "total index: " << stickIndex << std::endl;
 }
 
 void gamePlayScene::handleSpaceKey() {
@@ -500,11 +515,11 @@ void gamePlayScene::handleGameEvents() {
     physics::calculateRayCast3d(player, boardTileMap, rays, wallLine); // board specific
     physics::calculateRayCast3d(player2, boardTileMap, rays2, wallLine2); // board specific
 
-    pawnRed->updateSpritePos(player2->getSpritePos()); // pawn red is player 2
-    pawnBlue->updateSpritePos(player->getSpritePos()); // pawn blue is player
+    pawn2->updateSpritePos(player2->getSpritePos()); // pawn red is player 2
+    pawn->updateSpritePos(player->getSpritePos()); // pawn blue is player
 
-    physics::calculateSprite3D(pawnRed, player, boardTileMap, pawnRedBlocked); // pawn red is player 2
-    physics::calculateSprite3D(pawnBlue, player2, boardTileMap, pawnBlueBlocked); // pawn blue is player 1
+    physics::calculateSprite3D(pawn2, player, boardTileMap, pawnRedBlocked); // pawn red is player 2
+    physics::calculateSprite3D(pawn, player2, boardTileMap, pawnBlueBlocked); // pawn blue is player 1
 
     backgroundBigHalfRed->setVisibleState(pawnRedBlocked);
     backgroundBigHalfBlue->setVisibleState(pawnBlueBlocked);
@@ -591,12 +606,12 @@ void gamePlayScene::drawInleftView(){
     drawVisibleObject(endingText);
 
     if(pawnRedBlocked){
-        drawVisibleObject(pawnRed);
+        drawVisibleObject(pawn2);
         drawVisibleObject(backgroundBigHalfRed);
         window.draw(wallLine);
     } else {
         window.draw(wallLine);
-        drawVisibleObject(pawnRed); // pawn red is player 2
+        drawVisibleObject(pawn2); // pawn red is player 2
     }
 }
 
@@ -605,7 +620,8 @@ void gamePlayScene::drawInmiddleView(){
 
     drawVisibleObject(boardTileMap); 
 
-    for(const auto& stick : sticks) drawVisibleObject(stick);
+    for(const auto& stick : sticksBlue) drawVisibleObject(stick);
+    for(const auto& stick : sticksRed) drawVisibleObject(stick);
 
     drawVisibleObject(player);
     window.draw(rays); // direct sf object
@@ -624,11 +640,11 @@ void gamePlayScene::drawInRightView(){
     drawVisibleObject(button1); 
 
     if(pawnBlueBlocked){
-        drawVisibleObject(pawnBlue);
+        drawVisibleObject(pawn);
         drawVisibleObject(backgroundBigHalfBlue);
         window.draw(wallLine2);
     } else {
         window.draw(wallLine2);
-        drawVisibleObject(pawnBlue); // pawn red is player 2
+        drawVisibleObject(pawn); 
     }
 }

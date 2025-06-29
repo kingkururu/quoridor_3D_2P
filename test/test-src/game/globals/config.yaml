@@ -42,7 +42,7 @@ sprites:
       y: 0.2 # for 2d space 
     index_max: 1 # number of total images for animation 
     animation_rows: 1 # number of rows for animation 
-    path: "test/test-assets/sprites/png/1.png"
+    path: "test/test-assets/sprites/png/blue.png"
     position:
       x: 21.0 # pixels 
       y: 225.0 # pixels 
@@ -59,7 +59,7 @@ sprites:
       y: 0.2 # for 2d space 
     index_max: 1 # number of total images for animation 
     animation_rows: 1 # number of rows for animation 
-    path: "test/test-assets/sprites/png/2.png"
+    path: "test/test-assets/sprites/png/red.png"
     position:
       x: 430.0 # pixels 
       y: 225.0 # pixels 
@@ -76,16 +76,16 @@ sprites:
     scale:
       x: 1.0
       y: 1.0
-  pawn_blue: 
-    path: "test/test-assets/sprites/png/pawnBlue.png"
+  pawn_1: 
+    path: "test/test-assets/sprites/png/pawnRed.png"
     position:
       x: 80.0 # pixels 
       y: 170.0 # pixels 
     scale:
       x: 1.0
       y: 1.0
-  pawn_red: 
-    path: "test/test-assets/sprites/png/pawnRed.png"
+  pawn_2: 
+    path: "test/test-assets/sprites/png/pawnBlue.png"
     position:
       x: 80.0 # pixels 
       y: 170.0 # pixels 

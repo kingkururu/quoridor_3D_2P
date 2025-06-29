@@ -153,17 +153,17 @@ namespace Constants {
                             config["sprites"]["button1"]["scale"]["y"].as<float>()};                
         
             // Load pawn paths and settings
-            PAWNBLUE_PATH = config["sprites"]["pawn_blue"]["path"].as<std::string>();
-            PAWNBLUE_POSITION = {config["sprites"]["pawn_blue"]["position"]["x"].as<float>(),
-                                config["sprites"]["pawn_blue"]["position"]["y"].as<float>()};
-            PAWNBLUE_SCALE = {config["sprites"]["pawn_blue"]["scale"]["x"].as<float>(),
-                            config["sprites"]["pawn_blue"]["scale"]["y"].as<float>()};
+            PAWNBLUE_PATH = config["sprites"]["pawn_1"]["path"].as<std::string>();
+            PAWNBLUE_POSITION = {config["sprites"]["pawn_1"]["position"]["x"].as<float>(),
+                                config["sprites"]["pawn_1"]["position"]["y"].as<float>()};
+            PAWNBLUE_SCALE = {config["sprites"]["pawn_1"]["scale"]["x"].as<float>(),
+                            config["sprites"]["pawn_1"]["scale"]["y"].as<float>()};
 
-            PAWNRED_PATH = config["sprites"]["pawn_red"]["path"].as<std::string>();
-            PAWNRED_POSITION = {config["sprites"]["pawn_red"]["position"]["x"].as<float>(),
-                                config["sprites"]["pawn_red"]["position"]["y"].as<float>()};
-            PAWNRED_SCALE = {config["sprites"]["pawn_red"]["scale"]["x"].as<float>(),
-                            config["sprites"]["pawn_red"]["scale"]["y"].as<float>()};
+            PAWNRED_PATH = config["sprites"]["pawn_2"]["path"].as<std::string>();
+            PAWNRED_POSITION = {config["sprites"]["pawn_2"]["position"]["x"].as<float>(),
+                                config["sprites"]["pawn_2"]["position"]["y"].as<float>()};
+            PAWNRED_SCALE = {config["sprites"]["pawn_2"]["scale"]["x"].as<float>(),
+                            config["sprites"]["pawn_2"]["scale"]["y"].as<float>()};
   
             // Load stick paths and settings
             STICK_PATH = config["sprites"]["stick"]["path"].as<std::string>();
@@ -174,11 +174,16 @@ namespace Constants {
                             config["sprites"]["stick"]["scale"]["y"].as<float>()};
             RIGHTSTICK_OFFSET_X = config["sprites"]["stick"]["right_stick_offset_x"].as<float>();
             RIGHTSTICK_OFFSET_Y = config["sprites"]["stick"]["right_stick_offset_y"].as<float>();
-            for(unsigned short i = 0; i < STICKS_NUMBER; ++i) {
-                if(i % 2) { // sticks at even index are for player 2 and odd is for player 1
-                    STICK_POSITIONS[i] = { STICK_STARTING_POSITION.x, STICK_STARTING_POSITION.y + i * STICK_SPACING};
-                } else {
-                    STICK_POSITIONS[i] = { VIEW_SIZE_X + RIGHTSTICK_OFFSET_X + STICK_STARTING_POSITION.x, RIGHTSTICK_OFFSET_Y + STICK_STARTING_POSITION.y + i * STICK_SPACING};
+          
+            unsigned short blueIndex = 0; // Index for STICK_POSITIONSBLUE
+            unsigned short redIndex = 0;  // Index for STICK_POSITIONSRED
+            for (unsigned short i = 0; i < STICKS_NUMBER; ++i) {
+                if (i % 2) {
+                    STICK_POSITIONSRED[redIndex] = { STICK_STARTING_POSITION.x, STICK_STARTING_POSITION.y + i * STICK_SPACING };
+                    redIndex++;
+                } else { 
+                    STICK_POSITIONSBLUE[blueIndex] = { VIEW_SIZE_X + RIGHTSTICK_OFFSET_X + STICK_STARTING_POSITION.x, RIGHTSTICK_OFFSET_Y + STICK_STARTING_POSITION.y + i * STICK_SPACING };
+                    blueIndex++;
                 }
             }
 
