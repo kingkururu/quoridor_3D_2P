@@ -177,39 +177,32 @@ void gamePlayScene::handleMouseKey() {
 
     if (!boardTileMap || stickIndex >= Constants::STICKS_NUMBER) return;
 
-    int currentTileIndex = -1;
-    
-    // Safe bounds checking before calling getTileIndex
     sf::Vector2f mousePos = MetaComponents::middleViewmouseCurrentPosition_f;
-    
-    // Check if mouse position is valid and within reasonable bounds
-    if (mousePos.x == 0.0f && mousePos.y == 0.0f) mousePos = sf::Vector2f{20.0f, 20.0f}; // default position
-    
-    // Try to get tile index with exception handling
+    if (mousePos.x == 0.0f && mousePos.y == 0.0f)  mousePos = sf::Vector2f{20.0f, 20.0f}; // Default position
+
+    int currentTileIndex = -1;
     try {
         currentTileIndex = boardTileMap->getTileIndex(mousePos);
-    } 
-    catch (const std::out_of_range& e) {  // Mouse is outside tilemap bounds - exit early
-        return;        
+    } catch (const std::out_of_range& e) {
+        return;  // Mouse is outside tilemap bounds - exit early
     }
-    
-    // Additional safety check
+
     if (currentTileIndex < 0 || currentTileIndex >= boardTileMap->getTileMapNumber()) return;
-    
+
     size_t targetTileIndex = currentTileIndex;
 
     // Find closest grey tile if current isn't grey
     if (!boardTileMap->isGreyTile(currentTileIndex)) {
         float minDistance = std::numeric_limits<float>::max();
         bool foundGreyTile = false;
-        
+
         for (size_t i = 0; i < boardTileMap->getTileMapNumber(); ++i) {
             if (boardTileMap->isGreyTile(i)) {
                 sf::Vector2f tilePos = boardTileMap->getTile(i)->getTileSprite().getPosition();
                 float dx = mousePos.x - tilePos.x;
                 float dy = mousePos.y - tilePos.y;
                 float distance = std::sqrt(dx * dx + dy * dy);
-                
+
                 if (distance < minDistance) {
                     minDistance = distance;
                     targetTileIndex = i;
@@ -220,50 +213,40 @@ void gamePlayScene::handleMouseKey() {
         if (!foundGreyTile) return;
     }
 
-    // Convert tile index to row/col coordinates
     int row = targetTileIndex / Constants::BOARDTILES_ROW;
     int col = targetTileIndex % Constants::BOARDTILES_ROW;
-    
     bool isVertical = boardTileMap->isVerticalWallTile(targetTileIndex);
 
-    if (stickIndex < Constants::STICKS_NUMBER) {
-        sf::Vector2f stickPos = boardTileMap->getTile(targetTileIndex)->getTileSprite().getPosition();
-        
-        if (isVertical) stickPos.x += 9.0f;
-        
-        sticks[stickIndex]->returnSpritesShape().setPosition(stickPos);
-        sticks[stickIndex]->returnSpritesShape().setRotation(isVertical ? 90.0f : 0.0f);
-    }
+    sf::Vector2f stickPos = boardTileMap->getTile(targetTileIndex)->getTileSprite().getPosition();
+    if (isVertical) stickPos.x += 9.0f;
 
-    // Early exit if not actually clicking
-    if (!FlagSystem::flagEvents.mouseClicked) return;
+    sticks[stickIndex]->returnSpritesShape().setPosition(stickPos);
+    sticks[stickIndex]->returnSpritesShape().setRotation(isVertical ? 90.0f : 0.0f);
 
-    // BOUNDARY CHECKS - Prevent placement near borders
+    if (!FlagSystem::flagEvents.mouseClicked) return; // Only apply changes on click
+
     unsigned int nextBlankTileIndex, nextTileIndex;
     bool validPlacement = false;
 
     if (isVertical) {
-        if (row < Constants::BOARDTILES_ROW) {
+        if (row < Constants::BOARDTILES_ROW) { // Ensure there's enough space vertically
             nextBlankTileIndex = targetTileIndex + Constants::BOARDTILES_ROW + 2;
             nextTileIndex = nextBlankTileIndex + Constants::BOARDTILES_ROW + 2;
             validPlacement = true;
         }
     } else {
-        if (col < Constants::BOARDTILES_ROW) {
-            nextBlankTileIndex = targetTileIndex + 1;  // tile to the right
-            nextTileIndex = nextBlankTileIndex + 1;    // tile to the right
+        if (col < Constants::BOARDTILES_ROW) { // Ensure there's enough space horizontally
+            nextBlankTileIndex = targetTileIndex + 1;
+            nextTileIndex = nextBlankTileIndex + 1;
             validPlacement = true;
         }
     }
 
-    // Only place stick if within valid boundaries and variables are properly set
-    if (!validPlacement || 
-        nextBlankTileIndex >= boardTileMap->getTileMapNumber() || 
-        nextTileIndex >= boardTileMap->getTileMapNumber()) {
-        return;
-    }
+    if (!validPlacement || nextBlankTileIndex >= boardTileMap->getTileMapNumber() || nextTileIndex >= boardTileMap->getTileMapNumber()) return;
 
-    // Update tile walkability
+    // Before placing, verify all involved tiles are walkable
+    if (!boardTileMap->getTile(targetTileIndex)->getWalkable() || !boardTileMap->getTile(nextBlankTileIndex)->getWalkable() || !boardTileMap->getTile(nextTileIndex)->getWalkable()) return;
+
     boardTileMap->getTile(targetTileIndex)->setWalkable(false);
     boardTileMap->getTile(nextBlankTileIndex)->setWalkable(false);
     boardTileMap->getTile(nextTileIndex)->setWalkable(false);
@@ -271,6 +254,7 @@ void gamePlayScene::handleMouseKey() {
     ++stickIndex;
     FlagSystem::gameScene1Flags.stickPlaced = true;
 }
+
 void gamePlayScene::handleSpaceKey() {
     if(MetaComponents::spacePressedElapsedTime) {
        
