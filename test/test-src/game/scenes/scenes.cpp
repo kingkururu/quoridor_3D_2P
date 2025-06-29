@@ -85,8 +85,8 @@ void gamePlayScene::createAssets() {
         for(int i = 0; i < Constants::STICKS_NUMBER / 2; ++i) sticksBlue[i] = std::make_unique<Sprite>(Constants::STICK_POSITIONSBLUE[i], Constants::STICK_SCALE, Constants::STICK_TEXTURE);
         for(int i = 0; i < Constants::STICKS_NUMBER / 2; ++i) sticksRed[i] = std::make_unique<Sprite>(Constants::STICK_POSITIONSRED[i], Constants::STICK_SCALE, Constants::STICK_TEXTURE);
 
-        pawn = std::make_unique<Sprite>(Constants::PAWNBLUE_POSITION, Constants::PAWNBLUE_SCALE, Constants::PAWNBLUE_TEXTURE); 
-        pawn2 = std::make_unique<Sprite>(Constants::PAWNRED_POSITION, Constants::PAWNRED_SCALE, Constants::PAWNRED_TEXTURE);
+        pawn2 = std::make_unique<Sprite>(Constants::PAWNBLUE_POSITION, Constants::PAWNBLUE_SCALE, Constants::PAWNBLUE_TEXTURE); 
+        pawn = std::make_unique<Sprite>(Constants::PAWNRED_POSITION, Constants::PAWNRED_SCALE, Constants::PAWNRED_TEXTURE);
 
         backgroundBig = std::make_unique<Sprite>(Constants::BACKGROUNDBIG_POSITION, Constants::BACKGROUNDBIG_SCALE, Constants::BACKGROUNDBIG_TEXTURE); 
 
@@ -307,6 +307,9 @@ void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum, std::un
     sf::Vector2f currentPos = playerNum->getSpritePos(); 
     unsigned int currentTileIndex = boardTileMap->getTileIndex(currentPos); 
 
+    // Check if player is on their start tile
+    bool isOnStartTile = boardTileMap->isP1StartTile(currentTileIndex) || boardTileMap->isP2StartTile(currentTileIndex);
+
     // Check walkability at position
     auto canWalkAtPosition = [&](sf::Vector2f pos, bool isBackward = false) -> bool { 
         sf::FloatRect playerBounds = playerNum->returnSpritesShape().getGlobalBounds(); 
@@ -427,9 +430,9 @@ void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum, std::un
         return; 
     } 
 
-    // Handle rotation input
+    // Handle rotation input - Allow infinite rotation on start tiles
     if ((FlagSystem::flagEvents.aPressed || FlagSystem::flagEvents.dPressed) && 
-        (!turnInProgress || tilesMovedThisTurn == 0 || (isSpecialMovement && hasReachedOtherPlayer))) { 
+        (isOnStartTile || !turnInProgress || tilesMovedThisTurn == 0 || (isSpecialMovement && hasReachedOtherPlayer))) { 
         if (FlagSystem::flagEvents.aPressed) playerNum->returnSpritesShape().rotate(-1.0f); 
         if (FlagSystem::flagEvents.dPressed) playerNum->returnSpritesShape().rotate(1.0f); 
         playerNum->setHeadingAngle(playerNum->returnSpritesShape().getRotation()); 
@@ -437,20 +440,24 @@ void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum, std::un
 
     // Attempt movement
     auto attemptMovement = [&](bool isForward) { 
-        // Check movement limits
-        if (!isSpecialMovement && tilesMovedThisTurn > 0) return;
-        if (isSpecialMovement && tilesMovedThisTurn >= 4) return;
-        if (isSpecialMovement && hasReachedOtherPlayer && tilesMovedThisTurn >= 4) return;
+        // MODIFIED: Allow infinite movement if on start tile, otherwise apply normal restrictions
+        if (!isOnStartTile) {
+            // Normal movement restrictions when NOT on start tile
+            if (!isSpecialMovement && tilesMovedThisTurn > 0) return;
+            if (isSpecialMovement && tilesMovedThisTurn >= 4) return;
+            if (isSpecialMovement && hasReachedOtherPlayer && tilesMovedThisTurn >= 4) return;
+        }
+        // If on start tile, no movement restrictions apply - player can move infinitely
 
         if (!turnInProgress) playerNum->setTurnInProgress(true); 
 
         int direction = getMovementDirection(isForward); 
         int movementDistance = 2;
         
-        // Determine special movement
-        if (!isSpecialMovement && tilesMovedThisTurn == 0 && isOtherPlayerAt2Tiles(direction)) {
+        // Determine special movement (only if not on start tile to avoid interference)
+        if (!isOnStartTile && !isSpecialMovement && tilesMovedThisTurn == 0 && isOtherPlayerAt2Tiles(direction)) {
             playerNum->setIsSpecialMovement(true);
-        } else if (isSpecialMovement && !hasReachedOtherPlayer) {
+        } else if (!isOnStartTile && isSpecialMovement && !hasReachedOtherPlayer) {
             return;
         }
 
@@ -475,7 +482,12 @@ void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum, std::un
             playerNum->setTargetPosition(getTileCenter(finalTileIndex)); 
             playerNum->setCurrentDirection(direction); 
             playerNum->setIsMoving(true); 
-            playerNum->setTilesMovedThisTurn(tilesMovedThisTurn + validDistance); 
+            
+            // MODIFIED: Only increment tiles moved if not on start tile
+            if (!isOnStartTile) {
+                playerNum->setTilesMovedThisTurn(tilesMovedThisTurn + validDistance); 
+            }
+            // If on start tile, don't increment tilesMovedThisTurn to allow infinite movement
         } 
     }; 
 
@@ -492,11 +504,12 @@ void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum, std::un
     }); 
     playerNum->updatePos(); 
 
-    // Complete turn logic
+    // Complete turn logic - MODIFIED: Only end turn if not on start tile
     unsigned int newTileIndex = boardTileMap->getTileIndex(playerNum->getSpritePos()); 
     bool shouldEndTurn = (!isSpecialMovement) || (isSpecialMovement && hasReachedOtherPlayer && tilesMovedThisTurn >= 4);
     
-    if (newTileIndex != prevPathIndex && !isMoving && shouldEndTurn) { 
+    // MODIFIED: Don't end turn if still on start tile, allow infinite turns
+    if (newTileIndex != prevPathIndex && !isMoving && shouldEndTurn && !isOnStartTile) { 
         FlagSystem::gameScene1Flags.moved = true; 
         moveCount = 0; 
         playerNum->setTurnInProgress(false); 
@@ -507,7 +520,6 @@ void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum, std::un
     } 
 }
 
-// Keeps sprites inside screen bounds, checks for collisions, update scores, and sets flagEvents.gameEnd to true in an event of collision 
 void gamePlayScene::handleGameEvents() { 
 
     if(MetaComponents::globalTime >= 5.0) introText->setVisibleState(false); // hide intro text after 5 seconds
@@ -515,11 +527,11 @@ void gamePlayScene::handleGameEvents() {
     physics::calculateRayCast3d(player, boardTileMap, rays, wallLine); // board specific
     physics::calculateRayCast3d(player2, boardTileMap, rays2, wallLine2); // board specific
 
-    pawn2->updateSpritePos(player2->getSpritePos()); // pawn red is player 2
-    pawn->updateSpritePos(player->getSpritePos()); // pawn blue is player
+    pawn2->updateSpritePos(player2->getSpritePos()); 
+    pawn->updateSpritePos(player->getSpritePos());
 
-    physics::calculateSprite3D(pawn2, player, boardTileMap, pawnRedBlocked); // pawn red is player 2
-    physics::calculateSprite3D(pawn, player2, boardTileMap, pawnBlueBlocked); // pawn blue is player 1
+    physics::calculateSprite3D(pawn2, player, boardTileMap, pawnRedBlocked);
+    physics::calculateSprite3D(pawn, player2, boardTileMap, pawnBlueBlocked); 
 
     backgroundBigHalfRed->setVisibleState(pawnRedBlocked);
     backgroundBigHalfBlue->setVisibleState(pawnBlueBlocked);
@@ -538,7 +550,7 @@ void gamePlayScene::handleGameEvents() {
 
         if(boardTileMap->isP2StartTile(boardTileMap->getTileIndex(player->getSpritePos()))) {
             FlagSystem::flagEvents.gameEnd = true; // player 1 reached goal tile
-            endingText->updateText(Constants::ENDINGTEXT_MESSAGE + " Player Blue wins!");
+            endingText->updateText(Constants::ENDINGTEXT_MESSAGE + " Player Red wins!");
             endingText->setVisibleState(true);
             backgroundBigFinal->setVisibleState(true); // show final background
             backgroundBig->setVisibleState(false); // hide initial background
@@ -557,7 +569,7 @@ void gamePlayScene::handleGameEvents() {
 
         if(boardTileMap->isP1StartTile(boardTileMap->getTileIndex(player2->getSpritePos()))) {
             FlagSystem::flagEvents.gameEnd = true; // player 2 reached goal tile
-            endingText->updateText(Constants::ENDINGTEXT_MESSAGE + " Player Red wins!");
+            endingText->updateText(Constants::ENDINGTEXT_MESSAGE + " Player Blue wins!");
             endingText->setVisibleState(true);
             backgroundBigFinal->setVisibleState(true); // show final background
             backgroundBig->setVisibleState(false); // hide initial background

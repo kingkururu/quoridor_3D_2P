@@ -89,13 +89,13 @@ private:
   template<typename drawableType>
   void drawVisibleObject(drawableType& drawable){ if (drawable && drawable->getVisibleState()) window.draw(*drawable); }
 
-  std::unique_ptr<Player> player; // red
-  std::unique_ptr<Player> player2; // blue
+  std::unique_ptr<Player> player; // blue is player 1
+  std::unique_ptr<Player> player2; // red is player 2
 
   std::unique_ptr<Button>button1;
 
-  std::unique_ptr<Sprite> pawn; // for 3D rendering
-  std::unique_ptr<Sprite> pawn2;
+  std::unique_ptr<Sprite> pawn; // for 3D rendering purposes; pawn is not player and is a red sprite
+  std::unique_ptr<Sprite> pawn2; // for 3D rendering purposes; pawn is not player and is a blue sprite
   std::unique_ptr<Sprite> backgroundBig; 
   std::unique_ptr<Sprite> backgroundBigFinal; 
   std::unique_ptr<Sprite> backgroundBigHalfRed; // for 3D rendering
