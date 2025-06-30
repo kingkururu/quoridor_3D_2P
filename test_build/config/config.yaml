@@ -153,37 +153,37 @@ board:
 text:
   size: 20 # pixels 
   font_path: "test/test-assets/fonts/ttf/font1.ttf"
-  message: "Standard Quoridor rule applies.\nPress WASD to move" # actual content in the text
+  message: "" # actual content in the text
   position:
     x: 20.0 # pixels 
-    y: 50.0 # pixels 
+    y: 420.0 # pixels 
   color: "YELLOW" # sf::Color 
 ending_text:
   size: 20 # pixels 
-  message: "" # actual content in the text
+  message: "Thanks for playing :D" # actual content in the text
   position:
-    x: 260.0 # pixels 
-    y: 50.0 # pixels 
+    x: 120.0 # pixels 
+    y: 250.0 # pixels 
   color: "RED" # sf::Color
 score_text:
   size: 20 # pixels 
-  message: "Reach the other side to win" # actual content in the text
+  message: "Reach the other side to win\nPress WASD to move\nClick to place tile\n\nStandard Quoridor rule applies" # actual content in the text
   position:
     x: 20.0 # pixels 
     y: 10.0 # pixels 
   color: "WHITE" # sf::Color
 player1_text:
-  size: 15 # pixels 
+  size: 14 # pixels 
   message: "Player Blue Stick Count:" # actual content in the text
   position:
-    x: 10.0 # pixels 
+    x: 6.0 # pixels 
     y: 8.0 # pixels
   color: "BLUE" # sf::Color
 player2_text:
-  size: 13 # pixels 
+  size: 14 # pixels 
   message: "Player Red Stick Count:" # actual content in the text
   position:
-    x: 250.0 # pixels 
+    x: 242.0 # pixels 
     y: 8.0 # pixels
   color: "RED" # sf::Color
 

@@ -131,6 +131,8 @@ void gamePlayScene::createAssets() {
         introText = std::make_unique<TextClass>(Constants::TEXT_POSITION, Constants::TEXT_SIZE, Constants::TEXT_COLOR, Constants::TEXT_FONT, Constants::TEXT_MESSAGE);
         scoreText = std::make_unique<TextClass>(Constants::SCORETEXT_POSITION, Constants::SCORETEXT_SIZE, Constants::SCORETEXT_COLOR, Constants::TEXT_FONT, Constants::SCORETEXT_MESSAGE);
         endingText = std::make_unique<TextClass>(Constants::ENDINGTEXT_POSITION, Constants::ENDINGTEXT_SIZE, Constants::ENDINGTEXT_COLOR, Constants::TEXT_FONT, Constants::ENDINGTEXT_MESSAGE);
+        endingText->setVisibleState(false); // hide ending text at the start
+
         player1Text = std::make_unique<TextClass>(Constants::PLAYER1TEXT_POSITION, Constants::PLAYER1TEXT_SIZE, Constants::PLAYER1TEXT_COLOR, Constants::TEXT_FONT, Constants::PLAYER1TEXT_MESSAGE);
         player2Text = std::make_unique<TextClass>(Constants::PLAYER2TEXT_POSITION, Constants::PLAYER2TEXT_SIZE, Constants::PLAYER2TEXT_COLOR, Constants::TEXT_FONT, Constants::PLAYER2TEXT_MESSAGE); 
         insertItemsInQuadtree(); 
@@ -520,8 +522,6 @@ void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum, std::un
 }
 
 void gamePlayScene::handleGameEvents() { 
-
-    if(MetaComponents::globalTime >= 5.0) introText->setVisibleState(false); // hide intro text after 5 seconds
     player1Text->updateText(Constants::PLAYER1TEXT_MESSAGE + " " + std::to_string(Constants::STICKS_NUMBER / 2 - stickIndexRed) + "/" + std::to_string(Constants::STICKS_NUMBER / 2));
     player2Text->updateText(Constants::PLAYER2TEXT_MESSAGE + " " + std::to_string(Constants::STICKS_NUMBER / 2 - stickIndexBlue) + "/" + std::to_string(Constants::STICKS_NUMBER / 2));
 
@@ -539,6 +539,7 @@ void gamePlayScene::handleGameEvents() {
 
     // check which players turn
     if(FlagSystem::gameScene1Flags.playerRedTurn) {
+        introText->updateText("BLUE turn");
         player->setMoveState(true); // player 1 can move
         player2->setMoveState(false); // player 2 cannot move
 
@@ -551,13 +552,15 @@ void gamePlayScene::handleGameEvents() {
 
         if(boardTileMap->isP2StartTile(boardTileMap->getTileIndex(player->getSpritePos()))) {
             FlagSystem::flagEvents.gameEnd = true; // player 1 reached goal tile
-            endingText->updateText(Constants::ENDINGTEXT_MESSAGE + " Player blue wins!");
-            endingText->setVisibleState(true);
             backgroundBigFinal->setVisibleState(true); // show final background
             backgroundBig->setVisibleState(false); // hide initial background
+            introText->updateText("Player blue wins!"); 
+
+            endingText->setVisibleState(true); 
         }
     }
     else if(FlagSystem::gameScene1Flags.playerBlueTurn) {
+        introText->updateText("RED turn");
         player2->setMoveState(true); // player 1 can move
         player->setMoveState(false); // player 1 cannot move
 
@@ -570,10 +573,11 @@ void gamePlayScene::handleGameEvents() {
 
         if(boardTileMap->isP1StartTile(boardTileMap->getTileIndex(player2->getSpritePos()))) {
             FlagSystem::flagEvents.gameEnd = true; // player 2 reached goal tile
-            endingText->updateText(Constants::ENDINGTEXT_MESSAGE + " Player red wins!");
-            endingText->setVisibleState(true);
             backgroundBigFinal->setVisibleState(true); // show final background
             backgroundBig->setVisibleState(false); // hide initial background
+            introText->updateText("Player red wins!");
+
+            endingText->setVisibleState(true);
         }
     }
 } 
@@ -615,7 +619,6 @@ void gamePlayScene::drawInleftView(){
     drawVisibleObject(backgroundBigFinal);
 
     drawVisibleObject(scoreText); 
-    drawVisibleObject(introText);
     drawVisibleObject(endingText);
 
     if(pawnRedBlocked){
@@ -624,7 +627,7 @@ void gamePlayScene::drawInleftView(){
         window.draw(wallLine);
     } else {
         window.draw(wallLine);
-        drawVisibleObject(pawn2); // pawn red is player 2
+        drawVisibleObject(pawn2);
     }
 }
 
@@ -641,6 +644,8 @@ void gamePlayScene::drawInmiddleView(){
 
     drawVisibleObject(player1Text);
     drawVisibleObject(player2Text);
+    drawVisibleObject(introText);
+
 }
 
 void gamePlayScene::drawInRightView(){
