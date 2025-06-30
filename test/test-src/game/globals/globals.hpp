@@ -129,15 +129,15 @@ namespace Constants { // not actually "constants" in terms of being fixed, but s
     inline std::vector<std::shared_ptr<sf::Uint8[]>> BUTTON1_BITMASK;
  
     // pawn paths and settings
-    inline std::filesystem::path PAWNBLUE_PATH;
-    inline sf::Vector2f PAWNBLUE_POSITION;
-    inline sf::Vector2f PAWNBLUE_SCALE;
-    inline std::shared_ptr<sf::Texture> PAWNBLUE_TEXTURE = std::make_shared<sf::Texture>();
+    inline std::filesystem::path PAWN1_PATH;
+    inline sf::Vector2f PAWN1_POSITION;
+    inline sf::Vector2f PAWN1_SCALE;
+    inline std::shared_ptr<sf::Texture> PAWN1_TEXTURE = std::make_shared<sf::Texture>();
 
-    inline std::filesystem::path PAWNRED_PATH;
-    inline sf::Vector2f PAWNRED_POSITION;
-    inline sf::Vector2f PAWNRED_SCALE;
-    inline std::shared_ptr<sf::Texture> PAWNRED_TEXTURE = std::make_shared<sf::Texture>();
+    inline std::filesystem::path PAWN2_PATH;
+    inline sf::Vector2f PAWN2_POSITION;
+    inline sf::Vector2f PAWN2_SCALE;
+    inline std::shared_ptr<sf::Texture> PAWN2_TEXTURE = std::make_shared<sf::Texture>();
 
     inline unsigned short const STICKS_NUMBER = 20; // always 20 sticks in the game
     inline std::filesystem::path STICK_PATH;
