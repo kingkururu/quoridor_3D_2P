@@ -244,7 +244,19 @@ namespace Constants {
             ENDINGTEXT_MESSAGE = config["ending_text"]["message"].as<std::string>();
             ENDINGTEXT_POSITION = {config["ending_text"]["position"]["x"].as<float>(),
                                 config["ending_text"]["position"]["y"].as<float>()};
-            ENDINGTEXT_COLOR = SpriteComponents::toSfColor(config["ending_text"]["color"].as<std::string>());                    
+            ENDINGTEXT_COLOR = SpriteComponents::toSfColor(config["ending_text"]["color"].as<std::string>());   
+            
+            PLAYER1TEXT_SIZE = config["player1_text"]["size"].as<unsigned short>();
+            PLAYER1TEXT_MESSAGE = config["player1_text"]["message"].as<std::string>();
+            PLAYER1TEXT_POSITION = {config["player1_text"]["position"]["x"].as<float>(),
+                                config["player1_text"]["position"]["y"].as<float>()};
+            PLAYER1TEXT_COLOR = SpriteComponents::toSfColor(config["player1_text"]["color"].as<std::string>());
+
+            PLAYER2TEXT_SIZE = config["player2_text"]["size"].as<unsigned short>();
+            PLAYER2TEXT_MESSAGE = config["player2_text"]["message"].as<std::string>();
+            PLAYER2TEXT_POSITION = {config["player2_text"]["position"]["x"].as<float>(),
+                                config["player2_text"]["position"]["y"].as<float>()};
+            PLAYER2TEXT_COLOR = SpriteComponents::toSfColor(config["player2_text"]["color"].as<std::string>());
 
             // Load music settings
             BACKGROUNDMUSIC_PATH = config["music"]["background_music"]["path"].as<std::string>();

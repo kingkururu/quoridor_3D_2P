@@ -160,7 +160,6 @@ text:
   color: "YELLOW" # sf::Color 
 ending_text:
   size: 20 # pixels 
-  font_path: "test/test-assets/fonts/ttf/font1.ttf"
   message: "" # actual content in the text
   position:
     x: 260.0 # pixels 
@@ -168,12 +167,25 @@ ending_text:
   color: "RED" # sf::Color
 score_text:
   size: 20 # pixels 
-  font_path: "test/test-assets/fonts/ttf/font1.ttf"
   message: "Reach the other side to win" # actual content in the text
   position:
     x: 20.0 # pixels 
     y: 10.0 # pixels 
   color: "WHITE" # sf::Color
+player1_text:
+  size: 15 # pixels 
+  message: "Player Blue Stick Count:" # actual content in the text
+  position:
+    x: 10.0 # pixels 
+    y: 8.0 # pixels
+  color: "BLUE" # sf::Color
+player2_text:
+  size: 13 # pixels 
+  message: "Player Red Stick Count:" # actual content in the text
+  position:
+    x: 250.0 # pixels 
+    y: 8.0 # pixels
+  color: "RED" # sf::Color
 
 # Music settings
 music:

@@ -131,7 +131,8 @@ void gamePlayScene::createAssets() {
         introText = std::make_unique<TextClass>(Constants::TEXT_POSITION, Constants::TEXT_SIZE, Constants::TEXT_COLOR, Constants::TEXT_FONT, Constants::TEXT_MESSAGE);
         scoreText = std::make_unique<TextClass>(Constants::SCORETEXT_POSITION, Constants::SCORETEXT_SIZE, Constants::SCORETEXT_COLOR, Constants::TEXT_FONT, Constants::SCORETEXT_MESSAGE);
         endingText = std::make_unique<TextClass>(Constants::ENDINGTEXT_POSITION, Constants::ENDINGTEXT_SIZE, Constants::ENDINGTEXT_COLOR, Constants::TEXT_FONT, Constants::ENDINGTEXT_MESSAGE);
-
+        player1Text = std::make_unique<TextClass>(Constants::PLAYER1TEXT_POSITION, Constants::PLAYER1TEXT_SIZE, Constants::PLAYER1TEXT_COLOR, Constants::TEXT_FONT, Constants::PLAYER1TEXT_MESSAGE);
+        player2Text = std::make_unique<TextClass>(Constants::PLAYER2TEXT_POSITION, Constants::PLAYER2TEXT_SIZE, Constants::PLAYER2TEXT_COLOR, Constants::TEXT_FONT, Constants::PLAYER2TEXT_MESSAGE); 
         insertItemsInQuadtree(); 
         setInitialTimes();
 
@@ -174,8 +175,7 @@ void gamePlayScene::handleInput() {
 }
 
 void gamePlayScene::handleMouseKey() {
-    if (FlagSystem::flagEvents.mouseClicked && buttonClickSound) buttonClickSound->returnSound().play();
-    
+
     unsigned int stickIndex;
     if(FlagSystem::gameScene1Flags.playerBlueTurn) stickIndex = stickIndexBlue;
     else if(FlagSystem::gameScene1Flags.playerRedTurn) stickIndex = stickIndexRed;
@@ -264,6 +264,7 @@ void gamePlayScene::handleMouseKey() {
     if(FlagSystem::gameScene1Flags.playerBlueTurn) ++stickIndexBlue;
     else if (FlagSystem::gameScene1Flags.playerRedTurn) ++stickIndexRed;
     FlagSystem::gameScene1Flags.stickPlaced = true;
+    if (FlagSystem::flagEvents.mouseClicked && buttonClickSound) buttonClickSound->returnSound().play();
 
     // std::cout << "red index: " << stickIndexRed << std::endl;
     // std::cout << "blue index: " << stickIndexBlue << std::endl;
@@ -521,6 +522,8 @@ void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum, std::un
 void gamePlayScene::handleGameEvents() { 
 
     if(MetaComponents::globalTime >= 5.0) introText->setVisibleState(false); // hide intro text after 5 seconds
+    player1Text->updateText(Constants::PLAYER1TEXT_MESSAGE + " " + std::to_string(Constants::STICKS_NUMBER / 2 - stickIndexRed) + "/" + std::to_string(Constants::STICKS_NUMBER / 2));
+    player2Text->updateText(Constants::PLAYER2TEXT_MESSAGE + " " + std::to_string(Constants::STICKS_NUMBER / 2 - stickIndexBlue) + "/" + std::to_string(Constants::STICKS_NUMBER / 2));
 
     physics::calculateRayCast3d(player, boardTileMap, rays, wallLine); // board specific
     physics::calculateRayCast3d(player2, boardTileMap, rays2, wallLine2); // board specific
@@ -635,6 +638,9 @@ void gamePlayScene::drawInmiddleView(){
 
     drawVisibleObject(player);
     drawVisibleObject(player2);
+
+    drawVisibleObject(player1Text);
+    drawVisibleObject(player2Text);
 }
 
 void gamePlayScene::drawInRightView(){

@@ -119,6 +119,8 @@ private:
   std::unique_ptr<TextClass> introText; 
   std::unique_ptr<TextClass> scoreText; 
   std::unique_ptr<TextClass> endingText; 
+  std::unique_ptr<TextClass> player1Text; // for player 1
+  std::unique_ptr<TextClass> player2Text; // for player 2
 
   unsigned int stickIndexBlue{}; 
   unsigned int stickIndexRed{};

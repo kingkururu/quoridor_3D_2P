@@ -204,6 +204,16 @@ namespace Constants { // not actually "constants" in terms of being fixed, but s
     inline sf::Vector2f ENDINGTEXT_POSITION;
     inline sf::Color ENDINGTEXT_COLOR;
 
+    inline unsigned short PLAYER1TEXT_SIZE;
+    inline std::string PLAYER1TEXT_MESSAGE;
+    inline sf::Vector2f PLAYER1TEXT_POSITION;
+    inline sf::Color PLAYER1TEXT_COLOR; 
+
+    inline unsigned short PLAYER2TEXT_SIZE;
+    inline std::string PLAYER2TEXT_MESSAGE;
+    inline sf::Vector2f PLAYER2TEXT_POSITION;
+    inline sf::Color PLAYER2TEXT_COLOR;
+
     // Music settings
     inline std::filesystem::path BACKGROUNDMUSIC_PATH;
     inline float BACKGROUNDMUSIC_VOLUME;
