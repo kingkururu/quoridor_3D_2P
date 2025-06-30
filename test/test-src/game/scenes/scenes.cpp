@@ -122,8 +122,8 @@ void gamePlayScene::createAssets() {
 
         // Music
         backgroundMusic = std::make_unique<MusicClass>(std::move(Constants::BACKGROUNDMUSIC_MUSIC), Constants::BACKGROUNDMUSIC_VOLUME);
-        // if(backgroundMusic) backgroundMusic->returnMusic().play(); 
-        // if(backgroundMusic) backgroundMusic->returnMusic().setLoop(Constants::BACKGROUNDMUSIC_LOOP);
+        if(backgroundMusic) backgroundMusic->returnMusic().play(); 
+        if(backgroundMusic) backgroundMusic->returnMusic().setLoop(Constants::BACKGROUNDMUSIC_LOOP);
 
         buttonClickSound = std::make_unique<SoundClass>(Constants::BUTTONCLICK_SOUNDBUFF, Constants::BUTTONCLICKSOUND_VOLUME);
 
@@ -548,7 +548,7 @@ void gamePlayScene::handleGameEvents() {
 
         if(boardTileMap->isP2StartTile(boardTileMap->getTileIndex(player->getSpritePos()))) {
             FlagSystem::flagEvents.gameEnd = true; // player 1 reached goal tile
-            endingText->updateText(Constants::ENDINGTEXT_MESSAGE + " Player Red wins!");
+            endingText->updateText(Constants::ENDINGTEXT_MESSAGE + " Player blue wins!");
             endingText->setVisibleState(true);
             backgroundBigFinal->setVisibleState(true); // show final background
             backgroundBig->setVisibleState(false); // hide initial background
@@ -567,7 +567,7 @@ void gamePlayScene::handleGameEvents() {
 
         if(boardTileMap->isP1StartTile(boardTileMap->getTileIndex(player2->getSpritePos()))) {
             FlagSystem::flagEvents.gameEnd = true; // player 2 reached goal tile
-            endingText->updateText(Constants::ENDINGTEXT_MESSAGE + " Player Blue wins!");
+            endingText->updateText(Constants::ENDINGTEXT_MESSAGE + " Player red wins!");
             endingText->setVisibleState(true);
             backgroundBigFinal->setVisibleState(true); // show final background
             backgroundBig->setVisibleState(false); // hide initial background
@@ -634,10 +634,7 @@ void gamePlayScene::drawInmiddleView(){
     for(const auto& stick : sticksRed) drawVisibleObject(stick);
 
     drawVisibleObject(player);
-    window.draw(rays); // direct sf object
-
     drawVisibleObject(player2);
-    window.draw(rays2); 
 }
 
 void gamePlayScene::drawInRightView(){

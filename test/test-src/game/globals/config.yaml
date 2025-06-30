@@ -42,7 +42,7 @@ sprites:
       y: 0.2 # for 2d space 
     index_max: 1 # number of total images for animation 
     animation_rows: 1 # number of rows for animation 
-    path: "test/test-assets/sprites/png/red.png"
+    path: "test/test-assets/sprites/png/1.png"
     position:
       x: 21.0 # pixels 
       y: 225.0 # pixels 
@@ -59,7 +59,7 @@ sprites:
       y: 0.2 # for 2d space 
     index_max: 1 # number of total images for animation 
     animation_rows: 1 # number of rows for animation 
-    path: "test/test-assets/sprites/png/blue.png"
+    path: "test/test-assets/sprites/png/2.png"
     position:
       x: 430.0 # pixels 
       y: 225.0 # pixels 
