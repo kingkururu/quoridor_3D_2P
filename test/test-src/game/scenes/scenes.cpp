@@ -632,7 +632,6 @@ void gamePlayScene::drawInleftView(){
     drawVisibleObject(backgroundBigFinal);
 
     drawVisibleObject(scoreText); 
-    drawVisibleObject(endingText);
 
     if(pawnRedBlocked){
         drawVisibleObject(pawn2);
@@ -642,6 +641,7 @@ void gamePlayScene::drawInleftView(){
         window.draw(wallLine);
         drawVisibleObject(pawn2);
     }
+    drawVisibleObject(endingText);
 }
 
 void gamePlayScene::drawInmiddleView(){
@@ -667,7 +667,6 @@ void gamePlayScene::drawInRightView(){
     drawVisibleObject(backgroundBig);
     drawVisibleObject(backgroundBigFinal);
 
-    drawVisibleObject(endingText);
   //  drawVisibleObject(button1); 
 
     if(pawnBlueBlocked){
@@ -678,4 +677,7 @@ void gamePlayScene::drawInRightView(){
         window.draw(wallLine2);
         drawVisibleObject(pawn); 
     }
+
+    drawVisibleObject(endingText);
+
 }

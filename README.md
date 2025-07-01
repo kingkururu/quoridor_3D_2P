@@ -1,9 +1,13 @@
 
 ## 2Player 3D Quoridor Simulation
-Game Overview
 Quoridor is a two-player strategic board game where each player’s objective is to reach the opposite side of the board before the opponent. Players can either move their piece one square per turn or place a wall to block their opponent — but a path to the goal must always remain open.
 
 This version brings Quoridor into a 3D visual experience using SFML and custom-built graphics and logic components.
+
+## Game Play Screenshots
+<img width="1365" alt="Image" src="https://github.com/user-attachments/assets/ef6666c5-f0dc-4a39-9f36-463fabf2eb87" />
+
+<img width="1362" alt="Image" src="https://github.com/user-attachments/assets/946d1da7-77c0-4e1d-a79e-bdbab224b09c" />
 
 ## How to Compile and Run
 To compile and run, download the zip file from release.
