@@ -9,6 +9,8 @@ This version brings Quoridor into a 3D visual experience using SFML and custom-b
 
 <img width="1362" alt="Image" src="https://github.com/user-attachments/assets/946d1da7-77c0-4e1d-a79e-bdbab224b09c" />
 
+Music is by https://pixabay.com/music/video-games-game-176807/ and sprites and backgrounds are drawn by @kingkururu (me)
+
 ## How to Compile and Run
 To compile and run, download the zip file from release.
 locate program through terminal via
@@ -32,3 +34,4 @@ export PATH="/opt/homebrew/opt/yaml-cpp/bin:$PATH"
 Ctrl O, Ctrl X
 source ~/.zshrc (for zshrc)
 source ~/. bash_profile (for bash)
+
