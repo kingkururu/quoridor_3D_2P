@@ -67,6 +67,7 @@ private:
   void insertItemsInQuadtree() override; 
 
   void handleInput() override; 
+  //bool playerHasExit(const std::unique_ptr<Player>& currentPlayer, bool isPlayer1) const;
   void handleMouseKey(); 
   void handleSpaceKey();
   void handleMovementKeys(); 

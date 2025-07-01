@@ -176,7 +176,14 @@ void gamePlayScene::handleInput() {
     handleMovementKeys();
 }
 
-void gamePlayScene::handleMouseKey() {
+// // need to have enterance to other side at least one way & player be able to move in at least one direction
+// bool gamePlayScene::playerHasExit(const std::unique_ptr<Player>& currentPlayer, bool isPlayer1) const {
+//     if (!boardTileMap || !currentPlayer) return false; 
+
+//     return true; 
+// }
+
+void gamePlayScene::handleMouseKey() { 
 
     unsigned int stickIndex;
     if(FlagSystem::gameScene1Flags.playerBlueTurn) stickIndex = stickIndexBlue;
@@ -254,7 +261,13 @@ void gamePlayScene::handleMouseKey() {
         }
     }
 
-    if (!validPlacement || nextBlankTileIndex >= boardTileMap->getTileMapNumber() || nextTileIndex >= boardTileMap->getTileMapNumber()) return;
+    // bool player1HasExit = playerHasExit(player, true);
+    // bool player2HasExit = playerHasExit(player2, false);
+
+    bool player1HasExit = true;
+    bool player2HasExit = true;
+
+    if (!validPlacement || nextBlankTileIndex >= boardTileMap->getTileMapNumber() || nextTileIndex >= boardTileMap->getTileMapNumber() || !player1HasExit || !player2HasExit) return;
 
     // Before placing, verify all involved tiles are walkable
     if (!boardTileMap->getTile(targetTileIndex)->getWalkable() || !boardTileMap->getTile(nextBlankTileIndex)->getWalkable() || !boardTileMap->getTile(nextTileIndex)->getWalkable()) return;
@@ -655,7 +668,7 @@ void gamePlayScene::drawInRightView(){
     drawVisibleObject(backgroundBigFinal);
 
     drawVisibleObject(endingText);
-    drawVisibleObject(button1); 
+  //  drawVisibleObject(button1); 
 
     if(pawnBlueBlocked){
         drawVisibleObject(pawn);
