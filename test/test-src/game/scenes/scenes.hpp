@@ -8,16 +8,12 @@
 #include <memory>
 #include <array>
 
-#include "../test-assets/sprites/sprites.hpp"  
 #include "../test-assets/sound/sound.hpp"      
 #include "../test-assets/fonts/fonts.hpp"      
-#include "../test-assets/tiles/tiles.hpp"      
 
-#include "../globals/globals.hpp"              
 #include "../physics/physics.hpp"             
 #include "../utils/utils.hpp"                 
-
-#include "../test-logging/log.hpp"              
+#include "../camera/window.hpp"
 
 // Base scene class 
 class Scene {
