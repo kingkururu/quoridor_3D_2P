@@ -429,7 +429,7 @@ void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum, std::un
         sf::Vector2f playerPos = playerNum->getSpritePos(); 
         float distance = std::sqrt(std::pow(targetPosition.x - playerPos.x, 2) + std::pow(targetPosition.y - playerPos.y, 2)); 
 
-        if (distance <= Constants::TILE_THRESHOLD) {  // problematic here 
+        if (distance <= Constants::TILE_THRESHOLD) {  
             playerNum->changePosition(targetPosition); 
             playerNum->updatePos(); 
             playerNum->setIsMoving(false); 
@@ -456,26 +456,28 @@ void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum, std::un
     } 
 
     // Attempt movement
-    auto attemptMovement = [&](bool isForward) { 
-        // MODIFIED: Allow infinite movement if on start tile, otherwise apply normal restrictions
+    auto attemptMovement = [&](bool isForward) -> bool { 
+        // FIXED: Allow infinite movement if on start tile, otherwise apply normal restrictions
         if (!isOnStartTile) {
             // Normal movement restrictions when NOT on start tile
-            if (!isSpecialMovement && tilesMovedThisTurn > 0) return;
-            if (isSpecialMovement && tilesMovedThisTurn >= 4) return;
-            if (isSpecialMovement && hasReachedOtherPlayer && tilesMovedThisTurn >= 4) return;
+            if (!isSpecialMovement && tilesMovedThisTurn > 0) return false;
+            if (isSpecialMovement && tilesMovedThisTurn >= 4) return false;
+            if (isSpecialMovement && hasReachedOtherPlayer && tilesMovedThisTurn >= 4) return false;
         }
 
-        // If on start tile, no movement restrictions apply - player can move infinitely
-        if (!turnInProgress) playerNum->setTurnInProgress(true); 
         int direction = getMovementDirection(isForward); 
         int movementDistance = 2;
         
         // Determine special movement (only if not on start tile to avoid interference)
-        if (!isOnStartTile && !isSpecialMovement && tilesMovedThisTurn == 0 && isOtherPlayerAt2Tiles(direction)) playerNum->setIsSpecialMovement(true);
-        else if (!isOnStartTile && isSpecialMovement && !hasReachedOtherPlayer) return;
+        if (!isOnStartTile && !isSpecialMovement && tilesMovedThisTurn == 0 && isOtherPlayerAt2Tiles(direction)) {
+            playerNum->setIsSpecialMovement(true);
+            // Update local variable for this function call
+            isSpecialMovement = true;
+        }
+        else if (!isOnStartTile && isSpecialMovement && !hasReachedOtherPlayer) return false;
 
         int maxTiles = getMaxTilesInDirection(currentTileIndex, direction, isSpecialMovement);
-        if (maxTiles <= 0) return;
+        if (maxTiles <= 0) return false;
         
         movementDistance = std::min(movementDistance, maxTiles);
 
@@ -491,13 +493,26 @@ void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum, std::un
         } 
 
         if (validDistance > 0) { 
+            // FIXED: Only set turnInProgress if we're actually going to move
+            if (!turnInProgress) playerNum->setTurnInProgress(true);
+            
             int finalTileIndex = getAdjacentTileIndex(currentTileIndex, direction, validDistance); 
             playerNum->setTargetPosition(getTileCenter(finalTileIndex)); 
             playerNum->setCurrentDirection(direction); 
             playerNum->setIsMoving(true); 
             
-            if (!isOnStartTile) playerNum->setTilesMovedThisTurn(tilesMovedThisTurn + validDistance); 
+            if (!isOnStartTile) playerNum->setTilesMovedThisTurn(tilesMovedThisTurn + validDistance);
+            return true;
         } 
+        
+        // FIXED: If we couldn't move and haven't moved any tiles yet, reset turn state
+        if (!isOnStartTile && tilesMovedThisTurn == 0) {
+            playerNum->setTurnInProgress(false);
+            playerNum->setIsSpecialMovement(false);
+            playerNum->setHasReachedOtherPlayer(false);
+        }
+        
+        return false;
     }; 
 
     // Trigger movement
