@@ -18,7 +18,7 @@
 // Base scene class 
 class Scene {
 public:
-  Scene( sf::RenderWindow& gameWindow );
+  Scene(sf::RenderWindow& gameWindow) : window(gameWindow), quadtree(0.0f, 0.0f, Constants::WORLD_WIDTH, Constants::WORLD_HEIGHT) {}
   virtual ~Scene() = default; 
 
   // base functions inside scene
@@ -53,9 +53,7 @@ protected:
 // in use (the main scene in test game)
 class gamePlayScene : public virtual Scene{
 public:
-  using Scene::Scene; 
-  ~gamePlayScene() override = default; 
- 
+  gamePlayScene(sf::RenderWindow& gameWindow);
   void createAssets() override; 
 
 private:

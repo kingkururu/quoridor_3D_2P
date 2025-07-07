@@ -7,7 +7,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 // Scene constructure sets up window and sprite respawn times 
-Scene::Scene( sf::RenderWindow& gameWindow ) : window(gameWindow), quadtree(0.0f, 0.0f, Constants::WORLD_WIDTH, Constants::WORLD_HEIGHT){ 
+gamePlayScene::gamePlayScene(sf::RenderWindow& gameWindow) : Scene(gameWindow) {
     MetaComponents::leftView.setSize(Constants::VIEW_SIZE_X, Constants::VIEW_SIZE_Y);
     MetaComponents::leftView.setCenter(Constants::VIEW_SIZE_X / 2, Constants::VIEW_SIZE_Y / 2);
     MetaComponents::leftView.setViewport(sf::FloatRect(0.0f, 0.0f, 0.333f, 1.0f));

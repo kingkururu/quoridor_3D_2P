@@ -1,69 +1,69 @@
-[2025-07-03 09:48:08.263] [info_logger] [info] Succesfuly read yaml file
-[2025-07-03 09:48:08.317] [info_logger] [info] 	Constants initialized
-[2025-07-03 09:48:08.429] [info_logger] [info] scene made
-[2025-07-03 09:48:08.429] [info_logger] [info] 	Game initialized
-[2025-07-03 09:48:08.429] [info_logger] [info] Sprite initialized successfully
-[2025-07-03 09:48:08.429] [info_logger] [info] Sprite initialized successfully
-[2025-07-03 09:48:08.429] [info_logger] [info] Sprite initialized successfully
-[2025-07-03 09:48:08.429] [info_logger] [info] Sprite initialized successfully
-[2025-07-03 09:48:08.429] [info_logger] [info] Sprite initialized successfully
-[2025-07-03 09:48:08.429] [info_logger] [info] Sprite initialized successfully
-[2025-07-03 09:48:08.429] [info_logger] [info] Sprite initialized successfully
-[2025-07-03 09:48:08.429] [info_logger] [info] Sprite initialized successfully
-[2025-07-03 09:48:08.429] [info_logger] [info] Sprite initialized successfully
-[2025-07-03 09:48:08.429] [info_logger] [info] Sprite initialized successfully
-[2025-07-03 09:48:08.429] [info_logger] [info] Sprite initialized successfully
-[2025-07-03 09:48:08.429] [info_logger] [info] Sprite initialized successfully
-[2025-07-03 09:48:08.429] [info_logger] [info] Sprite initialized successfully
-[2025-07-03 09:48:08.429] [info_logger] [info] Sprite initialized successfully
-[2025-07-03 09:48:08.429] [info_logger] [info] Sprite initialized successfully
-[2025-07-03 09:48:08.429] [info_logger] [info] Sprite initialized successfully
-[2025-07-03 09:48:08.429] [info_logger] [info] Sprite initialized successfully
-[2025-07-03 09:48:08.429] [info_logger] [info] Sprite initialized successfully
-[2025-07-03 09:48:08.429] [info_logger] [info] Sprite initialized successfully
-[2025-07-03 09:48:08.429] [info_logger] [info] Sprite initialized successfully
-[2025-07-03 09:48:08.429] [info_logger] [info] Sprite initialized successfully
-[2025-07-03 09:48:08.429] [info_logger] [info] Sprite initialized successfully
-[2025-07-03 09:48:08.429] [info_logger] [info] Sprite initialized successfully
-[2025-07-03 09:48:08.429] [info_logger] [info] Sprite initialized successfully
-[2025-07-03 09:48:08.429] [info_logger] [info] Sprite initialized successfully
-[2025-07-03 09:48:08.429] [info_logger] [info] Sprite initialized successfully
-[2025-07-03 09:48:08.429] [info_logger] [info] Sprite initialized successfully
-[2025-07-03 09:48:08.429] [info_logger] [info] Sprite initialized successfully
-[2025-07-03 09:48:08.429] [info_logger] [info] Sprite initialized successfully
-[2025-07-03 09:48:08.429] [info_logger] [info] Board tile indices (19x21 grid):
-[2025-07-03 09:48:08.429] [info_logger] [info] Row 0: 10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
-[2025-07-03 09:48:08.429] [info_logger] [info] Row 1: 8,3,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,4,8
-[2025-07-03 09:48:08.429] [info_logger] [info] Row 2: 9,6,0,5,0,5,0,5,0,5,0,5,0,5,0,5,0,5,0,7,9
-[2025-07-03 09:48:08.429] [info_logger] [info] Row 3: 8,3,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,4,8
-[2025-07-03 09:48:08.429] [info_logger] [info] Row 4: 9,6,0,5,0,5,0,5,0,5,0,5,0,5,0,5,0,5,0,7,9
-[2025-07-03 09:48:08.429] [info_logger] [info] Row 5: 8,3,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,4,8
-[2025-07-03 09:48:08.429] [info_logger] [info] Row 6: 9,6,0,5,0,5,0,5,0,5,0,5,0,5,0,5,0,5,0,7,9
-[2025-07-03 09:48:08.429] [info_logger] [info] Row 7: 8,3,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,4,8
-[2025-07-03 09:48:08.429] [info_logger] [info] Row 8: 9,6,0,5,0,5,0,5,0,5,0,5,0,5,0,5,0,5,0,7,9
-[2025-07-03 09:48:08.429] [info_logger] [info] Row 9: 8,3,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,4,8
-[2025-07-03 09:48:08.430] [info_logger] [info] Row 10: 9,6,0,5,0,5,0,5,0,5,0,5,0,5,0,5,0,5,0,7,9
-[2025-07-03 09:48:08.430] [info_logger] [info] Row 11: 8,3,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,4,8
-[2025-07-03 09:48:08.430] [info_logger] [info] Row 12: 9,6,0,5,0,5,0,5,0,5,0,5,0,5,0,5,0,5,0,7,9
-[2025-07-03 09:48:08.430] [info_logger] [info] Row 13: 8,3,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,4,8
-[2025-07-03 09:48:08.430] [info_logger] [info] Row 14: 9,6,0,5,0,5,0,5,0,5,0,5,0,5,0,5,0,5,0,7,9
-[2025-07-03 09:48:08.430] [info_logger] [info] Row 15: 8,3,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,4,8
-[2025-07-03 09:48:08.430] [info_logger] [info] Row 16: 9,6,0,5,0,5,0,5,0,5,0,5,0,5,0,5,0,5,0,7,9
-[2025-07-03 09:48:08.430] [info_logger] [info] Row 17: 8,3,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,4,8
-[2025-07-03 09:48:08.430] [info_logger] [info] Row 18: 10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
-[2025-07-03 09:48:08.430] [info_logger] [info] Boardtilemap initialized
-[2025-07-03 09:48:08.430] [info_logger] [info] Music initialized successfully, volume is 80.000000
-[2025-07-03 09:48:08.430] [info_logger] [info] Sound initialized successfully
-[2025-07-03 09:48:08.430] [info_logger] [info] text initialized successully
-[2025-07-03 09:48:08.430] [info_logger] [info] text initialized successully
-[2025-07-03 09:48:08.430] [info_logger] [info] text initialized successully
-[2025-07-03 09:48:08.430] [info_logger] [info] text initialized successully
-[2025-07-03 09:48:08.430] [info_logger] [info] text initialized successully
-[2025-07-03 09:48:08.430] [info_logger] [info] Sprite inserted into quadtree node.
-[2025-07-03 09:48:08.430] [info_logger] [info] Sprite inserted into quadtree node.
-[2025-07-03 09:48:08.430] [info_logger] [info] initializing assets in scene 1: 0.498000ms
-[2025-07-03 09:48:30.091] [info_logger] [info] Window close event detected.
-[2025-07-03 09:48:30.128] [info_logger] [info] 	Game Ended
+[2025-07-07 08:34:29.723] [info_logger] [info] Succesfuly read yaml file
+[2025-07-07 08:34:29.779] [info_logger] [info] 	Constants initialized
+[2025-07-07 08:34:29.894] [info_logger] [info] scene made
+[2025-07-07 08:34:29.894] [info_logger] [info] 	Game initialized
+[2025-07-07 08:34:29.894] [info_logger] [info] Sprite initialized successfully
+[2025-07-07 08:34:29.894] [info_logger] [info] Sprite initialized successfully
+[2025-07-07 08:34:29.894] [info_logger] [info] Sprite initialized successfully
+[2025-07-07 08:34:29.894] [info_logger] [info] Sprite initialized successfully
+[2025-07-07 08:34:29.894] [info_logger] [info] Sprite initialized successfully
+[2025-07-07 08:34:29.894] [info_logger] [info] Sprite initialized successfully
+[2025-07-07 08:34:29.894] [info_logger] [info] Sprite initialized successfully
+[2025-07-07 08:34:29.895] [info_logger] [info] Sprite initialized successfully
+[2025-07-07 08:34:29.895] [info_logger] [info] Sprite initialized successfully
+[2025-07-07 08:34:29.895] [info_logger] [info] Sprite initialized successfully
+[2025-07-07 08:34:29.895] [info_logger] [info] Sprite initialized successfully
+[2025-07-07 08:34:29.895] [info_logger] [info] Sprite initialized successfully
+[2025-07-07 08:34:29.895] [info_logger] [info] Sprite initialized successfully
+[2025-07-07 08:34:29.895] [info_logger] [info] Sprite initialized successfully
+[2025-07-07 08:34:29.895] [info_logger] [info] Sprite initialized successfully
+[2025-07-07 08:34:29.895] [info_logger] [info] Sprite initialized successfully
+[2025-07-07 08:34:29.895] [info_logger] [info] Sprite initialized successfully
+[2025-07-07 08:34:29.895] [info_logger] [info] Sprite initialized successfully
+[2025-07-07 08:34:29.895] [info_logger] [info] Sprite initialized successfully
+[2025-07-07 08:34:29.895] [info_logger] [info] Sprite initialized successfully
+[2025-07-07 08:34:29.895] [info_logger] [info] Sprite initialized successfully
+[2025-07-07 08:34:29.895] [info_logger] [info] Sprite initialized successfully
+[2025-07-07 08:34:29.895] [info_logger] [info] Sprite initialized successfully
+[2025-07-07 08:34:29.895] [info_logger] [info] Sprite initialized successfully
+[2025-07-07 08:34:29.895] [info_logger] [info] Sprite initialized successfully
+[2025-07-07 08:34:29.895] [info_logger] [info] Sprite initialized successfully
+[2025-07-07 08:34:29.895] [info_logger] [info] Sprite initialized successfully
+[2025-07-07 08:34:29.895] [info_logger] [info] Sprite initialized successfully
+[2025-07-07 08:34:29.895] [info_logger] [info] Sprite initialized successfully
+[2025-07-07 08:34:29.895] [info_logger] [info] Board tile indices (19x21 grid):
+[2025-07-07 08:34:29.895] [info_logger] [info] Row 0: 10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+[2025-07-07 08:34:29.895] [info_logger] [info] Row 1: 8,3,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,4,8
+[2025-07-07 08:34:29.895] [info_logger] [info] Row 2: 9,6,0,5,0,5,0,5,0,5,0,5,0,5,0,5,0,5,0,7,9
+[2025-07-07 08:34:29.895] [info_logger] [info] Row 3: 8,3,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,4,8
+[2025-07-07 08:34:29.895] [info_logger] [info] Row 4: 9,6,0,5,0,5,0,5,0,5,0,5,0,5,0,5,0,5,0,7,9
+[2025-07-07 08:34:29.895] [info_logger] [info] Row 5: 8,3,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,4,8
+[2025-07-07 08:34:29.895] [info_logger] [info] Row 6: 9,6,0,5,0,5,0,5,0,5,0,5,0,5,0,5,0,5,0,7,9
+[2025-07-07 08:34:29.895] [info_logger] [info] Row 7: 8,3,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,4,8
+[2025-07-07 08:34:29.895] [info_logger] [info] Row 8: 9,6,0,5,0,5,0,5,0,5,0,5,0,5,0,5,0,5,0,7,9
+[2025-07-07 08:34:29.895] [info_logger] [info] Row 9: 8,3,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,4,8
+[2025-07-07 08:34:29.895] [info_logger] [info] Row 10: 9,6,0,5,0,5,0,5,0,5,0,5,0,5,0,5,0,5,0,7,9
+[2025-07-07 08:34:29.895] [info_logger] [info] Row 11: 8,3,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,4,8
+[2025-07-07 08:34:29.895] [info_logger] [info] Row 12: 9,6,0,5,0,5,0,5,0,5,0,5,0,5,0,5,0,5,0,7,9
+[2025-07-07 08:34:29.895] [info_logger] [info] Row 13: 8,3,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,4,8
+[2025-07-07 08:34:29.895] [info_logger] [info] Row 14: 9,6,0,5,0,5,0,5,0,5,0,5,0,5,0,5,0,5,0,7,9
+[2025-07-07 08:34:29.895] [info_logger] [info] Row 15: 8,3,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,4,8
+[2025-07-07 08:34:29.895] [info_logger] [info] Row 16: 9,6,0,5,0,5,0,5,0,5,0,5,0,5,0,5,0,5,0,7,9
+[2025-07-07 08:34:29.895] [info_logger] [info] Row 17: 8,3,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,4,8
+[2025-07-07 08:34:29.895] [info_logger] [info] Row 18: 10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+[2025-07-07 08:34:29.895] [info_logger] [info] Boardtilemap initialized
+[2025-07-07 08:34:29.895] [info_logger] [info] Music initialized successfully, volume is 80.000000
+[2025-07-07 08:34:29.895] [info_logger] [info] Sound initialized successfully
+[2025-07-07 08:34:29.895] [info_logger] [info] text initialized successully
+[2025-07-07 08:34:29.895] [info_logger] [info] text initialized successully
+[2025-07-07 08:34:29.895] [info_logger] [info] text initialized successully
+[2025-07-07 08:34:29.895] [info_logger] [info] text initialized successully
+[2025-07-07 08:34:29.895] [info_logger] [info] text initialized successully
+[2025-07-07 08:34:29.895] [info_logger] [info] Sprite inserted into quadtree node.
+[2025-07-07 08:34:29.895] [info_logger] [info] Sprite inserted into quadtree node.
+[2025-07-07 08:34:29.895] [info_logger] [info] initializing assets in scene 1: 0.584000ms
+[2025-07-07 08:34:32.966] [info_logger] [info] Window close event detected.
+[2025-07-07 08:34:32.972] [info_logger] [info] 	Game Ended
 
-[2025-07-03 09:48:30.135] [info_logger] [info] objects cleared.
-[2025-07-03 09:48:30.135] [info_logger] [info] Quadtree cleared.
+[2025-07-07 08:34:32.981] [info_logger] [info] objects cleared.
+[2025-07-07 08:34:32.981] [info_logger] [info] Quadtree cleared.
