@@ -6,23 +6,6 @@
 //////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////
 
-// Scene constructure sets up window and sprite respawn times 
-gamePlayScene::gamePlayScene(sf::RenderWindow& gameWindow) : Scene(gameWindow) {
-    MetaComponents::leftView.setSize(Constants::VIEW_SIZE_X, Constants::VIEW_SIZE_Y);
-    MetaComponents::leftView.setCenter(Constants::VIEW_SIZE_X / 2, Constants::VIEW_SIZE_Y / 2);
-    MetaComponents::leftView.setViewport(sf::FloatRect(0.0f, 0.0f, 0.333f, 1.0f));
-
-    MetaComponents::middleView.setSize(Constants::VIEW_SIZE_X, Constants::VIEW_SIZE_Y);
-    MetaComponents::middleView.setCenter(Constants::VIEW_SIZE_X / 2, Constants::VIEW_SIZE_Y / 2);
-    MetaComponents::middleView.setViewport(sf::FloatRect(0.333f, 0.0f, 0.333f, 1.0f));
-
-    MetaComponents::rightView.setSize(Constants::VIEW_SIZE_X, Constants::VIEW_SIZE_Y);
-    MetaComponents::rightView.setCenter(Constants::VIEW_SIZE_X / 2, Constants::VIEW_SIZE_Y / 2);
-    MetaComponents::rightView.setViewport(sf::FloatRect(0.667f, 0.0f, 0.333f, 1.0f));
-
-    log_info("scene made"); 
-}
-
 void Scene::runScene() {
     if (FlagSystem::flagEvents.gameEnd) return; // Early exit if game ended
     
@@ -66,9 +49,67 @@ void Scene::restartScene() {
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////
+// Lobby Scene down below 
+//////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+lobbyScene::lobbyScene(sf::RenderWindow& gameWindow) : Scene(gameWindow) {
+  
+
+    log_info("lobby scene made"); 
+}
+
+void lobbyScene::createAssets(){
+
+    
+    log_info("created assets in lobby scene");
+}
+
+void lobbyScene::setTime() {
+   //
+}
+
+void lobbyScene::handleInput() {
+    
+}
+
+void lobbyScene::handleGameEvents() {
+    
+}
+
+void lobbyScene::update() {
+   
+
+}
+
+void lobbyScene::draw() {
+    // Draw the lobby scene
+    window.clear(sf::Color::White);
+    // Draw any lobby-specific assets here
+    window.display();
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
 // Game Scene #1 down below 
 //////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////
+
+gamePlayScene::gamePlayScene(sf::RenderWindow& gameWindow) : Scene(gameWindow) {
+    MetaComponents::leftView.setSize(Constants::VIEW_SIZE_X, Constants::VIEW_SIZE_Y);
+    MetaComponents::leftView.setCenter(Constants::VIEW_SIZE_X / 2, Constants::VIEW_SIZE_Y / 2);
+    MetaComponents::leftView.setViewport(sf::FloatRect(0.0f, 0.0f, 0.333f, 1.0f));
+
+    MetaComponents::middleView.setSize(Constants::VIEW_SIZE_X, Constants::VIEW_SIZE_Y);
+    MetaComponents::middleView.setCenter(Constants::VIEW_SIZE_X / 2, Constants::VIEW_SIZE_Y / 2);
+    MetaComponents::middleView.setViewport(sf::FloatRect(0.333f, 0.0f, 0.333f, 1.0f));
+
+    MetaComponents::rightView.setSize(Constants::VIEW_SIZE_X, Constants::VIEW_SIZE_Y);
+    MetaComponents::rightView.setCenter(Constants::VIEW_SIZE_X / 2, Constants::VIEW_SIZE_Y / 2);
+    MetaComponents::rightView.setViewport(sf::FloatRect(0.667f, 0.0f, 0.333f, 1.0f));
+
+    log_info("gameplay scene made"); 
+}
 
 // Gets called once before the main game loop 
 void gamePlayScene::createAssets() {

@@ -29,7 +29,6 @@ protected:
   sf::RenderWindow& window; // from game.hpp
   FlagSystem::SceneEvents sceneEvents; // scene's own flag events
 
-  // blank templates here
   virtual void setInitialTimes(){};
   virtual void insertItemsInQuadtree(){}; 
 
@@ -48,6 +47,22 @@ protected:
   void restartScene();
 
   physics::Quadtree quadtree; 
+};
+
+class lobbyScene : public virtual Scene {
+public:
+  lobbyScene(sf::RenderWindow& gameWindow);
+  void createAssets() override;   
+
+private:
+  void setTime() override;
+  void handleInput() override;
+  void handleGameEvents() override;
+
+  void respawnAssets() override{}; // no respawn in lobby scene
+
+  void update() override;
+  void draw() override;
 };
 
 // in use (the main scene in test game)

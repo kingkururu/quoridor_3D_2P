@@ -29,5 +29,5 @@ private:
     GameWindow mainWindow;
 
     std::unique_ptr<gamePlayScene> gameScene;
+    std::unique_ptr<lobbyScene> introScene;
 };
-

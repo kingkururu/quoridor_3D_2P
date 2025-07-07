@@ -292,6 +292,22 @@ namespace FlagSystem {
         }
     };
 
+    struct LobbyEvents {
+        bool sceneEnd;
+        bool sceneStart; 
+        bool begin; // true if lobby is started
+
+        LobbyEvents() : sceneEnd(false), sceneStart(true), begin(false) {}
+
+        void resetFlags() {
+            sceneEnd = false;
+            sceneStart = false;
+            begin = false;
+            log_info("Reset LobbyEvents flags");
+        }
+    }; 
+    inline LobbyEvents lobbyEvents; // accesible from everywhere
+
     struct GameSceneEvents1 {
         bool sceneEnd;
         bool sceneStart; 

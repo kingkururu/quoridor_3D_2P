@@ -4,6 +4,7 @@
 // GameManager constructor sets up the window, intitializes constant variables, calls the random function, and makes scenes 
 GameManager::GameManager()
     : mainWindow(Constants::WORLD_WIDTH, Constants::WORLD_HEIGHT, Constants::GAME_TITLE, Constants::FRAME_LIMIT) {
+    introScene = std::make_unique<lobbyScene>(mainWindow.getWindow());
     gameScene = std::make_unique<gamePlayScene>(mainWindow.getWindow());
 
     log_info("\tGame initialized");
@@ -29,10 +30,14 @@ void GameManager::runGame() {
 }
 
 void GameManager::runScenesFlags(){
-    if(FlagSystem::gameScene1Flags.sceneStart && !FlagSystem::gameScene1Flags.sceneEnd) gameScene->runScene();
+    if(FlagSystem::lobbyEvents.sceneStart && !FlagSystem::lobbyEvents.sceneEnd) {
+        introScene->runScene();
+    }
+   // if(FlagSystem::gameScene1Flags.sceneStart && !FlagSystem::gameScene1Flags.sceneEnd) gameScene->runScene();
 }
 
 void GameManager::loadScenes(){
+    introScene->createAssets(); 
     gameScene->createAssets();
 }
 
