@@ -79,7 +79,12 @@ void lobbyScene::handleInput() {
 }
 
 void lobbyScene::handleGameEvents() {
-    
+    if(physics::collisionHelper(button, MetaComponents::worldMouseClickedPosition_f)) {
+        FlagSystem::lobbyEvents.sceneEnd = true;
+        FlagSystem::lobbyEvents.sceneStart = false;
+
+        FlagSystem::gameScene1Flags.sceneStart = true;
+    }
 }
 
 void lobbyScene::update() {

@@ -33,7 +33,7 @@ void GameManager::runScenesFlags(){
     if(FlagSystem::lobbyEvents.sceneStart && !FlagSystem::lobbyEvents.sceneEnd) {
         introScene->runScene();
     }
-   // if(FlagSystem::gameScene1Flags.sceneStart && !FlagSystem::gameScene1Flags.sceneEnd) gameScene->runScene();
+    if(FlagSystem::gameScene1Flags.sceneStart && !FlagSystem::gameScene1Flags.sceneEnd) gameScene->runScene();
 }
 
 void GameManager::loadScenes(){
@@ -73,6 +73,11 @@ void GameManager::handleEventInput() {
             }
         }
         if (event.type == sf::Event::MouseButtonPressed) {
+            sf::View entireScreenView(sf::FloatRect(0.f, 0.f, Constants::WORLD_WIDTH, Constants::WORLD_HEIGHT)); // left, top, width, height
+            sf::Vector2f worldPosAbsoloute = mainWindow.getWindow().mapPixelToCoords(sf::Mouse::getPosition(mainWindow.getWindow()), entireScreenView);
+            MetaComponents::worldMouseClickedPosition_i = static_cast<sf::Vector2i>(worldPosAbsoloute);
+            MetaComponents::worldMouseClickedPosition_f = worldPosAbsoloute; 
+
             FlagSystem::flagEvents.mouseClicked = true;
             sf::Vector2f worldPos = mainWindow.getWindow().mapPixelToCoords(sf::Mouse::getPosition(mainWindow.getWindow()), MetaComponents::leftView);
             MetaComponents::leftViewmouseClickedPosition_i = static_cast<sf::Vector2i>(worldPos);

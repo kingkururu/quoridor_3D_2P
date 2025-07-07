@@ -34,6 +34,9 @@ namespace MetaComponents{
     inline sf::Vector2f middleViewmouseClickedPosition_f {}; 
     inline sf::Vector2f middleViewmouseCurrentPosition_f {};
     inline sf::Vector2i middleViewmouseCurrentPosition_i {};
+
+    inline sf::Vector2i worldMouseClickedPosition_i {};
+    inline sf::Vector2f worldMouseClickedPosition_f {};
     
     inline float globalTime {};
     inline float deltaTime {}; 
@@ -341,7 +344,7 @@ namespace FlagSystem {
         bool stickPlaced; // true if player placed a stick
         bool moved; // true if player moved
 
-        GameSceneEvents1() : sceneEnd(false), sceneStart(true), begin(false), playerBlueTurn(true), playerRedTurn(false), stickPlaced(false), moved(false) {}
+        GameSceneEvents1() : sceneEnd(false), sceneStart(false), begin(false), playerBlueTurn(true), playerRedTurn(false), stickPlaced(false), moved(false) {}
 
           void resetFlags() {
             sceneEnd = false;
