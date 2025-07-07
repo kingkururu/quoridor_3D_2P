@@ -46,6 +46,9 @@ protected:
 
   void restartScene();
 
+  template<typename drawableType>
+  void drawVisibleObject(drawableType& drawable){ if (drawable && drawable->getVisibleState()) window.draw(*drawable); }
+
   physics::Quadtree quadtree; 
 };
 
@@ -63,6 +66,10 @@ private:
 
   void update() override;
   void draw() override;
+
+  std::unique_ptr<Button> button;
+  std::unique_ptr<TextClass> titleText;
+  std::unique_ptr<TextClass> hostCodeText;
 };
 
 // in use (the main scene in test game)
@@ -95,9 +102,6 @@ private:
   void drawInleftView();
   void drawInmiddleView();
   void drawInRightView();
-
-  template<typename drawableType>
-  void drawVisibleObject(drawableType& drawable){ if (drawable && drawable->getVisibleState()) window.draw(*drawable); }
 
   std::unique_ptr<Player> player; // blue
   std::unique_ptr<Player> player2; // red 

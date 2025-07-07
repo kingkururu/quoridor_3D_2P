@@ -86,7 +86,15 @@ void GameManager::handleEventInput() {
         }
         MetaComponents::middleViewmouseCurrentPosition_f = mainWindow.getWindow().mapPixelToCoords(sf::Mouse::getPosition(mainWindow.getWindow()), MetaComponents::middleView);
         MetaComponents::middleViewmouseCurrentPosition_i = static_cast<sf::Vector2i>(MetaComponents::middleViewmouseCurrentPosition_f);
-        //std::cout << "mouse current
+
+        if(event.type == sf::Event::TextEntered){
+            if(event.text.unicode < 128 && event.text.unicode >= 32) { // Only process ASCII characters
+                char inputChar = static_cast<char>(event.text.unicode);
+                MetaComponents::inputText += inputChar; // Append character to input text            
+            } else if (event.text.unicode == 8 && !MetaComponents::inputText.empty()) {
+                MetaComponents::inputText.pop_back();
+            }
+        }
     }
 }
 

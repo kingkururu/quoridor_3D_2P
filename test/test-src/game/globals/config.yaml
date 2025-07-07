@@ -30,6 +30,23 @@ sprite:
   out_of_bounds_adjustment: 30 # pixels 
   player_y_pos_bounds_run: 440  # SCREEN_HEIGHT - SPRITE_OUT_OF_BOUNDS_ADJUSTMENT
 
+lobby:
+  text:
+    size: 70 # pixels 
+    path: "test/test-assets/fonts/ttf/font1.ttf" 
+    message: "Welcome to 3D Quoridor"
+    position:
+      x: 250.0 # pixels 
+      y: 100.0 # pixels 
+    color: "BLACK" # sf::Color
+  hostcode_text:
+    size: 20 # pixels 
+    message: "Host Code: " # actual content in the text
+    position:
+      x: 20.0 # pixels 
+      y: 10.0 # pixels
+    color: "BLACK"
+
 # Sprite paths
 sprites:
   sprite1: # player 1
@@ -71,8 +88,8 @@ sprites:
     animation_rows: 1 # number of rows for animation 
     path: "test/test-assets/sprites/png/button1.png"
     position:
-      x: 0.0 # pixels 
-      y: 0.0 # pixels 
+      x: 600.0 # pixels 
+      y: 300.0 # pixels 
     scale:
       x: 1.0
       y: 1.0

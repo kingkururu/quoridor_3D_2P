@@ -115,6 +115,28 @@ namespace Constants {
             SPRITE_OUT_OF_BOUNDS_ADJUSTMENT = config["sprite"]["out_of_bounds_adjustment"].as<unsigned short>();
             PLAYER_Y_POS_BOUNDS_RUN = config["sprite"]["player_y_pos_bounds_run"].as<unsigned short>();
 
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            /////////////////////////////////////////////////// Lobby Scene ///////////////////////////////////////////////////////////
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            
+            LOBBYTEXT_SIZE = config["lobby"]["text"]["size"].as<unsigned short>();
+            LOBBYTEXT_PATH = config["lobby"]["text"]["path"].as<std::string>();
+            LOBBYTEXT_MESSAGE = config["lobby"]["text"]["message"].as<std::string>();
+            LOBBYTEXT_POSITION = {config["lobby"]["text"]["position"]["x"].as<float>(),
+                                config["lobby"]["text"]["position"]["y"].as<float>()};
+            LOBBYTEXT_COLOR = SpriteComponents::toSfColor(config["lobby"]["text"]["color"].as<std::string>());
+            LOBBYTEXT_FONT = std::make_shared<sf::Font>();
+            
+            HOSTCODETEXT_SIZE = config["lobby"]["hostcode_text"]["size"].as<unsigned short>();
+            HOSTCODETEXT_MESSAGE = config["lobby"]["hostcode_text"]["message"].as<std::string>();
+            HOSTCODETEXT_POSITION = {config["lobby"]["hostcode_text"]["position"]["x"].as<float>(),
+                                config["lobby"]["hostcode_text"]["position"]["y"].as<float>()};
+            HOSTCODETEXT_COLOR = SpriteComponents::toSfColor(config["lobby"]["hostcode_text"]["color"].as<std::string>());
+
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            /////////////////////////////////////////////////// Game Play Scene 1 /////////////////////////////////////////////////////
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
             // Load player paths and settings
             SPRITE1_PATH = config["sprites"]["sprite1"]["path"].as<std::string>();
             SPRITE1_SPEED = config["sprites"]["sprite1"]["speed"].as<float>();
@@ -280,6 +302,9 @@ namespace Constants {
     }
 
     void loadAssets(){  // load all sprites textures and stuff across scenes 
+        // lobby
+        if (!LOBBYTEXT_FONT->loadFromFile(LOBBYTEXT_PATH)) log_warning("Failed to load lobby text font");
+
         // sprites
         if (!SPRITE1_TEXTURE->loadFromFile(SPRITE1_PATH)) log_warning("Failed to load sprite1 texture");
         if (!SPRITE2_TEXTURE->loadFromFile(SPRITE2_PATH)) log_warning("Failed to load sprite2 texture");

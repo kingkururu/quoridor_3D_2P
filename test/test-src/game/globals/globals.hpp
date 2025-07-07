@@ -49,6 +49,8 @@ namespace MetaComponents{
     extern float getmiddleViewMaxX();
     extern float getmiddleViewMinY();
     extern float getmiddleViewMaxY();
+
+    inline std::string inputText = "";
 }
 
 namespace Constants { // not actually "constants" in terms of being fixed, but should never be altered after being read from the config.yaml file
@@ -91,7 +93,28 @@ namespace Constants { // not actually "constants" in terms of being fixed, but s
     inline unsigned short SPRITE_OUT_OF_BOUNDS_OFFSET;
     inline unsigned short SPRITE_OUT_OF_BOUNDS_ADJUSTMENT;
     inline unsigned short PLAYER_Y_POS_BOUNDS_RUN;
-  
+   
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////// Lobby Scene ///////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // Text settings
+    inline unsigned short LOBBYTEXT_SIZE;
+    inline std::filesystem::path LOBBYTEXT_PATH;
+    inline std::string LOBBYTEXT_MESSAGE;
+    inline sf::Vector2f LOBBYTEXT_POSITION;
+    inline sf::Color LOBBYTEXT_COLOR;
+    inline std::shared_ptr<sf::Font> LOBBYTEXT_FONT = std::make_shared<sf::Font>(); 
+
+    inline unsigned short HOSTCODETEXT_SIZE;
+    inline std::string HOSTCODETEXT_MESSAGE;
+    inline sf::Vector2f HOSTCODETEXT_POSITION;
+    inline sf::Color HOSTCODETEXT_COLOR;
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////// Game Play Scene 1 /////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     // player paths and settings
     inline short SPRITE1_INDEXMAX;
     inline short SPRITE1_ANIMATIONROWS;  
@@ -295,14 +318,12 @@ namespace FlagSystem {
     struct LobbyEvents {
         bool sceneEnd;
         bool sceneStart; 
-        bool begin; // true if lobby is started
 
-        LobbyEvents() : sceneEnd(false), sceneStart(true), begin(false) {}
+        LobbyEvents() : sceneEnd(false), sceneStart(true) {}
 
         void resetFlags() {
             sceneEnd = false;
             sceneStart = false;
-            begin = false;
             log_info("Reset LobbyEvents flags");
         }
     }; 

@@ -60,8 +60,12 @@ lobbyScene::lobbyScene(sf::RenderWindow& gameWindow) : Scene(gameWindow) {
 }
 
 void lobbyScene::createAssets(){
+    titleText = std::make_unique<TextClass>(Constants::LOBBYTEXT_POSITION, Constants::LOBBYTEXT_SIZE, Constants::LOBBYTEXT_COLOR, Constants::LOBBYTEXT_FONT, Constants::LOBBYTEXT_MESSAGE);
+    hostCodeText = std::make_unique<TextClass>(Constants::HOSTCODETEXT_POSITION, Constants::HOSTCODETEXT_SIZE, Constants::HOSTCODETEXT_COLOR, Constants::LOBBYTEXT_FONT, Constants::HOSTCODETEXT_MESSAGE);
 
-    
+    button = std::make_unique<Button>(Constants::BUTTON1_POSITION, Constants::BUTTON1_SCALE, Constants::BUTTON1_TEXTURE, Constants::BUTTON1_ANIMATIONRECTS, Constants::BUTTON1_INDEXMAX, utils::convertToWeakPtrVector(Constants::BUTTON1_BITMASK));
+    button->setRects(0); // set to first rect
+
     log_info("created assets in lobby scene");
 }
 
@@ -70,7 +74,8 @@ void lobbyScene::setTime() {
 }
 
 void lobbyScene::handleInput() {
-    
+    hostCodeText->updateText( Constants::HOSTCODETEXT_MESSAGE + MetaComponents::inputText);// update host code text with the current host code
+
 }
 
 void lobbyScene::handleGameEvents() {
@@ -78,14 +83,17 @@ void lobbyScene::handleGameEvents() {
 }
 
 void lobbyScene::update() {
-   
+   button->changeAnimation();
 
 }
 
 void lobbyScene::draw() {
-    // Draw the lobby scene
     window.clear(sf::Color::White);
-    // Draw any lobby-specific assets here
+
+    drawVisibleObject(titleText);
+    drawVisibleObject(hostCodeText);
+
+    drawVisibleObject(button);
     window.display();
 }
 
@@ -163,8 +171,8 @@ void gamePlayScene::createAssets() {
 
         // Music
         backgroundMusic = std::make_unique<MusicClass>(std::move(Constants::BACKGROUNDMUSIC_MUSIC), Constants::BACKGROUNDMUSIC_VOLUME);
-        if(backgroundMusic) backgroundMusic->returnMusic().play(); 
-        if(backgroundMusic) backgroundMusic->returnMusic().setLoop(Constants::BACKGROUNDMUSIC_LOOP);
+        // if(backgroundMusic) backgroundMusic->returnMusic().play(); 
+        // if(backgroundMusic) backgroundMusic->returnMusic().setLoop(Constants::BACKGROUNDMUSIC_LOOP);
 
         buttonClickSound = std::make_unique<SoundClass>(Constants::BUTTONCLICK_SOUNDBUFF, Constants::BUTTONCLICKSOUND_VOLUME);
 
@@ -662,7 +670,7 @@ void gamePlayScene::update() {
 }
 
 void gamePlayScene::changeAnimation(){ // change animation for sprites. change animation for texts if necessary   
-    if (button1) button1->changeAnimation(); 
+    
 }
 
 // Draws only the visible sprite and texts
