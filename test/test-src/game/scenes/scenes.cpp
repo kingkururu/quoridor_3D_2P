@@ -84,6 +84,8 @@ void lobbyScene::handleGameEvents() {
         FlagSystem::lobbyEvents.sceneStart = false;
 
         FlagSystem::gameScene1Flags.sceneStart = true;
+
+        FlagSystem::flagEvents.mouseClicked = false;
     }
 }
 
