@@ -41,7 +41,7 @@ void GameManager::runGame() {
             resetFlags();
         }
         log_info("\tGame Ended\n"); 
-            
+                    
     } catch (const std::exception& e) {
         log_error("Exception in runGame: " + std::string(e.what())); 
         mainWindow.getWindow().close(); 
@@ -167,6 +167,7 @@ void GameManager::handleEventInput() {
                 case sf::Keyboard::B: FlagSystem::flagEvents.bPressed = isPressed; break;
                 case sf::Keyboard::M: FlagSystem::flagEvents.mPressed = isPressed; break;
                     
+                //////////////////// make a button later and put this somewhere else /////////
                 #if RUN_NETWORK
                 case sf::Keyboard::H: 
                     if (isPressed) startHosting();
@@ -175,6 +176,8 @@ void GameManager::handleEventInput() {
                     if (isPressed) startClient();
                     break;
                 #endif
+                //////////////////// make a button later and put this somewhere else /////////
+
                 default: break;
             }
         }
@@ -423,15 +426,6 @@ void GameManager::sendGameState() {
                            "," + std::to_string(MetaComponents::worldMouseClickedPosition_f.y);
     
     sendNetworkMessage("GAME_STATE", gameState);
-}
-
-void GameManager::testNetworkInGame() {
-    std::cout << "\n=== NETWORK TEST IN GAME ===" << std::endl;
-    std::cout << "Press H to host, J to join as client" << std::endl;
-    std::cout << "Use WASD keys to test input sharing" << std::endl;
-    std::cout << "Click mouse to test mouse sharing" << std::endl;
-    std::cout << "Type text to test text sharing" << std::endl;
-    std::cout << "Network status will show in console" << std::endl;
 }
 
 void GameManager::syncGameState() {

@@ -52,7 +52,6 @@ private:
     void sendPlayerInput(const std::string& input);
     void sendNetworkMessage(const std::string& type, const std::string& data);
     void sendGameState();
-    void testNetworkInGame(); // testing
     void handleSceneSync();
     void syncTextState() { if (isHost() && isNetworkEnabled && net.isNetworkConnected()) sendNetworkMessage("TEXT_STATE_SYNC", MetaComponents::inputText); }
     #endif
