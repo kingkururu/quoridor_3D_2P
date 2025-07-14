@@ -1,116 +1,3 @@
-
-// #include "game.hpp" 
-
-// // GameManager constructor sets up the window, intitializes constant variables, calls the random function, and makes scenes 
-// GameManager::GameManager()
-//     : mainWindow(Constants::WORLD_WIDTH, Constants::WORLD_HEIGHT, Constants::GAME_TITLE, Constants::FRAME_LIMIT) {
-//     introScene = std::make_unique<lobbyScene>(mainWindow.getWindow());
-//     gameScene = std::make_unique<gamePlayScene>(mainWindow.getWindow());
-
-//     log_info("\tGame initialized");
-// }
-
-// // runGame calls to createAssets from scenes and loops until window is closed to run scene events 
-// void GameManager::runGame() {
-//     try {     
-//         loadScenes(); 
-
-//         while (mainWindow.getWindow().isOpen()) {
-//             countTime();
-//             handleEventInput();
-//             runScenesFlags(); 
-//             resetFlags();
-//         }
-//         log_info("\tGame Ended\n"); 
-            
-//     } catch (const std::exception& e) {
-//         log_error("Exception in runGame: " + std::string(e.what())); 
-//         mainWindow.getWindow().close(); 
-//     }
-// }
-
-// void GameManager::runScenesFlags(){
-//     if(FlagSystem::lobbyEvents.sceneStart && !FlagSystem::lobbyEvents.sceneEnd) {
-//         introScene->runScene();
-//     }
-//     if(FlagSystem::gameScene1Flags.sceneStart && !FlagSystem::gameScene1Flags.sceneEnd) gameScene->runScene();
-// }
-
-// void GameManager::loadScenes(){
-//     introScene->createAssets(); 
-//     gameScene->createAssets();
-// }
-
-// // countTime counts global time and delta time for scenes to later use in runScene 
-// void GameManager::countTime() {
-//     sf::Time frameTime = MetaComponents::clock.restart();
-//     MetaComponents::deltaTime = frameTime.asSeconds(); 
-//     MetaComponents::globalTime += MetaComponents::deltaTime;
-// }
-
-// /* handleEventInput takes in keyboard and mouse input. It modifies flagEvents and calls setMouseClickedPos in scene to 
-// pass in the position in screen where mouse was clicked */
-// void GameManager::handleEventInput() {
-//     sf::Event event;
-//     while (mainWindow.getWindow().pollEvent(event)) {
-//         if (event.type == sf::Event::Closed) {
-//             log_info("Window close event detected.");
-//             FlagSystem::flagEvents.gameEnd = true;
-//             mainWindow.getWindow().close();
-//             return; 
-//         }
-//         if (event.type == sf::Event::KeyPressed || event.type == sf::Event::KeyReleased) {
-//             bool isPressed = (event.type == sf::Event::KeyPressed); 
-//             switch (event.key.code) {
-//                 case sf::Keyboard::A: FlagSystem::flagEvents.aPressed = isPressed; break;
-//                 case sf::Keyboard::S: FlagSystem::flagEvents.sPressed = isPressed; break;
-//                 case sf::Keyboard::W: FlagSystem::flagEvents.wPressed = isPressed; break;
-//                 case sf::Keyboard::D: FlagSystem::flagEvents.dPressed = isPressed; break;
-//                 case sf::Keyboard::B: FlagSystem::flagEvents.bPressed = isPressed; break;
-//                 case sf::Keyboard::M: FlagSystem::flagEvents.mPressed = isPressed; break;
-//                 case sf::Keyboard::Space: FlagSystem::flagEvents.spacePressed = isPressed; break;
-//                 default: break;
-//             }
-//         }
-//         if (event.type == sf::Event::MouseButtonPressed) {
-//             sf::View entireScreenView(sf::FloatRect(0.f, 0.f, Constants::WORLD_WIDTH, Constants::WORLD_HEIGHT)); // left, top, width, height
-//             sf::Vector2f worldPosAbsoloute = mainWindow.getWindow().mapPixelToCoords(sf::Mouse::getPosition(mainWindow.getWindow()), entireScreenView);
-//             MetaComponents::worldMouseClickedPosition_i = static_cast<sf::Vector2i>(worldPosAbsoloute);
-//             MetaComponents::worldMouseClickedPosition_f = worldPosAbsoloute; 
-
-//             FlagSystem::flagEvents.mouseClicked = true;
-//             sf::Vector2f worldPos = mainWindow.getWindow().mapPixelToCoords(sf::Mouse::getPosition(mainWindow.getWindow()), MetaComponents::leftView);
-//             MetaComponents::leftViewmouseClickedPosition_i = static_cast<sf::Vector2i>(worldPos);
-//             MetaComponents::leftViewmouseClickedPosition_f = worldPos; 
-//             //std::cout << "mouse clicked in big view x: " <<  MetaComponents::leftViewmouseClickedPosition_i.x << " and big view y: " <<  MetaComponents::leftViewmouseClickedPosition_i.y <<std::endl;
-
-//             worldPos = mainWindow.getWindow().mapPixelToCoords(sf::Mouse::getPosition(mainWindow.getWindow()), MetaComponents::middleView);
-//             MetaComponents::middleViewmouseClickedPosition_i = static_cast<sf::Vector2i>(worldPos);
-//             MetaComponents::middleViewmouseClickedPosition_f = worldPos; 
-//             //std::cout << "mouse clicked in small view x: " <<  MetaComponents::middleViewmouseClickedPosition_i.x << " and small view y: " <<  MetaComponents::middleViewmouseClickedPosition_i.y <<std::endl;
-//         }
-//         MetaComponents::middleViewmouseCurrentPosition_f = mainWindow.getWindow().mapPixelToCoords(sf::Mouse::getPosition(mainWindow.getWindow()), MetaComponents::middleView);
-//         MetaComponents::middleViewmouseCurrentPosition_i = static_cast<sf::Vector2i>(MetaComponents::middleViewmouseCurrentPosition_f);
-
-//         if(event.type == sf::Event::TextEntered){
-//             if(event.text.unicode < 128 && event.text.unicode >= 32) { // Only process ASCII characters
-//                 char inputChar = static_cast<char>(event.text.unicode);
-//                 MetaComponents::inputText += inputChar; // Append character to input text            
-//             } else if (event.text.unicode == 8 && !MetaComponents::inputText.empty()) {
-//                 MetaComponents::inputText.pop_back();
-//             }
-//         }
-//     }
-// }
-
-// void GameManager::resetFlags(){
-//     FlagSystem::flagEvents.mouseClicked = false;
-// }
-
-// Updated game.cpp with networking integration
-
-
-
 #include "game.hpp" 
 
 // GameManager constructor sets up the window, initializes constant variables, calls the random function, and makes scenes 
@@ -394,16 +281,18 @@ void GameManager::startHosting() {
 void GameManager::startClient() {
     if (isNetworkEnabled) return;
     
-    // Auto-use localhost for testing
-    std::string hostIP = "127.0.0.1";
-    std::cout << "Connecting to localhost (127.0.0.1):8080..." << std::endl;
+    std::string hostIP;
+    std::cout << "Enter host IP address: ";
+    std::cin >> hostIP;
+    
+    std::cout << "Connecting to " << hostIP << ":8080..." << std::endl;
     
     if (net.runClient(hostIP, 8080)) {
         isNetworkEnabled = true;
         networkRole = NetworkRole::CLIENT;
         std::cout << "Connected successfully!" << std::endl;
     } else {
-        std::cout << "Failed to connect!" << std::endl;
+        std::cout << "Failed to connect! Make sure the host is running and the IP is correct." << std::endl;
     }
 }
 
@@ -468,29 +357,28 @@ void GameManager::processNetworkMessage(const NetworkMessage& msg) {
             applyRemoteGameState(remoteState);
         }
     }
+    // Modified code for GameManager::processNetworkMessage (MOUSE_CLICK)
     else if (msg.type == "MOUSE_CLICK") {
-        // Parse and apply the mouse click position
+        // Parse and apply the absolute world mouse click position directly
         size_t comma = msg.data.find(',');
         if (comma != std::string::npos) {
             float x = std::stof(msg.data.substr(0, comma));
             float y = std::stof(msg.data.substr(comma + 1));
-            
-            // Apply mouse click to all views (both host and client should apply received clicks)
+
             MetaComponents::worldMouseClickedPosition_f = sf::Vector2f(x, y);
             MetaComponents::worldMouseClickedPosition_i = sf::Vector2i(static_cast<int>(x), static_cast<int>(y));
-            
-            // Calculate positions for other views based on world position
-            // Note: This is a simplified approach - you might need to adjust based on your view setup
-            sf::Vector2f worldPos = sf::Vector2f(x, y);
-            
-            // Convert world position to left view coordinates
-            MetaComponents::leftViewmouseClickedPosition_f = worldPos; // Adjust transformation as needed
+
+            // First, get the pixel coordinates on the window for the world click position
+            sf::Vector2i pixelPosForWorldClick = mainWindow.getWindow().mapCoordsToPixel(MetaComponents::worldMouseClickedPosition_f, MetaComponents::leftView);
+            // Then, convert those pixel coordinates back to world coordinates using the leftView
+            MetaComponents::leftViewmouseClickedPosition_f = mainWindow.getWindow().mapPixelToCoords(static_cast<sf::Vector2i>(pixelPosForWorldClick), MetaComponents::leftView);
             MetaComponents::leftViewmouseClickedPosition_i = static_cast<sf::Vector2i>(MetaComponents::leftViewmouseClickedPosition_f);
-            
-            // Convert world position to middle view coordinates
-            MetaComponents::middleViewmouseClickedPosition_f = worldPos; // Adjust transformation as needed
+
+            // To get the click position relative to MetaComponents::middleView:
+            pixelPosForWorldClick = mainWindow.getWindow().mapCoordsToPixel(MetaComponents::worldMouseClickedPosition_f, MetaComponents::middleView);
+            MetaComponents::middleViewmouseClickedPosition_f = mainWindow.getWindow().mapPixelToCoords(static_cast<sf::Vector2i>(pixelPosForWorldClick), MetaComponents::middleView);
             MetaComponents::middleViewmouseClickedPosition_i = static_cast<sf::Vector2i>(MetaComponents::middleViewmouseClickedPosition_f);
-            
+
             FlagSystem::flagEvents.mouseClicked = true;
         }
     } 
@@ -562,6 +450,10 @@ void GameManager::syncGameState() {
     currentGameState.flagStates.push_back(FlagSystem::flagEvents.spacePressed);
     currentGameState.flagStates.push_back(FlagSystem::flagEvents.mouseClicked);
     
+    // Add player positions (assuming you have a way to get these from your game state)
+    // For now, this remains empty or uses placeholder data if not implemented elsewhere.
+    // Example: currentGameState.playerPositions = getPlayerPositionsFromGame();
+    
     // Serialize and send to client
     std::string serializedState = serializeGameState(currentGameState);
     sendNetworkMessage("GAME_STATE_SYNC", serializedState);
@@ -583,6 +475,10 @@ void GameManager::applyRemoteGameState(const GameState& remoteState) {
         FlagSystem::flagEvents.spacePressed = remoteState.flagStates[4];
         FlagSystem::flagEvents.mouseClicked = remoteState.flagStates[5];
     }
+    
+    // Apply player positions (assuming you have a way to apply these to your game objects)
+    // For now, this remains empty or uses placeholder logic if not implemented elsewhere.
+    // Example: setPlayerPositionsInGame(remoteState.playerPositions);
 }
 
 std::string GameManager::serializeGameState(const GameState& state) {
