@@ -100,13 +100,9 @@ void GameManager::handleEventInput() {
                 case sf::Keyboard::A: 
                     #if RUN_NETWORK
                     // Host: Apply input locally
-                    if (isHost() || !isNetworkEnabled) {
-                        FlagSystem::flagEvents.aPressed = isPressed; 
-                    }
+                    if (isHost() || !isNetworkEnabled) FlagSystem::flagEvents.aPressed = isPressed; 
                     // Everyone: Send input state over network
-                    if (isNetworkEnabled && net.isNetworkConnected()) {
-                        sendNetworkMessage("INPUT_STATE", "A:" + std::string(isPressed ? "1" : "0"));
-                    }
+                    if (isNetworkEnabled && net.isNetworkConnected()) sendNetworkMessage("INPUT_STATE", "A:" + std::string(isPressed ? "1" : "0"));
                     #else
                     FlagSystem::flagEvents.aPressed = isPressed; 
                     #endif
@@ -114,12 +110,8 @@ void GameManager::handleEventInput() {
                     
                 case sf::Keyboard::S: 
                     #if RUN_NETWORK
-                    if (isHost() || !isNetworkEnabled) {
-                        FlagSystem::flagEvents.sPressed = isPressed; 
-                    }
-                    if (isNetworkEnabled && net.isNetworkConnected()) {
-                        sendNetworkMessage("INPUT_STATE", "S:" + std::string(isPressed ? "1" : "0"));
-                    }
+                    if (isHost() || !isNetworkEnabled) FlagSystem::flagEvents.sPressed = isPressed; 
+                    if (isNetworkEnabled && net.isNetworkConnected()) sendNetworkMessage("INPUT_STATE", "S:" + std::string(isPressed ? "1" : "0"));
                     #else
                     FlagSystem::flagEvents.sPressed = isPressed; 
                     #endif
@@ -127,12 +119,8 @@ void GameManager::handleEventInput() {
                     
                 case sf::Keyboard::W: 
                     #if RUN_NETWORK
-                    if (isHost() || !isNetworkEnabled) {
-                        FlagSystem::flagEvents.wPressed = isPressed; 
-                    }
-                    if (isNetworkEnabled && net.isNetworkConnected()) {
-                        sendNetworkMessage("INPUT_STATE", "W:" + std::string(isPressed ? "1" : "0"));
-                    }
+                    if (isHost() || !isNetworkEnabled) FlagSystem::flagEvents.wPressed = isPressed; 
+                    if (isNetworkEnabled && net.isNetworkConnected()) sendNetworkMessage("INPUT_STATE", "W:" + std::string(isPressed ? "1" : "0"));
                     #else
                     FlagSystem::flagEvents.wPressed = isPressed; 
                     #endif
@@ -140,12 +128,8 @@ void GameManager::handleEventInput() {
                     
                 case sf::Keyboard::D: 
                     #if RUN_NETWORK
-                    if (isHost() || !isNetworkEnabled) {
-                        FlagSystem::flagEvents.dPressed = isPressed; 
-                    }
-                    if (isNetworkEnabled && net.isNetworkConnected()) {
-                        sendNetworkMessage("INPUT_STATE", "D:" + std::string(isPressed ? "1" : "0"));
-                    }
+                    if (isHost() || !isNetworkEnabled) FlagSystem::flagEvents.dPressed = isPressed; 
+                    if (isNetworkEnabled && net.isNetworkConnected()) sendNetworkMessage("INPUT_STATE", "D:" + std::string(isPressed ? "1" : "0"));
                     #else
                     FlagSystem::flagEvents.dPressed = isPressed; 
                     #endif
@@ -153,12 +137,8 @@ void GameManager::handleEventInput() {
                     
                 case sf::Keyboard::Space: 
                     #if RUN_NETWORK
-                    if (isHost() || !isNetworkEnabled) {
-                        FlagSystem::flagEvents.spacePressed = isPressed; 
-                    }
-                    if (isNetworkEnabled && net.isNetworkConnected()) {
-                        sendNetworkMessage("INPUT_STATE", "SPACE:" + std::string(isPressed ? "1" : "0"));
-                    }
+                    if (isHost() || !isNetworkEnabled) FlagSystem::flagEvents.spacePressed = isPressed; 
+                    if (isNetworkEnabled && net.isNetworkConnected()) sendNetworkMessage("INPUT_STATE", "SPACE:" + std::string(isPressed ? "1" : "0"));
                     #else
                     FlagSystem::flagEvents.spacePressed = isPressed; 
                     #endif
@@ -205,8 +185,7 @@ void GameManager::handleEventInput() {
             
             // Send mouse click over network (both host and client can send)
             if (isNetworkEnabled && net.isNetworkConnected()) {
-                std::string mouseData = std::to_string(worldPosAbsoloute.x) + "," + 
-                                       std::to_string(worldPosAbsoloute.y);
+                std::string mouseData = std::to_string(worldPosAbsoloute.x) + "," + std::to_string(worldPosAbsoloute.y);
                 sendNetworkMessage("MOUSE_CLICK", mouseData);
             }
             #else
@@ -235,25 +214,16 @@ void GameManager::handleEventInput() {
                 char inputChar = static_cast<char>(event.text.unicode);
         
                 #if RUN_NETWORK
-                if (isHost() || !isNetworkEnabled) {
-                    MetaComponents::inputText += inputChar;
-                }
-                if (isNetworkEnabled && net.isNetworkConnected()) {
-                    sendNetworkMessage("TEXT_INPUT", std::string(1, inputChar));
-                }
+                if (isHost() || !isNetworkEnabled) MetaComponents::inputText += inputChar;
+                if (isNetworkEnabled && net.isNetworkConnected()) sendNetworkMessage("TEXT_INPUT", std::string(1, inputChar));
                 #else
                 MetaComponents::inputText += inputChar;
                 #endif
-                    
+
             } else if (event.text.unicode == 8 && !MetaComponents::inputText.empty()) {
-                    
                 #if RUN_NETWORK
-                if (isHost() || !isNetworkEnabled) {
-                    MetaComponents::inputText.pop_back();
-                }
-                if (isNetworkEnabled && net.isNetworkConnected()) {
-                    sendNetworkMessage("TEXT_BACKSPACE", "");
-                }
+                if (isHost() || !isNetworkEnabled) MetaComponents::inputText.pop_back();
+                if (isNetworkEnabled && net.isNetworkConnected()) sendNetworkMessage("TEXT_BACKSPACE", "");
                 #else
                 MetaComponents::inputText.pop_back();
                 #endif
@@ -264,6 +234,7 @@ void GameManager::handleEventInput() {
 
 void GameManager::resetFlags(){
     FlagSystem::flagEvents.mouseClicked = false;
+    // add something more later if necessary
 }
 
 #if RUN_NETWORK
@@ -276,14 +247,14 @@ void GameManager::startHosting() {
         networkRole = NetworkRole::HOST;
         std::cout << "Host started successfully!" << std::endl;
         std::cout << "Share your IP: " << net.getLocalIP() << std::endl;
-    } else {
-        std::cout << "Failed to start host!" << std::endl;
-    }
+    } 
+    else std::cout << "Failed to start host!" << std::endl;
 }
 
 void GameManager::startClient() {
     if (isNetworkEnabled) return;
     
+    // change method later
     std::string hostIP;
     std::cout << "Enter host IP address: ";
     std::cin >> hostIP;
@@ -294,9 +265,8 @@ void GameManager::startClient() {
         isNetworkEnabled = true;
         networkRole = NetworkRole::CLIENT;
         std::cout << "Connected successfully!" << std::endl;
-    } else {
-        std::cout << "Failed to connect! Make sure the host is running and the IP is correct." << std::endl;
-    }
+    } 
+    else std::cout << "Failed to connect! Make sure the host is running and the IP is correct." << std::endl;
 }
 
 void GameManager::handleNetworkMessages() {
@@ -310,9 +280,7 @@ void GameManager::handleNetworkMessages() {
 
 void GameManager::processNetworkMessage(const NetworkMessage& msg) {
     // Reduce debug output to avoid spam
-    if (msg.type != "GAME_STATE_SYNC") {
-        std::cout << "Received: " << msg.type << " from " << msg.sender << ": " << msg.data << std::endl;
-    }
+    if (msg.type != "GAME_STATE_SYNC") std::cout << "Received: " << msg.type << " from " << msg.sender << ": " << msg.data << std::endl;
     
     if (msg.type == "INPUT_STATE") {
         // Parse input state message: "KEY:STATE"
@@ -322,17 +290,11 @@ void GameManager::processNetworkMessage(const NetworkMessage& msg) {
             bool state = (msg.data.substr(colonPos + 1) == "1");
             
             // Apply the input state
-            if (key == "A") {
-                FlagSystem::flagEvents.aPressed = state;
-            } else if (key == "S") {
-                FlagSystem::flagEvents.sPressed = state;
-            } else if (key == "W") {
-                FlagSystem::flagEvents.wPressed = state;
-            } else if (key == "D") {
-                FlagSystem::flagEvents.dPressed = state;
-            } else if (key == "SPACE") {
-                FlagSystem::flagEvents.spacePressed = state;
-            }
+            if (key == "A") FlagSystem::flagEvents.aPressed = state;
+            else if (key == "S") FlagSystem::flagEvents.sPressed = state;
+            else if (key == "W") FlagSystem::flagEvents.wPressed = state;
+            else if (key == "D") FlagSystem::flagEvents.dPressed = state;
+            else if (key == "SPACE") FlagSystem::flagEvents.spacePressed = state;
         }
     }
     else if (msg.type == "SCENE_STATE") {
@@ -389,21 +351,15 @@ void GameManager::processNetworkMessage(const NetworkMessage& msg) {
         MetaComponents::inputText += msg.data;
     } 
     else if (msg.type == "TEXT_BACKSPACE") {
-        if (!MetaComponents::inputText.empty()) {
-            MetaComponents::inputText.pop_back();
-        }
+        if (!MetaComponents::inputText.empty()) MetaComponents::inputText.pop_back();
     }
     else if (msg.type == "TEXT_STATE_SYNC") {
-        if (networkRole == NetworkRole::CLIENT) {
-            MetaComponents::inputText = msg.data;
-        }
+        if (networkRole == NetworkRole::CLIENT) MetaComponents::inputText = msg.data;
     }
 }
 
 void GameManager::sendPlayerInput(const std::string& input) {
-    if (isNetworkEnabled && net.isNetworkConnected()) {
-        sendNetworkMessage("PLAYER_INPUT", input);
-    }
+    if (isNetworkEnabled && net.isNetworkConnected()) sendNetworkMessage("PLAYER_INPUT", input);
 }
 
 void GameManager::sendNetworkMessage(const std::string& type, const std::string& data) {
@@ -421,9 +377,7 @@ void GameManager::sendGameState() {
     if (!isNetworkEnabled || !net.isNetworkConnected()) return;
     
     // Create a simple game state string
-    std::string gameState = "time:" + std::to_string(MetaComponents::globalTime) + 
-                           ";mouse:" + std::to_string(MetaComponents::worldMouseClickedPosition_f.x) + 
-                           "," + std::to_string(MetaComponents::worldMouseClickedPosition_f.y);
+    std::string gameState = "time:" + std::to_string(MetaComponents::globalTime) + ";mouse:" + std::to_string(MetaComponents::worldMouseClickedPosition_f.x) + "," + std::to_string(MetaComponents::worldMouseClickedPosition_f.y);
     
     sendNetworkMessage("GAME_STATE", gameState);
 }
@@ -443,10 +397,6 @@ void GameManager::syncGameState() {
     currentGameState.flagStates.push_back(FlagSystem::flagEvents.dPressed);
     currentGameState.flagStates.push_back(FlagSystem::flagEvents.spacePressed);
     currentGameState.flagStates.push_back(FlagSystem::flagEvents.mouseClicked);
-    
-    // Add player positions (assuming you have a way to get these from your game state)
-    // For now, this remains empty or uses placeholder data if not implemented elsewhere.
-    // Example: currentGameState.playerPositions = getPlayerPositionsFromGame();
     
     // Serialize and send to client
     std::string serializedState = serializeGameState(currentGameState);
@@ -469,10 +419,6 @@ void GameManager::applyRemoteGameState(const GameState& remoteState) {
         FlagSystem::flagEvents.spacePressed = remoteState.flagStates[4];
         FlagSystem::flagEvents.mouseClicked = remoteState.flagStates[5];
     }
-    
-    // Apply player positions (assuming you have a way to apply these to your game objects)
-    // For now, this remains empty or uses placeholder logic if not implemented elsewhere.
-    // Example: setPlayerPositionsInGame(remoteState.playerPositions);
 }
 
 std::string GameManager::serializeGameState(const GameState& state) {
@@ -490,9 +436,7 @@ std::string GameManager::serializeGameState(const GameState& state) {
     serialized += ";";
     
     // Add player positions
-    for (const auto& pos : state.playerPositions) {
-        serialized += std::to_string(pos.x) + "," + std::to_string(pos.y) + "|";
-    }
+    for (const auto& pos : state.playerPositions) serialized += std::to_string(pos.x) + "," + std::to_string(pos.y) + "|";
     
     return serialized;
 }
@@ -503,9 +447,7 @@ GameManager::GameState GameManager::deserializeGameState(const std::string& data
     std::string token;
     
     // Parse global time
-    if (std::getline(ss, token, ';')) {
-        state.globalTime = std::stof(token);
-    }
+    if (std::getline(ss, token, ';')) state.globalTime = std::stof(token);
     
     // Parse world mouse position
     if (std::getline(ss, token, ';')) {
@@ -515,7 +457,7 @@ GameManager::GameState GameManager::deserializeGameState(const std::string& data
             state.worldMousePos.y = std::stof(token.substr(comma + 1));
         }
     }
-    
+
     // Parse middle view mouse position
     if (std::getline(ss, token, ';')) {
         size_t comma = token.find(',');
@@ -526,17 +468,13 @@ GameManager::GameState GameManager::deserializeGameState(const std::string& data
     }
     
     // Parse input text
-    if (std::getline(ss, token, ';')) {
-        state.inputText = token;
-    }
+    if (std::getline(ss, token, ';')) state.inputText = token;
     
     // Parse flag states
     if (std::getline(ss, token, ';')) {
         std::stringstream flagStream(token);
         std::string flagValue;
-        while (std::getline(flagStream, flagValue, ',')) {
-            state.flagStates.push_back(flagValue == "1");
-        }
+        while (std::getline(flagStream, flagValue, ',')) state.flagStates.push_back(flagValue == "1");
     }
     
     // Parse player positions (if any)
@@ -564,11 +502,8 @@ void GameManager::handleSceneSync() {
     
     // Send current scene state
     std::string sceneState = "";
-    if (FlagSystem::lobbyEvents.sceneStart && !FlagSystem::lobbyEvents.sceneEnd) {
-        sceneState = "LOBBY";
-    } else if (FlagSystem::gameScene1Flags.sceneStart && !FlagSystem::gameScene1Flags.sceneEnd) {
-        sceneState = "GAME";
-    }
+    if (FlagSystem::lobbyEvents.sceneStart && !FlagSystem::lobbyEvents.sceneEnd) sceneState = "LOBBY";
+    else if (FlagSystem::gameScene1Flags.sceneStart && !FlagSystem::gameScene1Flags.sceneEnd) sceneState = "GAME";
     
     sendNetworkMessage("SCENE_STATE", sceneState);
 }
