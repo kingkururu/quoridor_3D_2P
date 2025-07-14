@@ -231,69 +231,6 @@ BoardTileMap::BoardTileMap(std::array<std::shared_ptr<Tile>, 11> tileTypesArr, s
         // Move to next row position using the actual tallest tile in this row
         currentY += maxRowHeight;
     }
-    
-    // Print debugging - show entire board tile indices (19x21 grid):
-    log_info("Board tile indices (19x21 grid):");
-    for(int row = 0; row < rowsTotal; ++row) {
-         std::string rowStr = "Row " + std::to_string(row) + ": ";
-        for(int col = 0; col < colsTotal; ++col) {
-            
-            // Determine which tile type was used based on the logic above
-            int selectedTileIndex = -1;
-            
-            if(row == 0 || row == 18) {
-                selectedTileIndex = 10; // wall row
-            }
-            else if(col == 0 || col == 20) {
-                if((row - 1) % 2 == 0) {
-                    selectedTileIndex = 8; // long border
-                } else {
-                    selectedTileIndex = 9; // short border
-                }
-            }
-            else {
-                int originalRow = row - 1;
-                int originalCol = col - 1;
-                
-                if(originalRow % 2 == 0) {
-                    if(originalCol == 0) {
-                        selectedTileIndex = 3; // goal p1
-                    }
-                    else if(originalCol == 18) {
-                        selectedTileIndex = 4; // goal p2
-                    }
-                    else if(originalCol == 1) {
-                        selectedTileIndex = 2; // path
-                    }
-                    else {
-                        if(originalCol % 2 == 0) {
-                            selectedTileIndex = 1; // wall y
-                        } else {
-                            selectedTileIndex = 2; // path
-                        }
-                    }
-                }
-                else {
-                    if(originalCol == 0) {
-                        selectedTileIndex = 6; // start piece
-                    }
-                    else if(originalCol == 18) {
-                        selectedTileIndex = 7; // end piece
-                    }
-                    else {
-                        if(originalCol % 2 == 1) {
-                            selectedTileIndex = 0; // wall x
-                        } else {
-                            selectedTileIndex = 5; // blank
-                        }
-                    }
-                }
-            }
-            rowStr += std::to_string(selectedTileIndex);
-            if(col < 20) rowStr += ",";
-        }
-        log_info(rowStr); // Log the row string
-    }
     log_info("Boardtilemap initialized"); 
 }
 
