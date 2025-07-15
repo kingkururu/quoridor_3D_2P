@@ -1,103 +1,3 @@
-// #include "network.hpp"
-
-// std::string NetworkManager::getLocalIP() {
-//     char buffer[INET_ADDRSTRLEN];
-//     struct sockaddr_in temp;
-//     temp.sin_family = AF_INET;
-//     temp.sin_port = htons(80);
-//     inet_pton(AF_INET, "8.8.8.8", &temp.sin_addr); // dummy external IP
-
-//     int sock = socket(AF_INET, SOCK_DGRAM, 0);
-//     connect(sock, (struct sockaddr*)&temp, sizeof(temp));
-
-//     struct sockaddr_in name;
-//     socklen_t namelen = sizeof(name);
-//     getsockname(sock, (struct sockaddr*)&name, &namelen);
-//     inet_ntop(AF_INET, &name.sin_addr, buffer, sizeof(buffer));
-//     close(sock);
-
-//     return std::string(buffer);
-// }
-// void NetworkManager::runHost(int port) {
-//     //port = 8080; // Default port, can be changed as needed
-
-//     //Show the local IP address to the screen
-//     std::cout << "Your IP address: " << getLocalIP() << std::endl;
-
-//     //Connecting to the client
-//     int server_fd, client_socket;
-//     struct sockaddr_in address;
-//     // char buffer[1024] = {0};
-//     int addrlen = sizeof(address);
-
-//     server_fd = socket(AF_INET, SOCK_STREAM, 0);
-//     if (server_fd == 0) {
-//         perror("socket failed");
-//         return;
-//     }
-
-//     address.sin_family = AF_INET;
-//     address.sin_addr.s_addr = INADDR_ANY; // accept from any IP
-//     address.sin_port = htons(port);
-
-//     if (bind(server_fd, (struct sockaddr *)&address, sizeof(address)) < 0) {
-//         perror("bind failed");
-//         return;
-//     }
-
-//     if (listen(server_fd, 1) < 0) {
-//         perror("listen failed");
-//         return;
-//     }
-
-//     std::cout << "Waiting for a connection on port " << port << "...\n";
-//     client_socket = accept(server_fd, (struct sockaddr *)&address, (socklen_t*)&addrlen);
-//     if (client_socket < 0) {
-//         perror("accept failed");
-//         return;
-//     }
-
-//     std::cout << "Connected to client: " << inet_ntoa(address.sin_addr) << "\n";
-
-//     // close(sock);
-// }
-// void NetworkManager::runClient(const std::string& host_ip, int port) {
-//     int sock = 0;
-//     struct sockaddr_in serv_addr;
-//     // char buffer[1024] = {0};
-
-//     sock = socket(AF_INET, SOCK_STREAM, 0);
-//     if (sock < 0) {
-//         perror("socket creation error");
-//         return;
-//     }
-
-//     serv_addr.sin_family = AF_INET;
-//     serv_addr.sin_port = htons(port);
-
-//     if (inet_pton(AF_INET, host_ip.c_str(), &serv_addr.sin_addr) <= 0) {
-//         std::cerr << "Invalid address/Address not supported\n";
-//         return;
-//     }
-
-//     std::cout << "Connecting to " << host_ip << "...\n";
-//     if (connect(sock, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0) {
-//         perror("connection failed");
-//         return;
-//     }
-
-//     std::cout << "Connected to host.\n";
-
-//     // close(sock);
-// }
-// void NetworkManager::receiveData(int sock, char buffer[]) {
-//     memset(buffer, 0, sizeof(buffer));
-//     read(sock, buffer, 1024);
-// }
-// void NetworkManager::sendData(int sock, std::string& message) {
-//     send(sock, message.c_str(), message.length(), 0);
-// }
-
 #include "network.hpp"
 #include "log.hpp"
 
@@ -153,6 +53,12 @@ bool NetworkManager::runHost(int port) {
     int opt = 1;
     setsockopt(serverSocket, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
     
+    // Set socket timeout - shorter for faster cleanup
+    struct timeval timeout;
+    timeout.tv_sec = 0;
+    timeout.tv_usec = 500000;  // 500ms timeout
+    setsockopt(serverSocket, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout));
+    
     struct sockaddr_in serverAddr;
     memset(&serverAddr, 0, sizeof(serverAddr));
     serverAddr.sin_family = AF_INET;
@@ -189,6 +95,12 @@ bool NetworkManager::runClient(const std::string& host_ip, int port) {
         std::cerr << "Error creating client socket" << std::endl;
         return false;
     }
+    
+    // Set socket timeout - shorter for faster cleanup
+    struct timeval timeout;
+    timeout.tv_sec = 0;
+    timeout.tv_usec = 500000;  // 500ms timeout
+    setsockopt(clientSocket, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout));
     
     struct sockaddr_in serverAddr;
     memset(&serverAddr, 0, sizeof(serverAddr));
@@ -232,6 +144,13 @@ void NetworkManager::stopListening() {
 void NetworkManager::listenForMessages() {
     if (role == NetworkRole::HOST) {
         handleClientConnection();
+        // Set timeout for client socket too
+        if (clientSocket != -1) {
+            struct timeval timeout;
+            timeout.tv_sec = 0;
+            timeout.tv_usec = 500000;  // 500ms timeout
+            setsockopt(clientSocket, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout));
+        }
     }
     
     int activeSocket = (role == NetworkRole::HOST) ? clientSocket : clientSocket;
@@ -254,11 +173,17 @@ void NetworkManager::listenForMessages() {
             isConnected = false;
             break;
         } else {
-            // Error occurred
-            if (!shouldStop) {
-                std::cerr << "Error receiving data" << std::endl;
-                isConnected = false;
-                break;
+            // Check if it's a timeout (expected behavior)
+            if (errno == EAGAIN || errno == EWOULDBLOCK) {
+                // Timeout occurred, continue loop (this allows checking shouldStop)
+                continue;
+            } else {
+                // Actual error occurred
+                if (!shouldStop) {
+                    std::cerr << "Error receiving data: " << strerror(errno) << std::endl;
+                    isConnected = false;
+                    break;
+                }
             }
         }
     }
@@ -332,20 +257,44 @@ std::string NetworkManager::serializeMessage(const NetworkMessage& msg) {
 }
 
 void NetworkManager::cleanup() {
+    // Signal threads to stop first
     shouldStop = true;
     isConnected = false;
     
-    if (listenerThread.joinable()) {
-        listenerThread.join();
-    }
-    
+    // Close sockets immediately to interrupt blocking calls
     if (serverSocket != -1) {
+        shutdown(serverSocket, SHUT_RDWR);
         close(serverSocket);
         serverSocket = -1;
     }
     if (clientSocket != -1) {
+        shutdown(clientSocket, SHUT_RDWR);
         close(clientSocket);
         clientSocket = -1;
+    }
+    
+    // Now join the thread (should exit quickly due to socket closure)
+    if (listenerThread.joinable()) {
+        // Use a shorter timeout since sockets are already closed
+        auto start = std::chrono::steady_clock::now();
+        bool threadExited = false;
+        
+        // Check if thread exits within 100ms
+        auto future = std::async(std::launch::async, [this, &threadExited]() {
+            listenerThread.join();
+            threadExited = true;
+        });
+        
+        if (future.wait_for(std::chrono::milliseconds(100)) == std::future_status::timeout) {
+            std::cout << "Network thread cleanup timeout, detaching thread" << std::endl;
+            listenerThread.detach();
+        }
+    }
+    
+    // Clear message queue
+    std::lock_guard<std::mutex> lock(queueMutex);
+    while (!messageQueue.empty()) {
+        messageQueue.pop();
     }
     
     role = NetworkRole::NONE;

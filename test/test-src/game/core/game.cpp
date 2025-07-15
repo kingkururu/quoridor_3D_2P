@@ -18,6 +18,22 @@ GameManager::GameManager()
     log_info("\tGame initialized");
 }
 
+GameManager::~GameManager() {
+    log_info("GameManager destructor called");
+    
+    #if RUN_NETWORK
+    if (isNetworkEnabled) {
+        isNetworkEnabled = false;
+        net.cleanup();
+    }
+    #endif
+    
+    // Force application exit if it's still hanging
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    
+    log_info("GameManager destructor finished");
+}
+
 void GameManager::runGame() {
     try {     
         loadScenes(); 
@@ -27,12 +43,14 @@ void GameManager::runGame() {
             handleEventInput();
             
             #if RUN_NETWORK
-            handleNetworkMessages();
-            // Only sync at specified intervals to reduce network spam
-            if (isHost() && isNetworkEnabled && net.isNetworkConnected()) {
-                if (MetaComponents::globalTime - lastSyncTime >= syncInterval) {
-                    syncGameState();
-                    lastSyncTime = MetaComponents::globalTime;
+            if (isNetworkEnabled) {
+                handleNetworkMessages();
+                // Only sync at specified intervals to reduce network spam
+                if (isHost() && isNetworkEnabled && net.isNetworkConnected()) {
+                    if (MetaComponents::globalTime - lastSyncTime >= syncInterval) {
+                        syncGameState();
+                        lastSyncTime = MetaComponents::globalTime;
+                    }
                 }
             }
             #endif
@@ -81,9 +99,9 @@ void GameManager::handleEventInput() {
             mainWindow.getWindow().close();
 
             #if RUN_NETWORK
-            net.cleanup();
+            isNetworkEnabled = false;
             #endif
-            
+
             return; 
         }
         
@@ -263,7 +281,7 @@ void GameManager::startClient() {
 }
 
 void GameManager::handleNetworkMessages() {
-    if (!isNetworkEnabled || FlagSystem::flagEvents.gameEnd) return;
+    if (!isNetworkEnabled) return;
     
     while (net.hasMessages()) {
         NetworkMessage msg = net.getNextMessage();

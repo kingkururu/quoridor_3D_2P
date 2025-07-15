@@ -349,7 +349,7 @@ namespace Constants {
         BUTTON1_ANIMATIONRECTS.reserve(BUTTON1_INDEXMAX);
         for (int row = 0; row < BUTTON1_ANIMATIONROWS; ++row) {
             for (int col = 0; col < BUTTON1_INDEXMAX / BUTTON1_ANIMATIONROWS; ++col) {
-                BUTTON1_ANIMATIONRECTS.emplace_back(sf::IntRect{col * 96, row * 38, 96, 38});
+                BUTTON1_ANIMATIONRECTS.emplace_back(sf::IntRect{col * 192, row * 76, 192, 76});
             }
         }
         BUTTON1_BITMASK.reserve(BUTTON1_INDEXMAX); 

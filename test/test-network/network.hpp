@@ -40,6 +40,7 @@
 #include <atomic>
 #include <queue>
 #include <mutex>
+#include <future>
 
 enum class NetworkRole {
     NONE,
