@@ -4,6 +4,7 @@
 GameManager::GameManager()
     : mainWindow(Constants::WORLD_WIDTH, Constants::WORLD_HEIGHT, Constants::GAME_TITLE, Constants::FRAME_LIMIT) {
     introScene = std::make_unique<lobbyScene>(mainWindow.getWindow());
+    introScene2 = std::make_unique<lobby2Scene>(mainWindow.getWindow());
     gameScene = std::make_unique<gamePlayScene>(mainWindow.getWindow());
 
     #if RUN_NETWORK
@@ -27,7 +28,6 @@ void GameManager::runGame() {
             
             #if RUN_NETWORK
             handleNetworkMessages();
-            
             // Only sync at specified intervals to reduce network spam
             if (isHost() && isNetworkEnabled && net.isNetworkConnected()) {
                 if (MetaComponents::globalTime - lastSyncTime >= syncInterval) {
@@ -48,33 +48,21 @@ void GameManager::runGame() {
     }
 }
 
-void GameManager::runScenesFlags(){
-    // Check for scene transitions and sync if we're the host
-    static bool wasInLobby = false;
-    static bool wasInGame = false;
-    
-    bool currentlyInLobby = FlagSystem::lobbyEvents.sceneStart && !FlagSystem::lobbyEvents.sceneEnd;
+void GameManager::runScenesFlags() {
+    bool currentlyInLobby1 = FlagSystem::lobbyEvents.sceneStart && !FlagSystem::lobbyEvents.sceneEnd;
+    bool currentlyInLobby2 = FlagSystem::lobby2Events.sceneStart && !FlagSystem::lobby2Events.sceneEnd;
     bool currentlyInGame = FlagSystem::gameScene1Flags.sceneStart && !FlagSystem::gameScene1Flags.sceneEnd;
-    
-    // Detect scene changes
-    if (currentlyInLobby != wasInLobby || currentlyInGame != wasInGame) {
-        #if RUN_NETWORK
-        if (isHost() && isNetworkEnabled && net.isNetworkConnected()) handleSceneSync(); // Send scene change immediately
-        #endif
-    }
-    
-    // Update previous states
-    wasInLobby = currentlyInLobby;
-    wasInGame = currentlyInGame;
-    
-    // Run the actual scenes
-    if(currentlyInLobby) introScene->runScene();
-    if(currentlyInGame) gameScene->runScene();
+
+    // Run the active scene
+    if (currentlyInLobby1) introScene->runScene();
+    else if (currentlyInLobby2) introScene2->runScene();
+    else if (currentlyInGame) gameScene->runScene();
 }
 
 void GameManager::loadScenes(){
     introScene->createAssets(); 
     gameScene->createAssets();
+    introScene2->createAssets();
 }
 
 // countTime counts global time and delta time for scenes to later use in runScene 
@@ -91,6 +79,11 @@ void GameManager::handleEventInput() {
             log_info("Window close event detected.");
             FlagSystem::flagEvents.gameEnd = true;
             mainWindow.getWindow().close();
+
+            #if RUN_NETWORK
+            net.cleanup();
+            #endif
+            
             return; 
         }
         
@@ -270,7 +263,7 @@ void GameManager::startClient() {
 }
 
 void GameManager::handleNetworkMessages() {
-    if (!isNetworkEnabled) return;
+    if (!isNetworkEnabled || FlagSystem::flagEvents.gameEnd) return;
     
     while (net.hasMessages()) {
         NetworkMessage msg = net.getNextMessage();

@@ -53,11 +53,7 @@ void Scene::restartScene() {
 //////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////
 
-lobbyScene::lobbyScene(sf::RenderWindow& gameWindow) : Scene(gameWindow) {
-  
-
-    log_info("lobby scene made"); 
-}
+lobbyScene::lobbyScene(sf::RenderWindow& gameWindow) : Scene(gameWindow) { log_info("lobby scene made"); }
 
 void lobbyScene::createAssets(){
     titleText = std::make_unique<TextClass>(Constants::LOBBYTEXT_POSITION, Constants::LOBBYTEXT_SIZE, Constants::LOBBYTEXT_COLOR, Constants::LOBBYTEXT_FONT, Constants::LOBBYTEXT_MESSAGE);
@@ -65,6 +61,9 @@ void lobbyScene::createAssets(){
 
     button = std::make_unique<Button>(Constants::BUTTON1_POSITION, Constants::BUTTON1_SCALE, Constants::BUTTON1_TEXTURE, Constants::BUTTON1_ANIMATIONRECTS, Constants::BUTTON1_INDEXMAX, utils::convertToWeakPtrVector(Constants::BUTTON1_BITMASK));
     button->setRects(0); // set to first rect
+
+    button2 = std::make_unique<Button>(Constants::BUTTON2_POSITION, Constants::BUTTON1_SCALE, Constants::BUTTON1_TEXTURE, Constants::BUTTON1_ANIMATIONRECTS, Constants::BUTTON1_INDEXMAX, utils::convertToWeakPtrVector(Constants::BUTTON1_BITMASK));
+    button2->setRects(0); // set to first rect
 
     log_info("created assets in lobby scene");
 }
@@ -74,8 +73,7 @@ void lobbyScene::setTime() {
 }
 
 void lobbyScene::handleInput() {
-    hostCodeText->updateText( Constants::HOSTCODETEXT_MESSAGE + MetaComponents::inputText);// update host code text with the current host code
-
+   
 }
 
 void lobbyScene::handleGameEvents() {
@@ -87,20 +85,79 @@ void lobbyScene::handleGameEvents() {
 
         FlagSystem::flagEvents.mouseClicked = false;
     }
+    if(physics::collisionHelper(button2, MetaComponents::worldMouseClickedPosition_f)) {
+        FlagSystem::lobbyEvents.sceneEnd = true;
+        FlagSystem::lobbyEvents.sceneStart = false;
+
+        FlagSystem::lobby2Events.sceneStart = true;
+
+        FlagSystem::flagEvents.mouseClicked = false;
+    }
 }
 
 void lobbyScene::update() {
-   button->changeAnimation();
-
+    button->changeAnimation();
+    button2->changeAnimation();    
 }
 
 void lobbyScene::draw() {
     window.clear(sf::Color::White);
 
     drawVisibleObject(titleText);
-    drawVisibleObject(hostCodeText);
 
     drawVisibleObject(button);
+    drawVisibleObject(button2);
+
+    window.display();
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
+// Lobby2 Scene down below 
+//////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+lobby2Scene::lobby2Scene(sf::RenderWindow& gameWindow) : Scene(gameWindow) { log_info("lobby2 scene made"); }
+
+void lobby2Scene::createAssets(){
+    joinCodeText = std::make_unique<TextClass>(Constants::HOSTCODETEXT_POSITION, Constants::HOSTCODETEXT_SIZE, Constants::HOSTCODETEXT_COLOR, Constants::LOBBYTEXT_FONT, Constants::HOSTCODETEXT_MESSAGE);
+
+    hostButton = std::make_unique<Button>(Constants::BUTTON1_POSITION, Constants::BUTTON1_SCALE, Constants::BUTTON1_TEXTURE, Constants::BUTTON1_ANIMATIONRECTS, Constants::BUTTON1_INDEXMAX, utils::convertToWeakPtrVector(Constants::BUTTON1_BITMASK));
+    hostButton->setRects(0); // set to first rect
+
+    log_info("created assets in lobby scene");
+}
+
+void lobby2Scene::setTime() {
+   //
+}
+
+void lobby2Scene::handleInput() {
+    joinCodeText->updateText( Constants::HOSTCODETEXT_MESSAGE + MetaComponents::inputText);// update host code text with the current host code
+}
+
+void lobby2Scene::handleGameEvents() {
+    if(physics::collisionHelper(hostButton, MetaComponents::worldMouseClickedPosition_f)) {
+        FlagSystem::lobby2Events.sceneEnd = true;
+        FlagSystem::lobby2Events.sceneStart = false;
+
+        FlagSystem::gameScene1Flags.sceneStart = true;
+
+        FlagSystem::flagEvents.mouseClicked = false;
+    }
+}
+
+void lobby2Scene::update() {
+   if(hostButton) hostButton->changeAnimation();
+
+}
+
+void lobby2Scene::draw() {
+    window.clear(sf::Color::White);
+
+    drawVisibleObject(hostButton);
+    drawVisibleObject(joinCodeText);
+
     window.display();
 }
 

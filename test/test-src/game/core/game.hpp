@@ -9,6 +9,7 @@
 class GameManager {
 public:
     GameManager();
+    ~GameManager();
     
     void loadScenes();
     void runGame();
@@ -21,6 +22,7 @@ private:
     GameWindow mainWindow;
     std::unique_ptr<gamePlayScene> gameScene;
     std::unique_ptr<lobbyScene> introScene; // lobby
+    std::unique_ptr<lobby2Scene> introScene2; 
 
     #if RUN_NETWORK
     NetworkManager net;

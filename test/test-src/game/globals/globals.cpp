@@ -172,7 +172,10 @@ namespace Constants {
             BUTTON1_POSITION = {config["sprites"]["button1"]["position"]["x"].as<float>(),
                                 config["sprites"]["button1"]["position"]["y"].as<float>()};
             BUTTON1_SCALE = {config["sprites"]["button1"]["scale"]["x"].as<float>(),
-                            config["sprites"]["button1"]["scale"]["y"].as<float>()};                
+                            config["sprites"]["button1"]["scale"]["y"].as<float>()};  
+    
+            BUTTON2_POSITION = {config["sprites"]["button2"]["position"]["x"].as<float>(),
+                                config["sprites"]["button2"]["position"]["y"].as<float>()};
         
             // Load pawn paths and settings
             PAWN1_PATH = config["sprites"]["pawn_1"]["path"].as<std::string>();

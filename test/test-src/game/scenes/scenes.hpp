@@ -68,8 +68,29 @@ private:
   void draw() override;
 
   std::unique_ptr<Button> button;
+  std::unique_ptr<Button> button2;
+
   std::unique_ptr<TextClass> titleText;
   std::unique_ptr<TextClass> hostCodeText;
+};
+
+class lobby2Scene : public virtual Scene {
+public:
+  lobby2Scene(sf::RenderWindow& gameWindow);
+  void createAssets() override;   
+
+private:
+  void setTime() override;
+  void handleInput() override;
+  void handleGameEvents() override;
+
+  void respawnAssets() override{}; // no respawn in lobby scene
+
+  void update() override;
+  void draw() override;
+
+  std::unique_ptr<Button> hostButton;
+  std::unique_ptr<TextClass> joinCodeText;
 };
 
 // in use (the main scene in test game)

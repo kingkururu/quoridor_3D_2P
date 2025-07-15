@@ -99,6 +99,7 @@
 // }
 
 #include "network.hpp"
+#include "log.hpp"
 
 #if RUN_NETWORK
 

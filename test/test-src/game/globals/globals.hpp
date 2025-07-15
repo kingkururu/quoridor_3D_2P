@@ -152,7 +152,8 @@ namespace Constants { // not actually "constants" in terms of being fixed, but s
     inline std::shared_ptr<sf::Texture> BUTTON1_TEXTURE = std::make_shared<sf::Texture>();
     inline std::vector<sf::IntRect> BUTTON1_ANIMATIONRECTS;
     inline std::vector<std::shared_ptr<sf::Uint8[]>> BUTTON1_BITMASK;
- 
+    inline sf::Vector2f BUTTON2_POSITION;
+
     // pawn paths and settings
     inline std::filesystem::path PAWN1_PATH;
     inline sf::Vector2f PAWN1_POSITION;
@@ -331,6 +332,20 @@ namespace FlagSystem {
         }
     }; 
     inline LobbyEvents lobbyEvents; // accesible from everywhere
+
+    struct Lobby2Events {
+        bool sceneEnd;
+        bool sceneStart; 
+
+        Lobby2Events() : sceneEnd(false), sceneStart(false) {}
+
+        void resetFlags() {
+            sceneEnd = false;
+            sceneStart = false;
+            log_info("Reset LobbyEvents flags");
+        }
+    }; 
+    inline Lobby2Events lobby2Events; // accesible from everywhere
 
     struct GameSceneEvents1 {
         bool sceneEnd;
