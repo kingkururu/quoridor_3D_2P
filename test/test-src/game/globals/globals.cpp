@@ -173,7 +173,8 @@ namespace Constants {
                                 config["sprites"]["button1"]["position"]["y"].as<float>()};
             BUTTON1_SCALE = {config["sprites"]["button1"]["scale"]["x"].as<float>(),
                             config["sprites"]["button1"]["scale"]["y"].as<float>()};  
-    
+
+            BUTTON2_PATH = config["sprites"]["button2"]["path"].as<std::string>();    
             BUTTON2_POSITION = {config["sprites"]["button2"]["position"]["x"].as<float>(),
                                 config["sprites"]["button2"]["position"]["y"].as<float>()};
         
@@ -311,9 +312,10 @@ namespace Constants {
         // sprites
         if (!SPRITE1_TEXTURE->loadFromFile(SPRITE1_PATH)) log_warning("Failed to load sprite1 texture");
         if (!SPRITE2_TEXTURE->loadFromFile(SPRITE2_PATH)) log_warning("Failed to load sprite2 texture");
-        if (!PAWN1_TEXTURE->loadFromFile(PAWN1_PATH)) log_warning("Failed to load board texture"); 
-        if (!PAWN2_TEXTURE->loadFromFile(PAWN2_PATH)) log_warning("Failed to load board texture");  
-        if (!BUTTON1_TEXTURE->loadFromFile(BUTTON1_PATH)) log_warning("Failed to load enemy texture");  
+        if (!PAWN1_TEXTURE->loadFromFile(PAWN1_PATH)) log_warning("Failed to load pawn1 texture"); 
+        if (!PAWN2_TEXTURE->loadFromFile(PAWN2_PATH)) log_warning("Failed to load pawn2 texture");  
+        if (!BUTTON1_TEXTURE->loadFromFile(BUTTON1_PATH)) log_warning("Failed to load button1 texture");  
+        if (!BUTTON2_TEXTURE->loadFromFile(BUTTON2_PATH)) log_warning("Failed to load button2 texture");  
         if (!BACKGROUNDBIG_TEXTURE->loadFromFile(BACKGROUNDBIG_PATH)) log_warning("Failed to load background big texture");
         if (!BACKGROUNDBIGFINAL_TEXTURE->loadFromFile(BACKGROUNDBIGFINAL_PATH)) log_warning("Failed to load background big final texture");
         if (!BACKGROUNDBIGHALF_TEXTURE->loadFromFile(BACKGROUNDBIGHALF_PATH)) log_warning("Failed to load background big half texture");
@@ -356,6 +358,12 @@ namespace Constants {
         // make bitmasks for tiles 
         for (const auto& rect : BUTTON1_ANIMATIONRECTS ) {
             BUTTON1_BITMASK.emplace_back(createBitmask(BUTTON1_TEXTURE, rect));
+        }
+
+        BUTTON2_BITMASK.reserve(BUTTON1_INDEXMAX); 
+        // make bitmasks for tiles 
+        for (const auto& rect : BUTTON1_ANIMATIONRECTS ) {
+            BUTTON2_BITMASK.emplace_back(createBitmask(BUTTON2_TEXTURE, rect));
         }
 
         BOARDTILES_RECTS[P1_GOAL_TILE_INDEX] = BOARDTILES_RECTS[P2_GOAL_TILE_INDEX] = sf::IntRect{0, 0, 46, 33}; // p1,p2 goal block

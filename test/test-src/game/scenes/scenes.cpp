@@ -62,7 +62,7 @@ void lobbyScene::createAssets(){
     button = std::make_unique<Button>(Constants::BUTTON1_POSITION, Constants::BUTTON1_SCALE, Constants::BUTTON1_TEXTURE, Constants::BUTTON1_ANIMATIONRECTS, Constants::BUTTON1_INDEXMAX, utils::convertToWeakPtrVector(Constants::BUTTON1_BITMASK));
     button->setRects(0); // set to first rect
 
-    button2 = std::make_unique<Button>(Constants::BUTTON2_POSITION, Constants::BUTTON1_SCALE, Constants::BUTTON1_TEXTURE, Constants::BUTTON1_ANIMATIONRECTS, Constants::BUTTON1_INDEXMAX, utils::convertToWeakPtrVector(Constants::BUTTON1_BITMASK));
+    button2 = std::make_unique<Button>(Constants::BUTTON2_POSITION, Constants::BUTTON1_SCALE, Constants::BUTTON2_TEXTURE, Constants::BUTTON1_ANIMATIONRECTS, Constants::BUTTON1_INDEXMAX, utils::convertToWeakPtrVector(Constants::BUTTON2_BITMASK));
     button2->setRects(0); // set to first rect
 
     log_info("created assets in lobby scene");

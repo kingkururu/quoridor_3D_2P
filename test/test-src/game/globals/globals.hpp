@@ -143,7 +143,7 @@ namespace Constants { // not actually "constants" in terms of being fixed, but s
     inline std::vector<sf::IntRect> SPRITE2_ANIMATIONRECTS;
     inline std::vector<std::shared_ptr<sf::Uint8[]>> SPRITE2_BITMASK;
 
-    // not in use rn
+    // in lobby scene for 1 computer
     inline short BUTTON1_INDEXMAX;
     inline short BUTTON1_ANIMATIONROWS;  
     inline std::filesystem::path BUTTON1_PATH;
@@ -153,6 +153,10 @@ namespace Constants { // not actually "constants" in terms of being fixed, but s
     inline std::vector<sf::IntRect> BUTTON1_ANIMATIONRECTS;
     inline std::vector<std::shared_ptr<sf::Uint8[]>> BUTTON1_BITMASK;
     inline sf::Vector2f BUTTON2_POSITION;
+
+    inline std::filesystem::path BUTTON2_PATH;
+    inline std::shared_ptr<sf::Texture> BUTTON2_TEXTURE = std::make_shared<sf::Texture>();
+    inline std::vector<std::shared_ptr<sf::Uint8[]>> BUTTON2_BITMASK;
 
     // pawn paths and settings
     inline std::filesystem::path PAWN1_PATH;
