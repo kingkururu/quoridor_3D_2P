@@ -157,24 +157,15 @@ void GameManager::handleEventInput() {
                     
                 case sf::Keyboard::B: FlagSystem::flagEvents.bPressed = isPressed; break;
                 case sf::Keyboard::M: FlagSystem::flagEvents.mPressed = isPressed; break;
-                    
-                //////////////////// make a button later and put this somewhere else /////////
-                #if RUN_NETWORK
-                case sf::Keyboard::H: 
-                    if (isPressed) startHosting();
-                    break;
-                case sf::Keyboard::J: 
-                    if (isPressed) startClient();
-                    break;
-                #endif
-                //////////////////// make a button later and put this somewhere else /////////
-
+    
                 default: break;
             }
         }
         
         if (event.type == sf::Event::MouseButtonPressed) {
             #if RUN_NETWORK
+            if(FlagSystem::lobby2Events.hostButtonClicked) startHosting();
+            else startClient();
             // Calculate mouse position for all cases
             sf::View entireScreenView(sf::FloatRect(0.f, 0.f, Constants::WORLD_WIDTH, Constants::WORLD_HEIGHT));
             sf::Vector2f worldPosAbsoloute = mainWindow.getWindow().mapPixelToCoords(sf::Mouse::getPosition(mainWindow.getWindow()), entireScreenView);
@@ -193,7 +184,6 @@ void GameManager::handleEventInput() {
                 MetaComponents::middleViewmouseClickedPosition_i = static_cast<sf::Vector2i>(worldPos);
                 MetaComponents::middleViewmouseClickedPosition_f = worldPos; 
             }
-            
             // Send mouse click over network (both host and client can send)
             if (isNetworkEnabled && net.isNetworkConnected()) {
                 std::string mouseData = std::to_string(worldPosAbsoloute.x) + "," + std::to_string(worldPosAbsoloute.y);
@@ -252,32 +242,22 @@ void GameManager::resetFlags(){
 void GameManager::startHosting() {
     if (isNetworkEnabled) return;
     
-    std::cout << "Starting host on port 8080..." << std::endl;
     if (net.runHost(8080)) {
         isNetworkEnabled = true;
         networkRole = NetworkRole::HOST;
-        std::cout << "Host started successfully!" << std::endl;
-        std::cout << "Share your IP: " << net.getLocalIP() << std::endl;
+        MetaComponents::hostIP = net.getLocalIP();
+        log_info("Starting host on port 8080"); 
     } 
-    else std::cout << "Failed to start host!" << std::endl;
+    else log_error("failed to start as host");
 }
 
 void GameManager::startClient() {
     if (isNetworkEnabled) return;
     
-    // change method later
-    std::string hostIP;
-    std::cout << "Enter host IP address: ";
-    std::cin >> hostIP;
-    
-    std::cout << "Connecting to " << hostIP << ":8080..." << std::endl;
-    
-    if (net.runClient(hostIP, 8080)) {
+    if (net.runClient(MetaComponents::inputText, 8080)) {
         isNetworkEnabled = true;
         networkRole = NetworkRole::CLIENT;
-        std::cout << "Connected successfully!" << std::endl;
     } 
-    else std::cout << "Failed to connect! Make sure the host is running and the IP is correct." << std::endl;
 }
 
 void GameManager::handleNetworkMessages() {
@@ -291,7 +271,7 @@ void GameManager::handleNetworkMessages() {
 
 void GameManager::processNetworkMessage(const NetworkMessage& msg) {
     // Reduce debug output to avoid spam
-    if (msg.type != "GAME_STATE_SYNC") std::cout << "Received: " << msg.type << " from " << msg.sender << ": " << msg.data << std::endl;
+    // if (msg.type != "GAME_STATE_SYNC") std::cout << "Received: " << msg.type << " from " << msg.sender << ": " << msg.data << std::endl;
     
     if (msg.type == "INPUT_STATE") {
         // Parse input state message: "KEY:STATE"

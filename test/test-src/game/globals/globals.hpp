@@ -54,6 +54,9 @@ namespace MetaComponents{
     extern float getmiddleViewMaxY();
 
     inline std::string inputText = "";
+
+    inline std::string hostIP = "";
+    inline bool joinCodeMismatch {};
 }
 
 namespace Constants { // not actually "constants" in terms of being fixed, but should never be altered after being read from the config.yaml file
@@ -152,11 +155,26 @@ namespace Constants { // not actually "constants" in terms of being fixed, but s
     inline std::shared_ptr<sf::Texture> BUTTON1_TEXTURE = std::make_shared<sf::Texture>();
     inline std::vector<sf::IntRect> BUTTON1_ANIMATIONRECTS;
     inline std::vector<std::shared_ptr<sf::Uint8[]>> BUTTON1_BITMASK;
-    inline sf::Vector2f BUTTON2_POSITION;
 
+    inline sf::Vector2f BUTTON2_POSITION;
     inline std::filesystem::path BUTTON2_PATH;
     inline std::shared_ptr<sf::Texture> BUTTON2_TEXTURE = std::make_shared<sf::Texture>();
     inline std::vector<std::shared_ptr<sf::Uint8[]>> BUTTON2_BITMASK;
+
+    // in lobby2 scene for host button
+    inline short BUTTON3_INDEXMAX;
+    inline short BUTTON3_ANIMATIONROWS;  
+    inline std::filesystem::path BUTTON3_PATH;
+    inline sf::Vector2f BUTTON3_POSITION;
+    inline sf::Vector2f BUTTON3_SCALE;
+    inline std::shared_ptr<sf::Texture> BUTTON3_TEXTURE = std::make_shared<sf::Texture>();
+    inline std::vector<sf::IntRect> BUTTON3_ANIMATIONRECTS;
+    inline std::vector<std::shared_ptr<sf::Uint8[]>> BUTTON3_BITMASK;
+
+    inline std::filesystem::path BUTTON4_PATH;
+    inline std::shared_ptr<sf::Texture> BUTTON4_TEXTURE = std::make_shared<sf::Texture>();
+    inline std::vector<std::shared_ptr<sf::Uint8[]>> BUTTON4_BITMASK;
+    inline sf::Vector2f BUTTON4_POSITION;
 
     // pawn paths and settings
     inline std::filesystem::path PAWN1_PATH;
@@ -340,12 +358,14 @@ namespace FlagSystem {
     struct Lobby2Events {
         bool sceneEnd;
         bool sceneStart; 
+        bool hostButtonClicked;
 
-        Lobby2Events() : sceneEnd(false), sceneStart(false) {}
+        Lobby2Events() : sceneEnd(false), sceneStart(false), hostButtonClicked(false) {}
 
         void resetFlags() {
             sceneEnd = false;
             sceneStart = false;
+            hostButtonClicked = false;
             log_info("Reset LobbyEvents flags");
         }
     }; 

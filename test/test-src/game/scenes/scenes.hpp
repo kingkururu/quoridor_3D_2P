@@ -67,8 +67,8 @@ private:
   void update() override;
   void draw() override;
 
-  std::unique_ptr<Button> button;
-  std::unique_ptr<Button> button2;
+  std::unique_ptr<Button> button; // 1 comp button
+  std::unique_ptr<Button> button2; // 2 comp button
 
   std::unique_ptr<TextClass> titleText;
   std::unique_ptr<TextClass> hostCodeText;
@@ -89,7 +89,9 @@ private:
   void update() override;
   void draw() override;
 
-  std::unique_ptr<Button> hostButton;
+  std::unique_ptr<Button> hostButton; 
+  std::unique_ptr<Button> joinButton; 
+
   std::unique_ptr<TextClass> joinCodeText;
 };
 

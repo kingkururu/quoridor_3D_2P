@@ -3,21 +3,18 @@
 
 #if RUN_NETWORK
 
-NetworkManager::NetworkManager() : serverSocket(-1), clientSocket(-1), role(NetworkRole::NONE), 
-                  isConnected(false), shouldStop(false) {}
+NetworkManager::NetworkManager() : serverSocket(-1), clientSocket(-1), role(NetworkRole::NONE), isConnected(false), shouldStop(false) {}
 
-NetworkManager::~NetworkManager() {
-    cleanup();
-}
+NetworkManager::~NetworkManager() { cleanup(); }
 
 std::string NetworkManager::getLocalIP() {
     int sock = socket(AF_INET, SOCK_DGRAM, 0);
-    if (sock == -1) return "127.0.0.1";
+    if (sock == -1) return "127.0.0.1"; // default
     
     struct sockaddr_in serv;
     memset(&serv, 0, sizeof(serv));
     serv.sin_family = AF_INET;
-    serv.sin_addr.s_addr = inet_addr("8.8.8.8");
+    serv.sin_addr.s_addr = inet_addr("8.8.8.8"); // Google public DNS
     serv.sin_port = htons(53);
     
     int err = connect(sock, (const struct sockaddr*)&serv, sizeof(serv));
@@ -45,7 +42,7 @@ bool NetworkManager::runHost(int port) {
     
     serverSocket = socket(AF_INET, SOCK_STREAM, 0);
     if (serverSocket == -1) {
-        std::cerr << "Error creating server socket" << std::endl;
+        log_error("Error creating server socket");
         return false;
     }
     
@@ -66,22 +63,21 @@ bool NetworkManager::runHost(int port) {
     serverAddr.sin_port = htons(port);
     
     if (bind(serverSocket, (struct sockaddr*)&serverAddr, sizeof(serverAddr)) == -1) {
-        std::cerr << "Error binding server socket" << std::endl;
+        log_error("Error binding server socket");
         close(serverSocket);
         serverSocket = -1;
         return false;
     }
     
     if (listen(serverSocket, 1) == -1) {
-        std::cerr << "Error listening on server socket" << std::endl;
+        log_error("Error listening on server socket");
         close(serverSocket);
         serverSocket = -1;
         return false;
     }
     
     role = NetworkRole::HOST;
-    std::cout << "Server started on " << getLocalIP() << ":" << port << std::endl;
-    std::cout << "Waiting for client connection..." << std::endl;
+    log_info("Server started on " + getLocalIP());
     
     startListening();
     return true;
@@ -92,7 +88,7 @@ bool NetworkManager::runClient(const std::string& host_ip, int port) {
     
     clientSocket = socket(AF_INET, SOCK_STREAM, 0);
     if (clientSocket == -1) {
-        std::cerr << "Error creating client socket" << std::endl;
+        log_error("Error creating client socket");
         return false;
     }
     
@@ -108,14 +104,14 @@ bool NetworkManager::runClient(const std::string& host_ip, int port) {
     serverAddr.sin_port = htons(port);
     
     if (inet_pton(AF_INET, host_ip.c_str(), &serverAddr.sin_addr) <= 0) {
-        std::cerr << "Invalid IP address" << std::endl;
+        log_warning("Invalid IP address");
         close(clientSocket);
         clientSocket = -1;
         return false;
     }
     
     if (connect(clientSocket, (struct sockaddr*)&serverAddr, sizeof(serverAddr)) == -1) {
-        std::cerr << "Error connecting to server" << std::endl;
+        log_error("Error connecting to server");
         close(clientSocket);
         clientSocket = -1;
         return false;
@@ -123,7 +119,7 @@ bool NetworkManager::runClient(const std::string& host_ip, int port) {
     
     role = NetworkRole::CLIENT;
     isConnected = true;
-    std::cout << "Connected to server " << host_ip << ":" << port << std::endl;
+    log_info("Connected to server " + host_ip + ":" + std::to_string(port));
     
     startListening();
     return true;
@@ -136,9 +132,7 @@ void NetworkManager::startListening() {
 
 void NetworkManager::stopListening() {
     shouldStop = true;
-    if (listenerThread.joinable()) {
-        listenerThread.join();
-    }
+    if (listenerThread.joinable()) listenerThread.join();
 }
 
 void NetworkManager::listenForMessages() {
@@ -169,18 +163,16 @@ void NetworkManager::listenForMessages() {
             messageQueue.push(msg);
         } else if (bytesReceived == 0) {
             // Connection closed
-            std::cout << "Connection closed by peer" << std::endl;
+            log_warning("Connection closed by peer");
             isConnected = false;
             break;
         } else {
             // Check if it's a timeout (expected behavior)
-            if (errno == EAGAIN || errno == EWOULDBLOCK) {
-                // Timeout occurred, continue loop (this allows checking shouldStop)
-                continue;
-            } else {
+            if (errno == EAGAIN || errno == EWOULDBLOCK) continue;
+            else {
                 // Actual error occurred
                 if (!shouldStop) {
-                    std::cerr << "Error receiving data: " << strerror(errno) << std::endl;
+                    log_error("Error receiving data");
                     isConnected = false;
                     break;
                 }
@@ -200,7 +192,7 @@ void NetworkManager::handleClientConnection() {
     if (clientSocket != -1) {
         char clientIP[INET_ADDRSTRLEN];
         inet_ntop(AF_INET, &clientAddr.sin_addr, clientIP, INET_ADDRSTRLEN);
-        std::cout << "Client connected from " << clientIP << std::endl;
+        log_info("Client connected from " + std::string(clientIP));
         isConnected = true;
     }
 }
@@ -211,9 +203,7 @@ void NetworkManager::sendMessage(const NetworkMessage& msg) {
     std::string serialized = serializeMessage(msg);
     int activeSocket = (role == NetworkRole::HOST) ? clientSocket : clientSocket;
     
-    if (activeSocket != -1) {
-        send(activeSocket, serialized.c_str(), serialized.length(), 0);
-    }
+    if (activeSocket != -1) send(activeSocket, serialized.c_str(), serialized.length(), 0);
 }
 
 bool NetworkManager::hasMessages() {
@@ -223,9 +213,7 @@ bool NetworkManager::hasMessages() {
 
 NetworkMessage NetworkManager::getNextMessage() {
     std::lock_guard<std::mutex> lock(queueMutex);
-    if (messageQueue.empty()) {
-        return {"", "", ""};
-    }
+    if (messageQueue.empty()) return {"", "", ""};
     
     NetworkMessage msg = messageQueue.front();
     messageQueue.pop();
@@ -248,7 +236,6 @@ NetworkMessage NetworkManager::parseMessage(const std::string& rawData) {
         msg.sender = "UNKNOWN";
         msg.data = rawData;
     }
-    
     return msg;
 }
 
@@ -276,7 +263,6 @@ void NetworkManager::cleanup() {
     // Now join the thread (should exit quickly due to socket closure)
     if (listenerThread.joinable()) {
         // Use a shorter timeout since sockets are already closed
-        auto start = std::chrono::steady_clock::now();
         bool threadExited = false;
         
         // Check if thread exits within 100ms
@@ -286,16 +272,14 @@ void NetworkManager::cleanup() {
         });
         
         if (future.wait_for(std::chrono::milliseconds(100)) == std::future_status::timeout) {
-            std::cout << "Network thread cleanup timeout, detaching thread" << std::endl;
+            log_info("Network thread cleanup timeout, detaching thread");
             listenerThread.detach();
         }
     }
     
     // Clear message queue
     std::lock_guard<std::mutex> lock(queueMutex);
-    while (!messageQueue.empty()) {
-        messageQueue.pop();
-    }
+    while (!messageQueue.empty()) messageQueue.pop();
     
     role = NetworkRole::NONE;
 }

@@ -165,7 +165,7 @@ namespace Constants {
             SPRITE2_SCALE = {config["sprites"]["sprite2"]["scale"]["x"].as<float>(),
                             config["sprites"]["sprite2"]["scale"]["y"].as<float>()};
 
-            // Load enemy paths and settings
+            // Load lobby1 button 
             BUTTON1_PATH = config["sprites"]["button1"]["path"].as<std::string>();
             BUTTON1_INDEXMAX = config["sprites"]["button1"]["index_max"].as<short>();
             BUTTON1_ANIMATIONROWS = config["sprites"]["button1"]["animation_rows"].as<short>();
@@ -177,6 +177,19 @@ namespace Constants {
             BUTTON2_PATH = config["sprites"]["button2"]["path"].as<std::string>();    
             BUTTON2_POSITION = {config["sprites"]["button2"]["position"]["x"].as<float>(),
                                 config["sprites"]["button2"]["position"]["y"].as<float>()};
+        
+            // Load lobby2 button
+            BUTTON3_PATH = config["sprites"]["button3"]["path"].as<std::string>();
+            BUTTON3_INDEXMAX = config["sprites"]["button3"]["index_max"].as<short>();
+            BUTTON3_ANIMATIONROWS = config["sprites"]["button3"]["animation_rows"].as<short>();
+            BUTTON3_POSITION = {config["sprites"]["button3"]["position"]["x"].as<float>(),
+                                config["sprites"]["button3"]["position"]["y"].as<float>()};
+            BUTTON3_SCALE = {config["sprites"]["button3"]["scale"]["x"].as<float>(),
+                            config["sprites"]["button3"]["scale"]["y"].as<float>()};  
+
+            BUTTON4_PATH = config["sprites"]["button4"]["path"].as<std::string>();    
+            BUTTON4_POSITION = {config["sprites"]["button4"]["position"]["x"].as<float>(),
+                                config["sprites"]["button4"]["position"]["y"].as<float>()};
         
             // Load pawn paths and settings
             PAWN1_PATH = config["sprites"]["pawn_1"]["path"].as<std::string>();
@@ -316,6 +329,8 @@ namespace Constants {
         if (!PAWN2_TEXTURE->loadFromFile(PAWN2_PATH)) log_warning("Failed to load pawn2 texture");  
         if (!BUTTON1_TEXTURE->loadFromFile(BUTTON1_PATH)) log_warning("Failed to load button1 texture");  
         if (!BUTTON2_TEXTURE->loadFromFile(BUTTON2_PATH)) log_warning("Failed to load button2 texture");  
+        if (!BUTTON3_TEXTURE->loadFromFile(BUTTON3_PATH)) log_warning("Failed to load button3 texture");  
+        if (!BUTTON4_TEXTURE->loadFromFile(BUTTON4_PATH)) log_warning("Failed to load button4 texture");  
         if (!BACKGROUNDBIG_TEXTURE->loadFromFile(BACKGROUNDBIG_PATH)) log_warning("Failed to load background big texture");
         if (!BACKGROUNDBIGFINAL_TEXTURE->loadFromFile(BACKGROUNDBIGFINAL_PATH)) log_warning("Failed to load background big final texture");
         if (!BACKGROUNDBIGHALF_TEXTURE->loadFromFile(BACKGROUNDBIGHALF_PATH)) log_warning("Failed to load background big half texture");
@@ -364,6 +379,24 @@ namespace Constants {
         // make bitmasks for tiles 
         for (const auto& rect : BUTTON1_ANIMATIONRECTS ) {
             BUTTON2_BITMASK.emplace_back(createBitmask(BUTTON2_TEXTURE, rect));
+        }
+
+        BUTTON3_ANIMATIONRECTS.reserve(BUTTON3_INDEXMAX);
+        for (int row = 0; row < BUTTON3_ANIMATIONROWS; ++row) {
+            for (int col = 0; col < BUTTON3_INDEXMAX / BUTTON3_ANIMATIONROWS; ++col) {
+                BUTTON3_ANIMATIONRECTS.emplace_back(sf::IntRect{col * 576, row * 228, 576, 228});
+            }
+        }
+        BUTTON3_BITMASK.reserve(BUTTON3_INDEXMAX); 
+        // make bitmasks for tiles 
+        for (const auto& rect : BUTTON3_ANIMATIONRECTS ) {
+            BUTTON3_BITMASK.emplace_back(createBitmask(BUTTON3_TEXTURE, rect));
+        }
+
+        BUTTON4_BITMASK.reserve(BUTTON3_INDEXMAX); 
+        // make bitmasks for tiles 
+        for (const auto& rect : BUTTON3_ANIMATIONRECTS ) {
+            BUTTON4_BITMASK.emplace_back(createBitmask(BUTTON4_TEXTURE, rect));
         }
 
         BOARDTILES_RECTS[P1_GOAL_TILE_INDEX] = BOARDTILES_RECTS[P2_GOAL_TILE_INDEX] = sf::IntRect{0, 0, 46, 33}; // p1,p2 goal block
