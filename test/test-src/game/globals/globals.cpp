@@ -133,6 +133,9 @@ namespace Constants {
                                 config["lobby"]["hostcode_text"]["position"]["y"].as<float>()};
             HOSTCODETEXT_COLOR = SpriteComponents::toSfColor(config["lobby"]["hostcode_text"]["color"].as<std::string>());
 
+            HOSTIPTEXT_SIZE = config["lobby"]["hostIP_text"]["size"].as<unsigned short>();
+            HOSTIPTEXT_POSITION = {config["lobby"]["hostIP_text"]["position"]["x"].as<float>(),
+                                config["lobby"]["hostIP_text"]["position"]["y"].as<float>()};
             ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             /////////////////////////////////////////////////// Game Play Scene 1 /////////////////////////////////////////////////////
             ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -40,12 +40,17 @@ lobby:
       y: 100.0 # pixels 
     color: "BLACK" # sf::Color
   hostcode_text:
-    size: 20 # pixels 
-    message: "Type Host IP to Join: " # actual content in the text
+    size: 50 # pixels 
+    message: "Type Host IP to Join:\n" # actual content in the text
     position:
-      x: 20.0 # pixels 
-      y: 10.0 # pixels
+      x: 750.0 # pixels 
+      y: 100.0 # pixels
     color: "BLACK"
+  hostIP_text:
+    size: 30
+    position:
+      x: 200
+      y: 280
 
 # Sprite paths
 sprites:
@@ -103,8 +108,8 @@ sprites:
     animation_rows: 1 # number of rows for animation 
     path: "test/test-assets/sprites/png/button3.png"
     position:
-      x: 300.0 # pixels 
-      y: 50.0 # pixels 
+      x: 100.0 # pixels 
+      y: 100.0 # pixels 
     scale:
       x: 1.0
       y: 1.0

@@ -92,6 +92,7 @@ private:
   std::unique_ptr<Button> hostButton; 
   std::unique_ptr<Button> joinButton; 
 
+  std::unique_ptr<TextClass> hostIPText;
   std::unique_ptr<TextClass> joinCodeText;
 };
 

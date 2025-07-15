@@ -43,6 +43,8 @@ void GameManager::runGame() {
             handleEventInput();
             
             #if RUN_NETWORK
+            MetaComponents::hostIP = net.getLocalIP();
+                
             if (isNetworkEnabled) {
                 handleNetworkMessages();
                 // Only sync at specified intervals to reduce network spam

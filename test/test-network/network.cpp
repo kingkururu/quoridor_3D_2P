@@ -78,7 +78,7 @@ bool NetworkManager::runHost(int port) {
     
     role = NetworkRole::HOST;
     log_info("Server started on " + getLocalIP());
-    
+
     startListening();
     return true;
 }

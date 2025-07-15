@@ -121,11 +121,12 @@ lobby2Scene::lobby2Scene(sf::RenderWindow& gameWindow) : Scene(gameWindow) { log
 
 void lobby2Scene::createAssets(){
     joinCodeText = std::make_unique<TextClass>(Constants::HOSTCODETEXT_POSITION, Constants::HOSTCODETEXT_SIZE, Constants::HOSTCODETEXT_COLOR, Constants::LOBBYTEXT_FONT, Constants::HOSTCODETEXT_MESSAGE);
+    hostIPText = std::make_unique<TextClass>(Constants::HOSTIPTEXT_POSITION, Constants::HOSTIPTEXT_SIZE, Constants::HOSTCODETEXT_COLOR, Constants::LOBBYTEXT_FONT, "");
 
     hostButton = std::make_unique<Button>(Constants::BUTTON3_POSITION, Constants::BUTTON3_SCALE, Constants::BUTTON3_TEXTURE, Constants::BUTTON3_ANIMATIONRECTS, Constants::BUTTON3_INDEXMAX, utils::convertToWeakPtrVector(Constants::BUTTON3_BITMASK));
     hostButton->setRects(0); // set to first rect
-    joinButton = std::make_unique<Button>(Constants::BUTTON4_POSITION, Constants::BUTTON3_SCALE, Constants::BUTTON4_TEXTURE, Constants::BUTTON3_ANIMATIONRECTS, Constants::BUTTON3_INDEXMAX, utils::convertToWeakPtrVector(Constants::BUTTON4_BITMASK));
-    joinButton->setRects(0); // set to first rect
+    // joinButton = std::make_unique<Button>(Constants::BUTTON4_POSITION, Constants::BUTTON3_SCALE, Constants::BUTTON4_TEXTURE, Constants::BUTTON3_ANIMATIONRECTS, Constants::BUTTON3_INDEXMAX, utils::convertToWeakPtrVector(Constants::BUTTON4_BITMASK));
+    // joinButton->setRects(0); // set to first rect
 
     log_info("created assets in lobby scene");
 }
@@ -136,6 +137,7 @@ void lobby2Scene::setTime() {
 
 void lobby2Scene::handleInput() {
     joinCodeText->updateText( Constants::HOSTCODETEXT_MESSAGE + MetaComponents::inputText);// update host code text with the current host code
+
 }
 
 void lobby2Scene::handleGameEvents() {
@@ -150,6 +152,7 @@ void lobby2Scene::handleGameEvents() {
 }
 
 void lobby2Scene::update() {
+    if(hostIPText) hostIPText->updateText("Local IP:" + MetaComponents::hostIP);
     if(hostButton) hostButton->changeAnimation();
     if(joinButton) joinButton->changeAnimation();
 }
@@ -158,7 +161,8 @@ void lobby2Scene::draw() {
     window.clear(sf::Color::White);
 
     drawVisibleObject(hostButton);
-    drawVisibleObject(joinButton);
+    drawVisibleObject(hostIPText);
+    //drawVisibleObject(joinButton);
     drawVisibleObject(joinCodeText);
 
     window.display();
