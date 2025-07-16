@@ -1,6 +1,6 @@
-[2025-07-16 09:45:38.161] [error_logger] [error] Error connecting to server
-[2025-07-16 09:45:38.168] [error_logger] [error] Error connecting to server
-[2025-07-16 09:45:50.502] [error_logger] [error] Error connecting to server
-[2025-07-16 09:45:51.731] [error_logger] [error] Error connecting to server
-[2025-07-16 09:45:52.141] [error_logger] [error] Error connecting to server
-[2025-07-16 09:45:52.549] [error_logger] [error] Error connecting to server
+[2025-07-16 09:53:09.515] [error_logger] [error] Invalid IP address: 
+[2025-07-16 09:53:21.441] [error_logger] [error] Error connecting to server: Connection refused
+[2025-07-16 09:53:21.829] [error_logger] [error] Error connecting to server: Connection refused
+[2025-07-16 09:53:31.143] [error_logger] [error] Error connecting to server: Connection refused
+[2025-07-16 09:53:31.334] [error_logger] [error] Error connecting to server: Connection refused
+[2025-07-16 09:53:31.880] [error_logger] [error] Error connecting to server: Connection refused

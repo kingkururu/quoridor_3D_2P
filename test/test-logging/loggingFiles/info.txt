@@ -1,67 +1,71 @@
-[2025-07-16 09:45:07.303] [info_logger] [info] Succesfuly read yaml file
-[2025-07-16 09:45:07.349] [info_logger] [info] 	Constants initialized
-[2025-07-16 09:45:07.388] [info_logger] [info] lobby scene made
-[2025-07-16 09:45:07.388] [info_logger] [info] lobby2 scene made
-[2025-07-16 09:45:07.388] [info_logger] [info] gameplay scene made
-[2025-07-16 09:45:07.388] [info_logger] [info] 	Game initialized
-[2025-07-16 09:45:07.388] [info_logger] [info] text initialized successully
-[2025-07-16 09:45:07.388] [info_logger] [info] text initialized successully
-[2025-07-16 09:45:07.388] [info_logger] [info] Sprite initialized successfully
-[2025-07-16 09:45:07.388] [info_logger] [info] Sprite initialized successfully
-[2025-07-16 09:45:07.388] [info_logger] [info] created assets in lobby scene
-[2025-07-16 09:45:07.388] [info_logger] [info] Sprite initialized successfully
-[2025-07-16 09:45:07.388] [info_logger] [info] Sprite initialized successfully
-[2025-07-16 09:45:07.388] [info_logger] [info] Sprite initialized successfully
-[2025-07-16 09:45:07.388] [info_logger] [info] Sprite initialized successfully
-[2025-07-16 09:45:07.388] [info_logger] [info] Sprite initialized successfully
-[2025-07-16 09:45:07.388] [info_logger] [info] Sprite initialized successfully
-[2025-07-16 09:45:07.388] [info_logger] [info] Sprite initialized successfully
-[2025-07-16 09:45:07.388] [info_logger] [info] Sprite initialized successfully
-[2025-07-16 09:45:07.388] [info_logger] [info] Sprite initialized successfully
-[2025-07-16 09:45:07.388] [info_logger] [info] Sprite initialized successfully
-[2025-07-16 09:45:07.388] [info_logger] [info] Sprite initialized successfully
-[2025-07-16 09:45:07.388] [info_logger] [info] Sprite initialized successfully
-[2025-07-16 09:45:07.388] [info_logger] [info] Sprite initialized successfully
-[2025-07-16 09:45:07.388] [info_logger] [info] Sprite initialized successfully
-[2025-07-16 09:45:07.388] [info_logger] [info] Sprite initialized successfully
-[2025-07-16 09:45:07.388] [info_logger] [info] Sprite initialized successfully
-[2025-07-16 09:45:07.388] [info_logger] [info] Sprite initialized successfully
-[2025-07-16 09:45:07.388] [info_logger] [info] Sprite initialized successfully
-[2025-07-16 09:45:07.388] [info_logger] [info] Sprite initialized successfully
-[2025-07-16 09:45:07.388] [info_logger] [info] Sprite initialized successfully
-[2025-07-16 09:45:07.388] [info_logger] [info] Sprite initialized successfully
-[2025-07-16 09:45:07.388] [info_logger] [info] Sprite initialized successfully
-[2025-07-16 09:45:07.388] [info_logger] [info] Sprite initialized successfully
-[2025-07-16 09:45:07.388] [info_logger] [info] Sprite initialized successfully
-[2025-07-16 09:45:07.388] [info_logger] [info] Sprite initialized successfully
-[2025-07-16 09:45:07.388] [info_logger] [info] Sprite initialized successfully
-[2025-07-16 09:45:07.388] [info_logger] [info] Sprite initialized successfully
-[2025-07-16 09:45:07.388] [info_logger] [info] Sprite initialized successfully
-[2025-07-16 09:45:07.388] [info_logger] [info] Sprite initialized successfully
-[2025-07-16 09:45:07.388] [info_logger] [info] Boardtilemap initialized
-[2025-07-16 09:45:07.388] [info_logger] [info] Music initialized successfully, volume is 80.000000
-[2025-07-16 09:45:07.388] [info_logger] [info] Sound initialized successfully
-[2025-07-16 09:45:07.388] [info_logger] [info] text initialized successully
-[2025-07-16 09:45:07.388] [info_logger] [info] text initialized successully
-[2025-07-16 09:45:07.388] [info_logger] [info] text initialized successully
-[2025-07-16 09:45:07.388] [info_logger] [info] text initialized successully
-[2025-07-16 09:45:07.388] [info_logger] [info] text initialized successully
-[2025-07-16 09:45:07.388] [info_logger] [info] Sprite inserted into quadtree node.
-[2025-07-16 09:45:07.388] [info_logger] [info] Sprite inserted into quadtree node.
-[2025-07-16 09:45:07.388] [info_logger] [info] initializing assets in scene 1: 0.260000ms
-[2025-07-16 09:45:07.388] [info_logger] [info] text initialized successully
-[2025-07-16 09:45:07.388] [info_logger] [info] text initialized successully
-[2025-07-16 09:45:07.388] [info_logger] [info] Sprite initialized successfully
-[2025-07-16 09:45:07.388] [info_logger] [info] created assets in lobby scene
-[2025-07-16 09:45:26.013] [info_logger] [warning] Invalid IP address
-[2025-07-16 09:45:55.042] [info_logger] [info] Window close event detected.
-[2025-07-16 09:45:55.084] [info_logger] [info] 	Game Ended
+[2025-07-16 09:53:07.754] [info_logger] [info] Succesfuly read yaml file
+[2025-07-16 09:53:07.800] [info_logger] [info] 	Constants initialized
+[2025-07-16 09:53:07.847] [info_logger] [info] lobby scene made
+[2025-07-16 09:53:07.847] [info_logger] [info] lobby2 scene made
+[2025-07-16 09:53:07.847] [info_logger] [info] gameplay scene made
+[2025-07-16 09:53:07.847] [info_logger] [info] 	Game initialized
+[2025-07-16 09:53:07.847] [info_logger] [info] text initialized successully
+[2025-07-16 09:53:07.847] [info_logger] [info] text initialized successully
+[2025-07-16 09:53:07.847] [info_logger] [info] Sprite initialized successfully
+[2025-07-16 09:53:07.847] [info_logger] [info] Sprite initialized successfully
+[2025-07-16 09:53:07.847] [info_logger] [info] created assets in lobby scene
+[2025-07-16 09:53:07.847] [info_logger] [info] Sprite initialized successfully
+[2025-07-16 09:53:07.847] [info_logger] [info] Sprite initialized successfully
+[2025-07-16 09:53:07.847] [info_logger] [info] Sprite initialized successfully
+[2025-07-16 09:53:07.847] [info_logger] [info] Sprite initialized successfully
+[2025-07-16 09:53:07.847] [info_logger] [info] Sprite initialized successfully
+[2025-07-16 09:53:07.847] [info_logger] [info] Sprite initialized successfully
+[2025-07-16 09:53:07.847] [info_logger] [info] Sprite initialized successfully
+[2025-07-16 09:53:07.847] [info_logger] [info] Sprite initialized successfully
+[2025-07-16 09:53:07.847] [info_logger] [info] Sprite initialized successfully
+[2025-07-16 09:53:07.847] [info_logger] [info] Sprite initialized successfully
+[2025-07-16 09:53:07.847] [info_logger] [info] Sprite initialized successfully
+[2025-07-16 09:53:07.847] [info_logger] [info] Sprite initialized successfully
+[2025-07-16 09:53:07.847] [info_logger] [info] Sprite initialized successfully
+[2025-07-16 09:53:07.847] [info_logger] [info] Sprite initialized successfully
+[2025-07-16 09:53:07.847] [info_logger] [info] Sprite initialized successfully
+[2025-07-16 09:53:07.847] [info_logger] [info] Sprite initialized successfully
+[2025-07-16 09:53:07.847] [info_logger] [info] Sprite initialized successfully
+[2025-07-16 09:53:07.847] [info_logger] [info] Sprite initialized successfully
+[2025-07-16 09:53:07.847] [info_logger] [info] Sprite initialized successfully
+[2025-07-16 09:53:07.847] [info_logger] [info] Sprite initialized successfully
+[2025-07-16 09:53:07.847] [info_logger] [info] Sprite initialized successfully
+[2025-07-16 09:53:07.847] [info_logger] [info] Sprite initialized successfully
+[2025-07-16 09:53:07.847] [info_logger] [info] Sprite initialized successfully
+[2025-07-16 09:53:07.848] [info_logger] [info] Sprite initialized successfully
+[2025-07-16 09:53:07.848] [info_logger] [info] Sprite initialized successfully
+[2025-07-16 09:53:07.848] [info_logger] [info] Sprite initialized successfully
+[2025-07-16 09:53:07.848] [info_logger] [info] Sprite initialized successfully
+[2025-07-16 09:53:07.848] [info_logger] [info] Sprite initialized successfully
+[2025-07-16 09:53:07.848] [info_logger] [info] Sprite initialized successfully
+[2025-07-16 09:53:07.848] [info_logger] [info] Boardtilemap initialized
+[2025-07-16 09:53:07.848] [info_logger] [info] Music initialized successfully, volume is 80.000000
+[2025-07-16 09:53:07.848] [info_logger] [info] Sound initialized successfully
+[2025-07-16 09:53:07.848] [info_logger] [info] text initialized successully
+[2025-07-16 09:53:07.848] [info_logger] [info] text initialized successully
+[2025-07-16 09:53:07.848] [info_logger] [info] text initialized successully
+[2025-07-16 09:53:07.848] [info_logger] [info] text initialized successully
+[2025-07-16 09:53:07.848] [info_logger] [info] text initialized successully
+[2025-07-16 09:53:07.848] [info_logger] [info] Sprite inserted into quadtree node.
+[2025-07-16 09:53:07.848] [info_logger] [info] Sprite inserted into quadtree node.
+[2025-07-16 09:53:07.848] [info_logger] [info] initializing assets in scene 1: 0.243000ms
+[2025-07-16 09:53:07.848] [info_logger] [info] text initialized successully
+[2025-07-16 09:53:07.848] [info_logger] [info] text initialized successully
+[2025-07-16 09:53:07.848] [info_logger] [info] Sprite initialized successfully
+[2025-07-16 09:53:07.848] [info_logger] [info] created assets in lobby scene
+[2025-07-16 09:53:21.441] [info_logger] [info] Attempting to connect to 192.168.0.68:8080
+[2025-07-16 09:53:21.828] [info_logger] [info] Attempting to connect to 192.168.0.68:8080
+[2025-07-16 09:53:31.142] [info_logger] [info] Attempting to connect to 127.0.0.1:8080
+[2025-07-16 09:53:31.334] [info_logger] [info] Attempting to connect to 127.0.0.1:8080
+[2025-07-16 09:53:31.880] [info_logger] [info] Attempting to connect to 127.0.0.1:8080
+[2025-07-16 09:53:35.094] [info_logger] [info] Window close event detected.
+[2025-07-16 09:53:35.143] [info_logger] [info] 	Game Ended
 
-[2025-07-16 09:45:55.084] [info_logger] [info] GameManager destructor called
-[2025-07-16 09:45:55.185] [info_logger] [info] GameManager destructor finished
-[2025-07-16 09:45:55.185] [info_logger] [info] objects cleared.
-[2025-07-16 09:45:55.185] [info_logger] [info] Quadtree cleared.
-[2025-07-16 09:45:55.185] [info_logger] [info] objects cleared.
-[2025-07-16 09:45:55.185] [info_logger] [info] Quadtree cleared.
-[2025-07-16 09:45:55.186] [info_logger] [info] objects cleared.
-[2025-07-16 09:45:55.186] [info_logger] [info] Quadtree cleared.
+[2025-07-16 09:53:35.143] [info_logger] [info] GameManager destructor called
+[2025-07-16 09:53:35.244] [info_logger] [info] GameManager destructor finished
+[2025-07-16 09:53:35.244] [info_logger] [info] objects cleared.
+[2025-07-16 09:53:35.244] [info_logger] [info] Quadtree cleared.
+[2025-07-16 09:53:35.244] [info_logger] [info] objects cleared.
+[2025-07-16 09:53:35.244] [info_logger] [info] Quadtree cleared.
+[2025-07-16 09:53:35.245] [info_logger] [info] objects cleared.
+[2025-07-16 09:53:35.245] [info_logger] [info] Quadtree cleared.

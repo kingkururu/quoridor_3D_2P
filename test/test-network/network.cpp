@@ -129,6 +129,62 @@ bool NetworkManager::runClient(const std::string& host_ip, int port) {
     return true;
 }
 
+void NetworkManager::startListening() {
+    shouldStop = false;
+    listenerThread = std::thread(&NetworkManager::listenForMessages, this);
+}
+
+void NetworkManager::stopListening() {
+    shouldStop = true;
+    if (listenerThread.joinable()) listenerThread.join();
+}
+
+void NetworkManager::listenForMessages() {
+    if (role == NetworkRole::HOST) {
+        handleClientConnection();
+        // Set timeout for client socket too
+        if (clientSocket != -1) {
+            struct timeval timeout;
+            timeout.tv_sec = 0;
+            timeout.tv_usec = 500000;  // 500ms timeout
+            setsockopt(clientSocket, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout));
+        }
+    }
+    
+    int activeSocket = (role == NetworkRole::HOST) ? clientSocket : clientSocket;
+    
+    while (!shouldStop && activeSocket != -1) {
+        char buffer[BUFFER_SIZE];
+        memset(buffer, 0, BUFFER_SIZE);
+        
+        int bytesReceived = recv(activeSocket, buffer, BUFFER_SIZE - 1, 0);
+        
+        if (bytesReceived > 0) {
+            std::string rawData(buffer, bytesReceived);
+            NetworkMessage msg = parseMessage(rawData);
+            
+            std::lock_guard<std::mutex> lock(queueMutex);
+            messageQueue.push(msg);
+        } else if (bytesReceived == 0) {
+            // Connection closed
+            log_warning("Connection closed by peer");
+            isConnected = false;
+            break;
+        } else {
+            // Check if it's a timeout (expected behavior)
+            if (errno == EAGAIN || errno == EWOULDBLOCK) continue;
+            else {
+                // Actual error occurred
+                if (!shouldStop) {
+                    log_error("Error receiving data");
+                    isConnected = false;
+                    break;
+                }
+            }
+        }
+    }
+}
+
 void NetworkManager::handleClientConnection() {
     if (role != NetworkRole::HOST) return;
     
