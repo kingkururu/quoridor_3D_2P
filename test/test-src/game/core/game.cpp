@@ -262,9 +262,7 @@ void GameManager::startClient() {
     } 
 }
 
-void GameManager::handleNetworkMessages() {
-    if (!isNetworkEnabled) return;
-    
+void GameManager::handleNetworkMessages() {    
     while (net.hasMessages()) {
         NetworkMessage msg = net.getNextMessage();
         processNetworkMessage(msg);

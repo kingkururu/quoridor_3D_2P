@@ -83,6 +83,7 @@ bool NetworkManager::runHost(int port) {
     return true;
 }
 
+// In runClient(), try increasing the timeout or removing it for connection:
 bool NetworkManager::runClient(const std::string& host_ip, int port) {
     cleanup();
     
@@ -92,93 +93,40 @@ bool NetworkManager::runClient(const std::string& host_ip, int port) {
         return false;
     }
     
-    // Set socket timeout - shorter for faster cleanup
-    struct timeval timeout;
-    timeout.tv_sec = 0;
-    timeout.tv_usec = 500000;  // 500ms timeout
-    setsockopt(clientSocket, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout));
-    
+    // Don't set timeout for connect() - set it after successful connection
     struct sockaddr_in serverAddr;
     memset(&serverAddr, 0, sizeof(serverAddr));
     serverAddr.sin_family = AF_INET;
     serverAddr.sin_port = htons(port);
     
     if (inet_pton(AF_INET, host_ip.c_str(), &serverAddr.sin_addr) <= 0) {
-        log_warning("Invalid IP address");
+        log_error("Invalid IP address: " + host_ip);
         close(clientSocket);
         clientSocket = -1;
         return false;
     }
     
+    log_info("Attempting to connect to " + host_ip + ":" + std::to_string(port));
+    
     if (connect(clientSocket, (struct sockaddr*)&serverAddr, sizeof(serverAddr)) == -1) {
-        log_error("Error connecting to server");
+        log_error("Error connecting to server: " + std::string(strerror(errno)));
         close(clientSocket);
         clientSocket = -1;
         return false;
     }
+    
+    // Set timeout AFTER successful connection
+    struct timeval timeout;
+    timeout.tv_sec = 0;
+    timeout.tv_usec = 500000;
+    setsockopt(clientSocket, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout));
     
     role = NetworkRole::CLIENT;
     isConnected = true;
-    log_info("Connected to server " + host_ip + ":" + std::to_string(port));
+    log_info("Successfully connected to server");
     
     startListening();
     return true;
-}
-
-void NetworkManager::startListening() {
-    shouldStop = false;
-    listenerThread = std::thread(&NetworkManager::listenForMessages, this);
-}
-
-void NetworkManager::stopListening() {
-    shouldStop = true;
-    if (listenerThread.joinable()) listenerThread.join();
-}
-
-void NetworkManager::listenForMessages() {
-    if (role == NetworkRole::HOST) {
-        handleClientConnection();
-        // Set timeout for client socket too
-        if (clientSocket != -1) {
-            struct timeval timeout;
-            timeout.tv_sec = 0;
-            timeout.tv_usec = 500000;  // 500ms timeout
-            setsockopt(clientSocket, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout));
-        }
-    }
-    
-    int activeSocket = (role == NetworkRole::HOST) ? clientSocket : clientSocket;
-    
-    while (!shouldStop && activeSocket != -1) {
-        char buffer[BUFFER_SIZE];
-        memset(buffer, 0, BUFFER_SIZE);
-        
-        int bytesReceived = recv(activeSocket, buffer, BUFFER_SIZE - 1, 0);
-        
-        if (bytesReceived > 0) {
-            std::string rawData(buffer, bytesReceived);
-            NetworkMessage msg = parseMessage(rawData);
-            
-            std::lock_guard<std::mutex> lock(queueMutex);
-            messageQueue.push(msg);
-        } else if (bytesReceived == 0) {
-            // Connection closed
-            log_warning("Connection closed by peer");
-            isConnected = false;
-            break;
-        } else {
-            // Check if it's a timeout (expected behavior)
-            if (errno == EAGAIN || errno == EWOULDBLOCK) continue;
-            else {
-                // Actual error occurred
-                if (!shouldStop) {
-                    log_error("Error receiving data");
-                    isConnected = false;
-                    break;
-                }
-            }
-        }
-    }
 }
 
 void NetworkManager::handleClientConnection() {
