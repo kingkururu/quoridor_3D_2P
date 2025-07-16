@@ -20,7 +20,7 @@
 #include "../test-logging/log.hpp"
 
 namespace SpriteComponents {
-    enum Direction { NONE, LEFT, RIGHT, UP, DOWN };
+    enum Direction { NONE, LEFT, RIGHT, UP, DOWN }; // for background movement only
 
     Direction toDirection(const std::string& direction); // convert string from yaml to Direction
     sf::Color toSfColor(const std::string& color); // convert string from yaml to sf::Color
@@ -57,6 +57,8 @@ namespace MetaComponents{
 
     inline std::string hostIP = "";
     inline bool joinCodeMismatch {};
+    inline bool hostTurn = false;
+    inline bool clientTurn = true;
 }
 
 namespace Constants { // not actually "constants" in terms of being fixed, but should never be altered after being read from the config.yaml file

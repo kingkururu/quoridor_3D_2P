@@ -40,7 +40,6 @@ void GameManager::runGame() {
 
         while (mainWindow.getWindow().isOpen()) {
             countTime();
-            handleEventInput();
             
             #if RUN_NETWORK
             MetaComponents::hostIP = net.getLocalIP();
@@ -57,6 +56,8 @@ void GameManager::runGame() {
             }
             #endif
             
+            handleEventInput();
+
             runScenesFlags(); 
             resetFlags();
         }
@@ -121,19 +122,63 @@ void GameManager::handleEventInput() {
                     #endif
                     break;
                     
-                case sf::Keyboard::S: 
+               case sf::Keyboard::S: 
                     #if RUN_NETWORK
-                    if (isHost() || !isNetworkEnabled) FlagSystem::flagEvents.sPressed = isPressed; 
-                    if (isNetworkEnabled && net.isNetworkConnected()) sendNetworkMessage("INPUT_STATE", "S:" + std::string(isPressed ? "1" : "0"));
+                    if (!isNetworkEnabled) {
+                        FlagSystem::flagEvents.sPressed = isPressed; 
+                    } else {
+                        // Network enabled - handle turn-based input
+                        if (isHost()) {
+                            // Host processes S key and manages turn switching
+                            if (MetaComponents::hostTurn && isPressed) {
+                                FlagSystem::flagEvents.sPressed = isPressed;
+                                // Switch turns after processing
+                                MetaComponents::hostTurn = false;
+                                MetaComponents::clientTurn = true;
+                            } else if (!MetaComponents::hostTurn) {
+                                FlagSystem::flagEvents.sPressed = false;
+                            }
+                        }
+                        
+                        // Send input state and turn info over network
+                        if (net.isNetworkConnected()) {
+                            std::string turnData = std::string(isPressed ? "1" : "0") + ":" + 
+                                                std::string(MetaComponents::hostTurn ? "1" : "0") + ":" + 
+                                                std::string(MetaComponents::clientTurn ? "1" : "0");
+                            sendNetworkMessage("INPUT_STATE", "S:" + turnData);
+                        }
+                    }
                     #else
                     FlagSystem::flagEvents.sPressed = isPressed; 
                     #endif
                     break;
                     
-                case sf::Keyboard::W: 
+               case sf::Keyboard::W: 
                     #if RUN_NETWORK
-                    if (isHost() || !isNetworkEnabled) FlagSystem::flagEvents.wPressed = isPressed; 
-                    if (isNetworkEnabled && net.isNetworkConnected()) sendNetworkMessage("INPUT_STATE", "W:" + std::string(isPressed ? "1" : "0"));
+                    if (!isNetworkEnabled) {
+                        FlagSystem::flagEvents.wPressed = isPressed; 
+                    } else {
+                        // Network enabled - handle turn-based input
+                        if (isHost()) {
+                            // Host processes W key and manages turn switching
+                            if (MetaComponents::hostTurn && isPressed) {
+                                FlagSystem::flagEvents.wPressed = isPressed;
+                                // Switch turns after processing
+                                MetaComponents::hostTurn = false;
+                                MetaComponents::clientTurn = true;
+                            } else if (!MetaComponents::hostTurn) {
+                                FlagSystem::flagEvents.wPressed = false;
+                            }
+                        }
+                        
+                        // Send input state and turn info over network
+                        if (net.isNetworkConnected()) {
+                            std::string turnData = std::string(isPressed ? "1" : "0") + ":" + 
+                                                std::string(MetaComponents::hostTurn ? "1" : "0") + ":" + 
+                                                std::string(MetaComponents::clientTurn ? "1" : "0");
+                            sendNetworkMessage("INPUT_STATE", "W:" + turnData);
+                        }
+                    }
                     #else
                     FlagSystem::flagEvents.wPressed = isPressed; 
                     #endif
@@ -278,20 +323,60 @@ void GameManager::processNetworkMessage(const NetworkMessage& msg) {
     // if (msg.type != "GAME_STATE_SYNC") std::cout << "Received: " << msg.type << " from " << msg.sender << ": " << msg.data << std::endl;
     
     if (msg.type == "INPUT_STATE") {
-        // Parse input state message: "KEY:STATE"
+        // Parse input state message: "KEY:STATE:HOSTTURN:CLIENTTURN"
         size_t colonPos = msg.data.find(':');
         if (colonPos != std::string::npos) {
             std::string key = msg.data.substr(0, colonPos);
-            bool state = (msg.data.substr(colonPos + 1) == "1");
+            std::string remaining = msg.data.substr(colonPos + 1);
             
-            // Apply the input state
-            if (key == "A") FlagSystem::flagEvents.aPressed = state;
-            else if (key == "S") FlagSystem::flagEvents.sPressed = state;
-            else if (key == "W") FlagSystem::flagEvents.wPressed = state;
-            else if (key == "D") FlagSystem::flagEvents.dPressed = state;
-            else if (key == "SPACE") FlagSystem::flagEvents.spacePressed = state;
+            if (key == "S" || key == "W") {
+                // Parse turn-based input with turn state
+                size_t colon2 = remaining.find(':');
+                size_t colon3 = remaining.find(':', colon2 + 1);
+                
+                if (colon2 != std::string::npos && colon3 != std::string::npos) {
+                    bool state = (remaining.substr(0, colon2) == "1");
+                    bool hostTurn = (remaining.substr(colon2 + 1, colon3 - colon2 - 1) == "1");
+                    bool clientTurn = (remaining.substr(colon3 + 1) == "1");
+                    
+                    // Update turn states
+                    MetaComponents::hostTurn = hostTurn;
+                    MetaComponents::clientTurn = clientTurn;
+                    
+                    // Apply input based on turn and role
+                    if (key == "S") {
+                        if (networkRole == NetworkRole::CLIENT && MetaComponents::clientTurn && state) {
+                            FlagSystem::flagEvents.sPressed = state;
+                            // Client switches turns after processing
+                            MetaComponents::clientTurn = false;
+                            MetaComponents::hostTurn = true;
+                        } else if (networkRole == NetworkRole::HOST) {
+                            FlagSystem::flagEvents.sPressed = state;
+                        }
+                    } else if (key == "W") {
+                        if (networkRole == NetworkRole::CLIENT && MetaComponents::clientTurn && state) {
+                            FlagSystem::flagEvents.wPressed = state;
+                            // Client switches turns after processing
+                            MetaComponents::clientTurn = false;
+                            MetaComponents::hostTurn = true;
+                        } else if (networkRole == NetworkRole::HOST) {
+                            FlagSystem::flagEvents.wPressed = state;
+                        }
+                    }
+                }
+            } else {
+                // Handle non-turn-based keys (A, D, SPACE) normally
+                size_t colon2 = remaining.find(':');
+                std::string stateStr = (colon2 == std::string::npos) ? remaining : remaining.substr(0, colon2);
+                bool state = (stateStr == "1");
+                
+                if (key == "A") FlagSystem::flagEvents.aPressed = state;
+                else if (key == "D") FlagSystem::flagEvents.dPressed = state;
+                else if (key == "SPACE") FlagSystem::flagEvents.spacePressed = state;
+            }
         }
     }
+    
     else if (msg.type == "SCENE_STATE") {
         // Only clients should apply remote scene state
         if (networkRole == NetworkRole::CLIENT) {
