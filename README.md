@@ -1,4 +1,4 @@
-# 2Player 3D Quoridor Simulation
+# 2 Player 3D Quoridor Simulation
 
 A 3D implementation of the classic strategic board game Quoridor, built with C++ and SFML. Features multiplayer networking capabilities and simulated 3D graphics. Players race to reach the opposite side of the board while placing walls to block their opponent.
 
@@ -23,7 +23,7 @@ Quoridor is a strategic race game where:
 
 ## 🎮 Controls
 
-- **Right Click**: Place walls (horizontal/vertical)
+- **Click**: Place walls (horizontal/vertical)
 - **Tab**: Switch between move and wall placement modes
 - **W**: Move forward
 - **S**: Move backward  
