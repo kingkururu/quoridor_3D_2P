@@ -122,7 +122,7 @@ void GameManager::handleEventInput() {
                     #endif
                     break;
                     
-               case sf::Keyboard::S: 
+                case sf::Keyboard::S: 
                     #if RUN_NETWORK
                     if (!isNetworkEnabled) {
                         FlagSystem::flagEvents.sPressed = isPressed; 
@@ -132,9 +132,12 @@ void GameManager::handleEventInput() {
                             // Host processes S key and manages turn switching
                             if (MetaComponents::hostTurn && isPressed) {
                                 FlagSystem::flagEvents.sPressed = isPressed;
-                                // Switch turns after processing
+                                // Switch turns only on key press, not release
                                 MetaComponents::hostTurn = false;
                                 MetaComponents::clientTurn = true;
+                            } else if (MetaComponents::hostTurn && !isPressed) {
+                                // Handle key release without switching turns
+                                FlagSystem::flagEvents.sPressed = isPressed;
                             } else if (!MetaComponents::hostTurn) {
                                 FlagSystem::flagEvents.sPressed = false;
                             }
@@ -142,9 +145,12 @@ void GameManager::handleEventInput() {
                             // Client processes S key during their turn
                             if (MetaComponents::clientTurn && isPressed) {
                                 FlagSystem::flagEvents.sPressed = isPressed;
-                                // Switch turns after processing
+                                // Switch turns only on key press, not release
                                 MetaComponents::clientTurn = false;
                                 MetaComponents::hostTurn = true;
+                            } else if (MetaComponents::clientTurn && !isPressed) {
+                                // Handle key release without switching turns
+                                FlagSystem::flagEvents.sPressed = isPressed;
                             } else if (!MetaComponents::clientTurn) {
                                 FlagSystem::flagEvents.sPressed = false;
                             }
@@ -162,7 +168,7 @@ void GameManager::handleEventInput() {
                     FlagSystem::flagEvents.sPressed = isPressed; 
                     #endif
                     break;
-                                    
+                                                    
                case sf::Keyboard::W: 
                     #if RUN_NETWORK
                     if (!isNetworkEnabled) {
@@ -173,9 +179,12 @@ void GameManager::handleEventInput() {
                             // Host processes W key and manages turn switching
                             if (MetaComponents::hostTurn && isPressed) {
                                 FlagSystem::flagEvents.wPressed = isPressed;
-                                // Switch turns after processing
+                                // Switch turns only on key press, not release
                                 MetaComponents::hostTurn = false;
                                 MetaComponents::clientTurn = true;
+                            } else if (MetaComponents::hostTurn && !isPressed) {
+                                // Handle key release without switching turns
+                                FlagSystem::flagEvents.wPressed = isPressed;
                             } else if (!MetaComponents::hostTurn) {
                                 FlagSystem::flagEvents.wPressed = false;
                             }
@@ -183,9 +192,12 @@ void GameManager::handleEventInput() {
                             // Client processes W key during their turn
                             if (MetaComponents::clientTurn && isPressed) {
                                 FlagSystem::flagEvents.wPressed = isPressed;
-                                // Switch turns after processing
+                                // Switch turns only on key press, not release
                                 MetaComponents::clientTurn = false;
                                 MetaComponents::hostTurn = true;
+                            } else if (MetaComponents::clientTurn && !isPressed) {
+                                // Handle key release without switching turns
+                                FlagSystem::flagEvents.wPressed = isPressed;
                             } else if (!MetaComponents::clientTurn) {
                                 FlagSystem::flagEvents.wPressed = false;
                             }
