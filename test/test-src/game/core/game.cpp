@@ -233,7 +233,7 @@ void GameManager::handleEventInput() {
             }
         }
     }
-}
+} 
 
 void GameManager::resetFlags(){
     FlagSystem::flagEvents.mouseClicked = false;
@@ -259,6 +259,10 @@ void GameManager::startClient() {
     if (net.runClient(MetaComponents::inputText, 8080)) {
         isNetworkEnabled = true;
         networkRole = NetworkRole::CLIENT;
+        FlagSystem::lobby2Events.sceneEnd = true;
+        FlagSystem::lobby2Events.sceneStart = false;
+        FlagSystem::gameScene1Flags.sceneStart = true;
+
     } 
 }
 
