@@ -138,6 +138,16 @@ void GameManager::handleEventInput() {
                             } else if (!MetaComponents::hostTurn) {
                                 FlagSystem::flagEvents.sPressed = false;
                             }
+                        } else {
+                            // Client processes S key during their turn
+                            if (MetaComponents::clientTurn && isPressed) {
+                                FlagSystem::flagEvents.sPressed = isPressed;
+                                // Switch turns after processing
+                                MetaComponents::clientTurn = false;
+                                MetaComponents::hostTurn = true;
+                            } else if (!MetaComponents::clientTurn) {
+                                FlagSystem::flagEvents.sPressed = false;
+                            }
                         }
                         
                         // Send input state and turn info over network
@@ -152,7 +162,7 @@ void GameManager::handleEventInput() {
                     FlagSystem::flagEvents.sPressed = isPressed; 
                     #endif
                     break;
-                    
+                                    
                case sf::Keyboard::W: 
                     #if RUN_NETWORK
                     if (!isNetworkEnabled) {
@@ -167,6 +177,16 @@ void GameManager::handleEventInput() {
                                 MetaComponents::hostTurn = false;
                                 MetaComponents::clientTurn = true;
                             } else if (!MetaComponents::hostTurn) {
+                                FlagSystem::flagEvents.wPressed = false;
+                            }
+                        } else {
+                            // Client processes W key during their turn
+                            if (MetaComponents::clientTurn && isPressed) {
+                                FlagSystem::flagEvents.wPressed = isPressed;
+                                // Switch turns after processing
+                                MetaComponents::clientTurn = false;
+                                MetaComponents::hostTurn = true;
+                            } else if (!MetaComponents::clientTurn) {
                                 FlagSystem::flagEvents.wPressed = false;
                             }
                         }
@@ -319,9 +339,6 @@ void GameManager::handleNetworkMessages() {
 }
 
 void GameManager::processNetworkMessage(const NetworkMessage& msg) {
-    // Reduce debug output to avoid spam
-    // if (msg.type != "GAME_STATE_SYNC") std::cout << "Received: " << msg.type << " from " << msg.sender << ": " << msg.data << std::endl;
-    
     if (msg.type == "INPUT_STATE") {
         // Parse input state message: "KEY:STATE:HOSTTURN:CLIENTTURN"
         size_t colonPos = msg.data.find(':');
@@ -339,29 +356,15 @@ void GameManager::processNetworkMessage(const NetworkMessage& msg) {
                     bool hostTurn = (remaining.substr(colon2 + 1, colon3 - colon2 - 1) == "1");
                     bool clientTurn = (remaining.substr(colon3 + 1) == "1");
                     
-                    // Update turn states
+                    // Update turn states from network message
                     MetaComponents::hostTurn = hostTurn;
                     MetaComponents::clientTurn = clientTurn;
                     
-                    // Apply input based on turn and role
+                    // Apply the input flag state directly since sender already processed turns
                     if (key == "S") {
-                        if (networkRole == NetworkRole::CLIENT && MetaComponents::clientTurn && state) {
-                            FlagSystem::flagEvents.sPressed = state;
-                            // Client switches turns after processing
-                            MetaComponents::clientTurn = false;
-                            MetaComponents::hostTurn = true;
-                        } else if (networkRole == NetworkRole::HOST) {
-                            FlagSystem::flagEvents.sPressed = state;
-                        }
+                        FlagSystem::flagEvents.sPressed = state;
                     } else if (key == "W") {
-                        if (networkRole == NetworkRole::CLIENT && MetaComponents::clientTurn && state) {
-                            FlagSystem::flagEvents.wPressed = state;
-                            // Client switches turns after processing
-                            MetaComponents::clientTurn = false;
-                            MetaComponents::hostTurn = true;
-                        } else if (networkRole == NetworkRole::HOST) {
-                            FlagSystem::flagEvents.wPressed = state;
-                        }
+                        FlagSystem::flagEvents.wPressed = state;
                     }
                 }
             } else {
@@ -376,7 +379,7 @@ void GameManager::processNetworkMessage(const NetworkMessage& msg) {
             }
         }
     }
-    
+
     else if (msg.type == "SCENE_STATE") {
         // Only clients should apply remote scene state
         if (networkRole == NetworkRole::CLIENT) {
