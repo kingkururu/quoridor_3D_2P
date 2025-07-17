@@ -125,7 +125,7 @@ void lobby2Scene::createAssets(){
     background = std::make_unique<Sprite>(Constants::BACKGROUNDBIG_POSITION, Constants::BACKGROUNDBIG_SCALE, Constants::BACKGROUND2_TEXTURE); 
 
     joinCodeText = std::make_unique<TextClass>(Constants::HOSTCODETEXT_POSITION, Constants::HOSTCODETEXT_SIZE, Constants::HOSTCODETEXT_COLOR, Constants::LOBBYTEXT_FONT, Constants::HOSTCODETEXT_MESSAGE);
-    hostIPText = std::make_unique<TextClass>(Constants::HOSTIPTEXT_POSITION, Constants::HOSTIPTEXT_SIZE, Constants::HOSTCODETEXT_COLOR, Constants::LOBBYTEXT_FONT, "");
+    hostIPText = std::make_unique<TextClass>(Constants::HOSTIPTEXT_POSITION, Constants::HOSTIPTEXT_SIZE, Constants::HOSTIPTEXT_COLOR, Constants::LOBBYTEXT_FONT, "");
 
     hostButton = std::make_unique<Button>(Constants::BUTTON3_POSITION, Constants::BUTTON3_SCALE, Constants::BUTTON3_TEXTURE, Constants::BUTTON3_ANIMATIONRECTS, Constants::BUTTON3_INDEXMAX, utils::convertToWeakPtrVector(Constants::BUTTON3_BITMASK));
     hostButton->setRects(0); // set to first rect

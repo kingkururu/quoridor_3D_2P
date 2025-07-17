@@ -50,7 +50,8 @@ lobby:
     size: 30
     position:
       x: 250
-      y: 240
+      y: 260
+    color: "BLACK"
 
 # Sprite paths
 sprites:
