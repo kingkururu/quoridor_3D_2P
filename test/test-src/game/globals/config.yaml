@@ -41,7 +41,7 @@ lobby:
     color: "WHITE" # sf::Color
   hostcode_text:
     size: 50 # pixels 
-    message: "Type Host IP to Join:\n_ " # actual content in the text
+    message: "Type Host IP and\nClick to Join:\n_ " # actual content in the text
     position:
       x: 750.0 # pixels 
       y: 100.0 # pixels
@@ -49,8 +49,8 @@ lobby:
   hostIP_text:
     size: 30
     position:
-      x: 200
-      y: 280
+      x: 250
+      y: 240
 
 # Sprite paths
 sprites:
