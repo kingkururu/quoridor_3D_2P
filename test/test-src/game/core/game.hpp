@@ -36,6 +36,7 @@ private:
         float globalTime;
         sf::Vector2f worldMousePos;
         sf::Vector2f middleViewMousePos;
+        sf::Vector2f middleViewMousePosCurr;
         std::string inputText;
         std::vector<bool> flagStates;  // Store flag states for synchronization
         std::vector<sf::Vector2f> playerPositions;

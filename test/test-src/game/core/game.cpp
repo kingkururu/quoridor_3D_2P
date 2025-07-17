@@ -41,13 +41,13 @@ void GameManager::runGame() {
         while (mainWindow.getWindow().isOpen()) {
             countTime();
             
-            #if RUN_NETWORK
-            MetaComponents::hostIP = net.getLocalIP();
-                
+            handleEventInput();
+
+            #if RUN_NETWORK                
             if (isNetworkEnabled) {
                 handleNetworkMessages();
                 // Only sync at specified intervals to reduce network spam
-                if (isHost() && isNetworkEnabled && net.isNetworkConnected()) {
+                if (net.isNetworkConnected()) {
                     if (MetaComponents::globalTime - lastSyncTime >= syncInterval) {
                         syncGameState();
                         lastSyncTime = MetaComponents::globalTime;
@@ -56,8 +56,6 @@ void GameManager::runGame() {
             } 
             #endif
             
-            handleEventInput();
-
             runScenesFlags(); 
             resetFlags();
         }
@@ -80,6 +78,7 @@ void GameManager::runScenesFlags() {
     else if (currentlyInGame) gameScene->runScene();
 
     if (currentlyInLobby2){
+        MetaComponents::hostIP = net.getLocalIP();
         if(FlagSystem::lobby2Events.hostButtonClicked) startHosting();
         else if (MetaComponents::inputText != "") startClient();
     }
@@ -192,11 +191,16 @@ void GameManager::handleEventInput() {
 
                 worldPos = mainWindow.getWindow().mapPixelToCoords(sf::Mouse::getPosition(mainWindow.getWindow()), MetaComponents::middleView);
                 MetaComponents::middleViewmouseClickedPosition_i = static_cast<sf::Vector2i>(worldPos);
-                MetaComponents::middleViewmouseClickedPosition_f = worldPos; 
+                MetaComponents::middleViewmouseClickedPosition_f = worldPos;
             }
             // Send mouse click over network (both host and client can send)
             if (isNetworkEnabled && net.isNetworkConnected()) {
-                std::string mouseData = std::to_string(worldPosAbsoloute.x) + "," + std::to_string(worldPosAbsoloute.y);
+                sf::Vector2f middleViewPos = mainWindow.getWindow().mapPixelToCoords(sf::Mouse::getPosition(mainWindow.getWindow()), MetaComponents::middleView);
+
+                std::string mouseData = std::to_string(middleViewPos.x) + "," + std::to_string(middleViewPos.y);
+
+                                // std::cout << mouseData << std::endl;
+
                 sendNetworkMessage("MOUSE_CLICK", mouseData);
             }
             #else
@@ -348,7 +352,6 @@ void GameManager::processNetworkMessage(const NetworkMessage& msg) {
             applyRemoteGameState(remoteState);
         }
     }
-    // Modified code for GameManager::processNetworkMessage (MOUSE_CLICK)
     else if (msg.type == "MOUSE_CLICK") {
         // Parse and apply the absolute world mouse click position directly
         size_t comma = msg.data.find(',');
@@ -369,7 +372,7 @@ void GameManager::processNetworkMessage(const NetworkMessage& msg) {
             pixelPosForWorldClick = mainWindow.getWindow().mapCoordsToPixel(MetaComponents::worldMouseClickedPosition_f, MetaComponents::middleView);
             MetaComponents::middleViewmouseClickedPosition_f = mainWindow.getWindow().mapPixelToCoords(static_cast<sf::Vector2i>(pixelPosForWorldClick), MetaComponents::middleView);
             MetaComponents::middleViewmouseClickedPosition_i = static_cast<sf::Vector2i>(MetaComponents::middleViewmouseClickedPosition_f);
-
+            
             FlagSystem::flagEvents.mouseClicked = true;
         }
     } 
@@ -412,7 +415,12 @@ void GameManager::syncGameState() {
     // Update current game state
     currentGameState.globalTime = MetaComponents::globalTime;
     currentGameState.worldMousePos = MetaComponents::worldMouseClickedPosition_f;
-    currentGameState.middleViewMousePos = MetaComponents::middleViewmouseCurrentPosition_f;
+    currentGameState.middleViewMousePos = MetaComponents::middleViewmouseClickedPosition_f;
+    currentGameState.middleViewMousePosCurr = MetaComponents::middleViewmouseCurrentPosition_f;
+
+    // this works fine for both host and client 
+std::cout << currentGameState.middleViewMousePos.x <<  currentGameState.middleViewMousePos.y << "\n";
+
     currentGameState.inputText = MetaComponents::inputText;
     
     // Add flag states to sync - use actual current flag states
@@ -433,7 +441,8 @@ void GameManager::applyRemoteGameState(const GameState& remoteState) {
     // Apply the remote game state to local game
     MetaComponents::globalTime = remoteState.globalTime;
     MetaComponents::worldMouseClickedPosition_f = remoteState.worldMousePos;
-    MetaComponents::middleViewmouseCurrentPosition_f = remoteState.middleViewMousePos;
+    MetaComponents::middleViewmouseClickedPosition_f = remoteState.middleViewMousePos;
+    MetaComponents::middleViewmouseCurrentPosition_f = remoteState.middleViewMousePosCurr;
     MetaComponents::inputText = remoteState.inputText;
     
     // Apply flag states
@@ -452,6 +461,7 @@ std::string GameManager::serializeGameState(const GameState& state) {
     serialized += std::to_string(state.globalTime) + ";";
     serialized += std::to_string(state.worldMousePos.x) + "," + std::to_string(state.worldMousePos.y) + ";";
     serialized += std::to_string(state.middleViewMousePos.x) + "," + std::to_string(state.middleViewMousePos.y) + ";";
+    serialized += std::to_string(state.middleViewMousePosCurr.x) + "," + std::to_string(state.middleViewMousePosCurr.y) + ";";
     serialized += state.inputText + ";";
     
     // Add flag states
@@ -493,6 +503,15 @@ GameManager::GameState GameManager::deserializeGameState(const std::string& data
         }
     }
     
+    // Parse middle view mouse position
+    if (std::getline(ss, token, ';')) {
+        size_t comma = token.find(',');
+        if (comma != std::string::npos) {
+            state.middleViewMousePosCurr.x = std::stof(token.substr(0, comma));
+            state.middleViewMousePosCurr.y = std::stof(token.substr(comma + 1));
+        }
+    }
+
     // Parse input text
     if (std::getline(ss, token, ';')) state.inputText = token;
     
