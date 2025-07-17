@@ -53,7 +53,7 @@ void GameManager::runGame() {
                         lastSyncTime = MetaComponents::globalTime;
                     }
                 }
-            }
+            } 
             #endif
             
             handleEventInput();
@@ -78,6 +78,11 @@ void GameManager::runScenesFlags() {
     if (currentlyInLobby1) introScene->runScene();
     else if (currentlyInLobby2) introScene2->runScene();
     else if (currentlyInGame) gameScene->runScene();
+
+    if (currentlyInLobby2){
+        if(FlagSystem::lobby2Events.hostButtonClicked) startHosting();
+        else if (MetaComponents::inputText != "") startClient();
+    }
 }
 
 void GameManager::loadScenes(){
@@ -124,46 +129,10 @@ void GameManager::handleEventInput() {
                     
                 case sf::Keyboard::S: 
                     #if RUN_NETWORK
-                    if (!isNetworkEnabled) {
-                        FlagSystem::flagEvents.sPressed = isPressed; 
-                    } else {
-                        // Network enabled - handle turn-based input
-                        if (isHost()) {
-                            // Host processes S key and manages turn switching
-                            if (MetaComponents::hostTurn && isPressed) {
-                                FlagSystem::flagEvents.sPressed = isPressed;
-                                // Switch turns only on key press, not release
-                                MetaComponents::hostTurn = false;
-                                MetaComponents::clientTurn = true;
-                            } else if (MetaComponents::hostTurn && !isPressed) {
-                                // Handle key release without switching turns
-                                FlagSystem::flagEvents.sPressed = isPressed;
-                            } else if (!MetaComponents::hostTurn) {
-                                FlagSystem::flagEvents.sPressed = false;
-                            }
-                        } else {
-                            // Client processes S key during their turn
-                            if (MetaComponents::clientTurn && isPressed) {
-                                FlagSystem::flagEvents.sPressed = isPressed;
-                                // Switch turns only on key press, not release
-                                MetaComponents::clientTurn = false;
-                                MetaComponents::hostTurn = true;
-                            } else if (MetaComponents::clientTurn && !isPressed) {
-                                // Handle key release without switching turns
-                                FlagSystem::flagEvents.sPressed = isPressed;
-                            } else if (!MetaComponents::clientTurn) {
-                                FlagSystem::flagEvents.sPressed = false;
-                            }
-                        }
-                        
-                        // Send input state and turn info over network
-                        if (net.isNetworkConnected()) {
-                            std::string turnData = std::string(isPressed ? "1" : "0") + ":" + 
-                                                std::string(MetaComponents::hostTurn ? "1" : "0") + ":" + 
-                                                std::string(MetaComponents::clientTurn ? "1" : "0");
-                            sendNetworkMessage("INPUT_STATE", "S:" + turnData);
-                        }
-                    }
+                    // Host: Apply input locally
+                    if (isHost() || !isNetworkEnabled) FlagSystem::flagEvents.sPressed = isPressed; 
+                    // Everyone: Send input state over network
+                    if (isNetworkEnabled && net.isNetworkConnected()) sendNetworkMessage("INPUT_STATE", "S:" + std::string(isPressed ? "1" : "0"));
                     #else
                     FlagSystem::flagEvents.sPressed = isPressed; 
                     #endif
@@ -171,46 +140,10 @@ void GameManager::handleEventInput() {
                                                     
                case sf::Keyboard::W: 
                     #if RUN_NETWORK
-                    if (!isNetworkEnabled) {
-                        FlagSystem::flagEvents.wPressed = isPressed; 
-                    } else {
-                        // Network enabled - handle turn-based input
-                        if (isHost()) {
-                            // Host processes W key and manages turn switching
-                            if (MetaComponents::hostTurn && isPressed) {
-                                FlagSystem::flagEvents.wPressed = isPressed;
-                                // Switch turns only on key press, not release
-                                MetaComponents::hostTurn = false;
-                                MetaComponents::clientTurn = true;
-                            } else if (MetaComponents::hostTurn && !isPressed) {
-                                // Handle key release without switching turns
-                                FlagSystem::flagEvents.wPressed = isPressed;
-                            } else if (!MetaComponents::hostTurn) {
-                                FlagSystem::flagEvents.wPressed = false;
-                            }
-                        } else {
-                            // Client processes W key during their turn
-                            if (MetaComponents::clientTurn && isPressed) {
-                                FlagSystem::flagEvents.wPressed = isPressed;
-                                // Switch turns only on key press, not release
-                                MetaComponents::clientTurn = false;
-                                MetaComponents::hostTurn = true;
-                            } else if (MetaComponents::clientTurn && !isPressed) {
-                                // Handle key release without switching turns
-                                FlagSystem::flagEvents.wPressed = isPressed;
-                            } else if (!MetaComponents::clientTurn) {
-                                FlagSystem::flagEvents.wPressed = false;
-                            }
-                        }
-                        
-                        // Send input state and turn info over network
-                        if (net.isNetworkConnected()) {
-                            std::string turnData = std::string(isPressed ? "1" : "0") + ":" + 
-                                                std::string(MetaComponents::hostTurn ? "1" : "0") + ":" + 
-                                                std::string(MetaComponents::clientTurn ? "1" : "0");
-                            sendNetworkMessage("INPUT_STATE", "W:" + turnData);
-                        }
-                    }
+                    // Host: Apply input locally
+                    if (isHost() || !isNetworkEnabled) FlagSystem::flagEvents.wPressed = isPressed; 
+                    // Everyone: Send input state over network
+                    if (isNetworkEnabled && net.isNetworkConnected()) sendNetworkMessage("INPUT_STATE", "W:" + std::string(isPressed ? "1" : "0"));
                     #else
                     FlagSystem::flagEvents.wPressed = isPressed; 
                     #endif
@@ -243,8 +176,6 @@ void GameManager::handleEventInput() {
         
         if (event.type == sf::Event::MouseButtonPressed) {
             #if RUN_NETWORK
-            if(FlagSystem::lobby2Events.hostButtonClicked) startHosting();
-            else startClient();
             // Calculate mouse position for all cases
             sf::View entireScreenView(sf::FloatRect(0.f, 0.f, Constants::WORLD_WIDTH, Constants::WORLD_HEIGHT));
             sf::Vector2f worldPosAbsoloute = mainWindow.getWindow().mapPixelToCoords(sf::Mouse::getPosition(mainWindow.getWindow()), entireScreenView);
