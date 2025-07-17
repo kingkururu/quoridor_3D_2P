@@ -141,8 +141,8 @@ void lobby2Scene::setTime() {
 
 void lobby2Scene::handleInput() {
     if(joinCodeText) {
-        if(MetaComponents::inputText != "") joinCodeText->updateText( "Type Host IP and\nClick to Join:\n" + MetaComponents::inputText);// update host code text with the current host code
-        else joinCodeText->updateText( "Type Host IP and\nClick to Join:\n_" );
+        if(MetaComponents::inputText != "") joinCodeText->updateText( "Type Host IP:\n" + MetaComponents::inputText);// update host code text with the current host code
+        else joinCodeText->updateText(Constants::HOSTCODETEXT_MESSAGE );
     }
 }
 
