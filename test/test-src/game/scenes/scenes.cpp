@@ -56,6 +56,7 @@ void Scene::restartScene() {
 lobbyScene::lobbyScene(sf::RenderWindow& gameWindow) : Scene(gameWindow) { log_info("lobby scene made"); }
 
 void lobbyScene::createAssets(){
+    background = std::make_unique<Sprite>(Constants::BACKGROUNDBIG_POSITION, Constants::BACKGROUNDBIG_SCALE, Constants::BACKGROUND1_TEXTURE); 
     titleText = std::make_unique<TextClass>(Constants::LOBBYTEXT_POSITION, Constants::LOBBYTEXT_SIZE, Constants::LOBBYTEXT_COLOR, Constants::LOBBYTEXT_FONT, Constants::LOBBYTEXT_MESSAGE);
     hostCodeText = std::make_unique<TextClass>(Constants::HOSTCODETEXT_POSITION, Constants::HOSTCODETEXT_SIZE, Constants::HOSTCODETEXT_COLOR, Constants::LOBBYTEXT_FONT, Constants::HOSTCODETEXT_MESSAGE);
 
@@ -103,6 +104,7 @@ void lobbyScene::update() {
 void lobbyScene::draw() {
     window.clear(sf::Color::White);
 
+    drawVisibleObject(background);
     drawVisibleObject(titleText);
 
     drawVisibleObject(button);
@@ -120,6 +122,8 @@ void lobbyScene::draw() {
 lobby2Scene::lobby2Scene(sf::RenderWindow& gameWindow) : Scene(gameWindow) { log_info("lobby2 scene made"); }
 
 void lobby2Scene::createAssets(){
+    background = std::make_unique<Sprite>(Constants::BACKGROUNDBIG_POSITION, Constants::BACKGROUNDBIG_SCALE, Constants::BACKGROUND2_TEXTURE); 
+
     joinCodeText = std::make_unique<TextClass>(Constants::HOSTCODETEXT_POSITION, Constants::HOSTCODETEXT_SIZE, Constants::HOSTCODETEXT_COLOR, Constants::LOBBYTEXT_FONT, Constants::HOSTCODETEXT_MESSAGE);
     hostIPText = std::make_unique<TextClass>(Constants::HOSTIPTEXT_POSITION, Constants::HOSTIPTEXT_SIZE, Constants::HOSTCODETEXT_COLOR, Constants::LOBBYTEXT_FONT, "");
 
@@ -136,8 +140,9 @@ void lobby2Scene::setTime() {
 }
 
 void lobby2Scene::handleInput() {
-    joinCodeText->updateText( Constants::HOSTCODETEXT_MESSAGE + MetaComponents::inputText);// update host code text with the current host code
-
+    if(joinCodeText && MetaComponents::inputText != "") {
+        joinCodeText->updateText( "Type Host IP to Join:\n" + MetaComponents::inputText);// update host code text with the current host code
+    }
 }
 
 void lobby2Scene::handleGameEvents() {
@@ -159,6 +164,7 @@ void lobby2Scene::update() {
 
 void lobby2Scene::draw() {
     window.clear(sf::Color::White);
+    drawVisibleObject(background);
 
     drawVisibleObject(hostButton);
     drawVisibleObject(hostIPText);

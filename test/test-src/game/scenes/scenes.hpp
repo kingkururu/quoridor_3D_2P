@@ -67,6 +67,7 @@ private:
   void update() override;
   void draw() override;
 
+  std::unique_ptr<Sprite> background;
   std::unique_ptr<Button> button; // 1 comp button
   std::unique_ptr<Button> button2; // 2 comp button
 
@@ -89,6 +90,7 @@ private:
   void update() override;
   void draw() override;
 
+  std::unique_ptr<Sprite> background;
   std::unique_ptr<Button> hostButton; 
   std::unique_ptr<Button> joinButton; 
 
