@@ -1,76 +1,36 @@
-// network.hpp
-
 #pragma once
 
-#define RUN_NETWORK 1
-#define BUFFER_SIZE 1024
-
-#if RUN_NETWORK
-
-#include <iostream>
+#include <SFML/Network.hpp>
 #include <string>
-#include <cstring>
-#include <unistd.h>
-#include <arpa/inet.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <thread>
-#include <atomic>
-#include <queue>
-#include <mutex>
-#include <future>
+#include <iostream>
+
+#include "log.hpp"
 
 enum class NetworkRole {
     NONE,
-    HOST,
+    SERVER,
     CLIENT
-};
-
-struct NetworkMessage {
-    std::string type;
-    std::string data;
-    std::string sender;
 };
 
 class NetworkManager {
 public:
     NetworkManager();
     ~NetworkManager();
-    
-    // Core networking functions
-    std::string getLocalIP();
-    bool runHost(int port);
-    bool runClient(const std::string& host_ip, int port);
-    void cleanup();
-    
-    // Message handling
-    void sendMessage(const NetworkMessage& msg);
-    bool hasMessages();
-    NetworkMessage getNextMessage();
-    
-    // Status functions
-    bool isNetworkConnected() const { return isConnected; }
-    NetworkRole getRole() const { return role; }
-    void startListening();
-    void stopListening();
+
+    bool startServer(unsigned short port);
+    bool connectToServer(const std::string& ip, unsigned short port);
+
+    void sendMessage(const std::string& message);
+    std::string receiveMessage();
+
+    NetworkRole getRole() const;
+    std::string getLocalIP() const;
+
+    bool acceptClient();
+    bool isServerConnected() const;
     
 private:
-    int serverSocket;
-    int clientSocket;
+    sf::TcpListener listener;
+    sf::TcpSocket socket;
     NetworkRole role;
-    std::atomic<bool> isConnected;
-    std::atomic<bool> shouldStop;
-    
-    // Threading for async communication
-    std::thread listenerThread;
-    std::queue<NetworkMessage> messageQueue;
-    std::mutex queueMutex;
-    
-    // Internal functions
-    void listenForMessages();
-    void handleClientConnection();
-    NetworkMessage parseMessage(const std::string& rawData);
-    std::string serializeMessage(const NetworkMessage& msg);
 };
-
-#endif
