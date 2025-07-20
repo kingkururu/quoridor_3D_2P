@@ -59,6 +59,8 @@ namespace MetaComponents{
     inline bool joinCodeMismatch {};
     inline bool hostTurn = false;
     inline bool clientTurn = true;
+
+    inline std::string gameCode = "";
 }
 
 namespace Constants { // not actually "constants" in terms of being fixed, but should never be altered after being read from the config.yaml file
@@ -308,16 +310,17 @@ namespace FlagSystem {
 
         bool spacePressed; 
         bool mouseClicked;
+        bool enterPressed;
 
         FlagEvents() : wPressed(false), aPressed(false), sPressed(false), dPressed(false), bPressed(false), mPressed(false), 
                        leftPressed(false), rightPressed(false), downPressed(false), upPressed(false),  
-                       spacePressed(false), mouseClicked(false) {}
+                       spacePressed(false), mouseClicked(false), enterPressed(false) {}
 
         // resets every flag
         void resetFlags() {
             gameEnd = wPressed = aPressed = sPressed = dPressed = bPressed = mPressed = 
                       leftPressed = rightPressed = downPressed = upPressed = 
-                      spacePressed = mouseClicked = false;
+                      spacePressed = mouseClicked = enterPressed = false;
             log_info("General game flags reset complete");
         }
 

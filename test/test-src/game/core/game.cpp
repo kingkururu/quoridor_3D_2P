@@ -12,6 +12,7 @@ GameManager::GameManager()
 }
 
 GameManager::~GameManager() {
+    net.cleanup(); 
     log_info("GameManager destructor called");
 }
 
@@ -47,17 +48,78 @@ void GameManager::runScenesFlags() {
     if (currentlyInLobby2) {
         MetaComponents::hostIP = net.getLocalIP();
 
-        if (FlagSystem::lobby2Events.hostButtonClicked && !hostServerStarted) {
-            hostServerStarted = true;
-            net.startServer(8080);
+        // === HOST GAME BUTTON CLICKED ===
+        if (FlagSystem::lobby2Events.hostButtonClicked && net.isInLobby()) {
+            if (net.startServer(8080)) {
+                std::cout << "=================================\n";
+                std::cout << "GAME CODE: " << net.getGameCode() << std::endl;
+                std::cout << "Share this code with other players!\n";
+                std::cout << "Waiting for players to join...\n";
+                std::cout << "=================================\n";
+                MetaComponents::gameCode = net.getGameCode();
+            } else {
+                std::cout << "Failed to start server!\n";
+            }
         }
 
-        if (hostServerStarted && !net.isServerConnected()) {
-            net.acceptClient(); // new function that tries to accept clients
+        // === HOSTING LOGIC ===
+        if (net.isHosting()) {
+            // Try to accept new clients
+            if (net.acceptClient()) {
+                std::cout << "A player has joined your game!\n";
+                net.sendMessage("Welcome to the game!");
+            }
+            
+            // Handle messages from clients
+            std::string message = net.receiveMessage();
+            if (!message.empty()) {
+                std::cout << "Client: " << message << std::endl;
+                // Echo back or handle the message
+                net.sendMessage("Server received: " + message);
+            }
         }
 
-        if (!clientServerJoined && MetaComponents::inputText != "") {
-            clientServerJoined = net.connectToServer(MetaComponents::inputText, 8080);
+        // === JOIN GAME LOGIC ===
+        if (net.isInLobby() && FlagSystem::flagEvents.enterPressed && MetaComponents::inputText.length() == 6) {
+            std::cout << "Attempting to join game with code: " << MetaComponents::inputText << std::endl;
+            
+            if (net.connectToServer(MetaComponents::inputText, 8080)) {
+                std::cout << "Successfully joined the game!\n";
+                net.sendMessage("Hello from client!");
+                MetaComponents::inputText.clear();
+            } else {
+                std::cout << "Failed to join game. Check the code and try again.\n";
+                MetaComponents::inputText.clear();
+            }
+        }
+        
+        // === CLIENT LOGIC ===
+        if (net.isClient()) {
+            // Handle messages from server
+            std::string message = net.receiveMessage();
+            if (!message.empty()) {
+                std::cout << "Server: " << message << std::endl;
+            }
+        }
+        
+        // === INPUT VALIDATION ===
+        if (net.isInLobby() && FlagSystem::flagEvents.enterPressed && 
+            MetaComponents::inputText.length() > 0 && MetaComponents::inputText.length() < 6) {
+            std::cout << "Game code must be exactly 6 digits. Current: " << MetaComponents::inputText << std::endl;
+        }
+
+        // === STATUS UPDATES (Optional - for debugging) ===
+        static float lastStatusUpdate = 0;
+        if (MetaComponents::globalTime - lastStatusUpdate > 3.0f) {
+            lastStatusUpdate = MetaComponents::globalTime;
+            
+            if (net.isHosting()) {
+                std::cout << "[STATUS] Hosting game - Code: " << net.getGameCode() << std::endl;
+            } else if (net.isClient()) {
+                std::cout << "[STATUS] Connected to game as client" << std::endl;
+            } else if (MetaComponents::inputText.empty()) {
+                std::cout << "[STATUS] In lobby - Host a game or enter code to join" << std::endl;
+            }
         }
     }
 }
@@ -75,8 +137,6 @@ void GameManager::countTime() {
     MetaComponents::globalTime += MetaComponents::deltaTime;
 }
 
-/* handleEventInput takes in keyboard and mouse input. It modifies flagEvents and calls setMouseClickedPos in scene to 
-pass in the position in screen where mouse was clicked */
 void GameManager::handleEventInput() {
     sf::Event event;
     while (mainWindow.getWindow().pollEvent(event)) {
@@ -86,6 +146,7 @@ void GameManager::handleEventInput() {
             mainWindow.getWindow().close();
             return; 
         }
+        
         if (event.type == sf::Event::KeyPressed || event.type == sf::Event::KeyReleased) {
             bool isPressed = (event.type == sf::Event::KeyPressed); 
             switch (event.key.code) {
@@ -96,11 +157,23 @@ void GameManager::handleEventInput() {
                 case sf::Keyboard::B: FlagSystem::flagEvents.bPressed = isPressed; break;
                 case sf::Keyboard::M: FlagSystem::flagEvents.mPressed = isPressed; break;
                 case sf::Keyboard::Space: FlagSystem::flagEvents.spacePressed = isPressed; break;
+                case sf::Keyboard::Enter: 
+                    if (isPressed) {
+                        FlagSystem::flagEvents.enterPressed = true;
+                    }
+                    break;
+                case sf::Keyboard::Escape:
+                    if (isPressed) {
+                        // Clear input text on Escape
+                        MetaComponents::inputText.clear();
+                    }
+                    break;
                 default: break;
             }
         }
+        
         if (event.type == sf::Event::MouseButtonPressed) {
-            sf::View entireScreenView(sf::FloatRect(0.f, 0.f, Constants::WORLD_WIDTH, Constants::WORLD_HEIGHT)); // left, top, width, height
+            sf::View entireScreenView(sf::FloatRect(0.f, 0.f, Constants::WORLD_WIDTH, Constants::WORLD_HEIGHT));
             sf::Vector2f worldPosAbsoloute = mainWindow.getWindow().mapPixelToCoords(sf::Mouse::getPosition(mainWindow.getWindow()), entireScreenView);
             MetaComponents::worldMouseClickedPosition_i = static_cast<sf::Vector2i>(worldPosAbsoloute);
             MetaComponents::worldMouseClickedPosition_f = worldPosAbsoloute; 
@@ -109,22 +182,38 @@ void GameManager::handleEventInput() {
             sf::Vector2f worldPos = mainWindow.getWindow().mapPixelToCoords(sf::Mouse::getPosition(mainWindow.getWindow()), MetaComponents::leftView);
             MetaComponents::leftViewmouseClickedPosition_i = static_cast<sf::Vector2i>(worldPos);
             MetaComponents::leftViewmouseClickedPosition_f = worldPos; 
-            //std::cout << "mouse clicked in big view x: " <<  MetaComponents::leftViewmouseClickedPosition_i.x << " and big view y: " <<  MetaComponents::leftViewmouseClickedPosition_i.y <<std::endl;
 
             worldPos = mainWindow.getWindow().mapPixelToCoords(sf::Mouse::getPosition(mainWindow.getWindow()), MetaComponents::middleView);
             MetaComponents::middleViewmouseClickedPosition_i = static_cast<sf::Vector2i>(worldPos);
             MetaComponents::middleViewmouseClickedPosition_f = worldPos; 
-            //std::cout << "mouse clicked in small view x: " <<  MetaComponents::middleViewmouseClickedPosition_i.x << " and small view y: " <<  MetaComponents::middleViewmouseClickedPosition_i.y <<std::endl;
         }
+        
         MetaComponents::middleViewmouseCurrentPosition_f = mainWindow.getWindow().mapPixelToCoords(sf::Mouse::getPosition(mainWindow.getWindow()), MetaComponents::middleView);
         MetaComponents::middleViewmouseCurrentPosition_i = static_cast<sf::Vector2i>(MetaComponents::middleViewmouseCurrentPosition_f);
 
-        if(event.type == sf::Event::TextEntered){
-            if(event.text.unicode < 128 && event.text.unicode >= 32) { // Only process ASCII characters
+        // FIXED TEXT INPUT HANDLING
+        if (event.type == sf::Event::TextEntered) {
+            if (event.text.unicode < 128 && event.text.unicode >= 32) { // Only process ASCII characters
                 char inputChar = static_cast<char>(event.text.unicode);
-                MetaComponents::inputText += inputChar; // Append character to input text            
-            } else if (event.text.unicode == 8 && !MetaComponents::inputText.empty()) {
+                
+                // Only allow digits for game code input and limit to 6 characters
+                if (std::isdigit(inputChar) && MetaComponents::inputText.length() < 6) {
+                    MetaComponents::inputText += inputChar;
+                    std::cout << "Game code input: " << MetaComponents::inputText << std::endl;
+                }
+                // If they try to enter non-digit, give feedback
+                else if (!std::isdigit(inputChar)) {
+                    std::cout << "Game codes only contain numbers (0-9)" << std::endl;
+                }
+                // If they try to enter more than 6 digits
+                else if (MetaComponents::inputText.length() >= 6) {
+                    std::cout << "Game code complete: " << MetaComponents::inputText << " (Press Enter to join)" << std::endl;
+                }
+            } 
+            // Handle backspace
+            else if (event.text.unicode == 8 && !MetaComponents::inputText.empty()) {
                 MetaComponents::inputText.pop_back();
+                std::cout << "Game code input: " << MetaComponents::inputText << std::endl;
             }
         }
     }
@@ -132,4 +221,9 @@ void GameManager::handleEventInput() {
 
 void GameManager::resetFlags(){
     FlagSystem::flagEvents.mouseClicked = false;
+    FlagSystem::flagEvents.enterPressed = false; // Add this new flag
 }
+
+// void GameManager::resetFlags(){
+//     FlagSystem::flagEvents.mouseClicked = false;
+// }

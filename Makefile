@@ -7,7 +7,6 @@ CXXFLAGS := -std=c++17 -Wall \
             -I./src -I./src/game -I./src/game/globals -I./src/game/core -I./src/game/physics -I./src/game/camera -I./src/game/utils -I./src/game/scenes \
             -I./assets/sprites -I./assets/fonts -I./assets/sound -I./assets/tiles \
             -I./libs/logging \
-            -DRUN_NETWORK=1
 
 # Detect Homebrew installation and set path
 HOMEBREW_PREFIX ?= $(shell brew --prefix 2>/dev/null || echo "/opt/homebrew")
@@ -44,7 +43,6 @@ TEST_CXXFLAGS := -std=c++17 -Wall \
                  -I./test/test-network \
                  -I$(SPDLOG_INCLUDE) -I$(FMT_INCLUDE) -I$(SFML_INCLUDE) -I$(YAML_INCLUDE) \
                  -DTESTING \
-                 -DRUN_NETWORK=1
 
 # Library paths and linking
 LDFLAGS = -L$(SPDLOG_LIB) -L$(FMT_LIB) -L$(SFML_LIB) -L$(HOMEBREW_PREFIX)/lib -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -lsfml-network -lspdlog -lfmt -lyaml-cpp
