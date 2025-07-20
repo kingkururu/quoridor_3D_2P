@@ -280,6 +280,7 @@ void GameManager::handleEventInput() {
             #endif
         }
     
+        #if RUN_NETWORK
         if (!isNetworkEnabled) { // mouse position (no click)
             MetaComponents::middleViewmouseCurrentPosition_f = mainWindow.getWindow().mapPixelToCoords(sf::Mouse::getPosition(mainWindow.getWindow()), MetaComponents::middleView);
             MetaComponents::middleViewmouseCurrentPosition_i = static_cast<sf::Vector2i>(MetaComponents::middleViewmouseCurrentPosition_f);
@@ -289,7 +290,12 @@ void GameManager::handleEventInput() {
             std::string mouseData = std::to_string(MetaComponents::middleViewmouseCurrentPosition_f.x) + "," + std::to_string(MetaComponents::middleViewmouseCurrentPosition_f.y);
             sendNetworkMessage("MOUSE_CURRENT", mouseData);
         }
+        #else
+         MetaComponents::middleViewmouseCurrentPosition_f = mainWindow.getWindow().mapPixelToCoords(sf::Mouse::getPosition(mainWindow.getWindow()), MetaComponents::middleView);
+            MetaComponents::middleViewmouseCurrentPosition_i = static_cast<sf::Vector2i>(MetaComponents::middleViewmouseCurrentPosition_f);
+        #endif
 
+        #if RUN_NETWORK
         if(event.type == sf::Event::TextEntered){
             if(event.text.unicode < 128 && event.text.unicode >= 32) {
                 char inputChar = static_cast<char>(event.text.unicode);
@@ -310,6 +316,7 @@ void GameManager::handleEventInput() {
                 #endif
             }
         }
+        #endif
     }
 } 
 
@@ -507,7 +514,7 @@ void GameManager::syncGameState() {
     currentGameState.middleViewMousePos = MetaComponents::middleViewmouseClickedPosition_f;
     currentGameState.middleViewMousePosCurr = MetaComponents::middleViewmouseCurrentPosition_f;
     currentGameState.inputText = MetaComponents::inputText;
-    
+
     // Add flag states to sync - use actual current flag states
     currentGameState.flagStates.clear();
     currentGameState.flagStates.push_back(FlagSystem::flagEvents.aPressed);
@@ -529,7 +536,7 @@ void GameManager::applyRemoteGameState(const GameState& remoteState) {
     MetaComponents::middleViewmouseClickedPosition_f = remoteState.middleViewMousePos;
     MetaComponents::middleViewmouseCurrentPosition_f = remoteState.middleViewMousePosCurr;
     MetaComponents::inputText = remoteState.inputText;
-    
+ 
     // Apply flag states
     if (remoteState.flagStates.size() >= 6) {
         FlagSystem::flagEvents.aPressed = remoteState.flagStates[0];

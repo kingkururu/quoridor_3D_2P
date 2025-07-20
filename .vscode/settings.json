@@ -65,6 +65,7 @@
         "valarray": "cpp",
         "unordered_set": "cpp",
         "__config": "cpp",
-        "future": "cpp"
+        "future": "cpp",
+        "regex": "cpp"
     }
 }

@@ -694,7 +694,7 @@ void gamePlayScene::handleGameEvents() {
 
     // check which players turn
     if(FlagSystem::gameScene1Flags.playerRedTurn) {
-        introText->updateText("BLUE turn");
+        introText->updateText("waiting for BLUE turn . . .");
         player->setMoveState(true); // player 1 can move
         player2->setMoveState(false); // player 2 cannot move
 
@@ -715,7 +715,7 @@ void gamePlayScene::handleGameEvents() {
         }
     }
     else if(FlagSystem::gameScene1Flags.playerBlueTurn) {
-        introText->updateText("RED turn");
+        introText->updateText("waiting for RED turn . . .");
         player2->setMoveState(true); // player 1 can move
         player->setMoveState(false); // player 1 cannot move
 
