@@ -1,4 +1,28 @@
+# macOS system files
 .DS_Store
+
+# Log files
 *.log
-/node_modules/
+
+# Node modules (if any JS tooling exists)
+node_modules/
+
+# Build artifacts
 /build/
+test_build/
+sfml_game
+sfml_game_test
+*.o
+*.out
+*.exe
+*.a
+*.so
+*.dylib
+
+# Backups and temp files
+*~
+*.swp
+*.tmp
+
+# YAML config copies
+test_build/config/
