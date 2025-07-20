@@ -1,15 +1,15 @@
 # 2 Player 3D Quoridor Simulation
 
-A 3D implementation of the classic strategic board game Quoridor, built with C++ and SFML. Features multiplayer networking capabilities and simulated 3D graphics. Players race to reach the opposite side of the board while placing walls to block their opponent.
+A simulated 3D implementation of the classic strategic board game Quoridor, built with C++ and SFML. Features multiplayer networking capabilities. Players race to reach the opposite side of the board while placing walls to block their opponent.
 
+<img width="1348" height="479" alt="Image" src="https://github.com/user-attachments/assets/cc61f5af-2a66-423a-92b4-b88ae78cde93" />
+<img width="1347" height="475" alt="Image" src="https://github.com/user-attachments/assets/6c178780-9978-4602-b51c-bcb171607d2a" />
 <img width="1365" alt="Image" src="https://github.com/user-attachments/assets/ef6666c5-f0dc-4a39-9f36-463fabf2eb87" />
-<img width="1362" alt="Image" src="https://github.com/user-attachments/assets/946d1da7-77c0-4e1d-a79e-bdbab224b09c" />
 
 ## 🎯 Features
 
-- **Strategic Gameplay**: Classic Quoridor rules with modern 3D visualization
 - **Real-time Networking**: Berkeley sockets implementation for seamless multiplayer experience
-- **3D Graphics**: 3D-like board visualization with SFML-powered rendering using raycasting
+- **2.5D Graphics**: 3D-like board visualization with SFML-powered rendering using raycasting
 - **Interactive UI**: Intuitive controls for piece movement and wall placement
 
 ## 🎮 Game Rules
@@ -24,7 +24,6 @@ Quoridor is a strategic race game where:
 ## 🎮 Controls
 
 - **Click**: Place walls (horizontal/vertical)
-- **Tab**: Switch between move and wall placement modes
 - **W**: Move forward
 - **S**: Move backward  
 - **A**: Rotate camera left / turn player left
@@ -49,25 +48,27 @@ The game implements **Berkeley sockets** (BSD sockets/POSIX sockets) for multipl
 ├── .vscode/                   # VSCode settings and configurations
 │
 ├── src/                       # Source files
-│   ├── main.cpp              # Main entry point of the game
-│   └── game/                 # Core engine functionalities
-│       ├── globals/          # Constants and flags
-│       ├── core/             # Game loop and state management
-│       ├── physics/          # Physics and collision detection
-│       ├── camera/           # SFML window and view management
-│       ├── utils/            # Utility functions
-│       └── scenes/           # Scene management
+│   ├── main.cpp               # Main entry point of the game
+│   └── game/                  # Core engine functionalities
+│       ├── globals/           # Constants and flags
+│       ├── core/              # Game loop and state management
+│       ├── physics/           # Physics and collision detection
+│       ├── camera/            # SFML window and view management
+│       ├── utils/             # Utility functions
+│       └── scenes/            # Scene management
 │
 ├── assets/                    # Game assets
-│   ├── fonts/                # Text files and sources
-│   ├── sound/                # Sound effects
-│   ├── tiles/                # Tiles and tilemaps
-│   └── sprites/              # Sprite images
+│   ├── fonts/                 # Text files and sources
+│   ├── sound/                 # Sound effects
+│   ├── tiles/                 # Tiles and tilemaps
+│   └── sprites/               # Sprites 
+│
+├── network/                   # Networking system
+│   └── network/               # network files
 │
 ├── libs/                      # External libraries
-│   └── logging/              # Logging system
+│   └── logging/               # Logging system
 │
-├── test/                      # Test game (example project)
 ├── Makefile                   # Build instructions
 └── README.md                  # Project documentation
 ```
@@ -127,7 +128,7 @@ The game implements **Berkeley sockets** (BSD sockets/POSIX sockets) for multipl
 
 - **Game Logic Implementation**: Complex rule validation and game state management
 - **Network Programming**: Berkeley sockets implementation for real-time multiplayer
-- **3D Graphics Programming**: Raycasting techniques for immersive visualization
+- **2.5D Graphics Programming**: Raycasting techniques for 2.5D visualization
 - **Event-Driven Architecture**: Responsive UI and game state management
 
 ## 🎨 Assets Credits
