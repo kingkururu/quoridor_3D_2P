@@ -30,8 +30,9 @@ private:
     NetworkRole networkRole;
     float lastSyncTime;
     float syncInterval;
-    std::string authorizedInputText; // Host's authoritative text
-    
+    std::string authorizedInputText;
+    bool gameSceneTurnInitialized = false; 
+
     struct GameState {
         float globalTime;
         sf::Vector2f worldMousePos;

@@ -149,7 +149,7 @@ private:
 
   // for 3d walls
   sf::VertexArray rays; // player 1
-  sf::VertexArray wallLine; // player 2
+  sf::VertexArray wallLine; // player 1
   sf::VertexArray rays2; // player 2
   sf::VertexArray wallLine2; // player 2
 
