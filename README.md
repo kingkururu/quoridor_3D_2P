@@ -96,7 +96,7 @@ The game implements **Berkeley sockets** (BSD sockets/POSIX sockets) for multipl
 
 3. **Run the Game**:
    ```bash
-   make run
+   make test
    ```
 
 4. **Clean the Build**:
@@ -130,28 +130,11 @@ The game implements **Berkeley sockets** (BSD sockets/POSIX sockets) for multipl
 - **3D Graphics Programming**: Raycasting techniques for immersive visualization
 - **Event-Driven Architecture**: Responsive UI and game state management
 
-## 🌐 Networking Architecture
-
-### Berkeley Sockets Implementation
-The game uses native system socket APIs without external libraries:
-
-- **Socket Creation**: Low-level socket initialization and configuration
-- **Connection Management**: Client-server architecture with automatic reconnection
-- **Data Serialization**: Efficient game state encoding for network transmission
-- **Error Handling**: Robust network error detection and recovery mechanisms
-- **Cross-Platform Support**: POSIX-compliant socket implementation
-
-### Multiplayer Modes
-- **Local Play**: Two players on the same computer
-- **Network Play**: Players on different computers via TCP/IP
-- **AI vs Human**: Single-player mode against computer opponents
-- **AI vs AI**: Watch computer players compete against each other
-
 ## 🎨 Assets Credits
 
 - **Music**: [Game Background](https://pixabay.com/music/video-games-game-176807/) from Pixabay
-- **Graphics**: Custom artwork created using Canva and Canva ai
-- **Backgrounds**: Original board textures and visual designs using Canva and Canva ai
+- **Graphics**: Custom artwork created using Canva
+- **Backgrounds**: Original board textures and visual designs using Canva
 - **Framework**: Built using the Custom SFML Game Framework
 
 ## 🏆 Game Strategy Tips
