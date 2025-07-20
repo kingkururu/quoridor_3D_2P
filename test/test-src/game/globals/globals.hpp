@@ -56,7 +56,6 @@ namespace MetaComponents{
     inline std::string inputText = "";
 
     inline std::string hostIP = "";
-    inline bool joinCodeMismatch {};
     inline bool hostTurn = false;
     inline bool clientTurn = true;
 }

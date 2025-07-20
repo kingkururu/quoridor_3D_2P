@@ -809,8 +809,6 @@ void gamePlayScene::drawInRightView(){
     drawVisibleObject(backgroundBig);
     drawVisibleObject(backgroundBigFinal);
 
-  //  drawVisibleObject(button1); 
-
     if(pawnBlueBlocked){
         drawVisibleObject(pawn);
         drawVisibleObject(backgroundBigHalfBlue);

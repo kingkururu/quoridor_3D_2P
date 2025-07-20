@@ -90,11 +90,7 @@ void GameManager::runScenesFlags() {
             if (isNetworkEnabled) {
                 MetaComponents::hostTurn = FlagSystem::gameScene1Flags.playerBlueTurn;
                 MetaComponents::clientTurn = FlagSystem::gameScene1Flags.playerRedTurn;
-            }
-            #else
-            // Non-network mode
-            MetaComponents::hostTurn = true;
-            MetaComponents::clientTurn = false;
+            }         
             #endif
             gameSceneTurnInitialized = true;
         }
@@ -139,7 +135,7 @@ void GameManager::handleEventInput() {
                     #if RUN_NETWORK
                     // Host: Apply input locally
                     if (isHost() || !isNetworkEnabled) FlagSystem::flagEvents.aPressed = isPressed; 
-                    // Everyone: Send input state over network
+                    // Client: Send input state over network
                     if (isNetworkEnabled && net.isNetworkConnected()) sendNetworkMessage("INPUT_STATE", "A:" + std::string(isPressed ? "1" : "0"));
                     #else
                     FlagSystem::flagEvents.aPressed = isPressed; 
@@ -218,13 +214,13 @@ void GameManager::handleEventInput() {
             }
         }
         
-if (event.type == sf::Event::MouseButtonPressed) {
+        if (event.type == sf::Event::MouseButtonPressed) {
             #if RUN_NETWORK
             // Calculate mouse position for all cases
             sf::View entireScreenView(sf::FloatRect(0.f, 0.f, Constants::WORLD_WIDTH, Constants::WORLD_HEIGHT));
             sf::Vector2f worldPosAbsoloute = mainWindow.getWindow().mapPixelToCoords(sf::Mouse::getPosition(mainWindow.getWindow()), entireScreenView);
             
-            // If no network OR we're the host, apply locally
+            // If no network
             if (!isNetworkEnabled) {
                 MetaComponents::worldMouseClickedPosition_i = static_cast<sf::Vector2i>(worldPosAbsoloute);
                 MetaComponents::worldMouseClickedPosition_f = worldPosAbsoloute; 
@@ -318,9 +314,7 @@ if (event.type == sf::Event::MouseButtonPressed) {
 } 
 
 void GameManager::resetFlags(){
-   // FlagSystem::flagEvents.mouseClicked = false;
     FlagSystem::flagEvents.resetFlags();
-    // add something more later if necessary
 }
 
 #if RUN_NETWORK
@@ -512,10 +506,6 @@ void GameManager::syncGameState() {
     currentGameState.worldMousePos = MetaComponents::worldMouseClickedPosition_f;
     currentGameState.middleViewMousePos = MetaComponents::middleViewmouseClickedPosition_f;
     currentGameState.middleViewMousePosCurr = MetaComponents::middleViewmouseCurrentPosition_f;
-
-    // this works fine for both host and client 
-//std::cout << currentGameState.middleViewMousePos.x <<  currentGameState.middleViewMousePos.y << "\n";
-
     currentGameState.inputText = MetaComponents::inputText;
     
     // Add flag states to sync - use actual current flag states
