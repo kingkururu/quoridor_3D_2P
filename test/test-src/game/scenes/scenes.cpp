@@ -577,8 +577,8 @@ void gamePlayScene::handleEachPlayer(std::unique_ptr<Player>& playerNum, std::un
     // Handle rotation input - Allow infinite rotation on start tiles
     if ((FlagSystem::flagEvents.aPressed || FlagSystem::flagEvents.dPressed) && 
         (isOnStartTile || !turnInProgress || tilesMovedThisTurn == 0 || (isSpecialMovement && hasReachedOtherPlayer))) { 
-        if (FlagSystem::flagEvents.aPressed) playerNum->returnSpritesShape().rotate(-1.0f); 
-        if (FlagSystem::flagEvents.dPressed) playerNum->returnSpritesShape().rotate(1.0f); 
+        if (FlagSystem::flagEvents.aPressed) playerNum->returnSpritesShape().rotate(-3.0f); 
+        if (FlagSystem::flagEvents.dPressed) playerNum->returnSpritesShape().rotate(3.0f); 
         playerNum->setHeadingAngle(playerNum->returnSpritesShape().getRotation()); 
     } 
 

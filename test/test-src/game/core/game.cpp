@@ -88,18 +88,8 @@ void GameManager::runScenesFlags() {
         if (!gameSceneTurnInitialized) {
             #if RUN_NETWORK
             if (isNetworkEnabled) {
-                // Host starts first, client waits
-                if (isHost()) {
-                    MetaComponents::hostTurn = true;
-                    MetaComponents::clientTurn = false;
-                } else {
-                    MetaComponents::hostTurn = true; // Host goes first
-                    MetaComponents::clientTurn = false;
-                }
-            } else {
-                // Single player mode
-                MetaComponents::hostTurn = true;
-                MetaComponents::clientTurn = false;
+                MetaComponents::hostTurn = FlagSystem::gameScene1Flags.playerBlueTurn;
+                MetaComponents::clientTurn = FlagSystem::gameScene1Flags.playerRedTurn;
             }
             #else
             // Non-network mode
@@ -303,7 +293,8 @@ void GameManager::handleEventInput() {
 } 
 
 void GameManager::resetFlags(){
-    FlagSystem::flagEvents.mouseClicked = false;
+   // FlagSystem::flagEvents.mouseClicked = false;
+    FlagSystem::flagEvents.resetFlags();
     // add something more later if necessary
 }
 

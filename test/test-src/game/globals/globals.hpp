@@ -318,22 +318,7 @@ namespace FlagSystem {
             gameEnd = wPressed = aPressed = sPressed = dPressed = bPressed = mPressed = 
                       leftPressed = rightPressed = downPressed = upPressed = 
                       spacePressed = mouseClicked = false;
-            log_info("General game flags reset complete");
-        }
-
-        // resets keyboard flags only 
-        void allFlagKeyReleased() {
-            wPressed = false;
-            aPressed = false;
-            sPressed = false;
-            dPressed = false;
-            bPressed = false;
-            mPressed = false;
-            leftPressed = false;
-            rightPressed = false;
-            downPressed = false;
-            upPressed = false;
-            spacePressed = false;
+            // log_info("General game flags reset complete");
         }
     };
 
