@@ -139,6 +139,8 @@ void GameManager::handleEventInput() {
 
             return; 
         }
+
+        if (isHost() && !net.isNetworkConnected()) return; // no inputs if client hasn't joined yet
         
         if (event.type == sf::Event::KeyPressed || event.type == sf::Event::KeyReleased) {
             bool isPressed = (event.type == sf::Event::KeyPressed); 
@@ -321,7 +323,7 @@ void GameManager::startHosting() {
 void GameManager::startClient() {
     if (isNetworkEnabled) return;
     
-    if (MetaComponents::inputText.length() == 12 && net.runClient(MetaComponents::inputText, 8080)) {
+    if (MetaComponents::inputText != "" && net.runClient(MetaComponents::inputText, 8080)) {
         isNetworkEnabled = true;
         networkRole = NetworkRole::CLIENT;
         FlagSystem::lobby2Events.sceneEnd = true;

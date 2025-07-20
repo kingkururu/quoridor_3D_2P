@@ -83,48 +83,99 @@ bool NetworkManager::runHost(int port) {
     return true;
 }
 
-// In runClient(), try increasing the timeout or removing it for connection:
+
+bool NetworkManager::isValidIPv4(const std::string& ip) {
+    std::regex ipv4Pattern(R"(^(\d{1,3}\.){3}\d{1,3}$)");
+    if (!std::regex_match(ip, ipv4Pattern)) return false;
+
+    std::istringstream iss(ip);
+    std::string segment;
+    while (std::getline(iss, segment, '.')) {
+        int num = std::stoi(segment);
+        if (num < 0 || num > 255) return false;
+    }
+    return true;
+}
+
 bool NetworkManager::runClient(const std::string& host_ip, int port) {
     cleanup();
-    
+
+    if (!isValidIPv4(host_ip)) {
+        log_error("Invalid IP format: " + host_ip);
+        return false;
+    }
+
     clientSocket = socket(AF_INET, SOCK_STREAM, 0);
     if (clientSocket == -1) {
         log_error("Error creating client socket");
         return false;
     }
-    
-    // Don't set timeout for connect() - set it after successful connection
+
     struct sockaddr_in serverAddr;
     memset(&serverAddr, 0, sizeof(serverAddr));
     serverAddr.sin_family = AF_INET;
     serverAddr.sin_port = htons(port);
-    
+
     if (inet_pton(AF_INET, host_ip.c_str(), &serverAddr.sin_addr) <= 0) {
         log_error("Invalid IP address: " + host_ip);
         close(clientSocket);
         clientSocket = -1;
         return false;
     }
-    
+
     log_info("Attempting to connect to " + host_ip + ":" + std::to_string(port));
-    
-    if (connect(clientSocket, (struct sockaddr*)&serverAddr, sizeof(serverAddr)) == -1) {
-        log_error("Error connecting to server: " + std::string(strerror(errno)));
+
+    // Make socket non-blocking
+    int flags = fcntl(clientSocket, F_GETFL, 0);
+    fcntl(clientSocket, F_SETFL, flags | O_NONBLOCK);
+
+    int result = connect(clientSocket, (struct sockaddr*)&serverAddr, sizeof(serverAddr));
+    if (result < 0 && errno != EINPROGRESS) {
+        log_error("Immediate connect error: " + std::string(strerror(errno)));
         close(clientSocket);
         clientSocket = -1;
         return false;
     }
-    
-    // Set timeout AFTER successful connection
+
+    // Wait for connection using select
+    fd_set writeSet;
+    FD_ZERO(&writeSet);
+    FD_SET(clientSocket, &writeSet);
     struct timeval timeout;
+    timeout.tv_sec = 3;     // 3-second timeout
+    timeout.tv_usec = 0;
+
+    int selRes = select(clientSocket + 1, nullptr, &writeSet, nullptr, &timeout);
+    if (selRes <= 0) {
+        log_error("Connection timeout or select() error");
+        close(clientSocket);
+        clientSocket = -1;
+        return false;
+    }
+
+    // Check for errors
+    int so_error = 0;
+    socklen_t len = sizeof(so_error);
+    getsockopt(clientSocket, SOL_SOCKET, SO_ERROR, &so_error, &len);
+    if (so_error != 0) {
+        log_error("Connect failed: " + std::string(strerror(so_error)));
+        close(clientSocket);
+        clientSocket = -1;
+        return false;
+    }
+
+    // Set socket back to blocking mode
+    fcntl(clientSocket, F_SETFL, flags);
+
+    // Set receive timeout (optional but good)
     timeout.tv_sec = 0;
-    timeout.tv_usec = 500000;
+    timeout.tv_usec = 500000; // 500 ms
     setsockopt(clientSocket, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout));
-    
+
     role = NetworkRole::CLIENT;
     isConnected = true;
     log_info("Successfully connected to server");
-    
+
     startListening();
     return true;
 }

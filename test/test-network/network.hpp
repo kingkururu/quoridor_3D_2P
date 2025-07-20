@@ -19,6 +19,7 @@
 #include <queue>
 #include <mutex>
 #include <future>
+#include <regex>
 
 enum class NetworkRole {
     NONE,
@@ -71,6 +72,8 @@ private:
     void handleClientConnection();
     NetworkMessage parseMessage(const std::string& rawData);
     std::string serializeMessage(const NetworkMessage& msg);
+
+    bool isValidIPv4(const std::string& ip);
 };
 
 #endif
