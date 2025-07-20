@@ -3,7 +3,7 @@
 A simulated 3D implementation of the classic strategic board game Quoridor, built with C++ and SFML. Features multiplayer networking capabilities. Players race to reach the opposite side of the board while placing walls to block their opponent.
 
 <img width="1348" height="479" alt="Image" src="https://github.com/user-attachments/assets/cc61f5af-2a66-423a-92b4-b88ae78cde93" />
-<img width="1347" height="475" alt="Image" src="https://github.com/user-attachments/assets/6c178780-9978-4602-b51c-bcb171607d2a" />
+<img width="1344" height="472" alt="Image" src="https://github.com/user-attachments/assets/7040c707-69ea-4417-ad64-f8c29a8f4dfb" />
 <img width="1365" alt="Image" src="https://github.com/user-attachments/assets/ef6666c5-f0dc-4a39-9f36-463fabf2eb87" />
 
 ## 🎯 Features
