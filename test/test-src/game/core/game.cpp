@@ -218,7 +218,7 @@ void GameManager::handleEventInput() {
             }
         }
         
-        if (event.type == sf::Event::MouseButtonPressed) {
+if (event.type == sf::Event::MouseButtonPressed) {
             #if RUN_NETWORK
             // Calculate mouse position for all cases
             sf::View entireScreenView(sf::FloatRect(0.f, 0.f, Constants::WORLD_WIDTH, Constants::WORLD_HEIGHT));
@@ -238,11 +238,32 @@ void GameManager::handleEventInput() {
                 MetaComponents::middleViewmouseClickedPosition_i = static_cast<sf::Vector2i>(worldPos);
                 MetaComponents::middleViewmouseClickedPosition_f = worldPos;
             }
-            // Send mouse click over network (both host and client can send)
+            // Send mouse click over network only if it's our turn
             else if (net.isNetworkConnected() && ((isHost() && MetaComponents::hostTurn) || (!isHost() && MetaComponents::clientTurn))) {
-                sf::View entireScreenView(sf::FloatRect(0.f, 0.f, Constants::WORLD_WIDTH, Constants::WORLD_HEIGHT));
-                sf::Vector2f worldPos = mainWindow.getWindow().mapPixelToCoords( sf::Mouse::getPosition(mainWindow.getWindow()), entireScreenView);
-                std::string mouseData = std::to_string(worldPos.x) + "," + std::to_string(worldPos.y);
+                // Set the flag locally
+                MetaComponents::worldMouseClickedPosition_i = static_cast<sf::Vector2i>(worldPosAbsoloute);
+                MetaComponents::worldMouseClickedPosition_f = worldPosAbsoloute; 
+
+                FlagSystem::flagEvents.mouseClicked = true;
+                sf::Vector2f worldPos = mainWindow.getWindow().mapPixelToCoords(sf::Mouse::getPosition(mainWindow.getWindow()), MetaComponents::leftView);
+                MetaComponents::leftViewmouseClickedPosition_i = static_cast<sf::Vector2i>(worldPos);
+                MetaComponents::leftViewmouseClickedPosition_f = worldPos; 
+
+                worldPos = mainWindow.getWindow().mapPixelToCoords(sf::Mouse::getPosition(mainWindow.getWindow()), MetaComponents::middleView);
+                MetaComponents::middleViewmouseClickedPosition_i = static_cast<sf::Vector2i>(worldPos);
+                MetaComponents::middleViewmouseClickedPosition_f = worldPos;
+
+                // Update turns: current player ends, next player begins
+                if (isHost()) {
+                    MetaComponents::hostTurn = false;
+                    MetaComponents::clientTurn = true;
+                } else {
+                    MetaComponents::hostTurn = true;
+                    MetaComponents::clientTurn = false;
+                }
+
+                // Send mouse click with turn state
+                std::string mouseData = std::to_string(worldPosAbsoloute.x) + "," + std::to_string(worldPosAbsoloute.y) + ":" + (MetaComponents::hostTurn ? "1" : "0") + ":" + (MetaComponents::clientTurn ? "1" : "0");
                 sendNetworkMessage("MOUSE_CLICK", mouseData);
             }
             #else
@@ -272,6 +293,7 @@ void GameManager::handleEventInput() {
             std::string mouseData = std::to_string(MetaComponents::middleViewmouseCurrentPosition_f.x) + "," + std::to_string(MetaComponents::middleViewmouseCurrentPosition_f.y);
             sendNetworkMessage("MOUSE_CURRENT", mouseData);
         }
+
         if(event.type == sf::Event::TextEntered){
             if(event.text.unicode < 128 && event.text.unicode >= 32) {
                 char inputChar = static_cast<char>(event.text.unicode);
@@ -400,27 +422,41 @@ void GameManager::processNetworkMessage(const NetworkMessage& msg) {
         }
     }
     else if (msg.type == "MOUSE_CLICK") {
-        // Parse and apply the absolute world mouse click position directly
-        size_t comma = msg.data.find(',');
-        if (comma != std::string::npos) {
-            float x = std::stof(msg.data.substr(0, comma));
-            float y = std::stof(msg.data.substr(comma + 1));
-
-            MetaComponents::worldMouseClickedPosition_f = sf::Vector2f(x, y);
-            MetaComponents::worldMouseClickedPosition_i = sf::Vector2i(static_cast<int>(x), static_cast<int>(y));
-
-            // First, get the pixel coordinates on the window for the world click position
-            sf::Vector2i pixelPosForWorldClick = mainWindow.getWindow().mapCoordsToPixel(MetaComponents::worldMouseClickedPosition_f, MetaComponents::leftView);
-            // Then, convert those pixel coordinates back to world coordinates using the leftView
-            MetaComponents::leftViewmouseClickedPosition_f = mainWindow.getWindow().mapPixelToCoords(static_cast<sf::Vector2i>(pixelPosForWorldClick), MetaComponents::leftView);
-            MetaComponents::leftViewmouseClickedPosition_i = static_cast<sf::Vector2i>(MetaComponents::leftViewmouseClickedPosition_f);
-
-            // To get the click position relative to MetaComponents::middleView:
-            pixelPosForWorldClick = mainWindow.getWindow().mapCoordsToPixel(MetaComponents::worldMouseClickedPosition_f, MetaComponents::middleView);
-            MetaComponents::middleViewmouseClickedPosition_f = mainWindow.getWindow().mapPixelToCoords(static_cast<sf::Vector2i>(pixelPosForWorldClick), MetaComponents::middleView);
-            MetaComponents::middleViewmouseClickedPosition_i = static_cast<sf::Vector2i>(MetaComponents::middleViewmouseClickedPosition_f);
+        // Parse the mouse click data with turn information
+        size_t firstColon = msg.data.find(':');
+        if (firstColon != std::string::npos) {
+            // Extract coordinates part
+            std::string coordPart = msg.data.substr(0, firstColon);
+            std::string turnPart = msg.data.substr(firstColon + 1);
             
-            FlagSystem::flagEvents.mouseClicked = true;
+            size_t comma = coordPart.find(',');
+            if (comma != std::string::npos) {
+                float x = std::stof(coordPart.substr(0, comma));
+                float y = std::stof(coordPart.substr(comma + 1));
+
+                MetaComponents::worldMouseClickedPosition_f = sf::Vector2f(x, y);
+                MetaComponents::worldMouseClickedPosition_i = sf::Vector2i(static_cast<int>(x), static_cast<int>(y));
+
+                // First, get the pixel coordinates on the window for the world click position
+                sf::Vector2i pixelPosForWorldClick = mainWindow.getWindow().mapCoordsToPixel(MetaComponents::worldMouseClickedPosition_f, MetaComponents::leftView);
+                // Then, convert those pixel coordinates back to world coordinates using the leftView
+                MetaComponents::leftViewmouseClickedPosition_f = mainWindow.getWindow().mapPixelToCoords(static_cast<sf::Vector2i>(pixelPosForWorldClick), MetaComponents::leftView);
+                MetaComponents::leftViewmouseClickedPosition_i = static_cast<sf::Vector2i>(MetaComponents::leftViewmouseClickedPosition_f);
+
+                // To get the click position relative to MetaComponents::middleView:
+                pixelPosForWorldClick = mainWindow.getWindow().mapCoordsToPixel(MetaComponents::worldMouseClickedPosition_f, MetaComponents::middleView);
+                MetaComponents::middleViewmouseClickedPosition_f = mainWindow.getWindow().mapPixelToCoords(static_cast<sf::Vector2i>(pixelPosForWorldClick), MetaComponents::middleView);
+                MetaComponents::middleViewmouseClickedPosition_i = static_cast<sf::Vector2i>(MetaComponents::middleViewmouseClickedPosition_f);
+
+                FlagSystem::flagEvents.mouseClicked = true;
+
+                // Parse and update turn states
+                size_t secondColon = turnPart.find(':');
+                if (secondColon != std::string::npos) {
+                    MetaComponents::hostTurn = (turnPart.substr(0, secondColon) == "1");
+                    MetaComponents::clientTurn = (turnPart.substr(secondColon + 1) == "1");
+                }
+            }
         }
     } 
     else if (msg.type == "MOUSE_CURRENT") {
@@ -429,10 +465,10 @@ void GameManager::processNetworkMessage(const NetworkMessage& msg) {
             float x = std::stof(msg.data.substr(0, comma));
             float y = std::stof(msg.data.substr(comma + 1));
 
-            // To get the click position relative to MetaComponents::middleView:
-            sf::Vector2i  pixelPosForWorldClick = mainWindow.getWindow().mapCoordsToPixel(sf::Vector2f(x, y), MetaComponents::middleView);
+            // To get the position relative to MetaComponents::middleView:
+            sf::Vector2i pixelPosForWorldClick = mainWindow.getWindow().mapCoordsToPixel(sf::Vector2f(x, y), MetaComponents::middleView);
             MetaComponents::middleViewmouseCurrentPosition_f = mainWindow.getWindow().mapPixelToCoords(static_cast<sf::Vector2i>(pixelPosForWorldClick), MetaComponents::middleView);
-            MetaComponents::middleViewmouseCurrentPosition_i = static_cast<sf::Vector2i>(MetaComponents::middleViewmouseClickedPosition_f);
+            MetaComponents::middleViewmouseCurrentPosition_i = static_cast<sf::Vector2i>(MetaComponents::middleViewmouseCurrentPosition_f);
         }
     }
     else if (msg.type == "TEXT_INPUT") {
