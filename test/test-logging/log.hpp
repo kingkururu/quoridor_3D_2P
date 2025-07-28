@@ -1,11 +1,6 @@
 #pragma once
 
 #include <string>
-
-// Define a macro to enable or disable logging
-#define ENABLE_LOGGING 1  // Set to 1 to enable logging, 0 to disable logging
-
-#if ENABLE_LOGGING
 #include <spdlog/spdlog.h>
 #include <spdlog/sinks/basic_file_sink.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
@@ -18,6 +13,10 @@
 #include <string_view>
 #include <csignal>
 
+// Define a macro to enable or disable logging
+#define ENABLE_LOGGING 0  // Set to 1 to enable logging, 0 to disable logging
+
+#if ENABLE_LOGGING
 
 void init_logging();
 void log_info(const std::string& message);

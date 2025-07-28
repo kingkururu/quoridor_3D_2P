@@ -2,7 +2,7 @@
 CXX := clang++
 
 # Compiler flags
-CXXFLAGS := -std=c++17 -Wall \
+CXXFLAGS := -std=c++17 -Wall -g \
             -I./src -I./src/game -I./src/game/globals -I./src/game/core -I./src/game/physics -I./src/game/camera -I./src/game/utils -I./src/game/scenes \
             -I./assets/sprites -I./assets/fonts -I./assets/sound -I./assets/tiles \
             -I./libs/logging \
@@ -31,7 +31,7 @@ export DYLD_FALLBACK_LIBRARY_PATH=$(SFML_LIB)
 BREW_INCLUDE_FLAGS := -I$(SPDLOG_INCLUDE) -I$(FMT_INCLUDE) -I$(SFML_INCLUDE) -I$(YAML_INCLUDE)
 CXXFLAGS += $(BREW_INCLUDE_FLAGS)
 
-TEST_CXXFLAGS := -std=c++17 -Wall \
+TEST_CXXFLAGS := -std=c++17 -Wall -g \
                  -I./test/test-src \
                  -I./test/test-src/game/core -I./test/test-src/game/camera \
                  -I./test/test-src/game/globals -I./test/test-src/game/physics \

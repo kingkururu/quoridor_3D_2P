@@ -70,7 +70,7 @@ void lobbyScene::createAssets(){
 }
 
 void lobbyScene::setTime() {
-   //
+   
 }
 
 void lobbyScene::handleInput() {
@@ -129,14 +129,12 @@ void lobby2Scene::createAssets(){
 
     hostButton = std::make_unique<Button>(Constants::BUTTON3_POSITION, Constants::BUTTON3_SCALE, Constants::BUTTON3_TEXTURE, Constants::BUTTON3_ANIMATIONRECTS, Constants::BUTTON3_INDEXMAX, utils::convertToWeakPtrVector(Constants::BUTTON3_BITMASK));
     hostButton->setRects(0); // set to first rect
-    // joinButton = std::make_unique<Button>(Constants::BUTTON4_POSITION, Constants::BUTTON3_SCALE, Constants::BUTTON4_TEXTURE, Constants::BUTTON3_ANIMATIONRECTS, Constants::BUTTON3_INDEXMAX, utils::convertToWeakPtrVector(Constants::BUTTON4_BITMASK));
-    // joinButton->setRects(0); // set to first rect
 
     log_info("created assets in lobby scene");
 }
 
 void lobby2Scene::setTime() {
-   //
+   
 }
 
 void lobby2Scene::handleInput() {
@@ -249,8 +247,8 @@ void gamePlayScene::createAssets() {
 
         // Music
         backgroundMusic = std::make_unique<MusicClass>(std::move(Constants::BACKGROUNDMUSIC_MUSIC), Constants::BACKGROUNDMUSIC_VOLUME);
-        // if(backgroundMusic) backgroundMusic->returnMusic().play(); 
-        // if(backgroundMusic) backgroundMusic->returnMusic().setLoop(Constants::BACKGROUNDMUSIC_LOOP);
+        if(backgroundMusic) backgroundMusic->returnMusic().play(); 
+        if(backgroundMusic) backgroundMusic->returnMusic().setLoop(Constants::BACKGROUNDMUSIC_LOOP);
 
         buttonClickSound = std::make_unique<SoundClass>(Constants::BUTTONCLICK_SOUNDBUFF, Constants::BUTTONCLICKSOUND_VOLUME);
 
@@ -302,13 +300,6 @@ void gamePlayScene::handleInput() {
     handleSpaceKey(); 
     handleMovementKeys();
 }
-
-// // need to have enterance to other side at least one way & player be able to move in at least one direction
-// bool gamePlayScene::playerHasExit(const std::unique_ptr<Player>& currentPlayer, bool isPlayer1) const {
-//     if (!boardTileMap || !currentPlayer) return false; 
-
-//     return true; 
-// }
 
 void gamePlayScene::handleMouseKey() { 
 
@@ -388,9 +379,6 @@ void gamePlayScene::handleMouseKey() {
         }
     }
 
-    // bool player1HasExit = playerHasExit(player, true);
-    // bool player2HasExit = playerHasExit(player2, false);
-
     bool player1HasExit = true;
     bool player2HasExit = true;
 
@@ -407,10 +395,6 @@ void gamePlayScene::handleMouseKey() {
     else if (FlagSystem::gameScene1Flags.playerRedTurn) ++stickIndexRed;
     FlagSystem::gameScene1Flags.stickPlaced = true;
     if (FlagSystem::flagEvents.mouseClicked && buttonClickSound) buttonClickSound->returnSound().play();
-
-    // std::cout << "red index: " << stickIndexRed << std::endl;
-    // std::cout << "blue index: " << stickIndexBlue << std::endl;
-    // std::cout << "total index: " << stickIndex << std::endl;
 }
 
 void gamePlayScene::handleSpaceKey() {
