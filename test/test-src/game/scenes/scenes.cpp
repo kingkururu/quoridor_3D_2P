@@ -277,6 +277,12 @@ void gamePlayScene::setInitialTimes(){
 void gamePlayScene::insertItemsInQuadtree(){
     quadtree.insert(player);  
     quadtree.insert(player2);
+
+    for(int i = 0; i < Constants::BOARDTILES_ROW * Constants::BOARDTILES_COL; ++i){
+        auto& tilePtr = boardTileMap->getTile(i);
+        
+        quadtree.insert(tilePtr);
+    }
 }
 
 void gamePlayScene::respawnAssets(){

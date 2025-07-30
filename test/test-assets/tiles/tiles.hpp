@@ -31,6 +31,12 @@ public:
     bool getVisibleState() const { return visibleState; }
     void setVisibleState(bool visibleState) { this->visibleState = visibleState; }
     
+    sf::Sprite& returnSpritesShape() const { return *tileSprite; }
+
+    sf::Vector2f getPosition() const { return position; }
+    sf::Vector2f getScale() const { return scale; }
+    std::weak_ptr<sf::Texture> getTexture() const { return texture; }
+    
     // making copies for use in tilemap
     virtual std::unique_ptr<Tile> clone() const {
         return std::unique_ptr<Tile>(new Tile(*this)); // Create a new instance with the same properties

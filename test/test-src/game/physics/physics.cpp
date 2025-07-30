@@ -135,7 +135,7 @@ namespace physics {
     sf::Vector2f followDirVecOpposite( float speed, sf::Vector2f originalPos, sf::Vector2f acceleration, const sf::Vector2f& direction){
         sf::Vector2f movement(direction.x * speed * MetaComponents::deltaTime * acceleration.x * -1, direction.y * speed * MetaComponents::deltaTime * acceleration.y * -1);
         return originalPos + movement;
-   }
+    }
 
     // moving x or y positions based on directions
     sf::Vector2f moveLeft( float speed, sf::Vector2f originalPos, sf::Vector2f acceleration){

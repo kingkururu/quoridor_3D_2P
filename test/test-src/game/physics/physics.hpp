@@ -23,19 +23,31 @@ namespace physics{
         ~Quadtree(){ clear(); };
         void clear();
 
-        template<typename SpriteType> void insert(std::unique_ptr<SpriteType>& obj) { 
+        template<typename SpriteType> 
+        void insert(SpriteType&& obj) {
             try {
-                if (nodes.empty()) { // If no child nodes exist, add the object to this node
-                    objects.push_back(obj.get());
+                // Convert Tile to Sprite if needed, otherwise use obj directly
+                auto sprite = [&]() {
+                    if constexpr (std::is_same_v<std::decay_t<SpriteType>, std::shared_ptr<Tile>>) {
+                        return std::make_shared<Sprite>(obj->getPosition(), obj->getScale(), obj->getTexture());
+                    } else return std::forward<SpriteType>(obj);
+                }();
+
+                // Insert into current node or find appropriate child node
+                if (nodes.empty()) {
+                    objects.push_back(sprite.get());
                     log_info("Sprite inserted into quadtree node.");
-                } else { // Check which child node the object belongs to
+                } else {
                     for (auto& node : nodes) {
-                        if (node->bounds.contains(obj->returnSpritesShape().getPosition())) {
-                            node->insert(obj);
+                        if (node->bounds.contains(sprite->returnSpritesShape().getPosition())) {
+                            node->insert(sprite);
                             log_info("Sprite inserted into child node.");
                             return;
                         }
                     }
+                    // If no child node contains the sprite, add to current node
+                    objects.push_back(sprite.get());
+                    log_info("Sprite inserted into current node (no suitable child found).");
                 }
             } catch (const std::exception& e) {
                 log_error("Error during insert: " + std::string(e.what()));
