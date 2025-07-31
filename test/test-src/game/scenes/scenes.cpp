@@ -411,15 +411,11 @@ void gamePlayScene::handleSpaceKey() {
 
 void gamePlayScene::handleMovementKeys() {
 
-    for(int i = 0; i < boardTileMap->getTileMapNumber(); ++i)
-    {
-        if(physics::collisionHelper(pawn, boardTileMap->getTile(i))){
+    if(!pawn || !boardTileMap) return; 
+ 
+        if(physics::collisionHelper(pawn, boardTileMap->getTile(19), quadtree)){
             std::cout << "touching\n";
-        } else {
-           
         }
-
-    }
 
 
     handleEachPlayer(player, player2, p1pathCount, p1PrevPathIndex);

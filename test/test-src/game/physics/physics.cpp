@@ -15,14 +15,14 @@ namespace physics {
         try {
             std::vector<Sprite*> result;
             if (!bounds.intersects(area)) {
-                log_warning("Area does not intersect with the quadtree bounds at level " + std::to_string(level));
+                //log_warning("Area does not intersect with the quadtree bounds at level " + std::to_string(level));
                 return result;
             }
 
             for (const auto& obj : objects) {
                 if (area.intersects(obj->returnSpritesShape().getGlobalBounds())) {
                     result.push_back(obj);
-                    log_info("Sprite added to query result at level " + std::to_string(level));
+                  //  log_info("Sprite added to query result at level " + std::to_string(level));
                 }
             }
 

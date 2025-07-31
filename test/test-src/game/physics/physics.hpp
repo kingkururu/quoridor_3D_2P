@@ -27,9 +27,8 @@ namespace physics{
         void insert(SpriteType&& obj) {
             try {
                 if constexpr (std::is_same_v<std::decay_t<SpriteType>, std::shared_ptr<Tile>>) {
-                    auto sprite = std::make_shared<Sprite>(obj->getTileSprite().getPosition(), obj->getScale(), obj->getTexture());
+                    auto sprite = std::make_unique<Sprite>(obj->getTileSprite().getPosition(), obj->getScale(), obj->getTexture());
                     
-                    // Insert logic for shared_ptr<Sprite>
                     if (nodes.empty()) {
                         objects.push_back(sprite.get());
                         log_info("Tile created and inserted into quadtree node.");
@@ -215,27 +214,6 @@ namespace physics{
                 sf::Vector2f position2(viewCenter.x - viewSize.x / 2, viewCenter.y - viewSize.y / 2);
                 sf::Vector2f size2(viewSize.x, viewSize.y);
                 return boundingBoxCollision(data1.position, data1.size, position2, size2);
-            } else if constexpr (std::is_same_v<std::decay_t<ObjType2>, std::shared_ptr<Tile>>) { // single tile from boardtilemap
-                sf::Vector2f position2 = obj2->getTileSprite().getPosition();
-                sf::Vector2f size2(obj2->getTileSprite().getGlobalBounds().width, obj2->getTileSprite().getGlobalBounds().height);
-
-                Quadtree* quadtree = nullptr;
-                if constexpr (sizeof...(Args) >= 2) quadtree = std::get<1>(std::forward_as_tuple(std::forward<Args>(args)...));
-
-                if (quadtree) {
-                    auto potentialColliders1 = quadtree->query(sprite1->returnSpritesShape().getGlobalBounds());
-                    auto potentialColliders2 = quadtree->query(obj2->getTileSprite().getGlobalBounds());
-
-                    if (potentialColliders1.empty() || potentialColliders2.empty()) return false;
-
-                    for (const auto& collider1 : potentialColliders1) {
-                        for (const auto& collider2 : potentialColliders2) {
-                            if (collider1 == collider2) continue;
-                            return boundingBoxCollision(data1.position, data1.size, position2, size2);
-                        }
-                    }
-                    return false;
-                } else return boundingBoxCollision(data1.position, data1.size, position2, size2);
             } else { // tilemap
                 auto getTileMap = [](auto&& obj) -> auto& {
                     if constexpr (std::is_pointer_v<std::decay_t<decltype(obj)>> || std::is_same_v<std::decay_t<decltype(obj)>, std::unique_ptr<TileMap>>) return *obj;
@@ -250,6 +228,29 @@ namespace physics{
                 }
                 return false;
             }
+        } else if constexpr (std::is_same_v<std::decay_t<ObjType2>, std::shared_ptr<Tile>>) { 
+            auto& quadtree_ref = std::get<0>(std::forward_as_tuple(std::forward<Args>(args)...));
+            Quadtree* quadtree = &quadtree_ref;
+
+            sf::Vector2f position2 = obj2->getTileSprite().getPosition();
+            sf::Vector2f size2(obj2->getTileSprite().getGlobalBounds().width, obj2->getTileSprite().getGlobalBounds().height);
+
+            if (quadtree) {
+                auto potentialColliders1 = quadtree->query(sprite1->returnSpritesShape().getGlobalBounds());
+                auto potentialColliders2 = quadtree->query(obj2->getTileSprite().getGlobalBounds());
+                
+                if (potentialColliders1.empty() || potentialColliders2.empty()) return false;
+                for (const auto& collider1 : potentialColliders1) {
+                    for (const auto& collider2 : potentialColliders2) {
+                        if (collider1 == collider2) continue;
+                        if (boundingBoxCollision(data1.position, data1.size, position2, size2)) return true;      
+                    }
+                }
+                return false;
+            } else {
+                log_error("no quadtree found");
+            }
+            return false;
         } else { // Handle sprite vs. sprite with collision function and optional parameters
             if (!obj1) {
                 log_warning("First object is missing in collision detection");
