@@ -14,7 +14,7 @@
 #include <csignal>
 
 // Define a macro to enable or disable logging
-#define ENABLE_LOGGING 0  // Set to 1 to enable logging, 0 to disable logging
+#define ENABLE_LOGGING 1  // Set to 1 to enable logging, 0 to disable logging
 
 #if ENABLE_LOGGING
 

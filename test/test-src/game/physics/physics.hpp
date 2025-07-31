@@ -23,31 +23,43 @@ namespace physics{
         ~Quadtree(){ clear(); };
         void clear();
 
-        template<typename SpriteType> 
+        template<typename SpriteType>
         void insert(SpriteType&& obj) {
             try {
-                // Convert Tile to Sprite if needed, otherwise use obj directly
-                auto sprite = [&]() {
-                    if constexpr (std::is_same_v<std::decay_t<SpriteType>, std::shared_ptr<Tile>>) {
-                        return std::make_shared<Sprite>(obj->getPosition(), obj->getScale(), obj->getTexture());
-                    } else return std::forward<SpriteType>(obj);
-                }();
-
-                // Insert into current node or find appropriate child node
-                if (nodes.empty()) {
-                    objects.push_back(sprite.get());
-                    log_info("Sprite inserted into quadtree node.");
-                } else {
-                    for (auto& node : nodes) {
-                        if (node->bounds.contains(sprite->returnSpritesShape().getPosition())) {
-                            node->insert(sprite);
-                            log_info("Sprite inserted into child node.");
-                            return;
+                if constexpr (std::is_same_v<std::decay_t<SpriteType>, std::shared_ptr<Tile>>) {
+                    auto sprite = std::make_shared<Sprite>(obj->getTileSprite().getPosition(), obj->getScale(), obj->getTexture());
+                    
+                    // Insert logic for shared_ptr<Sprite>
+                    if (nodes.empty()) {
+                        objects.push_back(sprite.get());
+                        log_info("Tile created and inserted into quadtree node.");
+                    } else {
+                        for (auto& node : nodes) {
+                            if (node->bounds.contains(sprite->returnSpritesShape().getPosition())) {
+                                node->insert(sprite);
+                                log_info("Tile inserted into child node.");
+                                return;
+                            }
                         }
+                        objects.push_back(sprite.get());
+                        log_info("Tile inserted into current node (no suitable child found).");
                     }
-                    // If no child node contains the sprite, add to current node
-                    objects.push_back(sprite.get());
-                    log_info("Sprite inserted into current node (no suitable child found).");
+                } else {
+                    // For unique_ptr, use obj directly without moving
+                    if (nodes.empty()) {
+                        objects.push_back(obj.get());
+                        log_info("Sprite inserted into quadtree node.");
+                    } else {
+                        for (auto& node : nodes) {
+                            if (node->bounds.contains(obj->returnSpritesShape().getPosition())) {
+                                node->insert(std::forward<SpriteType>(obj)); // Move only when passing to child
+                                log_info("Sprite inserted into child node.");
+                                return;
+                            }
+                        }
+                        objects.push_back(obj.get());
+                        log_info("Sprite inserted into current node (no suitable child found).");
+                    }
                 }
             } catch (const std::exception& e) {
                 log_error("Error during insert: " + std::string(e.what()));
@@ -203,16 +215,37 @@ namespace physics{
                 sf::Vector2f position2(viewCenter.x - viewSize.x / 2, viewCenter.y - viewSize.y / 2);
                 sf::Vector2f size2(viewSize.x, viewSize.y);
                 return boundingBoxCollision(data1.position, data1.size, position2, size2);
+            } else if constexpr (std::is_same_v<std::decay_t<ObjType2>, std::shared_ptr<Tile>>) { // single tile from boardtilemap
+                sf::Vector2f position2 = obj2->getTileSprite().getPosition();
+                sf::Vector2f size2(obj2->getTileSprite().getGlobalBounds().width, obj2->getTileSprite().getGlobalBounds().height);
+
+                Quadtree* quadtree = nullptr;
+                if constexpr (sizeof...(Args) >= 2) quadtree = std::get<1>(std::forward_as_tuple(std::forward<Args>(args)...));
+
+                if (quadtree) {
+                    auto potentialColliders1 = quadtree->query(sprite1->returnSpritesShape().getGlobalBounds());
+                    auto potentialColliders2 = quadtree->query(obj2->getTileSprite().getGlobalBounds());
+
+                    if (potentialColliders1.empty() || potentialColliders2.empty()) return false;
+
+                    for (const auto& collider1 : potentialColliders1) {
+                        for (const auto& collider2 : potentialColliders2) {
+                            if (collider1 == collider2) continue;
+                            return boundingBoxCollision(data1.position, data1.size, position2, size2);
+                        }
+                    }
+                    return false;
+                } else return boundingBoxCollision(data1.position, data1.size, position2, size2);
             } else { // tilemap
                 auto getTileMap = [](auto&& obj) -> auto& {
                     if constexpr (std::is_pointer_v<std::decay_t<decltype(obj)>> || std::is_same_v<std::decay_t<decltype(obj)>, std::unique_ptr<TileMap>>) return *obj;
-                    else return obj; };
+                    else return obj; 
+                };
                 auto& tileMap = getTileMap(obj2);
 
                 if constexpr (std::is_same_v<std::decay_t<decltype(tileMap)>, TileMap>) { // only checks entire tilemap block as a single object
                     sf::Vector2f position2 = tileMap.getTileMapPosition();
-                    sf::Vector2f size2(tileMap.getTileWidth() * static_cast<float>(tileMap.getTileMapWidth()),
-                                       tileMap.getTileHeight() * static_cast<float>(tileMap.getTileMapHeight()));
+                    sf::Vector2f size2(tileMap.getTileWidth() * static_cast<float>(tileMap.getTileMapWidth()), tileMap.getTileHeight() * static_cast<float>(tileMap.getTileMapHeight()));
                     return boundingBoxCollision(data1.position, data1.size, position2, size2);
                 }
                 return false;
@@ -233,19 +266,13 @@ namespace physics{
             auto&& collisionFunc = std::get<0>(std::forward_as_tuple(std::forward<Args>(args)...));
 
             Quadtree* quadtree = nullptr;
-            if constexpr (sizeof...(Args) >= 2) {
-                quadtree = std::get<1>(std::forward_as_tuple(std::forward<Args>(args)...));
-            }
+            if constexpr (sizeof...(Args) >= 2) quadtree = std::get<1>(std::forward_as_tuple(std::forward<Args>(args)...));
 
             float timeElapsed = 0.0f;
-            if constexpr (sizeof...(Args) >= 3) {
-                timeElapsed = std::get<2>(std::forward_as_tuple(std::forward<Args>(args)...));
-            }
+            if constexpr (sizeof...(Args) >= 3) timeElapsed = std::get<2>(std::forward_as_tuple(std::forward<Args>(args)...));
 
             size_t counterIndex = 0;
-            if constexpr (sizeof...(Args) >= 4) {
-                counterIndex = std::get<3>(std::forward_as_tuple(std::forward<Args>(args)...));
-            }
+            if constexpr (sizeof...(Args) >= 4) counterIndex = std::get<3>(std::forward_as_tuple(std::forward<Args>(args)...));
 
             auto collisionLambda = [&timeElapsed, counterIndex](const CollisionData& d1, const CollisionData& d2, auto&& func) {
                 if constexpr (std::is_invocable_v<decltype(func), sf::Vector2f, float, sf::Vector2f, float>) {
@@ -254,14 +281,12 @@ namespace physics{
                     return func(d1.position, d1.size, d2.position, d2.size);
                 } else if constexpr (std::is_invocable_v<decltype(func), sf::Vector2f, sf::Vector2f, float, sf::FloatRect, sf::Vector2f>) {
                     if (!cachedRaycastResult.counter) {
-                        return func(d1.position, d1.direction, d1.speed, d1.bounds, d1.acceleration,
-                                    d2.position, d2.direction, d2.speed, d2.bounds, d2.acceleration);
+                        return func(d1.position, d1.direction, d1.speed, d1.bounds, d1.acceleration, d2.position, d2.direction, d2.speed, d2.bounds, d2.acceleration);
                     } else if (timeElapsed > cachedRaycastResult.collisionTimes[counterIndex]) {
                         cachedRaycastResult.counter = 0;
                         return true;
                     }
-                } else if constexpr (std::is_invocable_v<decltype(func), std::shared_ptr<sf::Uint8[]>, sf::Vector2f, sf::Vector2f,
-                                                                        std::shared_ptr<sf::Uint8[]>, sf::Vector2f, sf::Vector2f>) {
+                } else if constexpr (std::is_invocable_v<decltype(func), std::shared_ptr<sf::Uint8[]>, sf::Vector2f, sf::Vector2f, std::shared_ptr<sf::Uint8[]>, sf::Vector2f, sf::Vector2f>) {
                     return func(d1.bitmask, d1.position, d1.size, d2.bitmask, d2.position, d2.size);
                 }
                 return false;
@@ -282,9 +307,7 @@ namespace physics{
                     }
                 }
                 return false;
-            } else {
-                return collisionLambda(data1, data2, collisionFunc);
-            }
+            } else return collisionLambda(data1, data2, collisionFunc);
         }
     }
 }    

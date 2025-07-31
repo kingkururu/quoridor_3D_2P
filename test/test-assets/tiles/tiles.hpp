@@ -30,10 +30,7 @@ public:
 
     bool getVisibleState() const { return visibleState; }
     void setVisibleState(bool visibleState) { this->visibleState = visibleState; }
-    
-    sf::Sprite& returnSpritesShape() const { return *tileSprite; }
-
-    sf::Vector2f getPosition() const { return position; }
+   
     sf::Vector2f getScale() const { return scale; }
     std::weak_ptr<sf::Texture> getTexture() const { return texture; }
     
