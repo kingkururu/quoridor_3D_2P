@@ -410,14 +410,6 @@ void gamePlayScene::handleSpaceKey() {
 }
 
 void gamePlayScene::handleMovementKeys() {
-
-    if(!pawn || !boardTileMap) return; 
- 
-        if(physics::collisionHelper(pawn, boardTileMap->getTile(19), quadtree)){
-            std::cout << "touching\n";
-        }
-
-
     handleEachPlayer(player, player2, p1pathCount, p1PrevPathIndex);
     handleEachPlayer(player2, player, p2pathCount, p2PrevPathIndex);
 }
