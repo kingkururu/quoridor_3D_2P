@@ -6,13 +6,13 @@ A simulated 3D implementation of the classic strategic board game Quoridor, buil
 <img width="1344" height="472" alt="Image" src="https://github.com/user-attachments/assets/7040c707-69ea-4417-ad64-f8c29a8f4dfb" />
 <img width="1365" alt="Image" src="https://github.com/user-attachments/assets/ef6666c5-f0dc-4a39-9f36-463fabf2eb87" />
 
-## 🎯 Features
+## Features
 
 - **Real-time Networking**: Berkeley sockets implementation for seamless multiplayer experience
 - **2.5D Graphics**: 3D-like board visualization with SFML-powered rendering using raycasting
 - **Interactive UI**: Intuitive controls for piece movement and wall placement
 
-## 🎮 Game Rules
+## Game Rules
 
 Quoridor is a strategic race game where:
 - **Objective**: Be the first player to reach the opposite side of the 9x9 board
@@ -21,7 +21,7 @@ Quoridor is a strategic race game where:
 - **Wall Restrictions**: Each player has 10 walls; walls cannot completely block a path to the goal
 - **Victory Condition**: First player to reach any square on the opposite side wins
 
-## 🎮 Controls
+## Controls
 
 - **Click**: Place walls (horizontal/vertical)
 - **W**: Move forward
@@ -30,7 +30,7 @@ Quoridor is a strategic race game where:
 - **D**: Rotate camera right / turn player right
 
 
-## 🌐 Networking Features
+## Networking Features
 
 The game implements **Berkeley sockets** (BSD sockets/POSIX sockets) for multiplayer functionality:
 
@@ -40,7 +40,7 @@ The game implements **Berkeley sockets** (BSD sockets/POSIX sockets) for multipl
 - **Game State Sync**: Seamless board updates across networked players
 - **Error Handling**: Robust network error detection and recovery
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 /quoridor_3D_2P
@@ -73,7 +73,7 @@ The game implements **Berkeley sockets** (BSD sockets/POSIX sockets) for multipl
 └── README.md                  # Project documentation
 ```
 
-## 🚀 Building & Running
+## Building & Running
 
 ### Prerequisites
 - **Compiler**: Requires clang++ (or g++) with C++17 support
@@ -124,21 +124,21 @@ The game implements **Berkeley sockets** (BSD sockets/POSIX sockets) for multipl
    export PATH="path to other libraries if any of them is missing)
    ```
 
-## 🎯 Key Learning Outcomes
+## Key Learning Outcomes
 
 - **Game Logic Implementation**: Complex rule validation and game state management
 - **Network Programming**: Berkeley sockets implementation for real-time multiplayer
 - **2.5D Graphics Programming**: Raycasting techniques for 2.5D visualization
 - **Event-Driven Architecture**: Responsive UI and game state management
 
-## 🎨 Assets Credits
+## Assets Credits
 
 - **Music**: [Game Background](https://pixabay.com/music/video-games-game-176807/) from Pixabay
 - **Graphics**: Custom artwork created using Canva
 - **Backgrounds**: Original board textures and visual designs using Canva
 - **Framework**: Built using the Custom SFML Game Framework
 
-## 🏆 Game Strategy Tips
+## Game Strategy Tips
 
 - **Early Game**: Focus on advancing your pawn while conserving walls
 - **Mid Game**: Use walls strategically to create longer paths for your opponent
