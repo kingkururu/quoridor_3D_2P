@@ -1,866 +1,866 @@
-[2025-07-30 18:10:36.142] [info_logger] [info] Succesfuly read yaml file
-[2025-07-30 18:10:36.228] [info_logger] [info] 	Constants initialized
-[2025-07-30 18:10:36.289] [info_logger] [info] lobby scene made
-[2025-07-30 18:10:36.289] [info_logger] [info] lobby2 scene made
-[2025-07-30 18:10:36.289] [info_logger] [info] gameplay scene made
-[2025-07-30 18:10:36.289] [info_logger] [info] 	Game initialized
-[2025-07-30 18:10:36.290] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.290] [info_logger] [info] text initialized successully
-[2025-07-30 18:10:36.290] [info_logger] [info] text initialized successully
-[2025-07-30 18:10:36.290] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.290] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.290] [info_logger] [info] created assets in lobby scene
-[2025-07-30 18:10:36.290] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.290] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.290] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.290] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.291] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.291] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.291] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.291] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.291] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.291] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.291] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.291] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.291] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.291] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.291] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.291] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.291] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.291] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.291] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.291] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.291] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.291] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.291] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.291] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.291] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.291] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.291] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.291] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.291] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.291] [info_logger] [info] Boardtilemap initialized
-[2025-07-30 18:10:36.291] [info_logger] [info] Music initialized successfully, volume is 80.000000
-[2025-07-30 18:10:36.291] [info_logger] [info] Sound initialized successfully
-[2025-07-30 18:10:36.291] [info_logger] [info] text initialized successully
-[2025-07-30 18:10:36.291] [info_logger] [info] text initialized successully
-[2025-07-30 18:10:36.291] [info_logger] [info] text initialized successully
-[2025-07-30 18:10:36.291] [info_logger] [info] text initialized successully
-[2025-07-30 18:10:36.291] [info_logger] [info] text initialized successully
-[2025-07-30 18:10:36.291] [info_logger] [info] Sprite inserted into quadtree node.
-[2025-07-30 18:10:36.291] [info_logger] [info] Sprite inserted into quadtree node.
-[2025-07-30 18:10:36.291] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.291] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.291] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.292] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.292] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.292] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.292] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.292] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.292] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.292] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.292] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.292] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.292] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.292] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.292] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.292] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.292] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.292] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.292] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.292] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.292] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.292] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.292] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.292] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.292] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.292] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.292] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.292] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.292] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.292] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.292] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.292] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.292] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.292] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.292] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.292] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.292] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.292] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.292] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.292] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.292] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.292] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.292] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.292] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.292] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.292] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.292] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.292] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.292] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.292] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.292] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.292] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.292] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.292] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.292] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.292] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.292] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.292] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.292] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.292] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.292] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.292] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.292] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.292] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.292] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.292] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.292] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.292] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.292] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.292] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.292] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.293] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.293] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.293] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.293] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.293] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.293] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.293] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.293] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.293] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.293] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.293] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.293] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.293] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.293] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.293] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.293] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.293] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.293] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.293] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.293] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.293] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.293] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.293] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.293] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.293] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.293] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.293] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.293] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.293] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.293] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.293] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.293] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.293] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.293] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.293] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.293] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.293] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.293] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.293] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.293] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.293] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.293] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.293] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.293] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.293] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.293] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.293] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.293] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.293] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.293] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.293] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.293] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.293] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.293] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.293] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.293] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.293] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.293] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.293] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.293] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.293] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.293] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.293] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.293] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.293] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.293] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.293] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.293] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.293] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.293] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.293] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.293] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.293] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.293] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.295] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.295] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.295] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.295] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.296] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.296] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.296] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.296] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.296] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.296] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.296] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.296] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.296] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.296] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.296] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.296] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.296] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.296] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.296] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.296] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.296] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.296] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.296] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.296] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.296] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.296] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.296] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.296] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.296] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.296] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.296] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.296] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.296] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.296] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.296] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.296] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.296] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.296] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.296] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.296] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.296] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.296] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.296] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.296] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.296] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.296] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.296] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.296] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.296] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.296] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.296] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.296] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.296] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.296] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.296] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.296] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.296] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.296] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.296] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.296] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.296] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.296] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.296] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.296] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.296] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.296] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.296] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.296] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.296] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.296] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.296] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.296] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.296] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.296] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.296] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.296] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.296] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.296] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.296] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.296] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.296] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.296] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.296] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.296] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.296] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.296] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.296] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.296] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.296] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.296] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.296] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.296] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.296] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.297] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.297] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.297] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.297] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.297] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.297] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.298] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.298] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.298] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.298] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.298] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.298] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.298] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.298] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.298] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.298] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.298] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.298] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.298] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.298] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.298] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.298] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.298] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.298] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.298] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.298] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.298] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.298] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.298] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.298] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.298] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.298] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.298] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.298] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.298] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.298] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.298] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.298] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.298] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.298] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.298] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.298] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.298] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.298] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.298] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.298] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.298] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.298] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.298] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.298] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.298] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.298] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.298] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.298] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.298] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.298] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.298] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.298] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.298] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.298] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.298] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.298] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.298] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.298] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.298] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.298] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.298] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.298] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.298] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.298] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.298] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.299] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.299] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.299] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.299] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.299] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.299] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.299] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.299] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.299] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.299] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.299] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.299] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.299] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.299] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.299] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.299] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.299] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.299] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.299] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.299] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.299] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.299] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.299] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.299] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.299] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.299] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.299] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.299] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.299] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.299] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.299] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.299] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.299] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.299] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.299] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.299] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.299] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.299] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.299] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.299] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.299] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.299] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.299] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.299] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.299] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.299] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.299] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.299] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.299] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.299] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.299] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.299] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.299] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.299] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.299] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.299] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.299] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.299] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.299] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.299] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.299] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.299] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.299] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.299] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.299] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.299] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.299] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.299] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.299] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.299] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.299] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.299] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.299] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.299] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.299] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.299] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.299] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.299] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.299] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.299] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.299] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.299] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.299] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.299] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.299] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.299] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.299] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.299] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.299] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.299] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.299] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.299] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.299] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.299] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.299] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.299] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.299] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.299] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.299] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.299] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.299] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.299] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.299] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.299] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.299] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.299] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.299] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.299] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.299] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.299] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.299] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.299] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.299] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.299] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.299] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.299] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.299] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.299] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.299] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.299] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.299] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.299] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.300] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.300] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.300] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.300] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.300] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.300] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.300] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.300] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.300] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.300] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.300] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.300] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.300] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.300] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.300] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.300] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.300] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.300] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.300] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.300] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.300] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.300] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.300] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.300] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.300] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.300] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.300] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.300] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.300] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.300] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.300] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.300] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.300] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.300] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.300] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.300] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.300] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.300] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.300] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.300] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.300] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.300] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.300] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.300] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.300] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.300] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.300] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.300] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.300] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.300] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.300] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.300] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.300] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.300] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.300] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.300] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.300] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.300] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.300] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.300] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.300] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.300] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.300] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.300] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.300] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.300] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.300] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.300] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.300] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.300] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.300] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.300] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.300] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.300] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.300] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.300] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.300] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.300] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.300] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.300] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.300] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.300] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.300] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.300] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.300] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.300] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.300] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.300] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.300] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.300] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.300] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.300] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.300] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.300] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.300] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.300] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.300] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.300] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.300] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.301] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.301] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.301] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.301] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.301] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.301] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.301] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.301] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.301] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.301] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.301] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.301] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.301] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.301] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.301] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.301] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.301] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.301] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.301] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.301] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.301] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.301] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.301] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.301] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.301] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.301] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.301] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.301] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.301] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.301] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.301] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.301] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.301] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.301] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.301] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.301] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.301] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.301] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.301] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.301] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.301] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.301] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.301] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.301] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.301] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.301] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.301] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.301] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.301] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.301] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.301] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.301] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.301] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.301] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.301] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.301] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.301] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.301] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.301] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.301] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.301] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.301] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.301] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.301] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.301] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.301] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.301] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.301] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.301] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.301] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.301] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.301] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.301] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.301] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.301] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.301] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.301] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.301] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.301] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.301] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.301] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.301] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.301] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.301] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.301] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.301] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.301] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.301] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.301] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.301] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.301] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.301] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.301] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.301] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.301] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.301] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.301] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.301] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.301] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.301] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.301] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.301] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.301] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.301] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.301] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.301] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] Tile created and inserted into quadtree node.
-[2025-07-30 18:10:36.302] [info_logger] [info] initializing assets in scene 1: 0.829000ms
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] text initialized successully
-[2025-07-30 18:10:36.302] [info_logger] [info] text initialized successully
-[2025-07-30 18:10:36.302] [info_logger] [info] Sprite initialized successfully
-[2025-07-30 18:10:36.302] [info_logger] [info] created assets in lobby scene
-[2025-07-30 18:10:42.957] [info_logger] [info] Window close event detected.
-[2025-07-30 18:10:42.988] [info_logger] [info] 	Game Ended
+[2025-10-02 11:03:17.690] [info_logger] [info] Succesfuly read yaml file
+[2025-10-02 11:03:17.805] [info_logger] [info] 	Constants initialized
+[2025-10-02 11:03:18.052] [info_logger] [info] lobby scene made
+[2025-10-02 11:03:18.052] [info_logger] [info] lobby2 scene made
+[2025-10-02 11:03:18.052] [info_logger] [info] gameplay scene made
+[2025-10-02 11:03:18.052] [info_logger] [info] 	Game initialized
+[2025-10-02 11:03:18.052] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.052] [info_logger] [info] text initialized successully
+[2025-10-02 11:03:18.052] [info_logger] [info] text initialized successully
+[2025-10-02 11:03:18.052] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.052] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.053] [info_logger] [info] created assets in lobby scene
+[2025-10-02 11:03:18.053] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.053] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.053] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.053] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.053] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.053] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.053] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.053] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.053] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.053] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.053] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.053] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.053] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.053] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.053] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.053] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.053] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.054] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.054] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.054] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.054] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.054] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.054] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.054] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.054] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.054] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.054] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.054] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.054] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.054] [info_logger] [info] Boardtilemap initialized
+[2025-10-02 11:03:18.054] [info_logger] [info] Music initialized successfully, volume is 80.000000
+[2025-10-02 11:03:18.054] [info_logger] [info] Sound initialized successfully
+[2025-10-02 11:03:18.054] [info_logger] [info] text initialized successully
+[2025-10-02 11:03:18.054] [info_logger] [info] text initialized successully
+[2025-10-02 11:03:18.054] [info_logger] [info] text initialized successully
+[2025-10-02 11:03:18.054] [info_logger] [info] text initialized successully
+[2025-10-02 11:03:18.054] [info_logger] [info] text initialized successully
+[2025-10-02 11:03:18.054] [info_logger] [info] Sprite inserted into quadtree node.
+[2025-10-02 11:03:18.054] [info_logger] [info] Sprite inserted into quadtree node.
+[2025-10-02 11:03:18.054] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.054] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.054] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.054] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.054] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.054] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.054] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.054] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.054] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.054] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.054] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.054] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.054] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.054] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.054] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.054] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.054] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.054] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.054] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.054] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.054] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.054] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.054] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.054] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.054] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.054] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.054] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.054] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.054] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.054] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.054] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.054] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.054] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.054] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.054] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.054] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.054] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.054] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.054] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.054] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.054] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.054] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.054] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.054] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.054] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.054] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.054] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.054] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.054] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.054] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.054] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.054] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.054] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.054] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.054] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.054] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.054] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.054] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.054] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.054] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.054] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.054] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.054] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.054] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.054] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.054] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.054] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.054] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.054] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.054] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.054] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.054] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.054] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.054] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.054] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.054] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.054] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.054] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.054] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.054] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.054] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.054] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.054] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.054] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.054] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.054] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.054] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.054] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.054] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.054] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.054] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.054] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.054] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.054] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.054] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.055] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.055] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.055] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.055] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.055] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.055] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.055] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.055] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.055] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.055] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.055] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.055] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.055] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.055] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.055] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.055] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.055] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.055] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.055] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.055] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.055] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.055] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.055] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.055] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.055] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.055] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.055] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.055] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.055] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.055] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.055] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.055] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.055] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.055] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.055] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.055] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.055] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.055] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.055] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.055] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.055] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.055] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.055] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.055] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.055] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.055] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.055] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.055] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.055] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.055] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.055] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.055] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.055] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.055] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.055] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.055] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.055] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.055] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.055] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.055] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.055] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.055] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.055] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.055] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.055] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.055] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.055] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.055] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.055] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.055] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.055] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.055] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.055] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.055] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.055] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.055] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.055] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.055] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.055] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.055] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.056] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.056] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.056] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.056] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.056] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.056] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.056] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.056] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.056] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.056] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.056] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.056] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.056] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.056] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.056] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.056] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.056] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.056] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.056] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.056] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.056] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.056] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.056] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.056] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.056] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.056] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.056] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.056] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.056] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.057] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.058] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.058] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.058] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.058] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.058] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.058] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.058] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.058] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.058] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.058] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.058] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.058] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.058] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.058] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.058] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.058] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.058] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.058] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.058] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.058] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.058] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.058] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.058] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.058] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.058] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.058] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.058] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.058] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.058] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.058] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.058] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.064] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.064] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.064] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.064] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.064] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.065] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.065] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.065] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.065] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.065] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.065] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.065] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.065] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.065] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.065] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.080] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.080] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.080] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.080] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.080] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.080] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.080] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.080] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.080] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.080] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.080] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.080] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.080] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.080] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.080] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.080] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.080] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.081] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.081] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.081] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.081] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.081] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.081] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.081] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.081] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.081] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.081] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.082] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.082] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.082] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.082] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.082] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.082] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.082] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.082] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.082] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.082] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.082] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.082] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.082] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.082] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.082] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.082] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.082] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.082] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.082] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.082] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.082] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.082] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.082] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.082] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.082] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.082] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.094] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.094] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.094] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.094] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.094] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.094] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.094] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.094] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.094] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.094] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.094] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.095] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.095] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.096] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.096] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.096] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.096] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.096] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.098] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.098] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.098] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.098] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.098] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.098] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.098] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.099] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.099] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.099] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.099] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.099] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.099] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.099] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.099] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.099] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.099] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.099] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.099] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.099] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.099] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.099] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.099] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.099] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.099] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.099] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.099] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.099] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.099] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.099] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.099] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.099] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.099] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.099] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.099] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.099] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.099] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.099] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.099] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.099] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.099] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.099] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.099] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.099] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.099] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.099] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.099] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.099] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.099] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.099] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.099] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.099] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.099] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.099] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.099] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.099] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.099] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.099] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.100] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.100] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.100] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.100] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.100] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.100] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.100] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.100] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.100] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.100] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.100] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.100] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.100] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.100] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.100] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.100] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.100] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.100] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.100] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.100] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.100] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.100] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.100] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.100] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.100] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.100] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.100] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.100] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.100] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.100] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.100] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.100] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.100] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.100] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.100] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.100] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.100] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.100] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.100] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.100] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.100] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.100] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.100] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.100] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.100] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.100] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.100] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.100] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.100] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.100] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.100] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.100] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.100] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.100] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.100] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.100] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.100] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.100] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.100] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.100] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.100] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.100] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.100] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.100] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.100] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.100] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.100] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.100] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.100] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.100] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.100] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.100] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.100] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.100] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.100] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.100] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.100] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.100] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.100] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.100] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.100] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.101] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.101] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.101] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.101] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.101] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.101] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.101] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.101] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.101] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.101] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.101] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.101] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.101] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.101] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.101] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.101] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.101] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.101] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.101] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.101] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.101] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.101] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.101] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.101] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.101] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.101] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.101] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.101] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.101] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.101] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.101] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.101] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.101] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.101] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.101] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.101] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.101] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.101] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.101] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.101] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.101] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.101] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.101] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.101] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.101] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.101] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.101] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.101] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.101] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.101] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.101] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.101] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.101] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.101] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.101] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.101] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.101] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.101] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.101] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.101] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.101] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.101] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.101] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.101] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.101] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.101] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.101] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.101] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.101] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.101] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.101] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.101] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.101] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.101] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.101] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.101] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.101] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.101] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.101] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.101] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.101] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.101] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.101] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.101] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.101] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.101] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.101] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.101] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.101] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.101] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.101] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.101] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.101] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.101] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.101] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.101] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.101] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.101] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.101] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.101] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.101] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.101] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.101] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.101] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.101] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.101] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.101] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.102] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.102] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.102] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.102] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.102] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.102] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.102] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.102] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.102] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.102] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.102] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.102] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.102] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.102] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.102] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.102] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.102] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.102] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.102] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.102] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.102] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.102] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.102] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.102] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.102] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.102] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.102] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.102] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.102] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.102] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.102] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.102] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.102] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.102] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.102] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.102] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.102] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.102] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.102] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.102] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.102] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.102] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.102] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.102] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.102] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.102] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.102] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.102] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.102] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.102] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.102] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.102] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.102] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.103] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.103] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.103] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.103] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.103] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.103] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.103] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.103] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.103] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.103] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.103] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.103] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.103] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.103] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.103] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.103] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.103] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.103] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.103] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.103] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.103] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.103] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.103] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.103] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.103] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.103] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.103] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.103] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.103] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.103] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.104] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.104] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.104] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.104] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.104] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.104] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.104] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.104] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.104] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.104] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.104] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.104] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.104] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.104] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.104] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.104] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.104] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.104] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.104] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.104] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.104] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.104] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.105] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.105] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.105] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.105] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.105] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.105] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.105] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.105] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.105] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.105] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.105] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.105] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.105] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.105] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.105] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.105] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.105] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.105] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.105] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.106] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.106] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.106] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.106] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.106] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.106] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.106] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.106] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.106] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.106] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.106] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.106] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.106] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.106] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.106] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.106] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.106] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.106] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.106] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.106] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.106] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.106] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.106] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.106] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.106] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.106] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.106] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.106] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.106] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.106] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.106] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.106] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.106] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.106] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.106] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.106] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.106] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.106] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.106] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.106] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.106] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.106] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.106] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.106] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.107] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.107] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.107] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.107] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.107] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.107] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.107] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.107] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.107] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.107] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.107] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.107] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.107] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.107] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.107] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.107] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.107] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.107] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.107] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.107] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.107] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.107] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.107] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.107] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.107] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.107] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.107] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.107] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.107] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.107] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.107] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.107] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.107] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.107] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.107] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.107] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.107] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.107] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.107] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.107] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.107] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.107] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.107] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.107] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.107] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.107] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.107] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.107] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.107] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.107] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.107] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.107] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.107] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.107] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.107] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.107] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.107] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.107] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.107] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.107] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.107] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.107] [info_logger] [info] Tile created and inserted into quadtree node.
+[2025-10-02 11:03:18.107] [info_logger] [info] initializing assets in scene 1: 0.932000ms
+[2025-10-02 11:03:18.107] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.107] [info_logger] [info] text initialized successully
+[2025-10-02 11:03:18.108] [info_logger] [info] text initialized successully
+[2025-10-02 11:03:18.108] [info_logger] [info] Sprite initialized successfully
+[2025-10-02 11:03:18.108] [info_logger] [info] created assets in lobby scene
+[2025-10-02 11:03:27.545] [info_logger] [info] Window close event detected.
+[2025-10-02 11:03:27.612] [info_logger] [info] 	Game Ended
 
-[2025-07-30 18:10:42.988] [info_logger] [info] GameManager destructor called
-[2025-07-30 18:10:43.089] [info_logger] [info] GameManager destructor finished
-[2025-07-30 18:10:43.089] [info_logger] [info] objects cleared.
-[2025-07-30 18:10:43.089] [info_logger] [info] Quadtree cleared.
-[2025-07-30 18:10:43.089] [info_logger] [info] objects cleared.
-[2025-07-30 18:10:43.089] [info_logger] [info] Quadtree cleared.
-[2025-07-30 18:10:43.096] [info_logger] [info] objects cleared.
-[2025-07-30 18:10:43.096] [info_logger] [info] Quadtree cleared.
+[2025-10-02 11:03:27.612] [info_logger] [info] GameManager destructor called
+[2025-10-02 11:03:27.713] [info_logger] [info] GameManager destructor finished
+[2025-10-02 11:03:27.713] [info_logger] [info] objects cleared.
+[2025-10-02 11:03:27.713] [info_logger] [info] Quadtree cleared.
+[2025-10-02 11:03:27.713] [info_logger] [info] objects cleared.
+[2025-10-02 11:03:27.713] [info_logger] [info] Quadtree cleared.
+[2025-10-02 11:03:27.713] [info_logger] [info] objects cleared.
+[2025-10-02 11:03:27.713] [info_logger] [info] Quadtree cleared.

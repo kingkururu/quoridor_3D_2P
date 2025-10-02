@@ -280,7 +280,6 @@ void gamePlayScene::insertItemsInQuadtree(){
 
     for(int i = 0; i < Constants::BOARDTILES_ROW * Constants::BOARDTILES_COL; ++i){
         auto& tilePtr = boardTileMap->getTile(i);
-        
         quadtree.insert(tilePtr);
     }
 }
