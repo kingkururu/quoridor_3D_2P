@@ -45,8 +45,6 @@ The game implements **Berkeley sockets** (BSD sockets/POSIX sockets) for multipl
 ```
 /quoridor_3D_2P
 │
-├── .vscode/                   # VSCode settings and configurations
-│
 ├── src/                       # Source files
 │   ├── main.cpp               # Main entry point of the game
 │   └── game/                  # Core engine functionalities
