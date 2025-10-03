@@ -89,18 +89,12 @@ The game implements **Berkeley sockets** (BSD sockets/POSIX sockets) for multipl
    cd quoridor_3D_2P
    ```
 
-2. **Build the Project**:
-   ```bash
-   make
-   ```
-   This will compile the Quoridor game along with the networking components.
-
-3. **Run the Game**:
+2. **Build and Run the Game**:
    ```bash
    make test
    ```
 
-4. **Clean the Build**:
+3. **Clean the Build**:
    ```bash
    make clean
    ```
