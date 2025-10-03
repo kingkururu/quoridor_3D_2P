@@ -130,6 +130,12 @@ The game implements **Berkeley sockets** (BSD sockets/POSIX sockets) for multipl
 - **Backgrounds**: Original board textures and visual designs using Canva
 - **Framework**: Built using the Custom SFML Game Framework
 
+## Tools Used
+- **SFML**: https://github.com/SFML/SFML 
+- **Yaml-cpp**: https://github.com/jbeder/yaml-cpp
+- **Spdlog**: https://github.com/gabime/spdlog 
+- **FMT**: https://github.com/fmtlib/fmt 
+
 ## Game Strategy Tips
 
 - **Early Game**: Focus on advancing your pawn while conserving walls
